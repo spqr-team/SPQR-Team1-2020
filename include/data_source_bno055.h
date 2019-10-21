@@ -1,15 +1,15 @@
-#include "data_source_i2c.h"
+#include "data_source.h"
 #include <Adafruit_BNO055.h>
 #include <Arduino.h>
 
-class DataSourceBN0O55 : public DataSourceI2C{
+class DataSourceBNO055 : public DataSource{
 
     public:
-        DataSourceBN0O55();
-        void update();
-
+        DataSourceBNO055();
+        void readSensor();
+        void postProcess();
+        
     public:
-        int value;
         Adafruit_BNO055 bno;
-    
+
 };
