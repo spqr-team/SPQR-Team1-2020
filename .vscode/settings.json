@@ -1,7 +1,16 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "terminal.integrated.env.linux": {
-        "PATH": "/home/ema/.platformio/penv/bin:/home/ema/.platformio/penv:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl",
+        "PATH": "/home/emamaker/.platformio/penv/bin:/home/emamaker/.platformio/penv:/opt/devkitpro/tools/bin:/opt/devkitpro/tools/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/emamaker/.platformio/penv/bin",
         "PLATFORMIO_CALLER": "vscode"
+    },
+    "files.associations": {
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     }
 }
