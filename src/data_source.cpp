@@ -35,6 +35,10 @@ void DataSource::update(){
     postProcess();
 }
 
+void DataSource::postProcess(){
+
+}
+
 void DataSource::readSensor(){
     if(protocol == 1) value = i2c->read();
     else if(protocol == 2) while(ser->available() > 0) value = ser->read();
@@ -44,5 +48,5 @@ void DataSource::readSensor(){
 
 void DataSource::test(){
     update();
-    DEBUG_PRINT.println(value);
+    DEBUG_PRINT.println(getValue());
 }
