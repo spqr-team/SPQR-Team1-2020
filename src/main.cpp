@@ -1,20 +1,16 @@
 #include <Arduino.h>
-#include "vars.h"
-#include "data_source_bno055.h"
-// #include <imu_class/imu.cpp>
-//cyao c:
+#include "drive.h"
 
-DataSourceBNO055* compass;
+DRIVE robot;
+
+int angolo;
+
 
 void setup() {
   DEBUG_PRINT.begin(9600);
-  compass = new DataSourceBNO055();
+  robot.initDrive();
 }
 
 void loop() {
-  compass->readSensor();
-  DEBUG_PRINT.println(compass->getValue());
-
-  //DEBUG_PRINT.println("Ciaooo");
-  delay(100);
+  robot.drivePID(0, 150);
 }
