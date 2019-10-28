@@ -11,10 +11,6 @@ class DRIVE {
         void preparePID(signed int, int, int);
 
     public:
-        MOTOR mot1;
-        MOTOR mot2;
-        MOTOR mot3;
-        MOTOR mot4;
         MOTOR m; //for init
 
         MISC misc;

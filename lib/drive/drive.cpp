@@ -27,10 +27,10 @@ void DRIVE::drivePID(signed int direzione, float vMot) {
  speed3 = constrain(speed3, -255, 255);
  speed4 = constrain(speed4, -255, 255);
 
- mot1.mot(1, int(speed1));
- mot2.mot(2, int(speed2));
- mot3.mot(3, int(speed3));
- mot4.mot(4, int(speed4));
+ m.mot(1, int(speed1));
+ m.mot(2, int(speed2));
+ m.mot(3, int(speed3));
+ m.mot(4, int(speed4));
 
  prevPidDir = direzione;
  prevPidSpeed = vMot;
