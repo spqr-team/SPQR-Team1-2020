@@ -1,6 +1,6 @@
 #include "misc.h"
 
-float MISC::updatePID() {
+float TOPOLINO::updatePID() {
   delta = imu.getEuler();
   if(delta > 180) delta = delta-360;
   delta = delta /*-st*/;
@@ -17,11 +17,15 @@ float MISC::updatePID() {
 }
 
 // calculates sins of integer angles from 0 to 359
-void MISC::initSinCos() { 
+void TOPOLINO::initSinCos() { 
   for (int i = 0; i < 360; i++) {
     sins[i] = sin(i * 3.14 / 180);
   }
   for (int i = 0; i < 360; i++) {
     cosin[i] = cos(i * 3.14 / 180);;
   }
+}
+
+void TOPOLINO::initCompass() {
+  imu.initIMU();
 }

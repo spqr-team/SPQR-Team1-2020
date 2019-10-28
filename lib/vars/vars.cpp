@@ -1,7 +1,7 @@
 #include "vars.h"
 
-int globalSpeed = 0;
-int globalDir = 0;
+int globalSpeed;
+int globalDir;
 
 float sins[360];
 float cosin[360];

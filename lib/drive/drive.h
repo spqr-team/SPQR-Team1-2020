@@ -13,7 +13,7 @@ class DRIVE {
     public:
         MOTOR m; //for init
 
-        MISC misc;
+        TOPOLINO paperino;
 
     public:
         float vx, vy;

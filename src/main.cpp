@@ -12,5 +12,7 @@ void setup() {
 }
 
 void loop() {
-  robot.drivePID(0, 150);
+  globalDir = 0;
+  globalSpeed = 150;
+  robot.drivePID(globalDir, globalSpeed);
 }

@@ -13,6 +13,10 @@ void MOTOR::initMot(){
   pinMode(PWM_MOT[4], OUTPUT);
   pinMode(INA_MOT[4], OUTPUT);
   pinMode(INB_MOT[4], OUTPUT);
+  analogWriteFrequency(2 , 15000);
+  analogWriteFrequency(5 , 15000);
+  analogWriteFrequency(6,  15000);
+  analogWriteFrequency(23, 15000);
 }
 
 void MOTOR::mot(byte mot, int vel) {

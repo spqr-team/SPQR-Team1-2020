@@ -3,6 +3,7 @@
 
 void DRIVE::initDrive() {
   m.initMot();
+  paperino.initCompass();
 }
 
 void DRIVE::drivePID(signed int direzione, float vMot) {
@@ -14,7 +15,7 @@ void DRIVE::drivePID(signed int direzione, float vMot) {
  speed3 = -(speed1);
  speed4 = -(speed2); 
 
- pidfactor = misc.updatePID();
+ pidfactor = paperino.updatePID();
 
 
  speed1 += pidfactor;

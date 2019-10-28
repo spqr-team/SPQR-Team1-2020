@@ -2,10 +2,11 @@
 #include "vars.h"
 #include "imu.h"
 
-class MISC {
+class TOPOLINO {
     public:
         float updatePID();
         void initSinCos();
+        void initCompass();
     public:
         IMU imu;
     public:
