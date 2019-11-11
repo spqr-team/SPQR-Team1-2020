@@ -1,20 +1,18 @@
 #include <Arduino.h>
 #include "vars.h"
 #include "data_source_bno055.h"
-// #include <imu_class/imu.cpp>
-//cyao c:
+#include "drivecontroller.h"
+#include "sensors.h"
 
-DataSourceBNO055* compass;
 
 void setup() {
   DEBUG_PRINT.begin(9600);
-  compass = new DataSourceBNO055();
+  initSensors();
 }
 
 void loop() {
-  compass->readSensor();
-  DEBUG_PRINT.println(compass->getValue());
+  updateSensors();
 
-  //DEBUG_PRINT.println("Ciaooo");
-  delay(100);
+  //should recenter using predefined values
+  drive->drive();
 }
