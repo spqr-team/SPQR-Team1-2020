@@ -36,15 +36,10 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed3 = -(speed1);
     speed4 = -(speed2);
 
-    /*speed1 = ((-(sins[((direzione - 45) + 360) % 360])) * vMot);          // mot 1
-    speed2 = ((-(sins[((direzione - 135) + 360)% 360])) * vMot);          // mot 2
-    speed3 = -(speed1);                                                   // mot 3
-    speed4 = -(speed2);*/ 
-
     // calcola l'errore di posizione rispetto allo 0
     delta = compass->getValue();
     if(delta > 180) delta = delta-360;
-    delta = delta - pTilt;
+    delta = delta - tilt;
 
     // calcola correzione proporzionale
     errorP = KP * delta;
