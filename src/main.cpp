@@ -14,5 +14,6 @@ void loop() {
   updateSensors();
 
   //should recenter using predefined values
-  drive->drive();
+  drive->drive(0, 0, 0);
+  DEBUG_PRINT.println(compass->getValue());
 }

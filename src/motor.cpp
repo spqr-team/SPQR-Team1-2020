@@ -1,4 +1,5 @@
 #include "motor.h"
+#include "vars.h"
 #include <Arduino.h>
 
 Motor::Motor(int a, int b, int pwm, int angle_){
@@ -10,6 +11,10 @@ Motor::Motor(int a, int b, int pwm, int angle_){
     pinMode(pinA, OUTPUT);
     pinMode(pinB, OUTPUT);
     pinMode(pinPwm, OUTPUT);
+}
+
+Motor::Motor(){
+    
 }
 
 void Motor::drive(int speed){

@@ -4,17 +4,19 @@
 #include "motor.h"
 
 //PID Constants
-#define KP 1.2
+#define KP 0.7
 #define KI 0 
-#define KD 0.7  
+#define KD 0.7
+#define DEADZONE_MIN 25
 
 class DriveController{
 
     public:
 
         DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_);
-        void drive(int dir = 0, int speed = 0, int tilt = 0);
-        void prepareDrive(int dir = 0, int speed = 0, int tilt = 0);
+        
+        void drive(int dir, int speed, int tilt);
+        void prepareDrive(int dir, int speed, int tilt);
         void drivePrepared();
         float updatePid();
 
