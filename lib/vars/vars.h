@@ -1,5 +1,7 @@
 #define DEBUG_PRINT Serial
 
+void initVars();
+
 extern int globalDir;
 extern int globalSpeed;
 

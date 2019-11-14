@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "drive.h"
+#include "vars.h"
 
 DRIVE robot;
 
@@ -12,7 +13,5 @@ void setup() {
 }
 
 void loop() {
-  globalDir = 0;
-  globalSpeed = 150;
   robot.drivePID(globalDir, globalSpeed);
 }
