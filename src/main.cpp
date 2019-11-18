@@ -17,6 +17,7 @@ void loop() {
   updateSensors();
   //should recenter using predefined values
  // drive->drive(0, 0, 0);
- compass->test();
- delay(100);
+ //compass->test();
+  camera->test();
+  delay(100);
 }

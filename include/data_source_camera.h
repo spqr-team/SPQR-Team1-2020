@@ -1,3 +1,4 @@
+#pragma once
 #include "data_source.h"
 
 class DataSourceCamera : public DataSource{
@@ -6,10 +7,13 @@ class DataSourceCamera : public DataSource{
         DataSourceCamera(HardwareSerial* ser, int baud);
         void postProcess() override;
         void test() override;
-        void fixCamIMU(int);
+        int fixCamIMU(int);
+        void readSensor() override;
+        int getValueAtk(bool);
+        int getValueDef(bool);
         
         int goalOrientation, pAtk, pDef, imuOff, portx, valX, valY, valB, oldGoalX, oldGoalY, oldGoalB;
-        int cameraready;
+        int cameraReady;
         char value;
         int startpY = 0;
         int startpB = 0;

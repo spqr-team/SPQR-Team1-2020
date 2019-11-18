@@ -1,3 +1,4 @@
+#pragma once
 #include "data_source.h"
 
 class DataSourceBall : public DataSource{

@@ -5,41 +5,39 @@ DataSourceCamera::DataSourceCamera(HardwareSerial* ser_, int baud) : DataSource(
 
 void DataSourceCamera :: readSensor(){
   portx = 999;
-  while(ser->available() > 0) value = ser->read();
-}
-
-void DataSourceCamera :: postProcess(){
+  while(ser->available() > 0) {
+    value = ser->read();
     // if the incoming character is a 'Y', set the start packet flag
-    if (inChar == 'Y') {
+    if (value == 'Y') {
       startpY = 1;
     }
     // if the incoming character is a 'Y', set the start packet flag
-    if (inChar == 'B') {
+    if (value == 'B') {
       startpB = 1;
     }
     // if the incoming character is a '.', set the end packet flag
-    if (inChar == 'y') {
+    if (value == 'y') {
       endpY = 1;
     }
     // if the incoming character is a '.', set the end packet flag
-    if (inChar == 'b') {
+    if (value == 'b') {
       endpB = 1;
     }
 
     if ((startpY == 1) && (endpY == 0)) {
-      if (isDigit(inChar)) {
+      if (isDigit(value)) {
         // convert the incoming byte to a char and add it to the string:
-        valStringY += inChar;
-      }else if(inChar == '-'){
+        valStringY += value;
+      }else if(value == '-'){
         negateY = true;
       }
     }
 
     if ((startpB == 1) && (endpB == 0)) {
-      if (isDigit(inChar)) {
+      if (isDigit(value)) {
         // convert the incoming byte to a char and add it to the string:
-        valStringB += inChar;
-      }else if(inChar == '-'){
+        valStringB += value;
+      }else if(value == '-'){
         negateB = true;
       }
     }
@@ -62,8 +60,10 @@ void DataSourceCamera :: postProcess(){
       negateB = false;
       datavalid ++;
     }
+}
+}
 
-  } // end of while
+void DataSourceCamera :: postProcess(){
 
   if (valY != -74)
     oldGoalY = valY;
@@ -77,7 +77,7 @@ void DataSourceCamera :: postProcess(){
   
   // entro qui solo se ho ricevuto i pacchetti completi sia del blu che del giallo
   if (datavalid > 1 ) {
-    if(goal_orientation == 1){
+    if(goalOrientation == 1){
       //yellow goalpost
       pAtk = valY;
       pDef = valB * -1;
@@ -89,6 +89,33 @@ void DataSourceCamera :: postProcess(){
 
     datavalid = 0;
     cameraReady = 1;  //attivo flag di ricezione pacchetto
+  }
+}
+
+int DataSourceCamera :: getValueAtk(bool fixed){
+  //attacco gialla
+  if(digitalRead(SWITCH_DX) == HIGH){
+    if(fixed) return fixCamIMU(valY);
+    return valY;
+  }
+  //attacco blu
+  if(digitalRead(SWITCH_DX) == LOW){
+  if(fixed) return fixCamIMU(valB);
+  return valB;
+  }
+}
+
+int DataSourceCamera :: getValueDef(bool fixed){
+  //difendo gialla
+  if(digitalRead(SWITCH_DX) == HIGH){
+    if(fixed) return fixCamIMU(valY);
+    return valY;
+  }
+  //difendo blu
+  if(digitalRead(SWITCH_DX) == LOW){
+  if(fixed) return fixCamIMU(valB);
+  return valB;
+  }
 }
 
 void DataSourceCamera :: test(){
@@ -106,7 +133,7 @@ void DataSourceCamera :: test(){
     delay(100);
 }
 
-void DataSourceCamera :: fixCamIMU(int d){
+int DataSourceCamera :: fixCamIMU(int d){
     if(compass->getValue() > 0 && compass->getValue() < 180) imuOff = compass->getValue();
     else if (compass->getValue() <= 360 && compass->getValue() >= 180) imuOff = compass->getValue() - 360;
     imuOff = constrain(imuOff*0.8, -30, 30);
