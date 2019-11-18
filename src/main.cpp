@@ -6,14 +6,15 @@
 
 
 void setup() {
+  delay(1000);
+
   DEBUG_PRINT.begin(9600);
+  
   initSensors();
 }
 
 void loop() {
   updateSensors();
-
   //should recenter using predefined values
   drive->drive(0, 0, 0);
-  DEBUG_PRINT.println(compass->getValue());
 }

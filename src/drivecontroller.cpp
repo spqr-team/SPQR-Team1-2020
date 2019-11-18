@@ -8,8 +8,8 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     m4 = m4_;
     
     for(int i = 0; i < 360; i++){
-        sins[i] = (float) sin(i);
-        cosins[i] =  (float) cos(i);
+        sins[i] = (float) sin(torad(i));
+        cosins[i] =  (float) cos(torad(i));
     }
 }
 
@@ -21,6 +21,10 @@ void DriveController::prepareDrive(int dir, int speed, int tilt){
 
 void DriveController::drivePrepared(){
     drive(pDir, pSpeed, pTilt);
+}
+
+float DriveController::torad(float f){
+    return (f * PI / 180.0);
 }
 
 void DriveController::drive(int dir, int speed, int tilt){

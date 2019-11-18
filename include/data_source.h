@@ -14,14 +14,21 @@ class DataSource {
         DataSource(int, bool);
 
     public: 
-        void update();
-        void test();
-        void readSensor();
-        void postProcess();
-        int getValue();
+        virtual void update();
+        virtual void test();
+        virtual void readSensor();
+        virtual void postProcess();
+        virtual int getValue();
 
 
     public:
+        enum Protocols {
+            P_I2C,
+            P_RXTX,
+            P_APIN,
+            P_PIND            
+        };
+        
         HardwareSerial* ser;
         TwoWire* i2c;
 
@@ -29,5 +36,6 @@ class DataSource {
         int protocol;
         int value;
         
+
 
 };

@@ -6,7 +6,7 @@ DataSource::DataSource(void){
 
 DataSource::DataSource(TwoWire i2c_){
     
-    i2c = &(i2c_);
+    this->i2c = &(i2c_);
     protocol = 1;
     
     i2c->begin();
@@ -14,14 +14,14 @@ DataSource::DataSource(TwoWire i2c_){
 }
 
 DataSource::DataSource(HardwareSerial ser_, int baud){
-    ser = &(ser_);
+    this->ser = &(ser_);
     protocol = 2;
     
     ser->begin(baud);
 }
 
 DataSource::DataSource(int pin_, bool analog){
-    pin = pin_;
+    this->pin = pin_;
     if(analog) protocol = 3;
     else protocol = 4;
 }
@@ -35,9 +35,7 @@ void DataSource::update(){
     postProcess();
 }
 
-void DataSource::postProcess(){
-
-}
+void DataSource::postProcess(){ }
 
 void DataSource::readSensor(){
     if(protocol == 1) value = i2c->read();
@@ -47,6 +45,6 @@ void DataSource::readSensor(){
 }
 
 void DataSource::test(){
-    update();
-    DEBUG_PRINT.println(getValue());
+    this->update();
+    DEBUG_PRINT.println(this->getValue());
 }

@@ -12,5 +12,5 @@
 void initSensors();
 void updateSensors();
 
-extr DataSourceBNO055* compass;
+extr DataSource* compass;
 extr DriveController* drive;
