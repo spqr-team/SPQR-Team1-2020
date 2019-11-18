@@ -9,8 +9,8 @@ class DataSource {
 
     public:
         DataSource();
-        DataSource(usb_serial_class, int);
-        DataSource(TwoWire);
+        DataSource(HardwareSerial*, int);
+        DataSource(TwoWire*);
         DataSource(int, bool);
 
     public: 
@@ -23,17 +23,18 @@ class DataSource {
 
     public:
         enum Protocols {
+            P_NULL,
             P_I2C,
             P_RXTX,
             P_APIN,
-            P_PIND            
+            P_DPIN            
         };
         
-        usb_serial_class* ser;
+        HardwareSerial* ser;
         TwoWire* i2c;
 
+        Protocols protocol;
         int pin;
-        int protocol;
         int value;
         
 

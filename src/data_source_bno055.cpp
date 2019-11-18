@@ -3,7 +3,7 @@
 //bool loaded = false;
 
 DataSourceBNO055::DataSourceBNO055(){
-  // protocol = Protocols.P_I2C;
+  protocol = P_I2C;
   
   bno = Adafruit_BNO055();
   bno.begin(bno.OPERATION_MODE_IMUPLUS);  //Posizione impostata a P7 alle righe 105,107 di Adafruit_BNO55.cpp

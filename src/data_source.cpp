@@ -1,29 +1,28 @@
 #include "data_source.h"
 
 DataSource::DataSource(void){
-    protocol = 0;
+    protocol = P_NULL;
 }
 
-DataSource::DataSource(TwoWire i2c_){
-    
-    this->i2c = &(i2c_);
-    protocol = 1;
-    
+DataSource::DataSource(TwoWire* i2c_){
+    protocol = P_I2C;
+    this->i2c = i2c_;    
     i2c->begin();
-
 }
 
-DataSource::DataSource(usb_serial_class ser_, int baud){
-    this->ser = &(ser_);
-    protocol = 2;
-    
+DataSource::DataSource(HardwareSerial* ser_, int baud){
+    protocol = P_RXTX;
+    this->ser = ser_;    
     ser->begin(baud);
 }
 
 DataSource::DataSource(int pin_, bool analog){
     this->pin = pin_;
-    if(analog) protocol = 3;
-    else protocol = 4;
+    if(analog) protocol = P_APIN;
+    else {
+        protocol = P_DPIN;
+        digitalWrite(pin, OUTPUT);
+    }
 }
 
 int DataSource::getValue(){
