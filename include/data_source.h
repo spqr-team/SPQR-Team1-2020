@@ -9,7 +9,7 @@ class DataSource {
 
     public:
         DataSource();
-        DataSource(HardwareSerial, int);
+        DataSource(usb_serial_class, int);
         DataSource(TwoWire);
         DataSource(int, bool);
 
@@ -29,7 +29,7 @@ class DataSource {
             P_PIND            
         };
         
-        HardwareSerial* ser;
+        usb_serial_class* ser;
         TwoWire* i2c;
 
         int pin;

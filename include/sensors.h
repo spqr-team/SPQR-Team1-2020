@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "data_source_bno055.h"
+#include "data_source_ball.h"
 #include "motor.h"
 #include "drivecontroller.h"
 
@@ -13,4 +14,5 @@ void initSensors();
 void updateSensors();
 
 extr DataSource* compass;
+extr DataSource* ball;
 extr DriveController* drive;

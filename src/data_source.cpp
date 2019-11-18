@@ -13,7 +13,7 @@ DataSource::DataSource(TwoWire i2c_){
 
 }
 
-DataSource::DataSource(HardwareSerial ser_, int baud){
+DataSource::DataSource(usb_serial_class ser_, int baud){
     this->ser = &(ser_);
     protocol = 2;
     
