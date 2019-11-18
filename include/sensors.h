@@ -15,4 +15,5 @@ void updateSensors();
 
 extr DataSource* compass;
 extr DataSource* ball;
+extr DataSource* camera;
 extr DriveController* drive;
