@@ -18,6 +18,7 @@ void loop() {
   //should recenter using predefined values
  // drive->drive(0, 0, 0);
  //compass->test();
-  camera->test();
+ //camera->test();
+ us->test();
   delay(100);
 }

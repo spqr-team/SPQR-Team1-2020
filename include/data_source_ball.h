@@ -7,6 +7,7 @@ class DataSourceBall : public DataSource{
         DataSourceBall(HardwareSerial* ser, int baud);
         void postProcess() override;
         void test() override;
+        
         int angle,distance;
         bool ballSeen;
 };

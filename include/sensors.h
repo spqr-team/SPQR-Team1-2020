@@ -2,6 +2,7 @@
 #include "data_source_bno055.h"
 #include "data_source_ball.h"
 #include "data_source_camera.h"
+#include "data_source_us.h"
 #include "motor.h"
 #include "drivecontroller.h"
 
@@ -17,4 +18,5 @@ void updateSensors();
 extr DataSource* compass;
 extr DataSource* ball;
 extr DataSource* camera;
+extr DataSource* us;
 extr DriveController* drive;

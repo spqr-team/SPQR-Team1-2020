@@ -1,7 +1,7 @@
 #include "data_source_ball.h"
 #include "vars.h"
 
-DataSourceBall::DataSourceBall(HardwareSerial* ser_, int baud) : DataSource(ser_, baud) {
+DataSourceBall :: DataSourceBall(HardwareSerial* ser_, int baud) : DataSource(ser_, baud) {
 }
 
 void DataSourceBall :: postProcess(){
