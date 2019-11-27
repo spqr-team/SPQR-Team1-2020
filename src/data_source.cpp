@@ -9,8 +9,8 @@ DataSource::DataSource(TwoWire* i2c_, int addr){
     this->i2c = i2c_;    
     this->i2CAddr = addr;
 
-    i2c->end();
-    i2c->begin();
+    this->i2c->end();
+    this->i2c->begin();
 }
 
 DataSource::DataSource(HardwareSerial* ser_, int baud){

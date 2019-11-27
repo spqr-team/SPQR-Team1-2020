@@ -10,7 +10,7 @@ class DataSource {
     public:
         DataSource();
         DataSource(HardwareSerial*, int);
-        DataSource(TwoWire*, int addr);
+        DataSource(TwoWire* , int);
         DataSource(int, bool);
 
     public: 

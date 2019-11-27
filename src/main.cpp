@@ -15,10 +15,6 @@ void setup() {
 
 void loop() {
   updateSensors();
-  //should recenter using predefined values
- // drive->drive(0, 0, 0);
- //compass->test();
- //camera->test();
- us->test();
-  delay(100);
+  /*if(millis() % 100 == 0)
+  DEBUG_PRINT.println(us->getValue());*/
 }
