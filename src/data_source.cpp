@@ -4,9 +4,12 @@ DataSource::DataSource(void){
     protocol = P_NULL;
 }
 
-DataSource::DataSource(TwoWire* i2c_){
+DataSource::DataSource(TwoWire* i2c_, int addr){
     protocol = P_I2C;
     this->i2c = i2c_;    
+    this->i2CAddr = addr;
+
+    i2c->end();
     i2c->begin();
 }
 

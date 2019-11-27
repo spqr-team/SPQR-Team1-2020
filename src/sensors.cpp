@@ -6,7 +6,7 @@ void initSensors(){
     compass = new DataSourceBNO055();
     ball = new DataSourceBall(&Serial4, 57600);
     camera = new DataSourceCamera(&Serial2, 19200);
-    us = new DataSourceUS(&Wire1);
+    us = new DataSourceUS(&Wire1, 112);
 }
 
 void updateSensors(){

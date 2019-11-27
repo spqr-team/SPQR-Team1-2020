@@ -10,7 +10,7 @@ class DataSource {
     public:
         DataSource();
         DataSource(HardwareSerial*, int);
-        DataSource(TwoWire*);
+        DataSource(TwoWire*, int addr);
         DataSource(int, bool);
 
     public: 
@@ -32,6 +32,7 @@ class DataSource {
         
         HardwareSerial* ser;
         TwoWire* i2c;
+        int i2CAddr;
 
         Protocols protocol;
         int pin;
