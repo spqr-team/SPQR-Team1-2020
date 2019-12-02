@@ -17,4 +17,6 @@ void loop() {
   updateSensors();
   /*if(millis() % 100 == 0)
   DEBUG_PRINT.println(us->getValue());*/
+  usCtrl->test();
+  delay(200);
 }
