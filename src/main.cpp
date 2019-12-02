@@ -1,8 +1,6 @@
 #include <Arduino.h>
-#include "vars.h"
-#include "data_source_bno055.h"
-#include "drivecontroller.h"
-#include "sensors.h"
+
+#include "game.h"
 
 
 void setup() {
@@ -17,6 +15,10 @@ void loop() {
   updateSensors();
   /*if(millis() % 100 == 0)
   DEBUG_PRINT.println(us->getValue());*/
-  usCtrl->test();
+  if(game->role) game->goalie();
+  else game->keeper();
+  game->role = digitalRead(SWITCH_DX);
+  game->attackGoal = digitalRead(SWITCH_SX);
+  //usCtrl->test();
   delay(200);
 }

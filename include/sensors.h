@@ -6,19 +6,22 @@
 #include "motor.h"
 #include "data_source_controller.h"
 #include "drivecontroller.h"
-
+#pragma once
+#include "game.h"
 #ifdef SENSORS_CPP
 #define extr 
 #else
 #define extr extern
 #endif
 
+class Game;
 void initSensors();
 void updateSensors();
 
-extr DataSource* compass;
-extr DataSource* ball;
-extr DataSource* camera;
+extr DataSourceBNO055* compass;
+extr DataSourceBall* ball;
+extr DataSourceCamera* camera;
 //extr DataSource* us;
 extr DataSourceController* usCtrl;
 extr DriveController* drive;
+extr Game* game;

@@ -8,6 +8,6 @@ class DataSourceBall : public DataSource{
         void postProcess() override;
         void test() override;
         
-        int angle,distance;
+        int angle, distance;
         bool ballSeen;
 }; 

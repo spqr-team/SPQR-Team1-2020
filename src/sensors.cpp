@@ -12,6 +12,8 @@ void initSensors(){
     ball = new DataSourceBall(&Serial4, 57600);
     camera = new DataSourceCamera(&Serial2, 19200);
     usCtrl = new DataSourceController(dUs);
+
+    game = new Game();
 }
 
 void updateSensors(){
