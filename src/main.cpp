@@ -12,13 +12,15 @@ void setup() {
 }
 
 void loop() {
-  updateSensors();
+  //updateSensors();
   /*if(millis() % 100 == 0)
   DEBUG_PRINT.println(us->getValue());*/
-  if(game->role) game->goalie();
-  else game->keeper();
+  /* if(game->role) game->goalie();
+  else game->keeper(); */
+  game->goalie();
   game->role = digitalRead(SWITCH_DX);
   game->attackGoal = digitalRead(SWITCH_SX);
+  //compass->test();
   //usCtrl->test();
   delay(200);
 }
