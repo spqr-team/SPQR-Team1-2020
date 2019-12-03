@@ -93,5 +93,4 @@ void DataSourceUS::usReceive() {
     // receive low byte as lower 8 bit
     reading |= i2c->read();
     value = reading;
-    DEBUG_PRINT.println(reading);
   }
