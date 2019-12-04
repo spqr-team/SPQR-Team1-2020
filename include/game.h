@@ -13,6 +13,7 @@ class Game{
         Game();
         void keeper();
         void goalie();
+        void ballBack();
         bool role, attackGoal; //1->goalie 0->keeper, 1->yellow 0->blue
         //~Game();
 };
