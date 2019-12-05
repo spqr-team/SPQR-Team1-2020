@@ -11,8 +11,6 @@ Motor::Motor(int a, int b, int pwm, int angle_){
     pinMode(pinA, OUTPUT);
     pinMode(pinB, OUTPUT);
     pinMode(pinPwm, OUTPUT);
-
-    angle = 0;
 }
 
 Motor::Motor(){ }
