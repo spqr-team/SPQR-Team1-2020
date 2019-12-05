@@ -14,6 +14,8 @@ void initSensors(){
     usCtrl = new DataSourceController(dUs);
 
     game = new Game();
+    goalie = new Goalie();
+    keeper = new Keeper();
 }
 
 void updateSensors(){

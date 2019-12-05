@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#pragma once
 #include "data_source_bno055.h"
 #include "data_source_ball.h"
 #include "data_source_camera.h"
@@ -6,7 +7,6 @@
 #include "motor.h"
 #include "data_source_controller.h"
 #include "drivecontroller.h"
-#pragma once
 #include "game.h"
 #ifdef SENSORS_CPP
 #define extr 
@@ -15,6 +15,8 @@
 #endif
 
 class Game;
+class Goalie;
+class Keeper;
 void initSensors();
 void updateSensors();
 
@@ -24,4 +26,7 @@ extr DataSourceCamera* camera;
 //extr DataSource* us;
 extr DataSourceController* usCtrl;
 extr DriveController* drive;
+
 extr Game* game;
+extr Goalie* goalie;
+extr Keeper* keeper;

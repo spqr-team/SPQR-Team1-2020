@@ -12,14 +12,14 @@ void setup() {
 }
 
 void loop() {
-  //updateSensors();
+  updateSensors();
   /*if(millis() % 100 == 0)
   DEBUG_PRINT.println(us->getValue());*/
-  game->role = digitalRead(SWITCH_DX);
+ /*  game->role = digitalRead(SWITCH_DX);
   game->attackGoal = digitalRead(SWITCH_SX);
-  if(game->role) game->goalie();
-  else game->keeper();
-  //game->goalie();
+  if(game->role) goalie->goalie();
+  else keeper->keeper(); */
+  goalie->goalie();
   //drive->drivePrepared();
   //compass->test();
   //usCtrl->test();
