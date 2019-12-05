@@ -2,6 +2,9 @@
 #include "vars.h"
 
 DataSourceBall :: DataSourceBall(HardwareSerial* ser_, int baud) : DataSource(ser_, baud) {
+  ballSeen = false;
+  distance = 0;
+  angle = 0;
 }
 
 void DataSourceBall :: postProcess(){
@@ -16,10 +19,10 @@ void DataSourceBall :: postProcess(){
 void DataSourceBall :: test(){
     this->update();
     if(ballSeen){
-    DEBUG_PRINT.print(angle); 
-    DEBUG_PRINT.print(" | ");
-    DEBUG_PRINT.println(distance); 
+    DEBUG.print(angle); 
+    DEBUG.print(" | ");
+    DEBUG.println(distance); 
     }else{
-    DEBUG_PRINT.println("Not seeing ball");
+    DEBUG.println("Not seeing ball");
     }
 }

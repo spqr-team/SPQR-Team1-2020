@@ -6,17 +6,19 @@
 
 
 void setup() {
-  delay(1000);
+  delay(500);
 
-  DEBUG_PRINT.begin(9600);
-  
+  DEBUG.begin(9600);
   initSensors();
+  delay(2000);
 }
 
 void loop() {
   updateSensors();
-  /*if(millis() % 100 == 0)
-  DEBUG_PRINT.println(us->getValue());*/
-  usCtrl->test();
-  delay(200);
-}
+
+  drive->prepareDrive(0,0,0);
+  linesCtrl->update();
+ 
+  drive->drivePrepared();
+
+} 

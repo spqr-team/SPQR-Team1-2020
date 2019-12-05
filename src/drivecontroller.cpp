@@ -11,6 +11,23 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
         sins[i] = (float) sin(torad(i));
         cosins[i] =  (float) cos(torad(i));
     }
+
+    pDir = 0;
+    pSpeed = 0;
+    pTilt = 0;
+
+    vx = 0;
+    vy = 0;
+
+    speed1 = 0;
+    speed2 = 0;
+    speed3 = 0;
+    speed4 = 0;
+
+    delta = 0;
+    errorP = 0;
+    errorI = 0;
+    errorD = 0;
 }
 
 void DriveController::prepareDrive(int dir, int speed, int tilt){
@@ -62,18 +79,7 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed1 = constrain(speed1, -255, 255);
     speed2 = constrain(speed2, -255, 255);
     speed3 = constrain(speed3, -255, 255);
-    speed4 = constrain(speed4, -255, 255);
-
-    //-almost- eliminating motor deadzones, should increase motor efficiency
-    speed1 = (int)speed1 > 0 ? map((int)speed1, 1, 255, DEADZONE_MIN, 255) : speed1;        
-    speed2 = (int)speed2 > 0 ? map((int)speed2, 1, 255, DEADZONE_MIN, 255) : speed2;        
-    speed3 = (int)speed3 > 0 ? map((int)speed3, 1, 255, DEADZONE_MIN, 255) : speed3;        
-    speed4 = (int)speed4 > 0 ? map((int)speed4, 1, 255, DEADZONE_MIN, 255) : speed4;        
-
-    speed1 = (int)speed1 < 0 ? map((int)speed1, -255, -1, -255, -DEADZONE_MIN) : speed1;        
-    speed2 = (int)speed2 < 0 ? map((int)speed2, -255, -1, -255, -DEADZONE_MIN) : speed2;        
-    speed3 = (int)speed3 < 0 ? map((int)speed3, -255, -1, -255, -DEADZONE_MIN) : speed3;        
-    speed4 = (int)speed4 < 0 ? map((int)speed4, -255, -1, -255, -DEADZONE_MIN) : speed4;        
+    speed4 = constrain(speed4, -255, 255);     
 
     m1->drive((int) speed1);
     m2->drive((int) speed2);

@@ -122,14 +122,14 @@ void DataSourceCamera :: test(){
     goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
     
 
-    DEBUG_PRINT.print(pAtk);
-    DEBUG_PRINT.print(" | ");
-    DEBUG_PRINT.print(fixCamIMU(pAtk));
-    DEBUG_PRINT.print(" --- ");
+    DEBUG.print(pAtk);
+    DEBUG.print(" | ");
+    DEBUG.print(fixCamIMU(pAtk));
+    DEBUG.print(" --- ");
 
-    DEBUG_PRINT.print(pDef);
-    DEBUG_PRINT.print(" | ");
-    DEBUG_PRINT.println(fixCamIMU(pDef));
+    DEBUG.print(pDef);
+    DEBUG.print(" | ");
+    DEBUG.println(fixCamIMU(pDef));
     delay(100);
 }
 

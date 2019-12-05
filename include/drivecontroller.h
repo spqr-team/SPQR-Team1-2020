@@ -4,10 +4,10 @@
 #include "motor.h"
 
 //PID Constants
-#define KP 0.9
-#define KI 0 
-#define KD 1.1
-#define DEADZONE_MIN 25
+
+#define KP 1.2    
+#define KI 0   
+#define KD 0.7 
 
 class DriveController{
 
@@ -20,6 +20,10 @@ class DriveController{
         void drivePrepared();
         float updatePid();
         float torad(float f);
+
+        int vxp, vyp, vxn, vyn;
+        bool canUnlock;
+        elapsedMillis unlockTime;
 
     private:
         Motor* m1;

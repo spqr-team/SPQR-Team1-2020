@@ -3,6 +3,7 @@
 
 DataSourceUS::DataSourceUS(TwoWire* i2c_, int addr) : DataSource(i2c_, addr){
   us_flag = false;
+  value = 0;
 }
 
 void DataSourceUS::test(){
@@ -45,7 +46,7 @@ void DataSourceUS::test(){
       value = reading;
     }
 
-  DEBUG_PRINT.println(value);
+  DEBUG.println(value);
 }
 
 void DataSourceUS::readSensor(){
@@ -93,5 +94,4 @@ void DataSourceUS::usReceive() {
     // receive low byte as lower 8 bit
     reading |= i2c->read();
     value = reading;
-    DEBUG_PRINT.println(reading);
   }

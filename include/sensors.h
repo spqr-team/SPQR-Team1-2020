@@ -3,8 +3,9 @@
 #include "data_source_ball.h"
 #include "data_source_camera.h"
 #include "data_source_us.h"
+#include "ds_ctrl_lines.h"
 #include "motor.h"
-#include "data_source_controller.h"
+#include "ds_ctrl.h"
 #include "drivecontroller.h"
 
 #ifdef SENSORS_CPP
@@ -19,6 +20,10 @@ void updateSensors();
 extr DataSource* compass;
 extr DataSource* ball;
 extr DataSource* camera;
-//extr DataSource* us;
-extr DataSourceController* usCtrl;
+extr DataSourceCtrl* usCtrl;
+extr DataSourceCtrlLines* linesCtrl;
 extr DriveController* drive;
+
+extr vector<DataSource*> lIn;
+extr vector<DataSource*> lOut;
+extr vector<DataSource*> dUs;
