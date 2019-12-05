@@ -1,9 +1,30 @@
 #include <Arduino.h>
 
 #include "game.h"
-#include "goalie.h"
 
-class Trial{
+void setup() {
+  delay(500);
+
+  DEBUG.begin(9600);
+  initSensors();
+  delay(2000);
+}
+
+
+void loop() {
+  updateSensors();
+ /*  Trial trial;
+  trial.trial(); */
+  //drive->prepareDrive(0,0,0);
+  linesCtrl->update();
+  goalie->goalie();
+  //drive->drivePrepared();
+
+} 
+
+
+/*old function trial
+ class Trial{
   public:
   void trial(){
     digitalWrite(LED_Y, LOW);
@@ -76,28 +97,5 @@ class Trial{
   else drive->prepareDrive(goalie->atk_direction, goalie->atk_speed, 0);
 }
 
-};
+}; */
 
-
-void setup() {
-  delay(500);
-
-  DEBUG.begin(9600);
-  initSensors();
-  delay(2000);
-}
-
-
-void loop() {
-  updateSensors();
-  Trial trial;
-  trial.trial();
-  //drive->prepareDrive(0,0,0);
-  //linesCtrl->update();
- 
-
-  //drive->prepareDrive(0,0,0);
-  linesCtrl->update();
-  drive->drivePrepared();
-
-} 
