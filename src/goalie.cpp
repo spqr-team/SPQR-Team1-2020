@@ -73,7 +73,9 @@
     drive->prepareDrive(atk_direction, atk_speed, 0);
   }
   else drive->prepareDrive(atk_direction, atk_speed, 0);
-   /*  digitalWrite(LED_G, HIGH);
+
+
+   /* siria digitalWrite(LED_G, HIGH);
     if(ball->ballSeen){
         if(ball->angle >= 0 && ball->angle < 45) drive->drive(ball->angle, 75, 0);
         else if(ball->angle >= 45 && ball->angle <= 60) drive->drive(ball->angle, 75, 0);
@@ -88,7 +90,7 @@ void Goalie::ballBack(){
     int ballangle2;
     int dir;
     int plusang;
-    
+
   if(ball->distance > 130) plusang = GOALIE_ATKDIR_PLUSANGBAK;
   else plusang = 0;
   

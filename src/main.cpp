@@ -87,6 +87,7 @@ void setup() {
   delay(2000);
 }
 
+
 void loop() {
   updateSensors();
   Trial trial;
@@ -94,6 +95,9 @@ void loop() {
   //drive->prepareDrive(0,0,0);
   //linesCtrl->update();
  
+
+  //drive->prepareDrive(0,0,0);
+  linesCtrl->update();
   drive->drivePrepared();
 
 } 

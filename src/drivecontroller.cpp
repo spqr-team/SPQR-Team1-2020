@@ -28,6 +28,10 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     errorP = 0;
     errorI = 0;
     errorD = 0;
+    
+    errorePre = 0;
+    pidfactor = 0;
+    integral = 0;
 }
 
 void DriveController::prepareDrive(int dir, int speed, int tilt){

@@ -50,7 +50,7 @@ void DataSourceCtrlLines::read(){
 }
 
 void DataSourceCtrlLines::postProcess(){
-    if ((inV > 0) || (outV > 0)) {
+  if ((inV > 0) || (outV > 0)) {
       fboundsOX = true;
       fboundsOY = true;
     if(exitTimer > EXTIME) {
@@ -64,7 +64,7 @@ void DataSourceCtrlLines::postProcess(){
 }
 
 void DataSourceCtrlLines::outOfBounds(){
-    //handleExtern();
+    handleExtern();
     handleIntern();
 }
 
@@ -144,8 +144,8 @@ void DataSourceCtrlLines::handleIntern(){
         break;
     }
 
-    if(exitTimer < 45) outVel = 200;
-    else outVel = 150;
+    if(exitTimer < 45) outVel = 350;
+    else outVel = 330;
     drive->prepareDrive(outDir, outVel, 0);
     // keeper_backToGoalPost = true;
     // keeper_tookTimer = true;
@@ -154,7 +154,7 @@ void DataSourceCtrlLines::handleIntern(){
     inVOldX = 0;
     inVOldY = 0;
     // lineSensByteBak = 30;
-    //drive->canUnlock = true;
+    drive->canUnlock = true;
   }
 
 //    lineSensByteBak = linesensbyteI;
