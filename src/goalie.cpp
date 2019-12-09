@@ -76,7 +76,7 @@ void Goalie::goalie() {
 
   if((ball->angle >= 330 || ball->angle <= 30) && ball->distance > 190) {      //storcimento
     atk_speed = GOALIE_ATKSPD_STRK;                                             //dove i gigahertz hanno fallito
-    drive->prepareDrive(atk_direction, atk_speed, 0);
+    drive->prepareDrive(atk_direction, atk_speed, cstorc);
   }
   else  drive->prepareDrive(atk_direction, atk_speed);
 }
