@@ -18,12 +18,15 @@ void initSensors(){
     usCtrl = new DataSourceCtrl(dUs);
     linesCtrl = new DataSourceCtrlLines(lIn, lOut);
 
-    game = new Game();
+    /*game = new Game();
     goalie = new Goalie();
-    keeper = new Keeper();
+    keeper = new Keeper();*/
 }
 
 void updateSensors(){
+    role = digitalRead(SWITCH_DX);
+    camera->goalOrientation = digitalRead(SWITCH_SX);
+    
     compass->update();
     ball->update();
     camera->update();
