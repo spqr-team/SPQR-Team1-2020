@@ -24,5 +24,7 @@ void loop() {
   linesCtrl->update();
 
   // Last thing to do: movement  
-  drive->drivePrepared();
+  drive->drivePrepared(); 
+
+/*   compass->test(); */
 } 

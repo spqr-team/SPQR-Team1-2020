@@ -34,7 +34,7 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     integral = 0;
 }
 
-void DriveController::prepareDrive(int dir=0, int speed=0, int tilt=0){
+void DriveController::prepareDrive(int dir, int speed, int tilt){
     pDir = dir;
     pSpeed = speed;
     pTilt = tilt;
@@ -48,7 +48,7 @@ float DriveController::torad(float f){
     return (f * PI / 180.0);
 }
 
-void DriveController::drive(int dir=0, int speed=0, int tilt=0){
+void DriveController::drive(int dir, int speed, int tilt){
     vx = ((speed * cosins[dir]));
     vy = ((-speed * sins[dir]));
 

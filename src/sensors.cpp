@@ -17,6 +17,7 @@ void initSensors(){
     camera = new DataSourceCamera(&Serial2, 19200);
     usCtrl = new DataSourceCtrl(dUs);
     linesCtrl = new DataSourceCtrlLines(lIn, lOut);
+    bt = new DataSourceBT(&Serial3, 115200);
 
     /*game = new Game();
     goalie = new Goalie();

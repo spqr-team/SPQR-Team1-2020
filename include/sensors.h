@@ -16,6 +16,7 @@
 #include "motor.h"
 #include "ds_ctrl.h"
 #include "drivecontroller.h"
+#include "data_source_bt.h"
 
 void initSensors();
 void updateSensors();
@@ -31,5 +32,6 @@ s_extr DataSourceBNO055* compass;
 s_extr DataSourceBall* ball;
 s_extr DataSourceCamera* camera;
 s_extr DriveController* drive;
+s_extr DataSourceBT* bt;
 
 s_extr int role;

@@ -12,6 +12,7 @@ void Goalie::realPlay(){
 }
 
 void Goalie::goalie() {
+  compass->readSensor();
   if(ball->angle >= 350 || ball->angle <= 10)  {
     if(ball->distance > 190) atk_direction = 0;
     else atk_direction = ball->angle;

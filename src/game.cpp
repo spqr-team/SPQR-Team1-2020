@@ -2,6 +2,6 @@
 
 Game::Game() {}
 
-void Game::play(bool condition=true){
+void Game::play(bool condition){
     if(condition) realPlay();
 }
