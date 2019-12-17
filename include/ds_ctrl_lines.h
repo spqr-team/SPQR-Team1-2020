@@ -16,11 +16,11 @@
 #define LINE_THRESH 90
 #define EXTIME 100
 
-class DataSourceCtrlLines : public DataSourceCtrl {
+class DSCtrlLines : public DataSourceCtrl {
 
     public:
-        DataSourceCtrlLines();
-        DataSourceCtrlLines(vector<DataSource*> in_, vector<DataSource*> out);
+        DSCtrlLines();
+        DSCtrlLines(vector<DataSource*> in_, vector<DataSource*> out);
 
         void read() override;
         void postProcess() override;

@@ -2,8 +2,8 @@
 #include "sensors.h"
 
 using namespace std;
-DataSourceCtrlLines::DataSourceCtrlLines() {}
-DataSourceCtrlLines::DataSourceCtrlLines(vector<DataSource*> in_, vector<DataSource*> out_){
+DSCtrlLines::DSCtrlLines() {}
+DSCtrlLines::DSCtrlLines(vector<DataSource*> in_, vector<DataSource*> out_){
     this->in = in_;
     this->out = out_;
 
@@ -24,7 +24,7 @@ DataSourceCtrlLines::DataSourceCtrlLines(vector<DataSource*> in_, vector<DataSou
     exitTimer = 0;
 }
 
-void DataSourceCtrlLines::read(){
+void DSCtrlLines::read(){
   inV = 0;
   outV = 0;
   for(DataSource* d : in) d->readSensor();
@@ -49,7 +49,7 @@ void DataSourceCtrlLines::read(){
   inV = inV | outV;
 }
 
-void DataSourceCtrlLines::postProcess(){
+void DSCtrlLines::postProcess(){
   if ((inV > 0) || (outV > 0)) {
       fboundsOX = true;
       fboundsOY = true;
@@ -63,12 +63,12 @@ void DataSourceCtrlLines::postProcess(){
   outOfBounds();
 }
 
-void DataSourceCtrlLines::outOfBounds(){
+void DSCtrlLines::outOfBounds(){
     handleExtern();
     handleIntern();
 }
 
-void DataSourceCtrlLines::handleIntern(){
+void DSCtrlLines::handleIntern(){
 
   if(fboundsX == true) {
     if(inV & 0x02) inVOldX = 2;
@@ -162,14 +162,14 @@ void DataSourceCtrlLines::handleIntern(){
    else slow = false;
 }
 
-void DataSourceCtrlLines::handleExtern(){
+void DSCtrlLines::handleExtern(){
     if((outV & 0b00000001) == 1) drive->vyp = 1;  // esclusione
     if((outV & 0b00000100) == 4) drive->vyn = 1;
     if((outV & 0b00000010) == 2) drive->vxp = 1;
     if((outV & 0b00001000) == 8) drive->vxn = 1;
 }
 
-void DataSourceCtrlLines::test(){
+void DSCtrlLines::test(){
   update();
   DEBUG.print("In: ");
   for(DataSource* d : in){
