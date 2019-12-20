@@ -25,7 +25,7 @@ s_extr vector<DataSource*> lIn;
 s_extr vector<DataSource*> lOut;
 s_extr vector<DataSource*> dUs;
 
-s_extr DSCtrlLines* usCtrl;
+s_extr DataSourceCtrl* usCtrl;
 s_extr DSCtrlLines* linesCtrl;
 
 s_extr DataSourceBNO055* compass;

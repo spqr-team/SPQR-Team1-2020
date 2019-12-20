@@ -16,7 +16,7 @@
 #define LINE_THRESH 90
 #define EXTIME 100
 
-class DSCtrlLines : public DataSourceCtrl {
+class DSCtrlLines : public DataSourceCtrl{
 
     public:
         DSCtrlLines();
