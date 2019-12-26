@@ -1,6 +1,7 @@
 #pragma once
+
 #include "ds_ctrl.h"
-#include "data_source.h"
+#include "systems.h"
 #include "vars.h" 
 #include <Arduino.h>
 
@@ -16,19 +17,17 @@
 #define LINE_THRESH 90
 #define EXTIME 100
 
-class DSCtrlLines : public DataSourceCtrl{
+class LineSys2019 : public LineSystem{
 
     public:
-        DSCtrlLines();
-        DSCtrlLines(vector<DataSource*> in_, vector<DataSource*> out);
+        LineSys2019();
+        LineSys2019(vector<DataSource*> in_, vector<DataSource*> out);
 
-        void read() override;
-        void postProcess() override;
+        void update() override;
+        void test() override;
         void outOfBounds();
         void handleIntern();
         void handleExtern();
-        int getValue();
-        void test() override;
         
     private:
         vector<DataSource*> in, out;

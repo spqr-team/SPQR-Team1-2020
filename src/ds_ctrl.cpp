@@ -23,6 +23,10 @@ void DataSourceCtrl::postProcess(){
     }
 }
 
+int DataSourceCtrl::getValue(int i){
+    return this->ds[i]->getValue();
+}
+
 void DataSourceCtrl::test(){
     DEBUG.println("========================================");
     for(DataSource* d : ds){

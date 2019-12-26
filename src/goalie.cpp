@@ -3,8 +3,17 @@
 #include "vars.h"
 
 Goalie::Goalie() : Game() {
+  init();
+}
+
+Goalie::Goalie(LineSystem* ls_, PositionSystem* ps_) : Game(ls_, ps_) {
+  init();
+}
+
+void Goalie::init(){
     atk_speed = 0;
     atk_direction = 0;
+
 }
 
 void Goalie::realPlay(){

@@ -20,12 +20,17 @@ class Goalie : public Game{
 
     public:
         Goalie();
+        Goalie(LineSystem* ls, PositionSystem* ps);
 
+    private:
         void realPlay() override;
+        void init() override;
         void goalie();
         void ballBack(); 
         void storcimentoPorta();
 
         int atk_speed, atk_direction;
         float cstorc;
+
+    
 };

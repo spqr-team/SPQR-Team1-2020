@@ -1,9 +1,9 @@
-#include "ds_ctrl_lines.h"
+#include "linesys_2019.h"
 #include "sensors.h"
 
 using namespace std;
-DSCtrlLines::DSCtrlLines() {}
-DSCtrlLines::DSCtrlLines(vector<DataSource*> in_, vector<DataSource*> out_){
+LineSys2019::LineSys2019() {}
+LineSys2019::LineSys2019(vector<DataSource*> in_, vector<DataSource*> out_){
     this->in = in_;
     this->out = out_;
 
@@ -24,7 +24,7 @@ DSCtrlLines::DSCtrlLines(vector<DataSource*> in_, vector<DataSource*> out_){
     exitTimer = 0;
 }
 
-void DSCtrlLines::read(){
+void LineSys2019::update(){
   inV = 0;
   outV = 0;
   for(DataSource* d : in) d->readSensor();
@@ -47,9 +47,7 @@ void DSCtrlLines::read(){
   }
 
   inV = inV | outV;
-}
 
-void DSCtrlLines::postProcess(){
   if ((inV > 0) || (outV > 0)) {
       fboundsOX = true;
       fboundsOY = true;
@@ -63,12 +61,12 @@ void DSCtrlLines::postProcess(){
   outOfBounds();
 }
 
-void DSCtrlLines::outOfBounds(){
+void LineSys2019::outOfBounds(){
     handleExtern();
     handleIntern();
 }
 
-void DSCtrlLines::handleIntern(){
+void LineSys2019::handleIntern(){
 
   if(fboundsX == true) {
     if(inV & 0x02) inVOldX = 2;
@@ -162,14 +160,14 @@ void DSCtrlLines::handleIntern(){
    else slow = false;
 }
 
-void DSCtrlLines::handleExtern(){
+void LineSys2019::handleExtern(){
     if((outV & 0b00000001) == 1) drive->vyp = 1;  // esclusione
     if((outV & 0b00000100) == 4) drive->vyn = 1;
     if((outV & 0b00000010) == 2) drive->vxp = 1;
     if((outV & 0b00001000) == 8) drive->vxn = 1;
 }
 
-void DSCtrlLines::test(){
+void LineSys2019::test(){
   update();
   DEBUG.print("In: ");
   for(DataSource* d : in){

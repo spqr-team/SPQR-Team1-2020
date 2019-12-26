@@ -17,6 +17,7 @@ class DataSourceCtrl {
         virtual void test();
         virtual void postProcess();
         virtual void read();
+        int getValue(int i);
 
         vector<DataSource*> ds;
 

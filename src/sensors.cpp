@@ -16,13 +16,9 @@ void initSensors(){
     ball = new DataSourceBall(&Serial4, 57600);
     camera = new DataSourceCamera(&Serial2, 19200);
     usCtrl = new DataSourceCtrl(dUs);
-    linesCtrl = new DSCtrlLines(lIn, lOut);
+    linesCtrl = new LineSys2019(lIn, lOut);
     bt = new DataSourceBT(&Serial3, 115200);
-
-    /*game = new Game();
-    goalie = new Goalie();
-    keeper = new Keeper();*/
-}
+ }
 
 void updateSensors(){
     role = digitalRead(SWITCH_DX);
