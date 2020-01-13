@@ -1,13 +1,15 @@
 #include "keeper.h"
 #include "sensors.h"
 #include "games.h"
+#include "linesys_2019.h"
 #include <Arduino.h>
 
 Keeper::Keeper() : Game() {
     init();
 }
 
-Keeper::Keeper(LineSystem* ls_, PositionSystem* ps_) : Game(ls_, ps_){}
+Keeper::Keeper(LineSystem* ls_, PositionSystem* ps_) : Game(ls_, ps_){
+}
 
 void Keeper::init(){
     defSpeed = 0;
@@ -16,7 +18,6 @@ void Keeper::init(){
     angleX = 0;
     angleY = 0;
     t = 0;
-    toh= 0;
     keeperAttackTimer = 0;
     keeper_tookTimer = false;
     keeper_backToGoalPost = false;
@@ -27,7 +28,7 @@ void Keeper::realPlay() {
     if(ball->distance > KEEPER_ATTACK_DISTANCE){
         // Ball is quite near
         goalie->play();
-        if(!keeper_tookTimer){
+        if(!this->ls->tookLine){
             keeperAttackTimer = 0;
             keeper_tookTimer = true;
         }

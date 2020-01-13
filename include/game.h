@@ -9,9 +9,9 @@ class Game {
         Game();
         Game(LineSystem* ls, PositionSystem* ps);
         void play(bool condition=true);
+        LineSystem* ls;
+        PositionSystem* ps;
     private:
         virtual void realPlay() = 0;
         virtual void init() = 0;
-        LineSystem* ls;
-        PositionSystem* ps;
 };

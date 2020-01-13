@@ -16,6 +16,7 @@
 
 #define LINE_THRESH 90
 #define EXTIME 100
+#define LINES_EXIT_SPD 350
 
 class LineSys2019 : public LineSystem{
 
@@ -33,7 +34,8 @@ class LineSys2019 : public LineSystem{
         vector<DataSource*> in, out;
         DataSource* ds;
         bool fboundsX, fboundsY, fboundsOX, fboundsOY, slow;
-        int inV, outV, inVOldX, inVOldY, value, linetriggerI[4], linetriggerO[4], i;
+        int inV, outV, linesensOldX, linesensOldY, value, linetriggerI[4], linetriggerO[4], i;
         elapsedMillis exitTimer;
-        int outDir, outVel;
+        byte outDir, outVel, linesens;
+        unsigned long unlockTime;
 };

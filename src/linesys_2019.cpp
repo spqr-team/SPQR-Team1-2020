@@ -13,8 +13,10 @@ LineSys2019::LineSys2019(vector<DataSource*> in_, vector<DataSource*> out_){
     fboundsY = false;
     slow = false;
 
-    inVOldX = 0;
-    inVOldY = 0;
+    linesensOldX = 0;
+    linesensOldY = 0;
+
+    tookLine = false;
 
     for(int i = 0; i < 4; i++){
       linetriggerI[i] = 0;
@@ -27,6 +29,7 @@ LineSys2019::LineSys2019(vector<DataSource*> in_, vector<DataSource*> out_){
 void LineSys2019::update(){
   inV = 0;
   outV = 0;
+
   for(DataSource* d : in) d->readSensor();
   for(DataSource* d : out) d->readSensor();
 
@@ -46,9 +49,9 @@ void LineSys2019::update(){
     outV = outV | (linetriggerO[i] << i);
   }
 
-  inV = inV | outV;
+  linesens |= inV | outV;
 
-  if ((inV > 0) || (outV > 0)) {
+  if ((linesensOldX > 0) || (linesensOldX > 0)) {
       fboundsOX = true;
       fboundsOY = true;
     if(exitTimer > EXTIME) {
@@ -62,109 +65,105 @@ void LineSys2019::update(){
 }
 
 void LineSys2019::outOfBounds(){
-    handleExtern();
-    handleIntern();
-}
-
-void LineSys2019::handleIntern(){
 
   if(fboundsX == true) {
-    if(inV & 0x02) inVOldX = 2;
-    else if(inV & 0x08) inVOldX = 8;
-    if(inVOldX != 0) fboundsX = false;
+    if(linesens & 0x02) linesensOldX = 2;
+    else if(linesens & 0x08) linesensOldX = 8;
+    if(linesensOldX != 0) fboundsX = false;
   }
   if(fboundsY == true) {
-    if(inV & 0x01) inVOldY = 1;
-    else if(inV & 0x04) inVOldY = 4;
-    if(inVOldY != 0) fboundsY = false;
+    if(linesens & 0x01) linesensOldY = 1;
+    else if(linesens & 0x04) linesensOldY = 4;
+    if(linesensOldY != 0) fboundsY = false;
   }
+
   if (exitTimer <= EXTIME){
-    drive->canUnlock = false;
-    drive->unlockTime = millis();
-
     //fase di rientro
-    if(inV == 15) {
-      inV = inVOldY | inVOldX;        //ZOZZATA MAXIMA
-      //digitalWrite(Y, HIGH);
+    if(linesens == 15) linesens = linesensOldY | linesensOldX;        //ZOZZATA MAXIMA
+    unlockTime = millis();
+
+    if(linesens == 1) outDir = 180;
+    else if(linesens == 2) outDir = 270;
+    else if(linesens == 4) outDir = 0;
+    else if(linesens == 8) outDir = 90;
+    else if(linesens == 3) outDir = 225;
+    else if(linesens == 6) outDir = 315;
+    else if(linesens == 12) outDir = 45;
+    else if(linesens == 9) outDir = 135;
+    else if(linesens == 7) outDir = 270;
+    else if(linesens == 13) outDir = 90;
+    else if(linesens == 11) outDir = 180;
+    else if(linesens == 14) outDir = 0;
+    else if(linesens == 5){
+      if(linesensOldX == 2) outDir = 270;
+      else if(linesensOldY == 8) outDir = 90;
+    }
+    else if(linesens == 10){
+      if(linesensOldY == 4) outDir = 0;
+      else if(linesensOldY == 1) outDir = 180;
     }
 
-    switch(inV){
-      case 1:
-        outDir = 180;
-        break;
-      case 2:
-        outDir = 270;
-        break;
-      case 4:
-        outDir = 0;
-        break;
-      case 8:
-        outDir = 90;
-        break;
-      case 3:
-        outDir = 225;
-        break;
-      case 6:
-        outDir = 315;
-        break;
-      case 12:
-        outDir = 45;
-        break;
-      case 9:
-        outDir = 135;
-        break;
-      case 7:
-        outDir = 270;
-        break;
-      case 13:
-        outDir = 90;
-        break;
-      case 11:
-        outDir = 180;
-        break;
-      case 14:
-        outDir = 0;
-        break;
-      case 5:
-        //digitalWrite(R, HIGH);
-        if(inVOldX == 2) outDir = 270;
-        if(inVOldX == 8) outDir = 90;
-        break;
-      case 10:
-        if(inVOldY == 4) outDir = 0;
-        if(inVOldY == 1)outDir = 180;
-        break;
-      case 15:
-        break;
-      case 0:
-      default:
-        //;)
-        break;
-    }
-
-    if(exitTimer < 45) outVel = 350;
-    else outVel = 330;
+    outVel = LINES_EXIT_SPD;
     drive->prepareDrive(outDir, outVel, 0);
+    tookLine = true;
     // keeper_backToGoalPost = true;
     // keeper_tookTimer = true;
+    
   }else{
-    inV = 0;
-    inVOldX = 0;
-    inVOldY = 0;
-    // lineSensByteBak = 30;
-    drive->canUnlock = true;
+    //fine rientro
+    if(linesens == 1) drive->vyp = 1;
+    else if(linesens == 2) drive->vxp = 1;
+    else if(linesens == 4) drive->vyn = 1;
+    else if(linesens == 8) drive->vxn = 1;
+    else if(linesens == 3) {
+      drive->vyp = 1;
+      drive->vxp = 1;
+    }
+    else if(linesens == 6){
+      drive->vxp = 1;
+      drive->vyn = 1;
+    }
+    else if(linesens == 12) {
+      drive->vyn = 1;
+      drive->vxn = 1;
+    }
+    else if(linesens == 9) {
+      drive->vyp = 1;
+      drive->vxn = 1;
+    }
+    else if(linesens == 7) {
+      drive->vyp = 1;
+      drive->vyn = 1;
+      drive->vxp = 1;
+    }
+    else if(linesens == 13){
+      drive->vxp = 1;
+      drive->vxn = 1;
+      drive->vyn = 1;
+    }
+    else if(linesens == 11) {
+      drive->vyp = 1;
+      drive->vxn = 1;
+      drive->vxp = 1;
+    }
+    else if(linesens == 14) {
+      drive->vyn = 1;
+      drive->vxn = 1;
+      drive->vxp = 1;
+    }
+    else if(linesens == 5){
+      if(linesensOldX == 2) drive->vyp = 1;
+      else if(linesensOldY == 8)drive->vyn = 1;
+    }
+    else if(linesens == 10){
+      if(linesensOldY == 4) drive->vyn = 1;
+      else if(linesensOldY == 1) drive->vyp = 1;
+    }
+
+    linesens = 0;
+    linesensOldY = 0;
+    linesensOldX = 0;
   }
-
-//    lineSensByteBak = linesensbyteI;
-   if(exitTimer == 99) slow = true;
-   else slow = false;
-}
-
-void LineSys2019::handleExtern(){
-    if((outV & 0b00000001) == 1) drive->vyp = 1;  // esclusione
-    if((outV & 0b00000100) == 4) drive->vyn = 1;
-    if((outV & 0b00000010) == 2) drive->vxp = 1;
-    if((outV & 0b00001000) == 8) drive->vxn = 1;
 }
 
 void LineSys2019::test(){

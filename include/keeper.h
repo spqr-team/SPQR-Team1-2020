@@ -35,6 +35,6 @@ class Keeper : public Game{
         int defSpeed, defDir;
 
         float angle, angleX, angleY;
-        elapsedMillis t, toh, keeperAttackTimer;
+        elapsedMillis t, keeperAttackTimer;
         bool keeper_tookTimer, keeper_backToGoalPost;
 };

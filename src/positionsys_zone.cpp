@@ -46,7 +46,7 @@ void PositionSysZone::PositionSysZone::test() {
         DEBUG.println("------");
         for (int i = 0; i < 4; i++) {
         DEBUG.print("US: ");
-        usCtrl->test();
+        usCtrl->test(); 
         DEBUG.print(" | ");
     }
     DEBUG.println();
