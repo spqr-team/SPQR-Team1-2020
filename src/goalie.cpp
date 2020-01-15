@@ -69,7 +69,7 @@ void Goalie::storcimentoPorta() {
   if (camera->getValueAtk(true) >= 3) cstorc+=9;
   else if (camera->getValueAtk(true)  < -3) cstorc-=9;
   else cstorc *= 0.7;
-  cstorc = constrain(cstorc, -30, 30);
+  cstorc = constrain(cstorc, -45, 45);
 }
 
 void Goalie::ballBack() {

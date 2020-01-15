@@ -5,9 +5,9 @@
 
 //PID Constants
 
-#define KP 1.2    
+#define KP 0.9
 #define KI 0   
-#define KD 0.7 
+#define KD 0
 
 class DriveController{
 

@@ -77,7 +77,6 @@ void LineSys2019::outOfBounds(){
 
   if (exitTimer <= EXTIME){
     //fase di rientro
-    digitalWrite(LED_R, HIGH);
     if(linesens == 15) linesens = linesensOldY | linesensOldX;        //ZOZZATA MAXIMA
     unlockTime = millis();
 
