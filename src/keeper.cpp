@@ -24,7 +24,12 @@ void Keeper::init(){
 }
 
 void Keeper::realPlay() {
-    
+    if(ball->ballSeen) keeper();
+    else drive->prepareDrive(0,0,0);
+}
+
+void Keeper::keeper() {
+
     if(ball->distance > KEEPER_ATTACK_DISTANCE){
         // Ball is quite near
         goalie->play();

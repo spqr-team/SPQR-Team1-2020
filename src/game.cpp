@@ -8,7 +8,9 @@ Game::Game(LineSystem* ls_, PositionSystem* ps_) {
 
 void Game::play(bool condition){
     ps->update();
-    if(condition) realPlay();
-    ls->update();
+    if(condition) {
+        realPlay();
+        ls->update();
+    }
 
 }

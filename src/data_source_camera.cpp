@@ -60,7 +60,7 @@ void DataSourceCamera :: readSensor(){
       negateB = false;
       datavalid ++;
     }
-}
+  }
 }
 
 void DataSourceCamera :: postProcess(){
@@ -92,7 +92,7 @@ void DataSourceCamera :: postProcess(){
   }
 }
 
-int DataSourceCamera :: getValueAtk(bool fixed){
+int DataSourceCamera::getValueAtk(bool fixed){
   //attacco gialla
   if(digitalRead(SWITCH_DX) == HIGH){
     if(fixed) return fixCamIMU(valY);
@@ -100,12 +100,12 @@ int DataSourceCamera :: getValueAtk(bool fixed){
   }
   //attacco blu
   if(digitalRead(SWITCH_DX) == LOW){
-  if(fixed) return fixCamIMU(valB);
-  return valB;
+    if(fixed) return fixCamIMU(valB);
+    return valB;
   }
 }
 
-int DataSourceCamera :: getValueDef(bool fixed){
+int DataSourceCamera::getValueDef(bool fixed){
   //difendo gialla
   if(digitalRead(SWITCH_DX) == HIGH){
     if(fixed) return fixCamIMU(valY);
@@ -113,12 +113,12 @@ int DataSourceCamera :: getValueDef(bool fixed){
   }
   //difendo blu
   if(digitalRead(SWITCH_DX) == LOW){
-  if(fixed) return fixCamIMU(valB);
-  return valB;
+    if(fixed) return fixCamIMU(valB);
+    return valB;
   }
 }
 
-void DataSourceCamera :: test(){
+void DataSourceCamera::test(){
     goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
     
 
@@ -133,7 +133,7 @@ void DataSourceCamera :: test(){
     delay(100);
 }
 
-int DataSourceCamera :: fixCamIMU(int d){
+int DataSourceCamera::fixCamIMU(int d){
     if(compass->getValue() > 0 && compass->getValue() < 180) imuOff = compass->getValue();
     else if (compass->getValue() <= 360 && compass->getValue() >= 180) imuOff = compass->getValue() - 360;
     imuOff = constrain(imuOff*0.8, -30, 30);

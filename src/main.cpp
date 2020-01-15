@@ -20,11 +20,6 @@ void loop() {
   goalie->play(role==1);
   keeper->play(role==0);
 
-  //Check lines before final movement
-  linesCtrl->update();
-
   // Last thing to do: movement  
   drive->drivePrepared(); 
-
-/*   compass->test(); */
 } 

@@ -7,8 +7,6 @@ LineSys2019::LineSys2019(vector<DataSource*> in_, vector<DataSource*> out_){
     this->in = in_;
     this->out = out_;
 
-    fboundsOX = false;
-    fboundsOY = false;
     fboundsX = false;
     fboundsY = false;
     slow = false;
@@ -24,11 +22,13 @@ LineSys2019::LineSys2019(vector<DataSource*> in_, vector<DataSource*> out_){
     }
 
     exitTimer = 0;
+    linesens = 0;
 }
 
 void LineSys2019::update(){
   inV = 0;
   outV = 0;
+  tookLine = false;
 
   for(DataSource* d : in) d->readSensor();
   for(DataSource* d : out) d->readSensor();
@@ -49,11 +49,8 @@ void LineSys2019::update(){
     outV = outV | (linetriggerO[i] << i);
   }
 
-  linesens |= inV | outV;
 
-  if ((linesensOldX > 0) || (linesensOldX > 0)) {
-      fboundsOX = true;
-      fboundsOY = true;
+  if ((inV > 0) || (outV > 0)) {
     if(exitTimer > EXTIME) {
       fboundsX = true;
       fboundsY = true;
@@ -61,6 +58,7 @@ void LineSys2019::update(){
     exitTimer = 0;
   }
 
+  linesens |= inV | outV;
   outOfBounds();
 }
 
@@ -79,6 +77,7 @@ void LineSys2019::outOfBounds(){
 
   if (exitTimer <= EXTIME){
     //fase di rientro
+    digitalWrite(LED_R, HIGH);
     if(linesens == 15) linesens = linesensOldY | linesensOldX;        //ZOZZATA MAXIMA
     unlockTime = millis();
 
@@ -103,12 +102,8 @@ void LineSys2019::outOfBounds(){
       else if(linesensOldY == 1) outDir = 180;
     }
 
-    outVel = LINES_EXIT_SPD;
-    drive->prepareDrive(outDir, outVel, 0);
+    drive->prepareDrive(outDir, LINES_EXIT_SPD, 0);
     tookLine = true;
-    // keeper_backToGoalPost = true;
-    // keeper_tookTimer = true;
-    
   }else{
     //fine rientro
     if(linesens == 1) drive->vyp = 1;

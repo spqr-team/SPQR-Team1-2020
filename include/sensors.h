@@ -23,8 +23,6 @@
 void initSensors();
 void updateSensors();
 
-s_extr vector<DataSource*> lIn;
-s_extr vector<DataSource*> lOut;
 s_extr vector<DataSource*> dUs;
 
 s_extr DataSourceCtrl* usCtrl;

@@ -27,8 +27,6 @@ class LineSys2019 : public LineSystem{
         void update() override;
         void test() override;
         void outOfBounds();
-        void handleIntern();
-        void handleExtern();
         
     private:
         vector<DataSource*> in, out;
@@ -36,6 +34,7 @@ class LineSys2019 : public LineSystem{
         bool fboundsX, fboundsY, fboundsOX, fboundsOY, slow;
         int inV, outV, linesensOldX, linesensOldY, value, linetriggerI[4], linetriggerO[4], i;
         elapsedMillis exitTimer;
-        byte outDir, outVel, linesens;
+        int outDir, outVel;
+        byte linesens;
         unsigned long unlockTime;
 };
