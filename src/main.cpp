@@ -16,10 +16,11 @@ void setup() {
 
 void loop() {
   updateSensors();
-  
+  camera->test();
+  /* 
   goalie->play(role==1);
-  keeper->play(role==0);
+  keeper->play(role==0); */
 
   // Last thing to do: movement  
-  drive->drivePrepared(); 
+/*   drive->drivePrepared();  */
 } 
