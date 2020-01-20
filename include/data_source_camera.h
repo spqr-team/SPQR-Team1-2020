@@ -1,7 +1,7 @@
 #pragma once
-#define startp 0b01111111
-#define endp 0b10000000
-#define unkn 0b01101001 
+#define startp 105
+#define endp 115
+//#define unkn 0b01101001 
 #include "data_source.h"
 
 class DataSourceCamera : public DataSource{

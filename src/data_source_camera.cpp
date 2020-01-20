@@ -174,14 +174,36 @@ int DataSourceCamera::getValueDef(bool fixed){
 void DataSourceCamera::test(){
     goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
    
-    DEBUG.print(pAtk);
+/*     DEBUG.print(pAtk);
     DEBUG.print(" | ");
     DEBUG.print(fixCamIMU(pAtk));
     DEBUG.print(" --- ");
 
     DEBUG.print(pDef);
     DEBUG.print(" | ");
-    DEBUG.println(fixCamIMU(pDef)); 
+    DEBUG.println(fixCamIMU(pDef));  */
+    update();
+    DEBUG.print(xb);
+    DEBUG.print("|");
+    delay(100);
+    DEBUG.print(yb);
+    DEBUG.print("|");
+    delay(100);
+    DEBUG.print(xy);
+    DEBUG.print("|");
+    delay(100);
+    DEBUG.print(yy);
+    DEBUG.println("---------------");
+    DEBUG.print(true_xb);
+    DEBUG.print("|");
+    delay(100);
+    DEBUG.print(true_yb);
+    DEBUG.print("|");
+    delay(100);
+    DEBUG.print(true_xy);
+    DEBUG.print("|");
+    delay(100);
+    DEBUG.print(true_yy);
 }
 
 int DataSourceCamera::fixCamIMU(int d){
