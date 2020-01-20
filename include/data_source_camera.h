@@ -1,4 +1,7 @@
 #pragma once
+#define startp 0b01111111
+#define endp 0b10000000
+#define unkn 0b01101001 
 #include "data_source.h"
 
 class DataSourceCamera : public DataSource{
@@ -11,7 +14,11 @@ class DataSourceCamera : public DataSource{
         void readSensor() override;
         int getValueAtk(bool);
         int getValueDef(bool);
-        
+
+        int count = 0, unkn_counter;
+        byte xb, yb, xy, yy, true_xb, true_xy, true_yb, true_yy;
+        bool data_received = false, start = false, end = false;
+
         int goalOrientation, pAtk, pDef, imuOff, portx, valX, valY, valB, oldGoalX, oldGoalY, oldGoalB;
         int cameraReady;
         char value;
@@ -22,5 +29,5 @@ class DataSourceCamera : public DataSource{
         int datavalid = 0;
         String valStringY = ""; 
         String valStringB = "";
-        bool negateB, negateY;
+        bool negateB, negateY; 
 };

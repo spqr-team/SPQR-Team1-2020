@@ -4,7 +4,59 @@
 DataSourceCamera::DataSourceCamera(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){}
 
 void DataSourceCamera :: readSensor(){
-  portx = 999;
+  while(ser->available() > 0){
+    value = (byte)ser->read();
+    if(value==startp){
+      start=true;
+      count=0;
+    }
+    else if(value==endp){
+      end=true;
+      start=false;
+      data_received=false;
+      if(count==3) {
+        data_received=true;
+        xb=true_xb;
+        yb=true_yb;
+        xy=true_xy;
+        yy=true_yy;
+      }
+      }else{
+        if (count==0) xb=value;
+        else if (count==1) xy=value;
+        else if (count==2) yb=value;
+        else if (count==3) yy=value;
+        count++;
+    }   
+  }
+}
+
+
+/* 
+    for(int i=0;i<6;i++) reading[i]=(char)ser->read();
+    if(reading[0]==startp) start=true;
+      else if(reading[0]==endp && start==true) continue; 			
+	  if(reading[1]==startp && (start==true || count==0)) continue; //ser->flush();	//ignoring data and continuing
+      else if (reading[1] == unkn) unkn_counter++;//xb = oldxb;
+	  else reading[1]=xb;
+	  count++;  
+	  if(reading[2]==startp && start==true) break;
+	  else reading[2]=yb;
+	  count++;
+	  if(reading[3]==startp && start==true) break;
+      else if (reading[3] == unkn) unkn_counter++;//xy = oldxy; //tried to do for now
+	  else reading[3]=xy;
+	  count++;
+	  if(reading[4]==startp && start==true) break;
+	  else reading[4]=yy;
+	  count++;
+	  if(reading[5]==endp && count==4){
+	    end=true;
+	    data_received=true;
+	    start=false;
+	  } 
+*/
+  /* portx = 999;
   while(ser->available() > 0) {
     value = ser->read();
     // if the incoming character is a 'Y', set the start packet flag
@@ -62,10 +114,11 @@ void DataSourceCamera :: readSensor(){
     }
   }
 }
+*/
 
 void DataSourceCamera :: postProcess(){
 
-  if (valY != -74)
+  /*if (valY != -74)
     oldGoalY = valY;
   if (valB != -74)
     oldGoalB = valB;
@@ -89,7 +142,7 @@ void DataSourceCamera :: postProcess(){
 
     datavalid = 0;
     cameraReady = 1;  //attivo flag di ricezione pacchetto
-  }
+  }*/
 }
 
 int DataSourceCamera::getValueAtk(bool fixed){
@@ -115,13 +168,12 @@ int DataSourceCamera::getValueDef(bool fixed){
   if(digitalRead(SWITCH_DX) == LOW){
     if(fixed) return fixCamIMU(valB);
     return valB;
-  }
+  } 
 }
 
 void DataSourceCamera::test(){
     goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
-    
-
+   
     DEBUG.print(pAtk);
     DEBUG.print(" | ");
     DEBUG.print(fixCamIMU(pAtk));
@@ -129,8 +181,7 @@ void DataSourceCamera::test(){
 
     DEBUG.print(pDef);
     DEBUG.print(" | ");
-    DEBUG.println(fixCamIMU(pDef));
-    delay(100);
+    DEBUG.println(fixCamIMU(pDef)); 
 }
 
 int DataSourceCamera::fixCamIMU(int d){
