@@ -39,8 +39,8 @@ blue_led.on()
 
 
 
-thresholds = [  (69, 100, -12, 11, 15, 89),    # thresholds yellow goal
-                (20, 51, -23, 26, -69, -31)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (60, 75, -19, 9, 9, 60),    # thresholds yellow goal
+                (16, 35, -8, 24, -41, -13)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 roi = (0, 6, 318, 152)
 
@@ -64,7 +64,7 @@ sensor.set_contrast(+0)
 sensor.set_saturation(+0)
 sensor.set_brightness(0)
 sensor.set_quality(0)
-sensor.set_auto_exposure(False, 8000)
+sensor.set_auto_exposure(False, 3500)
 sensor.set_auto_gain(True)
 sensor.skip_frames(time = 300)
 
@@ -125,7 +125,7 @@ while(True):
 
     if b_found == True:
         b_cx = val_map(b_cx, -img.width() / 2, img.width() / 2, 0, 100)
-        b_cx = val_map(b_cy, -img.height() / 2, img.height() / 2, 0, 100)
+        b_cy = val_map(b_cy, -img.height() / 2, img.height() / 2, 0, 100)
 
         #Prepare for send as a list of characters
         s_bcx = chr(b_cx)
@@ -138,6 +138,7 @@ while(True):
         s_bcy = b_cy
 
     #print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
+
 
     uart.write(START_BYTE)
     uart.write(s_ycx)
