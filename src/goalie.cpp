@@ -17,22 +17,25 @@ void Goalie::init(){
 }
 
 void Goalie::realPlay(){
-  if(ball->ballSeen) this->goalie();
+  if(ball->ballSeen) this->goalie(50);
   else drive->prepareDrive(0,0,0);
 }
 
-void Goalie::goalie() {
-  if(ball->angle > 340 || ball->angle < 20) ball->plusang -= 20;
-  if(ball->angle > 180) ball->degrees2 = ball->angle - 360;
-  else ball->degrees2 = ball->angle;
+void Goalie::goalie(int plusang) {
+  if(ball->distance < 185) drive->prepareDrive(ball->angle, 350, 0);
+  else{
+    if(ball->angle > 340 || ball->angle < 20) plusang -= 20;
+    if(ball->angle > 180) ball->degrees2 = ball->angle - 360;
+    else ball->degrees2 = ball->angle;
 
-  if(ball->degrees2 > 0) ball->dir = ball->angle + ball->plusang;              //45 con 8 ruote
-  else ball->dir = ball->angle - ball->plusang;                                 //45 con 8 ruote
+    if(ball->degrees2 > 0) ball->dir = ball->angle + plusang;              //45 con 8 ruote
+    else ball->dir = ball->angle - plusang;                                 //45 con 8 ruote
 
-  if(ball->dir < 0) ball->dir = ball->dir + 360;
-  else ball->dir = ball->dir;
-  ball->b = ball->dir;
-  drive->prepareDrive(ball->dir, 300, 0);
+    if(ball->dir < 0) ball->dir = ball->dir + 360;
+    else ball->dir = ball->dir;
+    ball->b = ball->dir;
+    drive->prepareDrive(ball->dir, 300, 0);
+  }
  /*  drive->speed = 300;
   drive->dir = drive->dir; */
   /* if(ball->angle >= 350 || ball->angle <= 10)  {
@@ -87,7 +90,7 @@ void Goalie::storcimentoPorta() {
 
 void Goalie::ballBack() {
 
-  if(ball->distance > 130) ball->plusang = GOALIE_ATKDIR_PLUSANGBAK;
+/*   if(ball->distance > 130) ball->plusang = GOALIE_ATKDIR_PLUSANGBAK;
   else ball->plusang = 0;
   
   if(ball->angle > 180) ball->degrees2 = ball->angle - 360;
@@ -96,5 +99,5 @@ void Goalie::ballBack() {
   else ball->dir = ball->angle - ball->plusang;                                 //45 con 8 ruote
   if(ball->dir < 0) ball->dir = ball->dir + 360;
   else ball->dir = ball->dir;
-  atk_direction = ball->dir;
+  atk_direction = ball->dir; */
 }

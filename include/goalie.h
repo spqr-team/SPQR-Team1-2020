@@ -25,7 +25,7 @@ class Goalie : public Game{
     private:
         void realPlay() override;
         void init() override;
-        void goalie();
+        void goalie(int);
         void ballBack(); 
         void storcimentoPorta();
 

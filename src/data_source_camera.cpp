@@ -15,7 +15,7 @@ void DataSourceCamera :: readSensor(){
       end=true;
       start=false;
       data_received=false;
-      if(count==3 && start==true) {
+      if(count=4 && start==true) {
         data_received=true;
         true_xb = xb;
         true_yb = yb;
@@ -25,8 +25,8 @@ void DataSourceCamera :: readSensor(){
     }else{
       if(start==true){
         if (count==0) xb=value;
-        else if (count==1) xy=value;
-        else if (count==2) yb=value;
+        else if (count==1) yb=value;
+        else if (count==2) xy=value;
         else if (count==3) yy=value;
         count++;
       }

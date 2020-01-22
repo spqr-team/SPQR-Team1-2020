@@ -10,5 +10,5 @@ class DataSourceBall : public DataSource{
         
         int angle, distance;
         bool ballSeen;
-        int plusang, dir, degrees2,b;
+        int dir, degrees2,b;
 }; 
