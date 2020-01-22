@@ -5,7 +5,8 @@ DataSourceCamera::DataSourceCamera(HardwareSerial* ser_, int baud) : DataSource(
 
 void DataSourceCamera :: readSensor(){
   while(ser->available() > 0){
-    value = (byte)ser->read();
+    value = (int)ser->read();
+    //Serial.println(value);
     if(value==startp){
       start=true;
       count=0;
@@ -14,19 +15,21 @@ void DataSourceCamera :: readSensor(){
       end=true;
       start=false;
       data_received=false;
-      if(count==3) {
+      if(count==3 && start==true) {
         data_received=true;
-        xb=true_xb;
-        yb=true_yb;
-        xy=true_xy;
-        yy=true_yy;
+        true_xb = xb;
+        true_yb = yb;
+        true_xy = xy;
+        true_yy = yy;
       }
-      }else{
+    }else{
+      if(start==true){
         if (count==0) xb=value;
         else if (count==1) xy=value;
         else if (count==2) yb=value;
         else if (count==3) yy=value;
         count++;
+      }
     }   
   }
 }
@@ -172,8 +175,8 @@ int DataSourceCamera::getValueDef(bool fixed){
 }
 
 void DataSourceCamera::test(){
-    goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
-   
+  goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
+  update();
 /*     DEBUG.print(pAtk);
     DEBUG.print(" | ");
     DEBUG.print(fixCamIMU(pAtk));
@@ -182,28 +185,24 @@ void DataSourceCamera::test(){
     DEBUG.print(pDef);
     DEBUG.print(" | ");
     DEBUG.println(fixCamIMU(pDef));  */
-    update();
+    //update();
     DEBUG.print(xb);
     DEBUG.print("|");
-    delay(100);
     DEBUG.print(yb);
     DEBUG.print("|");
-    delay(100);
     DEBUG.print(xy);
     DEBUG.print("|");
-    delay(100);
-    DEBUG.print(yy);
+    DEBUG.print(yy); 
     DEBUG.println("---------------");
     DEBUG.print(true_xb);
     DEBUG.print("|");
-    delay(100);
     DEBUG.print(true_yb);
     DEBUG.print("|");
-    delay(100);
     DEBUG.print(true_xy);
     DEBUG.print("|");
-    delay(100);
-    DEBUG.print(true_yy);
+    DEBUG.print(true_yy); 
+    DEBUG.println("---------------");
+    delay(75);
 }
 
 int DataSourceCamera::fixCamIMU(int d){

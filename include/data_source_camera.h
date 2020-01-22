@@ -21,7 +21,7 @@ class DataSourceCamera : public DataSource{
 
         int goalOrientation, pAtk, pDef, imuOff, portx, valX, valY, valB, oldGoalX, oldGoalY, oldGoalB;
         int cameraReady;
-        char value;
+        int value;
         int startpY = 0;
         int startpB = 0;
         int endpY = 0; 

@@ -22,7 +22,20 @@ void Goalie::realPlay(){
 }
 
 void Goalie::goalie() {
-  if(ball->angle >= 350 || ball->angle <= 10)  {
+  if(ball->angle > 340 || ball->angle < 20) ball->plusang -= 20;
+  if(ball->angle > 180) ball->degrees2 = ball->angle - 360;
+  else ball->degrees2 = ball->angle;
+
+  if(ball->degrees2 > 0) ball->dir = ball->angle + ball->plusang;              //45 con 8 ruote
+  else ball->dir = ball->angle - ball->plusang;                                 //45 con 8 ruote
+
+  if(ball->dir < 0) ball->dir = ball->dir + 360;
+  else ball->dir = ball->dir;
+  ball->b = ball->dir;
+  drive->prepareDrive(ball->dir, 300, 0);
+ /*  drive->speed = 300;
+  drive->dir = drive->dir; */
+  /* if(ball->angle >= 350 || ball->angle <= 10)  {
     if(ball->distance > 190) atk_direction = 0;
     else atk_direction = ball->angle;
     atk_speed = GOALIE_ATKSPD_FRT;
@@ -62,7 +75,7 @@ void Goalie::goalie() {
     atk_speed = GOALIE_ATKSPD_STRK;                                             //dove i gigahertz hanno fallito
     drive->prepareDrive(atk_direction, atk_speed, cstorc);
   }
-  else  drive->prepareDrive(atk_direction, atk_speed);
+  else  drive->prepareDrive(atk_direction, atk_speed); */
 }
 
 void Goalie::storcimentoPorta() {
@@ -73,18 +86,15 @@ void Goalie::storcimentoPorta() {
 }
 
 void Goalie::ballBack() {
-  int degrees2;
-  int dir;
 
-  int plusang;
-  if(ball->distance > 130) plusang = GOALIE_ATKDIR_PLUSANGBAK;
-  else plusang = 0;
+  if(ball->distance > 130) ball->plusang = GOALIE_ATKDIR_PLUSANGBAK;
+  else ball->plusang = 0;
   
-  if(ball->angle > 180) degrees2 = ball->angle - 360;
-  else degrees2 = ball->angle;
-  if(degrees2 > 0) dir = ball->angle + plusang;              //45 con 8 ruote
-  else dir = ball->angle - plusang;                                 //45 con 8 ruote
-  if(dir < 0) dir = dir + 360;
-  else dir = dir;
-  atk_direction = dir;
+  if(ball->angle > 180) ball->degrees2 = ball->angle - 360;
+  else ball->degrees2 = ball->angle;
+  if(ball->degrees2 > 0) ball->dir = ball->angle + ball->plusang;              //45 con 8 ruote
+  else ball->dir = ball->angle - ball->plusang;                                 //45 con 8 ruote
+  if(ball->dir < 0) ball->dir = ball->dir + 360;
+  else ball->dir = ball->dir;
+  atk_direction = ball->dir;
 }
