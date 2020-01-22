@@ -1,0 +1,17 @@
+N°componente	Descrizione			Cod. costruttore	Cod. RS		IVA escl.	Quantità nec.		min. acquistabile
+
+
+IC1		VNH7070AS motor driver		VNH7070ASTR		164-7017	€2,455		050		002
+C5,6,7,8	Cap 100nF SMD 1206		CL31B104KBCNNNL	766-1126	€0,024		050		250
+C1,2,3,4	Cap 220uF 3,5/8mm		25RX30220M8X11.5	704-7914	€0,094		050 		010
+
+
+J1,2,3,4,5	Molex PCB con			70553-0001		679-2516	€0,461		020 		010
+		Female con			50-57-9402		679-5928	€0,225		020 		010
+		Crimp				16-02-0102		679-4742	€0,077		100		100
+
+
+MOT1,2,3,4	Strip femmina			SSA-132-S-G		767-9846	€4,520		020		001
+		Conn PCB JST 2,5mm 3 vie	B3B-EH-A (LF) (SN)	515-1399	€0,254		050		010
+		Corpo conn JST 2,5mm 3 vie	EHR-3			311-6215	€0,190		050		010
+		Crimp JST AWG 22-30		BEH-001T-P0.6		311-6439	€0,052		200		100
