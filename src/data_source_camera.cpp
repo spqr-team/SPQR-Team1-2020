@@ -12,21 +12,21 @@ void DataSourceCamera :: readSensor(){
       count=0;
     }
     else if(value==endp){
-      end=true;
-      start=false;
       data_received=false;
-      if(count==3 && start==true) {
+      if(count==4 && start==true) {
         data_received=true;
         true_xb = xb;
         true_yb = yb;
         true_xy = xy;
         true_yy = yy;
       }
+      end=true;
+      start=false;
     }else{
       if(start==true){
         if (count==0) xb=value;
-        else if (count==1) xy=value;
-        else if (count==2) yb=value;
+        else if (count==1) yb=value;
+        else if (count==2) xy=value;
         else if (count==3) yy=value;
         count++;
       }
@@ -186,13 +186,6 @@ void DataSourceCamera::test(){
     DEBUG.print(" | ");
     DEBUG.println(fixCamIMU(pDef));  */
     //update();
-    DEBUG.print(xb);
-    DEBUG.print("|");
-    DEBUG.print(yb);
-    DEBUG.print("|");
-    DEBUG.print(xy);
-    DEBUG.print("|");
-    DEBUG.print(yy); 
     DEBUG.println("---------------");
     DEBUG.print(true_xb);
     DEBUG.print("|");
