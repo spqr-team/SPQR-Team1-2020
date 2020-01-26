@@ -15,6 +15,8 @@ class DataSourceCamera : public DataSource{
         int getValueAtk(bool);
         int getValueDef(bool);
 
+        int yAngle, bAngle, yAngleFix, bAngleFix, yDist, bDist;
+
         int count = 0, unkn_counter;
         byte xb, yb, xy, yy, true_xb, true_xy, true_yb, true_yy;
         bool data_received = false, start = false, end = false;

@@ -16,24 +16,13 @@ void setup() {
 
 void loop() {
   updateSensors();
-<<<<<<< HEAD
   //camera->test();
   goalie->play(role==1);
   keeper->play(role==0);  
 
-  ball->test();
 
-
+  camera->test();
+  
   // Last thing to do: movement  
   drive->drivePrepared();  
-=======
-  
-  // goalie->play(role==1);
-  // keeper->play(role==0);
-
-  // Last thing to do: movement  
-  // drive->drivePrepared(); 
-  //Serial.print("ao");
-  camera->test();
->>>>>>> d534c5b4a8c2064cb43c42f9269b7f0256894ef8
 } 
