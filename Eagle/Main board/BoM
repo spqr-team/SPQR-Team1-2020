@@ -1,2 +1,27 @@
-IC1			Buck converter 2A SMD				RS 798-1195	PR LMZ14202TZE-ADJ/NOPB
-
+IC1						Buck converter 2A SMD			RS 798-1195
+IC2,IC3,IC4,IC5				VNH7070AS mot driver
+C1,C2,C15,C20,C21,C22,C24,CB1,CB2,CB3,CB4	Cap 100nF 12V SMD0805
+C3,C4						Cap 22nF 12V SMD0805
+C5,C6,C25,C19					Cap 100uF 3,3V SMD0805
+C7,C9,C11,C12					Cap 100uF 12V SMD Panasonic E
+C8,C10,C13,C14,C18				Cap 1uF 12V SMD0805
+C16,C17					Cap 22pF 3,3V SMD0805
+C23						Cap 1500uF 12V Panasonic H13
+R1,R2,R8					Resistor 10k SMD0805
+R3						Resistor 61,9k SMD0805
+R4						Resistor 3,32k SMD0805
+R5						Resistor 1,07k SMD0805
+R9,R10,R11,R12,R13,R14,R15,R16,R17		Resistor 180 SMD0805
+RB1,RB2,RB3,RB4,R6,R7				Resistor 22 SMD0805
+Q1						Crystal 16MHz 20ppm HC-49		RS 814-9535
+S1...S16					IR Sensor PNA460XM
+SW1,SW2					Switch programmazione slitta
+S_ELETTR,S_MOT					Switch potenza
+RST						Tactile switch 2-pin SMD RST
+L1,L2,L3,SW1L,SW2L,MLEDS(8)			LED SMD1206
+J2						Micro-USB
+J3,J4,J5,J6					Molex 2-pin connector passo 3mm
+J_SPI						SPI programming con (strip 2,54mm)	
+LS_CONs					Grove/JST connectors, passo 2mm
+OpenMV						OpenMV4 H7
+BUZZER						PWM buzzer F/CM12P
