@@ -4,9 +4,9 @@
 #include "games.h"
 
 void setup() {
-  delay(500);
+  delay(1000);
 
-  DEBUG.begin(19600);
+  DEBUG.begin(9600);
   initSensors();
   initGames();
   
@@ -20,8 +20,7 @@ void loop() {
   goalie->play(role==1);
   keeper->play(role==0);  
 
-
-  camera->test();
+camera->test();
   
   // Last thing to do: movement  
   drive->drivePrepared();  

@@ -20,20 +20,21 @@ void DataSourceCamera :: readSensor(){
         true_xy = xy;
         true_yy = yy;
 
-        //Remap to [-50, +49] to correctly compute angles and distances
-        true_xb -= 50;
-        true_yb -= 50;
-        true_xy -= 50;
-        true_yy -= 50;
+        //Remap from [0,100] to [-50, +49] to correctly compute angles and distances and calculate them
+        yAngle = atan2(50-true_yy, 50-true_xy) * 180 / 3.14;
+        bAngle = atan2(50-true_yb, 50-true_xb) * 180 / 3.14;
+        //Subtract 90 to bring the angles back to euler angles (0 in front)
+        yAngle = -90 + yAngle;
+        bAngle = -90 + bAngle;
+        //Now cast angles to [0, 359] domain angle flip them
+        yAngle = (yAngle + 360) % 360;
+        bAngle = (bAngle + 360) % 360;
 
-        //Now calculate angles and distance
-        yAngle = atan2(true_yy, true_xy) * 180 / 3.14;
-        bAngle = atan2(true_yb, true_xb) * 180 / 3.14;
         yAngleFix = yAngle - compass->getValue() ;
         bAngleFix = bAngle - compass->getValue() ;
 
-        yDist = sqrt( true_yy*true_yy  + true_xy*true_xy );
-        bDist = sqrt( true_yb*true_yb  + true_xb*true_xb );
+        yDist = sqrt( (50-true_yy)*(50-true_yy) + (50-true_xy)*(50-true_xy) );
+        bDist = sqrt( (50-true_yb)*(50-true_yb) + (50-true_xb)*(50-true_xb) );
       }
       end=true;
       start=false;
@@ -50,62 +51,36 @@ void DataSourceCamera :: readSensor(){
 }
 
 
-void DataSourceCamera :: postProcess(){
+int DataSourceCamera::getValueAtk(bool b){
+  return 0;
 }
-
-int DataSourceCamera::getValueAtk(bool fixed){
-  //attacco gialla
-  if(digitalRead(SWITCH_DX) == HIGH){
-    if(fixed) return fixCamIMU(valY);
-    return valY;
-  }
-  //attacco blu
-  if(digitalRead(SWITCH_DX) == LOW){
-    if(fixed) return fixCamIMU(valB);
-    return valB;
-  }
-}
-
-int DataSourceCamera::getValueDef(bool fixed){
-  //difendo gialla
-  if(digitalRead(SWITCH_DX) == HIGH){
-    if(fixed) return fixCamIMU(valY);
-    return valY;
-  }
-  //difendo blu
-  if(digitalRead(SWITCH_DX) == LOW){
-    if(fixed) return fixCamIMU(valB);
-    return valB;
-  } 
+int DataSourceCamera::getValueDef(bool b){
+  return 0;
 }
 
 void DataSourceCamera::test(){
   goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
   update();
-    DEBUG.print(yAngle);
-    DEBUG.print(" | ");
-    DEBUG.print(yAngleFix);
-    DEBUG.println(" --- ");
-
     DEBUG.print(bAngle);
     DEBUG.print(" | ");
-    DEBUG.println(bAngleFix); 
-    DEBUG.println("---------------");
-    DEBUG.print(true_xb);
-    DEBUG.print("|");
-    DEBUG.print(true_yb);
-    DEBUG.print("|");
-    DEBUG.print(true_xy);
-    DEBUG.print("|");
-    DEBUG.print(true_yy); 
-    DEBUG.println("---------------");
-    delay(75);
-}
+    DEBUG.print(bAngleFix);
+    DEBUG.print(" | ");
+    DEBUG.println(bDist);
+    DEBUG.println(" --- ");
 
-int DataSourceCamera::fixCamIMU(int d){
-    if(compass->getValue() > 0 && compass->getValue() < 180) imuOff = compass->getValue();
-    else if (compass->getValue() <= 360 && compass->getValue() >= 180) imuOff = compass->getValue() - 360;
-    imuOff = constrain(imuOff*0.8, -30, 30);
-
-    return d + imuOff;
+    DEBUG.print(yAngle);
+    DEBUG.print(" | ");
+    DEBUG.print(yAngleFix); 
+    DEBUG.print(" | ");
+    DEBUG.println(yDist);
+    DEBUG.println("---------------");
+    DEBUG.print(xb);
+    DEBUG.print("|");
+    DEBUG.print(yb);
+    DEBUG.print("|");
+    DEBUG.print(xy);
+    DEBUG.print("|");
+    DEBUG.println(yy); 
+    DEBUG.println("---------------");
+    delay(150);
 }
