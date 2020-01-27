@@ -39,8 +39,8 @@ blue_led.on()
 
 
 
-thresholds = [  (49, 81, -18, 29, 22, 83),    # thresholds yellow goal
-                (0, 61, -4, 55, -81, -12)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (44, 100, -4, 48, 11, 74),    # thresholds yellow goal
+                (16, 60, -4, 48, -73, -22)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 roi = (0, 6, 318, 152)
 
@@ -61,10 +61,10 @@ sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QQVGA)
 sensor.set_contrast(+3)
-sensor.set_saturation(+3)
+sensor.set_saturation(+1)
 sensor.set_brightness(-1)
 sensor.set_quality(0)
-sensor.set_auto_exposure(False, 5000)
+sensor.set_auto_exposure(False, 12000)
 sensor.set_auto_gain(True)
 sensor.skip_frames(time = 300)
 
@@ -111,7 +111,7 @@ while(True):
 
     #Normalize data between 0 and 100
     if y_found == True:
-        y_cx = val_map(y_cx, -img.width() / 2, img.width() / 2, 0, 100)
+        y_cx = val_map(y_cx, -img.width() / 2, img.width() / 2, 100, 0)
         y_cy = val_map(y_cy, -img.height() / 2, img.height() / 2, 0, 100)
         #Prepare for send as a list of characters
         s_ycx = chr(y_cx)
@@ -124,7 +124,7 @@ while(True):
         s_ycy = y_cy
 
     if b_found == True:
-        b_cx = val_map(b_cx, -img.width() / 2, img.width() / 2, 0, 100)
+        b_cx = val_map(b_cx, -img.width() / 2, img.width() / 2, 100, 0)
         b_cy = val_map(b_cy, -img.height() / 2, img.height() / 2, 0, 100)
 
         #Prepare for send as a list of characters
@@ -137,7 +137,7 @@ while(True):
         s_bcx = b_cx
         s_bcy = b_cy
 
-    #print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
+    print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
 
 
     uart.write(START_BYTE)

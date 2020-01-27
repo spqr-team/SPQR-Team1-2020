@@ -15,6 +15,7 @@ void DataSourceCamera :: readSensor(){
       data_received=false;
       if(count=4 && start==true) {
         data_received=true;
+
         true_xb = xb;
         true_yb = yb;
         true_xy = xy;
@@ -24,14 +25,14 @@ void DataSourceCamera :: readSensor(){
         yAngle = atan2(50-true_yy, 50-true_xy) * 180 / 3.14;
         bAngle = atan2(50-true_yb, 50-true_xb) * 180 / 3.14;
         //Subtract 90 to bring the angles back to euler angles (0 in front)
-        yAngle = -90 + yAngle;
-        bAngle = -90 + bAngle;
+        yAngle = 90 - yAngle;
+        bAngle = 90 - bAngle;
         //Now cast angles to [0, 359] domain angle flip them
         yAngle = (yAngle + 360) % 360;
         bAngle = (bAngle + 360) % 360;
 
-        yAngleFix = yAngle - compass->getValue() ;
-        bAngleFix = bAngle - compass->getValue() ;
+        yAngleFix = yAngle - compass->getValue()*0.9 ;
+        bAngleFix = bAngle - compass->getValue()*0.9  ;
 
         yDist = sqrt( (50-true_yy)*(50-true_yy) + (50-true_xy)*(50-true_xy) );
         bDist = sqrt( (50-true_yb)*(50-true_yb) + (50-true_xb)*(50-true_xb) );
@@ -74,13 +75,13 @@ void DataSourceCamera::test(){
     DEBUG.print(" | ");
     DEBUG.println(yDist);
     DEBUG.println("---------------");
-    DEBUG.print(xb);
+    DEBUG.print(true_xb);
     DEBUG.print("|");
-    DEBUG.print(yb);
+    DEBUG.print(true_yb);
     DEBUG.print("|");
-    DEBUG.print(xy);
+    DEBUG.print(true_xy);
     DEBUG.print("|");
-    DEBUG.println(yy); 
+    DEBUG.println(true_yy); 
     DEBUG.println("---------------");
     delay(150);
 }
