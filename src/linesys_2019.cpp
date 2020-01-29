@@ -78,7 +78,7 @@ void LineSys2019::outOfBounds(){
   if (exitTimer <= EXTIME){
     //fase di rientro
     if(linesens == 15) linesens = linesensOldY | linesensOldX;        //ZOZZATA MAXIMA
-    unlockTime = millis();
+    drive->unlockTime = millis();
 
     if(linesens == 1) outDir = 180;
     else if(linesens == 2) outDir = 270;
@@ -153,7 +153,7 @@ void LineSys2019::outOfBounds(){
       if(linesensOldY == 4) drive->vyn = 1;
       else if(linesensOldY == 1) drive->vyp = 1;
     }
-
+    drive->canUnlock = true;
     linesens = 0;
     linesensOldY = 0;
     linesensOldX = 0;

@@ -32,6 +32,13 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     errorePre = 0;
     pidfactor = 0;
     integral = 0;
+    canUnlock = true;
+    unlockTime = 0;
+
+    vxp = 0;
+    vxn = 0;
+    vyp = 0;
+    vyn = 0;
 }
 
 void DriveController::prepareDrive(int dir, int speed, int tilt){
@@ -51,6 +58,16 @@ float DriveController::torad(float f){
 void DriveController::drive(int dir, int speed, int tilt){
     vx = ((speed * cosins[dir]));
     vy = ((-speed * sins[dir]));
+
+    if((((vy < 0 && vxn == 1) || (vy > 0 && vxp == 1) || (vx < 0 && vyp == 1) || (vx > 0 && vyn == 1)) && canUnlock) || (millis() > this->unlockTime+UNLOCK_THRESH)) {
+        vxn = 0;
+        vxp = 0;
+        vyp = 0;
+        vyn = 0;
+    }
+
+    if((vy > 0 && vxn == 1) || (vy < 0 && vxp == 1)) vy = 0;
+    if((vx > 0 && vyp == 1) || (vx < 0 && vyn == 1)) vx = 0; 
 
     speed1 = ((vx * sins[m1->angle] ) + (vy * cosins[m1->angle] ));
     speed2 = ((vx * sins[m2->angle]) + (vy * cosins[m2->angle]));

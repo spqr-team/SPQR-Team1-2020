@@ -7,10 +7,10 @@
 //#define unkn 0b01101001 
 #include "data_source.h"
 
-class DataSourceCamera : public DataSource{
+class DataSourceCameraConic : public DataSource{
 
     public:
-        DataSourceCamera(HardwareSerial* ser, int baud);
+        DataSourceCameraConic(HardwareSerial* ser, int baud);
         void test() override;
         void readSensor() override;
         int getValueAtk(bool);

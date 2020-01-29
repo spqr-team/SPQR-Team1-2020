@@ -2,7 +2,7 @@
 
 #include "game.h"
 #include "sensors.h"
-#include "data_source_camera.h"
+#include "data_source_camera_vshapedmirror.h"
 
 #define GOALIE_ATKSPD_LAT  255
 #define GOALIE_ATKSPD_BAK  350

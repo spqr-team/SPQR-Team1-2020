@@ -4,10 +4,11 @@
 #include "motor.h"
 
 //PID Constants
-
-#define KP 0.9
+#define KP 2.1 
 #define KI 0   
-#define KD 0
+#define KD 0.05
+
+#define UNLOCK_THRESH 800
 
 class DriveController{
 
@@ -23,7 +24,7 @@ class DriveController{
 
         int vxp, vyp, vxn, vyn;
         bool canUnlock;
-        elapsedMillis unlockTime;
+        unsigned long unlockTime;
 
     private:
         Motor* m1;

@@ -36,5 +36,4 @@ class LineSys2019 : public LineSystem{
         elapsedMillis exitTimer;
         int outDir, outVel;
         byte linesens;
-        unsigned long unlockTime;
 };

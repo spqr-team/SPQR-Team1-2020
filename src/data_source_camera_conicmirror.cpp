@@ -1,9 +1,9 @@
-#include "data_source_camera.h"
+#include "data_source_camera_conicmirror.h"
 #include "sensors.h"
 
-DataSourceCamera::DataSourceCamera(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){}
+DataSourceCameraConic::DataSourceCameraConic(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){}
 
-void DataSourceCamera :: readSensor(){
+void DataSourceCameraConic :: readSensor(){
   while(ser->available() > 0){
     value = (int)ser->read();
     //Serial.println(value);
@@ -31,8 +31,9 @@ void DataSourceCamera :: readSensor(){
         yAngle = (yAngle + 360) % 360;
         bAngle = (bAngle + 360) % 360;
 
-        yAngleFix = yAngle - compass->getValue()*0.9 ;
-        bAngleFix = bAngle - compass->getValue()*0.9  ;
+        //Fixes with IMU
+        yAngleFix = yAngle - compass->getValue()*0.85 ;
+        bAngleFix = bAngle - compass->getValue()*0.85  ;
 
         yDist = sqrt( (50-true_yy)*(50-true_yy) + (50-true_xy)*(50-true_xy) );
         bDist = sqrt( (50-true_yb)*(50-true_yb) + (50-true_xb)*(50-true_xb) );
@@ -52,14 +53,14 @@ void DataSourceCamera :: readSensor(){
 }
 
 
-int DataSourceCamera::getValueAtk(bool b){
+int DataSourceCameraConic::getValueAtk(bool b){
   return 0;
 }
-int DataSourceCamera::getValueDef(bool b){
+int DataSourceCameraConic::getValueDef(bool b){
   return 0;
 }
 
-void DataSourceCamera::test(){
+void DataSourceCameraConic::test(){
   goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
   update();
     DEBUG.print(bAngle);
