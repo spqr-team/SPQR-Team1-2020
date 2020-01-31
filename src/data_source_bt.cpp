@@ -1,7 +1,7 @@
 #include "data_source_bt.h"
 
 DataSourceBT :: DataSourceBT(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){
-    connect();
+    // connect();
 }
 
 void DataSourceBT :: connect(){

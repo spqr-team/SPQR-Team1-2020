@@ -47,6 +47,11 @@ void DriveController::prepareDrive(int dir, int speed, int tilt){
     pTilt = tilt;
 }
 
+void DriveController::prepareDrive(int dir, int speed){
+    pDir = dir;
+    pSpeed = speed;
+}
+
 void DriveController::drivePrepared(){
     drive(pDir, pSpeed, pTilt);
 }

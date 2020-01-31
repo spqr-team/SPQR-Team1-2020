@@ -10,9 +10,13 @@ DataSourceBNO055::DataSourceBNO055(){
   bno.setExtCrystalUse(true);
   //loaded = true;
   value = 0;
+  lastTime = 0;
 }
 
 void DataSourceBNO055::readSensor(){
-  imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-  this->value = (int) euler.x();
+  if(millis() - lastTime > DATA_CLOCK){
+    imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+    this->value = (int) euler.x();
+    lastTime = millis();
+  }
 }

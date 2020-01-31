@@ -17,7 +17,8 @@ class DriveController{
         DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_);
         
         void drive(int dir=0, int speed=0, int tilt=0);
-        void prepareDrive(int dir=0, int speed=0, int tilt=0);
+        void prepareDrive(int dir, int speed, int tilt);
+        void prepareDrive(int dir, int speed);
         void drivePrepared();
         float updatePid();
         float torad(float f);

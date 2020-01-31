@@ -1,7 +1,25 @@
 #include "data_source_camera_conicmirror.h"
 #include "sensors.h"
 
-DataSourceCameraConic::DataSourceCameraConic(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){}
+DataSourceCameraConic::DataSourceCameraConic(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){
+  true_xb = 0;
+  true_yb = 0;
+  true_xy = 0;
+  true_yy = 0;
+  xb = 0;
+  yb = 0;
+  xy = 0;
+  yy = 0;
+  start = false;
+  data_received = false;
+  end = false;
+  yAngle = 0;
+  yAngleFix = 0;
+  yDist = 0;
+  bAngle = 0;
+  bAngleFix = 0;
+  bDist = 0;
+}
 
 void DataSourceCameraConic :: readSensor(){
   while(ser->available() > 0){
@@ -16,27 +34,24 @@ void DataSourceCameraConic :: readSensor(){
       if(count=4 && start==true) {
         data_received=true;
 
-        true_xb = xb;
-        true_yb = yb;
-        true_xy = xy;
-        true_yy = yy;
+        true_xb = xb-50;
+        true_yb = 50-yb;
+        true_xy = xy-50;
+        true_yy = 50-yy;
 
         //Remap from [0,100] to [-50, +49] to correctly compute angles and distances and calculate them
-        yAngle = atan2(50-true_yy, 50-true_xy) * 180 / 3.14;
-        bAngle = atan2(50-true_yb, 50-true_xb) * 180 / 3.14;
-        //Subtract 90 to bring the angles back to euler angles (0 in front)
-        yAngle = 90 - yAngle;
-        bAngle = 90 - bAngle;
+        yAngle = -90-(atan2(true_yy, true_xy) * 180 /3.14);
+        bAngle = -90-(atan2(true_yb, true_xb)* 180 /3.14);
         //Now cast angles to [0, 359] domain angle flip them
-        yAngle = (yAngle + 360) % 360;
-        bAngle = (bAngle + 360) % 360;
+        yAngle = (yAngle+360)%360;
+        bAngle = (bAngle+360)%360;
 
         //Fixes with IMU
-        yAngleFix = yAngle - compass->getValue()*0.85 ;
-        bAngleFix = bAngle - compass->getValue()*0.85  ;
+        yAngleFix = ((int)(yAngle - compass->getValue()*0.35) + 360) % 360  ;
+        bAngleFix = ((int)(bAngle - compass->getValue()*0.35) + 360) % 360 ;
 
-        yDist = sqrt( (50-true_yy)*(50-true_yy) + (50-true_xy)*(50-true_xy) );
-        bDist = sqrt( (50-true_yb)*(50-true_yb) + (50-true_xb)*(50-true_xb) );
+        yDist = sqrt( (true_yy-50)*(true_yy-50) + (50-true_xy)*(50-true_xy) );
+        bDist = sqrt( (true_yb-50)*(true_yb-50) + (50-true_xb)*(50-true_xb) );
       }
       end=true;
       start=false;
@@ -53,16 +68,19 @@ void DataSourceCameraConic :: readSensor(){
 }
 
 
-int DataSourceCameraConic::getValueAtk(bool b){
-  return 0;
+int DataSourceCameraConic::getValueAtk(bool fixed){
+  if(fixed) return goalOrientation == HIGH ? yAngleFix : bAngleFix;
+  else return goalOrientation == HIGH ? yAngle : bAngle;
 }
-int DataSourceCameraConic::getValueDef(bool b){
-  return 0;
+int DataSourceCameraConic::getValueDef(bool fixed){
+  if(fixed) return goalOrientation == LOW ? yAngleFix : bAngleFix;
+  else return goalOrientation == LOW ? yAngle : bAngle;
 }
 
 void DataSourceCameraConic::test(){
   goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu
   update();
+    DEBUG.print("Blue: ");
     DEBUG.print(bAngle);
     DEBUG.print(" | ");
     DEBUG.print(bAngleFix);
@@ -70,12 +88,14 @@ void DataSourceCameraConic::test(){
     DEBUG.println(bDist);
     DEBUG.println(" --- ");
 
+    DEBUG.print("Yellow: ");
     DEBUG.print(yAngle);
     DEBUG.print(" | ");
     DEBUG.print(yAngleFix); 
     DEBUG.print(" | ");
     DEBUG.println(yDist);
     DEBUG.println("---------------");
+    DEBUG.print("Data: ");
     DEBUG.print(true_xb);
     DEBUG.print("|");
     DEBUG.print(true_yb);

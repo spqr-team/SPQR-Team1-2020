@@ -101,7 +101,7 @@ void LineSys2019::outOfBounds(){
       else if(linesensOldY == 1) outDir = 180;
     }
 
-    drive->prepareDrive(outDir, LINES_EXIT_SPD, 0);
+    drive->prepareDrive(outDir, LINES_EXIT_SPD);
     tookLine = true;
   }else{
     //fine rientro

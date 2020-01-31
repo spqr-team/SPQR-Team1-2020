@@ -36,14 +36,17 @@ void Goalie::goalie(int plusang) {
     ball->b = ball->dir;
 
     storcimentoPorta();
-    if(ball->angle > 340 || ball->angle < 20) drive->prepareDrive(ball->dir, 350, cstorc);
-    else  drive->prepareDrive(ball->dir, 350, 0);
+    if(ball->distance > 200 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(ball->dir, 150, cstorc);
+    else {
+      drive->prepareDrive(ball->dir, 150, 0);
+      cstorc = 0;
+    }
   }
 }
 
 void Goalie::storcimentoPorta() {
-  if (camera->getValueAtk(true) >= 3) cstorc+=9;
-  else if (camera->getValueAtk(true)  < -3) cstorc-=9;
-  else cstorc *= 0.7;
+  if (camera->getValueAtk(false) >= 10 && camera->getValueAtk(false) <= 90) cstorc+=9;
+  else if (camera->getValueAtk(false)  <= 350 && camera->getValueAtk(false) >= 270) cstorc-=9;
+  // else cstorc *= 0.7;
   cstorc = constrain(cstorc, -45, 45);
 }

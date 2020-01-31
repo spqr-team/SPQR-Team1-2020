@@ -4,6 +4,8 @@
 #include <Adafruit_BNO055.h>
 #include <Arduino.h>
 
+#define DATA_CLOCK 10
+
 class DataSourceBNO055 : public DataSource{
 
     public:
@@ -12,5 +14,6 @@ class DataSourceBNO055 : public DataSource{
         
     public:
         Adafruit_BNO055 bno;
+        unsigned long lastTime;
 
 };

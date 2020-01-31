@@ -39,8 +39,8 @@ blue_led.on()
 
 
 
-thresholds = [  (44, 100, -4, 48, 11, 74),    # thresholds yellow goal
-                (16, 60, -4, 48, -73, -22)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (49, 99, -24, 17, 23, 64),    # thresholds yellow goal
+                (-128,-128,-128,-128,-128,-128)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 roi = (0, 6, 318, 152)
 
@@ -61,10 +61,10 @@ sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QQVGA)
 sensor.set_contrast(+3)
-sensor.set_saturation(+1)
-sensor.set_brightness(-1)
+sensor.set_saturation(0)
+sensor.set_brightness(-3)
 sensor.set_quality(0)
-sensor.set_auto_exposure(False, 12000)
+sensor.set_auto_exposure(False, 6000)
 sensor.set_auto_gain(True)
 sensor.skip_frames(time = 300)
 
@@ -84,7 +84,7 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=75, area_threshold=115, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=75, area_threshold=130, merge = True):
         img.draw_rectangle(blob.rect())
         img.draw_cross(blob.cx(), blob.cy())
 
@@ -141,9 +141,9 @@ while(True):
 
 
     uart.write(START_BYTE)
-    uart.write(s_ycx)
-    uart.write(s_ycy)
     uart.write(s_bcx)
     uart.write(s_bcy)
+    uart.write(s_ycx)
+    uart.write(s_ycy)
     uart.write(END_BYTE)
 
