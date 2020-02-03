@@ -36,9 +36,9 @@ void Goalie::goalie(int plusang) {
     ball->b = ball->dir;
 
     storcimentoPorta();
-    if(ball->distance > 200 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(ball->dir, 150, cstorc);
+    if(ball->distance > 200 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(ball->dir, 350, cstorc);
     else {
-      drive->prepareDrive(ball->dir, 150, 0);
+      drive->prepareDrive(ball->dir, 350, 0);
       cstorc = 0;
     }
   }

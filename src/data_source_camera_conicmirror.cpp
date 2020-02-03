@@ -47,8 +47,8 @@ void DataSourceCameraConic :: readSensor(){
         bAngle = (bAngle+360)%360;
 
         //Fixes with IMU
-        yAngleFix = ((int)(yAngle - compass->getValue()*0.35) + 360) % 360  ;
-        bAngleFix = ((int)(bAngle - compass->getValue()*0.35) + 360) % 360 ;
+        yAngleFix = ((int)(yAngle + compass->getValue()*0.8) + 360) % 360  ;
+        bAngleFix = ((int)(bAngle + compass->getValue()*0.8) + 360) % 360 ;
 
         yDist = sqrt( (true_yy-50)*(true_yy-50) + (50-true_xy)*(50-true_xy) );
         bDist = sqrt( (true_yb-50)*(true_yb-50) + (50-true_xb)*(50-true_xb) );
