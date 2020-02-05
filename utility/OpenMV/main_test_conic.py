@@ -29,8 +29,8 @@ blue_led.on()
 #thresholds = [  (54, 93, -10, 25, 55, 70),    # thresholds yellow goal
 #                (30, 45, 1, 40, -60, -19)]    # thresholds blue goal
 #
-thresholds = [  (55, 98, -14, 12, 7, 55),    # thresholds yellow goal
-                (20, 51, -23, 26, -69, -31)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (49, 84, -8, 31, 20, 80),    # thresholds yellow goal
+                (0, 51, -4, 44, -59, -21)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 roi = (0, 6, 318, 152)
 
@@ -50,9 +50,9 @@ clock = time.clock()'''
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QQVGA)
-sensor.set_contrast(+0)
-sensor.set_saturation(+0)
-sensor.set_brightness(0)
+sensor.set_contrast(+2)
+sensor.set_saturation(+1)
+sensor.set_brightness(-3)
 sensor.set_quality(0)
 sensor.set_auto_exposure(False, 8000)
 sensor.set_auto_gain(True)
@@ -79,7 +79,7 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=75, area_threshold=100, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=100, area_threshold=350, merge = True):
         img.draw_rectangle(blob.rect())
         img.draw_cross(blob.cx(), blob.cy())
 
@@ -100,7 +100,7 @@ while(True):
     cy = img.height() / 2 - cy
     angle = math.pi/2 - math.atan2(cy, cx)
     dist = math.sqrt(cx*cx + cy*cy)
-    string_yellow = "Y"+str(cx)+" | "+str(cy)+" | "+str(angle)+" | "+str(dist)+"y"
+    string_yellow = "Y"+str(cx)+" | "+str(cy)+" | "+str(angle)+" | "+str(dist)+str(area)+"y"
     print (string_yellow)   # test on serial terminal
 
     '''Blue'''
@@ -109,7 +109,7 @@ while(True):
     cy = img.height() / 2 - cy
     angle = math.pi/2 - math.atan2(cy, cx)
     dist = math.sqrt(cx*cx + cy*cy)
-    string_blue = "B"+str(cx)+" | "+str(cy)+" | |"+str(angle)+" | "+str(dist)+"b"
+    string_blue = "B"+str(cx)+" | "+str(cy)+" | |"+str(angle)+" | "+str(dist)+str(area)+"b"
     print (string_blue)   # test on serial terminal
 
     #print ("..................................")
