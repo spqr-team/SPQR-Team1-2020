@@ -39,8 +39,8 @@ blue_led.on()
 
 
 
-thresholds = [  (49, 99, -24, 17, 23, 64),    # thresholds yellow goal
-                (-128,-128,-128,-128,-128,-128)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (30, 70, -12, 19, 10, 57),    # thresholds yellow goal
+                (0, 31, -2, 39, -68, -25)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 roi = (0, 6, 318, 152)
 

@@ -2,11 +2,13 @@
 
 #include "sensors.h"
 #include "games.h"
+#include "status_vector.h"
 
 void setup() {
   delay(1500);
 
   DEBUG.begin(9600);
+  initStatusVector();
   initSensors();
   initGames();
   
@@ -16,11 +18,11 @@ void setup() {
 
 void loop() {
   updateSensors();
-  camera->test();
-  // compass->test();
+
   goalie->play(role==1);
   keeper->play(role==0);  
 
-  // Last thing to do: movement  
+  // Last thing to do: movement and update status vector
   drive->drivePrepared();  
+  updateStatusVector();
 } 

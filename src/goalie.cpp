@@ -45,8 +45,8 @@ void Goalie::goalie(int plusang) {
 }
 
 void Goalie::storcimentoPorta() {
-  if (camera->getValueAtk(false) >= 10 && camera->getValueAtk(false) <= 90) cstorc+=9;
-  else if (camera->getValueAtk(false)  <= 350 && camera->getValueAtk(false) >= 270) cstorc-=9;
+  if (camera->getValueAtk(true ) >= 10 && camera->getValueAtk(true) <= 90) cstorc+=9;
+  else if (camera->getValueAtk(true)  <= 350 && camera->getValueAtk(true) >= 270) cstorc-=9;
   // else cstorc *= 0.7;
   cstorc = constrain(cstorc, -45, 45);
 }
