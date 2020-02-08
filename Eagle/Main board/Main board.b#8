@@ -3,10 +3,10 @@
 <eagle version="9.5.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="100" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="50" altunitdist="mil" altunit="mil"/>
+<grid distance="10" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="14" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="no"/>
@@ -188,7 +188,11 @@
 <fusionsync huburn="a.cGVyc29uYWw6dWUyYTc1MWNh" projecturn="a.cGVyc29uYWw6dWUyYTc1MWNhIzIwMTgwMjE0MTE4MDA5Mzgx" f3durn="urn:adsk.wipprod:dm.lineage:VlYNU-ziQjyjoO-Cle67Jw" pcbguid="1e0b579e-3d1c-4bf5-8494-a54abdb96f0a" lastpulledtime="" lastsyncedchangeguid="6af248da-c338-5362-de9b-806c3488a461"/>
 <plain>
 <circle x="0" y="0" radius="80" width="0.0254" layer="20"/>
+<wire x1="0" y1="80" x2="0" y2="0" width="0.0254" layer="21"/>
+<wire x1="0" y1="0" x2="0" y2="-80" width="0.0254" layer="21"/>
+<wire x1="0" y1="0" x2="75" y2="0" width="0.0254" layer="21"/>
 <circle x="0" y="0" radius="75" width="0.0254" layer="21"/>
+<wire x1="0" y1="0" x2="-75.184" y2="0" width="0.0254" layer="21"/>
 <circle x="0" y="0" radius="79.7052" width="1.905" layer="1"/>
 <circle x="0" y="0" radius="79.7052" width="1.905" layer="29"/>
 <circle x="0" y="0" radius="79.7052" width="1.905" layer="30"/>
@@ -221,8 +225,8 @@
 <wire x1="16.002" y1="54.864" x2="16.002" y2="59.182" width="0.3048" layer="25"/>
 <circle x="-19" y="-22.5" radius="2" width="0.0254" layer="20"/>
 <circle x="19" y="-22.5" radius="2" width="0.0254" layer="20"/>
-<circle x="-28" y="26" radius="2" width="0.0254" layer="20"/>
-<circle x="28" y="26" radius="2" width="0.0254" layer="20"/>
+<circle x="-28" y="26" radius="2" width="0.0254" layer="1"/>
+<circle x="28" y="26" radius="2" width="0.0254" layer="1"/>
 <text x="-4" y="72" size="1.27" layer="25" ratio="10">S1</text>
 <text x="24" y="68" size="1.27" layer="25" ratio="10" rot="R337.5">S2</text>
 <text x="48" y="54" size="1.27" layer="25" ratio="10" rot="R315">S3</text>
@@ -2490,31 +2494,31 @@ JLC7628 Stackup
 <attribute name="VALUE" x="12.7" y="-42.91" size="1.27" layer="27" rot="R180"/>
 </element>
 <element name="C10" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="1u" x="-61.595" y="-5.08" smashed="yes" rot="R270">
-<attribute name="NAME" x="-63.246" y="-2.794" size="1.27" layer="25"/>
+<attribute name="NAME" x="-60.325" y="-3.81" size="1.27" layer="25" rot="R270"/>
 <attribute name="POPULARITY" value="88" x="-61.595" y="-5.08" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-182.245" y="-62.23" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="-64.135" y="-3.81" size="1.27" layer="27" rot="R270"/>
 </element>
 <element name="C11" library="rcl" library_urn="urn:adsk.eagle:library:334" package="PANASONIC_E" package3d_urn="urn:adsk.eagle:package:23425/2" value="100u" x="-67.31" y="6.35" smashed="yes" rot="R270">
-<attribute name="NAME" x="-71.374" y="10.922" size="1.016" layer="25"/>
+<attribute name="NAME" x="-66.01" y="8.15" size="1.016" layer="25" rot="R270"/>
 <attribute name="POPULARITY" value="0" x="-153.67" y="-60.96" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-153.67" y="-60.96" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="-69.535" y="8.15" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C12" library="rcl" library_urn="urn:adsk.eagle:library:334" package="PANASONIC_E" package3d_urn="urn:adsk.eagle:package:23425/2" value="100u" x="-67.31" y="-6.35" smashed="yes" rot="R90">
-<attribute name="NAME" x="-71" y="-12" size="1.016" layer="25"/>
+<attribute name="NAME" x="-68.61" y="-8.15" size="1.016" layer="25" rot="R90"/>
 <attribute name="POPULARITY" value="0" x="19.05" y="71.12" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="19.05" y="71.12" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VALUE" x="-65.085" y="-8.15" size="1.016" layer="27" rot="R90"/>
 </element>
 <element name="C13" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="1u" x="-34.925" y="-5.08" smashed="yes" rot="R270">
-<attribute name="NAME" x="-36.576" y="-2.794" size="1.27" layer="25"/>
+<attribute name="NAME" x="-33.655" y="-3.81" size="1.27" layer="25" rot="R270"/>
 <attribute name="POPULARITY" value="88" x="-34.925" y="-5.08" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-155.575" y="-67.31" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="-37.465" y="-3.81" size="1.27" layer="27" rot="R270"/>
 </element>
 <element name="C14" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="1u" x="-34.925" y="5.08" smashed="yes" rot="R90">
-<attribute name="NAME" x="-33.274" y="2.794" size="1.27" layer="25" rot="R180"/>
+<attribute name="NAME" x="-34.29" y="6.985" size="1.27" layer="25" rot="R90"/>
 <attribute name="POPULARITY" value="88" x="-34.925" y="5.08" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="85.725" y="72.39" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VALUE" x="-32.385" y="3.81" size="1.27" layer="27" rot="R90"/>
@@ -2562,7 +2566,7 @@ JLC7628 Stackup
 <attribute name="VALUE" x="42.545" y="-8.89" size="1.27" layer="27" rot="R270"/>
 </element>
 <element name="C21" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="1u" x="1.524" y="-6.35" smashed="yes" rot="R180">
-<attribute name="NAME" x="-0.762" y="-5.715" size="1.27" layer="25" rot="R180"/>
+<attribute name="NAME" x="2.794" y="-7.62" size="1.27" layer="25" rot="R180"/>
 <attribute name="POPULARITY" value="88" x="1.524" y="-6.35" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-101.346" y="114.3" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VALUE" x="2.794" y="-3.81" size="1.27" layer="27" rot="R180"/>
@@ -2592,19 +2596,19 @@ JLC7628 Stackup
 <attribute name="VALUE" x="33.02" y="-40.37" size="1.27" layer="27" rot="R90"/>
 </element>
 <element name="C7" library="rcl" library_urn="urn:adsk.eagle:library:334" package="PANASONIC_E" package3d_urn="urn:adsk.eagle:package:23425/2" value="1OOu" x="-28.575" y="7.62" smashed="yes" rot="R270">
-<attribute name="NAME" x="-32.639" y="12.192" size="1.016" layer="25"/>
+<attribute name="NAME" x="-27.275" y="9.42" size="1.016" layer="25" rot="R270"/>
 <attribute name="POPULARITY" value="0" x="-114.935" y="-39.37" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-114.935" y="-39.37" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="-30.8" y="9.42" size="1.016" layer="27" rot="R270"/>
 </element>
 <element name="C8" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="1u" x="-61.595" y="5.08" smashed="yes" rot="R90">
-<attribute name="NAME" x="-60.452" y="2.794" size="1.27" layer="25" rot="R180"/>
+<attribute name="NAME" x="-60.96" y="6.985" size="1.27" layer="25" rot="R90"/>
 <attribute name="POPULARITY" value="88" x="-61.595" y="5.08" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="65.405" y="45.72" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VALUE" x="-59.055" y="3.81" size="1.27" layer="27" rot="R90"/>
 </element>
 <element name="C9" library="rcl" library_urn="urn:adsk.eagle:library:334" package="PANASONIC_E" package3d_urn="urn:adsk.eagle:package:23425/2" value="100u" x="-19.685" y="7.62" smashed="yes" rot="R270">
-<attribute name="NAME" x="-23.749" y="12.192" size="1.016" layer="25"/>
+<attribute name="NAME" x="-18.385" y="9.42" size="1.016" layer="25" rot="R270"/>
 <attribute name="POPULARITY" value="0" x="-106.045" y="-49.53" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-106.045" y="-49.53" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="-21.91" y="9.42" size="1.016" layer="27" rot="R270"/>
@@ -2622,7 +2626,7 @@ JLC7628 Stackup
 <attribute name="VALUE" x="60.96" y="-31.75" size="1.27" layer="27" rot="R180"/>
 </element>
 <element name="CB3" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="0.1uF" x="-35.56" y="-64.77" smashed="yes">
-<attribute name="NAME" x="-33.909" y="-65.786" size="1.27" layer="25" rot="R180"/>
+<attribute name="NAME" x="-33.655" y="-66.04" size="1.27" layer="25" rot="R180"/>
 <attribute name="POPULARITY" value="88" x="-35.56" y="-64.77" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="66.04" y="-177.8" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="-36.83" y="-67.31" size="1.27" layer="27"/>
@@ -2657,7 +2661,7 @@ JLC7628 Stackup
 <attribute name="MANUFACTURER_PART_NUMBER" value="VNH7070ASTR" x="16.51" y="101.6" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MOUSER_PART_NUMBER" value="511-VNH7070ASTR" x="16.51" y="101.6" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.com/Search/Refine.aspx?Keyword=511-VNH7070ASTR" x="16.51" y="101.6" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="-54.61" y="2.159" size="1.27" layer="25" rot="R180" align="center"/>
+<attribute name="NAME" x="-50.8" y="7.62" size="1.27" layer="25" rot="R90" align="center"/>
 <attribute name="RS_PART_NUMBER" value="1647017P" x="16.51" y="101.6" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="RS_PRICE-STOCK" value="http://uk.rs-online.com/web/p/products/1647017P" x="16.51" y="101.6" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
@@ -2668,7 +2672,7 @@ JLC7628 Stackup
 <attribute name="MANUFACTURER_PART_NUMBER" value="VNH7070ASTR" x="29.21" y="115.57" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MOUSER_PART_NUMBER" value="511-VNH7070ASTR" x="29.21" y="115.57" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.com/Search/Refine.aspx?Keyword=511-VNH7070ASTR" x="29.21" y="115.57" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="-41.91" y="2.159" size="1.27" layer="25" rot="R180" align="center"/>
+<attribute name="NAME" x="-38.1" y="7.62" size="1.27" layer="25" rot="R90" align="center"/>
 <attribute name="RS_PART_NUMBER" value="1647017P" x="29.21" y="115.57" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="RS_PRICE-STOCK" value="http://uk.rs-online.com/web/p/products/1647017P" x="29.21" y="115.57" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
@@ -2679,7 +2683,7 @@ JLC7628 Stackup
 <attribute name="MANUFACTURER_PART_NUMBER" value="VNH7070ASTR" x="-129.54" y="-27.94" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MOUSER_PART_NUMBER" value="511-VNH7070ASTR" x="-129.54" y="-27.94" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.com/Search/Refine.aspx?Keyword=511-VNH7070ASTR" x="-129.54" y="-27.94" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="-41.91" y="-2.159" size="1.27" layer="25" rot="R180" align="center"/>
+<attribute name="NAME" x="-45.72" y="-7.62" size="1.27" layer="25" rot="R270" align="center"/>
 <attribute name="RS_PART_NUMBER" value="1647017P" x="-129.54" y="-27.94" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="RS_PRICE-STOCK" value="http://uk.rs-online.com/web/p/products/1647017P" x="-129.54" y="-27.94" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
@@ -2690,7 +2694,7 @@ JLC7628 Stackup
 <attribute name="MANUFACTURER_PART_NUMBER" value="VNH7070ASTR" x="-142.24" y="-41.91" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MOUSER_PART_NUMBER" value="511-VNH7070ASTR" x="-142.24" y="-41.91" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.com/Search/Refine.aspx?Keyword=511-VNH7070ASTR" x="-142.24" y="-41.91" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="-54.61" y="-2.159" size="1.27" layer="25" align="center"/>
+<attribute name="NAME" x="-58.42" y="-7.62" size="1.27" layer="25" rot="R270" align="center"/>
 <attribute name="RS_PART_NUMBER" value="1647017P" x="-142.24" y="-41.91" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="RS_PRICE-STOCK" value="http://uk.rs-online.com/web/p/products/1647017P" x="-142.24" y="-41.91" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
@@ -2774,7 +2778,7 @@ JLC7628 Stackup
 <attribute name="VALUE" x="61.976" y="15.621" size="1.27" layer="27" ratio="10" rot="R180"/>
 </element>
 <element name="R1" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="10k" x="1.524" y="-3.81" smashed="yes">
-<attribute name="NAME" x="-0.762" y="-3.175" size="1.27" layer="25" rot="R180"/>
+<attribute name="NAME" x="0.889" y="-2.54" size="1.27" layer="25"/>
 <attribute name="POPULARITY" value="86" x="1.524" y="-3.81" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="48.514" y="-124.46" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="0.889" y="-6.35" size="1.27" layer="27"/>
@@ -2828,7 +2832,7 @@ JLC7628 Stackup
 <attribute name="VALUE" x="59.69" y="-14.605" size="1.27" layer="28" rot="MR270"/>
 </element>
 <element name="R2" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="10k" x="1.524" y="-1.27" smashed="yes">
-<attribute name="NAME" x="-0.762" y="-0.635" size="1.27" layer="25" rot="R180"/>
+<attribute name="NAME" x="0.889" y="0" size="1.27" layer="25"/>
 <attribute name="POPULARITY" value="86" x="1.524" y="-1.27" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="53.594" y="-121.92" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="0.889" y="-3.81" size="1.27" layer="27"/>
@@ -2888,7 +2892,7 @@ JLC7628 Stackup
 <attribute name="VALUE" x="59.055" y="-34.29" size="1.27" layer="27"/>
 </element>
 <element name="RB3" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="22" x="-35.56" y="-62.23" smashed="yes" rot="R180">
-<attribute name="NAME" x="-37.338" y="-60.96" size="1.27" layer="25"/>
+<attribute name="NAME" x="-33.655" y="-59.69" size="1.27" layer="25" rot="R180"/>
 <attribute name="POPULARITY" value="86" x="-35.56" y="-62.23" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="-64.77" y="58.42" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VALUE" x="-34.925" y="-59.69" size="1.27" layer="27" rot="R180"/>
@@ -3122,7 +3126,7 @@ JLC7628 Stackup
 <wire x1="-7.62" y1="49.276" x2="-7.62" y2="50.8" width="0.254" layer="16"/>
 <wire x1="-8.89" y1="11.43" x2="-8.89" y2="48.006" width="0.254" layer="16"/>
 <wire x1="-1.27" y1="-3.81" x2="-0.635" y2="-3.81" width="0.254" layer="16"/>
-<via x="-0.635" y="-3.81" extent="1-16" drill="0.25"/>
+<via x="-0.635" y="-3.81" extent="1-16" drill="0.35"/>
 <wire x1="-0.635" y1="-3.81" x2="0.574" y2="-3.81" width="0.254" layer="1"/>
 </signal>
 <signal name="SCL">
@@ -3149,7 +3153,9 @@ JLC7628 Stackup
 <signal name="TX3">
 <contactref element="U$1" pad="8"/>
 <contactref element="U$2" pad="P5"/>
-<wire x1="-5.08" y1="35.56" x2="-5.08" y2="31.623" width="0.254" layer="16"/>
+<wire x1="-5.08" y1="35.56" x2="-5.08" y2="33.02" width="0.254" layer="16"/>
+<wire x1="-5.08" y1="33.02" x2="-5.08" y2="31.623" width="0.254" layer="16"/>
+<wire x1="29.845" y1="-15.875" x2="29.591" y2="-16.129" width="0.254" layer="16"/>
 <wire x1="-5.08" y1="31.623" x2="29.591" y2="-3.048" width="0.254" layer="16"/>
 <wire x1="29.591" y1="-3.048" x2="29.591" y2="-16.129" width="0.254" layer="16"/>
 </signal>
@@ -3175,7 +3181,7 @@ JLC7628 Stackup
 <wire x1="39.37" y1="21.59" x2="9.398" y2="21.59" width="0.254" layer="16"/>
 <wire x1="52.68" y1="5.8" x2="52.68" y2="8.28" width="0.254" layer="1"/>
 <wire x1="52.68" y1="8.28" x2="52.578" y2="8.382" width="0.254" layer="1"/>
-<via x="52.578" y="8.382" extent="1-16" drill="0.25"/>
+<via x="52.578" y="8.382" extent="1-16" drill="0.2"/>
 <wire x1="52.578" y1="8.382" x2="39.37" y2="21.59" width="0.254" layer="16"/>
 </signal>
 <signal name="TX2">
@@ -3188,7 +3194,7 @@ JLC7628 Stackup
 <wire x1="39.624" y1="22.098" x2="53.34" y2="8.382" width="0.254" layer="16"/>
 <wire x1="53.48" y1="5.8" x2="53.48" y2="8.242" width="0.254" layer="1"/>
 <wire x1="53.48" y1="8.242" x2="53.34" y2="8.382" width="0.254" layer="1"/>
-<via x="53.34" y="8.382" extent="1-16" drill="0.25"/>
+<via x="53.34" y="8.382" extent="1-16" drill="0.2"/>
 </signal>
 <signal name="M1_INA">
 <contactref element="U$1" pad="11/MOSI"/>
@@ -3196,15 +3202,15 @@ JLC7628 Stackup
 <contactref element="M1+" pad="A"/>
 <wire x1="-56.515" y1="4.908" x2="-56.515" y2="5.969" width="0.254" layer="1"/>
 <wire x1="-56.515" y1="5.969" x2="-56.388" y2="6.096" width="0.254" layer="1"/>
-<via x="-56.388" y="6.096" extent="1-16" drill="0.25"/>
+<via x="-56.388" y="6.096" extent="1-16" drill="0.2"/>
 <wire x1="-56.388" y1="6.096" x2="-55.372" y2="7.112" width="0.254" layer="16"/>
 <wire x1="-55.372" y1="7.112" x2="-49.276" y2="7.112" width="0.254" layer="16"/>
 <wire x1="-49.276" y1="7.112" x2="-49.022" y2="7.366" width="0.254" layer="16"/>
-<via x="-49.022" y="14.351" extent="1-16" drill="0.25"/>
-<wire x1="-49.022" y1="14.351" x2="-49.022" y2="18.034" width="0.254" layer="1"/>
+<via x="-49.022" y="13.97" extent="1-16" drill="0.2"/>
+<wire x1="-49.022" y1="13.97" x2="-49.022" y2="18.034" width="0.254" layer="1"/>
 <wire x1="-49.022" y1="18.034" x2="-45.339" y2="21.717" width="0.254" layer="1"/>
 <wire x1="-45.339" y1="21.717" x2="-44.704" y2="22.352" width="0.254" layer="1"/>
-<wire x1="-49.022" y1="7.366" x2="-49.022" y2="14.351" width="0.254" layer="16"/>
+<wire x1="-49.022" y1="7.366" x2="-49.022" y2="13.97" width="0.254" layer="16"/>
 <wire x1="-44.704" y1="22.352" x2="-6.858" y2="22.352" width="0.254" layer="1"/>
 <wire x1="-6.858" y1="22.352" x2="2.54" y2="31.75" width="0.254" layer="1"/>
 <wire x1="2.54" y1="31.75" x2="2.54" y2="35.56" width="0.254" layer="1"/>
@@ -3217,15 +3223,15 @@ JLC7628 Stackup
 <contactref element="M1-" pad="A"/>
 <wire x1="-52.705" y1="4.908" x2="-52.705" y2="5.969" width="0.254" layer="1"/>
 <wire x1="-52.705" y1="5.969" x2="-52.578" y2="6.096" width="0.254" layer="1"/>
-<via x="-52.578" y="6.096" extent="1-16" drill="0.25"/>
+<via x="-52.578" y="6.096" extent="1-16" drill="0.2"/>
 <wire x1="-52.578" y1="6.096" x2="-52.07" y2="6.604" width="0.254" layer="16"/>
 <wire x1="-48.768" y1="6.604" x2="-48.514" y2="6.858" width="0.254" layer="16"/>
 <wire x1="-52.07" y1="6.604" x2="-48.768" y2="6.604" width="0.254" layer="16"/>
-<via x="-48.514" y="13.97" extent="1-16" drill="0.25"/>
-<wire x1="-48.514" y1="13.97" x2="-48.514" y2="15.748" width="0.254" layer="1"/>
+<via x="-48.514" y="13.716" extent="1-16" drill="0.2"/>
+<wire x1="-48.514" y1="13.716" x2="-48.514" y2="15.748" width="0.254" layer="1"/>
 <wire x1="-6.604" y1="21.844" x2="5.08" y2="33.528" width="0.254" layer="1"/>
 <wire x1="5.08" y1="33.528" x2="5.08" y2="35.56" width="0.254" layer="1"/>
-<wire x1="-48.514" y1="6.858" x2="-48.514" y2="13.97" width="0.254" layer="16"/>
+<wire x1="-48.514" y1="6.858" x2="-48.514" y2="13.716" width="0.254" layer="16"/>
 <wire x1="-48.514" y1="15.748" x2="-45.212" y2="19.05" width="0.254" layer="1"/>
 <wire x1="-45.212" y1="19.05" x2="-42.418" y2="21.844" width="0.254" layer="1"/>
 <wire x1="-42.418" y1="21.844" x2="-6.604" y2="21.844" width="0.254" layer="1"/>
@@ -3238,7 +3244,7 @@ JLC7628 Stackup
 </signal>
 <signal name="M1_PWM">
 <contactref element="IC2" pad="11"/>
-<via x="-52.578" y="8.128" extent="1-16" drill="0.25"/>
+<via x="-52.578" y="8.128" extent="1-16" drill="0.2"/>
 <wire x1="-52.578" y1="8.128" x2="-52.07" y2="7.62" width="0.254" layer="16"/>
 <wire x1="-52.578" y1="8.128" x2="-52.705" y2="8.255" width="0.254" layer="1"/>
 <wire x1="-52.705" y1="8.255" x2="-52.705" y2="10.332" width="0.254" layer="1"/>
@@ -3255,7 +3261,7 @@ JLC7628 Stackup
 <contactref element="IC3" pad="11"/>
 <wire x1="-40.005" y1="10.332" x2="-40.005" y2="8.763" width="0.254" layer="1"/>
 <wire x1="-40.005" y1="8.763" x2="-40.132" y2="8.636" width="0.2032" layer="1"/>
-<via x="-40.132" y="8.636" extent="1-16" drill="0.25"/>
+<via x="-40.132" y="8.636" extent="1-16" drill="0.2"/>
 <wire x1="-40.132" y1="8.636" x2="-41.148" y2="7.62" width="0.254" layer="16"/>
 <wire x1="-46.736" y1="7.62" x2="-46.99" y2="7.874" width="0.254" layer="16"/>
 <wire x1="-41.148" y1="7.62" x2="-46.736" y2="7.62" width="0.254" layer="16"/>
@@ -3310,22 +3316,22 @@ JLC7628 Stackup
 <contactref element="M2+" pad="A"/>
 <wire x1="-43.815" y1="4.908" x2="-43.815" y2="5.969" width="0.254" layer="1"/>
 <wire x1="-43.815" y1="5.969" x2="-43.942" y2="6.096" width="0.2032" layer="1"/>
-<via x="-43.942" y="6.096" extent="1-16" drill="0.25"/>
+<via x="-43.942" y="6.096" extent="1-16" drill="0.2"/>
 <wire x1="-43.942" y1="6.096" x2="-44.45" y2="6.604" width="0.254" layer="16"/>
 <wire x1="-47.752" y1="6.604" x2="-48.006" y2="6.858" width="0.254" layer="16"/>
 <wire x1="-44.45" y1="6.604" x2="-47.752" y2="6.604" width="0.254" layer="16"/>
-<via x="-48.006" y="13.589" extent="1-16" drill="0.25"/>
-<wire x1="-48.006" y1="13.589" x2="-45.085" y2="16.51" width="0.254" layer="1"/>
-<wire x1="-48.006" y1="6.858" x2="-48.006" y2="13.589" width="0.254" layer="16"/>
-<wire x1="-45.085" y1="16.51" x2="-32.004" y2="16.51" width="0.254" layer="1"/>
+<via x="-48.006" y="13.462" extent="1-16" drill="0.2"/>
+<wire x1="-48.006" y1="13.462" x2="-44.958" y2="16.51" width="0.254" layer="1"/>
+<wire x1="-48.006" y1="6.858" x2="-48.006" y2="13.462" width="0.254" layer="16"/>
+<wire x1="-44.958" y1="16.51" x2="-32.004" y2="16.51" width="0.254" layer="1"/>
 <wire x1="9.652" y1="32.512" x2="10.16" y2="33.02" width="0.254" layer="1"/>
 <wire x1="10.16" y1="33.02" x2="10.16" y2="35.56" width="0.254" layer="1"/>
 <wire x1="4.826" y1="32.512" x2="9.652" y2="32.512" width="0.254" layer="1"/>
 <wire x1="-40.16" y1="27.94" x2="-38.862" y2="27.94" width="0.254" layer="1"/>
 <wire x1="-38.862" y1="27.94" x2="-34.036" y2="23.114" width="0.254" layer="1"/>
-<via x="-34.036" y="23.114" extent="1-16" drill="0.25"/>
+<via x="-34.036" y="23.114" extent="1-16" drill="0.2"/>
 <wire x1="-34.036" y1="23.114" x2="-32.004" y2="21.082" width="0.254" layer="16"/>
-<via x="-32.004" y="21.082" extent="1-16" drill="0.25"/>
+<via x="-32.004" y="21.082" extent="1-16" drill="0.2"/>
 <wire x1="-32.004" y1="21.082" x2="-32.004" y2="16.51" width="0.254" layer="1"/>
 <wire x1="-32.004" y1="16.51" x2="-11.176" y2="16.51" width="0.254" layer="1"/>
 <wire x1="-11.176" y1="16.51" x2="4.826" y2="32.512" width="0.254" layer="1"/>
@@ -3336,11 +3342,11 @@ JLC7628 Stackup
 <contactref element="M2-" pad="A"/>
 <wire x1="-40.005" y1="4.908" x2="-40.005" y2="5.969" width="0.254" layer="1"/>
 <wire x1="-40.005" y1="5.969" x2="-40.132" y2="6.096" width="0.2032" layer="1"/>
-<via x="-40.132" y="6.096" extent="1-16" drill="0.25"/>
+<via x="-40.132" y="6.096" extent="1-16" drill="0.2"/>
 <wire x1="-40.132" y1="6.096" x2="-41.148" y2="7.112" width="0.254" layer="16"/>
 <wire x1="-41.148" y1="7.112" x2="-47.244" y2="7.112" width="0.254" layer="16"/>
 <wire x1="-47.244" y1="7.112" x2="-47.498" y2="7.366" width="0.254" layer="16"/>
-<via x="-47.498" y="13.208" extent="1-16" drill="0.25"/>
+<via x="-47.498" y="13.208" extent="1-16" drill="0.2"/>
 <wire x1="-47.498" y1="13.208" x2="-45.0088" y2="15.6972" width="0.254" layer="1"/>
 <wire x1="12.192" y1="32.004" x2="12.7" y2="32.512" width="0.254" layer="1"/>
 <wire x1="12.7" y1="32.512" x2="12.7" y2="35.56" width="0.254" layer="1"/>
@@ -3352,10 +3358,10 @@ JLC7628 Stackup
 <wire x1="5.08" y1="32.004" x2="12.192" y2="32.004" width="0.254" layer="1"/>
 <wire x1="-40.16" y1="25.4" x2="-38.862" y2="25.4" width="0.254" layer="1"/>
 <wire x1="-38.862" y1="25.4" x2="-36.576" y2="23.114" width="0.254" layer="1"/>
-<via x="-36.576" y="23.114" extent="1-16" drill="0.25"/>
+<via x="-36.576" y="23.114" extent="1-16" drill="0.2"/>
 <wire x1="-36.576" y1="23.114" x2="-34.544" y2="21.082" width="0.254" layer="16"/>
 <wire x1="-34.544" y1="21.082" x2="-34.544" y2="16.002" width="0.254" layer="16"/>
-<via x="-34.544" y="16.002" extent="1-16" drill="0.25"/>
+<via x="-34.544" y="16.002" extent="1-16" drill="0.2"/>
 <wire x1="-34.544" y1="16.002" x2="-34.544" y2="15.6972" width="0.254" layer="1"/>
 </signal>
 <signal name="M3_INA">
@@ -3368,7 +3374,7 @@ JLC7628 Stackup
 <wire x1="-40.132" y1="-6.096" x2="-41.148" y2="-7.112" width="0.254" layer="16"/>
 <wire x1="-47.244" y1="-7.112" x2="-47.498" y2="-7.366" width="0.254" layer="16"/>
 <wire x1="-41.148" y1="-7.112" x2="-47.244" y2="-7.112" width="0.254" layer="16"/>
-<via x="-47.498" y="-13.462" extent="1-16" drill="0.25"/>
+<via x="-47.498" y="-13.462" extent="1-16" drill="0.2"/>
 <wire x1="-47.498" y1="-7.366" x2="-47.498" y2="-13.462" width="0.254" layer="16"/>
 <wire x1="-45.212" y1="-15.748" x2="-38.862" y2="-15.748" width="0.254" layer="1"/>
 <wire x1="-47.498" y1="-13.462" x2="-45.212" y2="-15.748" width="0.254" layer="1"/>
@@ -3377,17 +3383,17 @@ JLC7628 Stackup
 <wire x1="-18.034" y1="-2.54" x2="-18.034" y2="8.128" width="0.254" layer="1"/>
 <wire x1="5.334" y1="31.496" x2="-18.034" y2="8.128" width="0.254" layer="1"/>
 <wire x1="5.334" y1="31.496" x2="14.732" y2="31.496" width="0.254" layer="1"/>
-<via x="-20.828" y="-5.334" extent="1-16" drill="0.25"/>
+<via x="-20.828" y="-5.334" extent="1-16" drill="0.2"/>
 <wire x1="-20.828" y1="-5.334" x2="-18.034" y2="-2.54" width="0.254" layer="1"/>
 <wire x1="-40.16" y1="-25.4" x2="-39.116" y2="-25.4" width="0.254" layer="1"/>
 <via x="-39.116" y="-25.4" extent="1-16" drill="0.2"/>
 <wire x1="-39.116" y1="-25.4" x2="-38.862" y2="-25.146" width="0.254" layer="16"/>
 <wire x1="-38.862" y1="-25.146" x2="-38.862" y2="-16.0766" width="0.254" layer="16"/>
-<via x="-38.862" y="-16.0766" extent="1-16" drill="0.25"/>
+<via x="-38.862" y="-16.0766" extent="1-16" drill="0.2"/>
 <wire x1="-38.862" y1="-16.0766" x2="-38.862" y2="-15.748" width="0.254" layer="1"/>
 <wire x1="-38.862" y1="-15.748" x2="-31.242" y2="-15.748" width="0.254" layer="1"/>
 <wire x1="-31.242" y1="-15.748" x2="-29.464" y2="-13.97" width="0.254" layer="1"/>
-<via x="-29.464" y="-13.97" extent="1-16" drill="0.25"/>
+<via x="-29.464" y="-13.97" extent="1-16" drill="0.2"/>
 <wire x1="-20.828" y1="-5.334" x2="-29.464" y2="-13.97" width="0.254" layer="16"/>
 </signal>
 <signal name="M3_INB">
@@ -3400,23 +3406,22 @@ JLC7628 Stackup
 <wire x1="-43.942" y1="-6.096" x2="-44.45" y2="-6.604" width="0.254" layer="16"/>
 <wire x1="-47.752" y1="-6.604" x2="-48.006" y2="-6.858" width="0.254" layer="16"/>
 <wire x1="-44.45" y1="-6.604" x2="-47.752" y2="-6.604" width="0.254" layer="16"/>
-<via x="-48.006" y="-13.97" extent="1-16" drill="0.25"/>
+<via x="-48.006" y="-13.97" extent="1-16" drill="0.2"/>
 <wire x1="-48.006" y1="-6.858" x2="-48.006" y2="-13.97" width="0.254" layer="16"/>
-<wire x1="-45.3676" y1="-16.6084" x2="-38.3794" y2="-16.6084" width="0.254" layer="1"/>
-<wire x1="-38.3794" y1="-16.6084" x2="-38.354" y2="-16.6084" width="0.254" layer="1"/>
-<via x="-29.464" y="-15.0082" extent="1-16" drill="0.25"/>
-<wire x1="-31.0642" y1="-16.6084" x2="-38.354" y2="-16.6084" width="0.254" layer="1"/>
-<wire x1="-31.0642" y1="-16.6084" x2="-29.464" y2="-15.0082" width="0.254" layer="1"/>
-<wire x1="-48.006" y1="-13.97" x2="-45.3676" y2="-16.6084" width="0.254" layer="1"/>
+<wire x1="-45.4438" y1="-16.5322" x2="-38.354" y2="-16.5322" width="0.254" layer="1"/>
+<via x="-29.464" y="-15.0082" extent="1-16" drill="0.2"/>
+<wire x1="-30.988" y1="-16.5322" x2="-38.354" y2="-16.5322" width="0.254" layer="1"/>
+<wire x1="-30.988" y1="-16.5322" x2="-29.464" y2="-15.0082" width="0.254" layer="1"/>
+<wire x1="-48.006" y1="-13.97" x2="-45.4438" y2="-16.5322" width="0.254" layer="1"/>
 <wire x1="17.78" y1="35.56" x2="17.78" y2="31.496" width="0.254" layer="1"/>
 <wire x1="17.78" y1="31.496" x2="17.272" y2="30.988" width="0.254" layer="1"/>
 <wire x1="-17.526" y1="7.874" x2="5.588" y2="30.988" width="0.254" layer="1"/>
 <wire x1="17.272" y1="30.988" x2="5.588" y2="30.988" width="0.254" layer="1"/>
 <wire x1="-29.464" y1="-15.0082" x2="-20.828" y2="-6.3722" width="0.254" layer="16"/>
 <wire x1="-20.828" y1="-6.3722" x2="-20.828" y2="-6.35" width="0.254" layer="16"/>
-<via x="-20.828" y="-6.35" extent="1-16" drill="0.25"/>
-<wire x1="-38.354" y1="-16.6084" x2="-38.354" y2="-20.574" width="0.254" layer="1"/>
-<via x="-38.354" y="-20.574" extent="1-16" drill="0.25"/>
+<via x="-20.828" y="-6.35" extent="1-16" drill="0.2"/>
+<wire x1="-38.354" y1="-16.5322" x2="-38.354" y2="-20.574" width="0.254" layer="1"/>
+<via x="-38.354" y="-20.574" extent="1-16" drill="0.2"/>
 <wire x1="-38.354" y1="-20.574" x2="-38.354" y2="-27.432" width="0.254" layer="16"/>
 <wire x1="-38.354" y1="-27.432" x2="-38.862" y2="-27.94" width="0.254" layer="16"/>
 <via x="-38.862" y="-27.94" extent="1-16" drill="0.2"/>
@@ -3434,7 +3439,7 @@ JLC7628 Stackup
 <wire x1="-52.578" y1="-6.096" x2="-52.07" y2="-6.604" width="0.254" layer="16"/>
 <wire x1="-48.768" y1="-6.604" x2="-48.514" y2="-6.858" width="0.254" layer="16"/>
 <wire x1="-52.07" y1="-6.604" x2="-48.768" y2="-6.604" width="0.254" layer="16"/>
-<via x="-48.514" y="-14.478" extent="1-16" drill="0.25"/>
+<via x="-48.514" y="-14.478" extent="1-16" drill="0.2"/>
 <wire x1="-48.514" y1="-6.858" x2="-48.514" y2="-14.478" width="0.254" layer="16"/>
 <wire x1="-48.514" y1="-14.478" x2="-48.514" y2="-16.002" width="0.254" layer="1"/>
 <wire x1="-48.514" y1="-16.002" x2="-45.339" y2="-19.177" width="0.254" layer="1"/>
@@ -3445,16 +3450,16 @@ JLC7628 Stackup
 <wire x1="20.32" y1="30.988" x2="20.32" y2="35.56" width="0.254" layer="1"/>
 <wire x1="-17.018" y1="-7.112" x2="-17.018" y2="7.62" width="0.254" layer="1"/>
 <wire x1="5.842" y1="30.48" x2="19.812" y2="30.48" width="0.254" layer="1"/>
-<via x="-20.828" y="-10.922" extent="1-16" drill="0.25"/>
+<via x="-20.828" y="-10.922" extent="1-16" drill="0.2"/>
 <wire x1="-20.828" y1="-10.922" x2="-17.018" y2="-7.112" width="0.254" layer="1"/>
 <wire x1="-52.86" y1="-25.4" x2="-51.562" y2="-25.4" width="0.254" layer="1"/>
 <wire x1="-51.562" y1="-25.4" x2="-46.482" y2="-20.32" width="0.254" layer="1"/>
-<via x="-46.482" y="-20.32" extent="1-16" drill="0.25"/>
+<via x="-46.482" y="-20.32" extent="1-16" drill="0.2"/>
 <wire x1="-46.482" y1="-20.32" x2="-45.72" y2="-19.558" width="0.254" layer="16"/>
-<via x="-45.72" y="-19.558" extent="1-16" drill="0.25"/>
+<via x="-45.72" y="-19.558" extent="1-16" drill="0.2"/>
 <wire x1="-45.72" y1="-19.558" x2="-45.339" y2="-19.177" width="0.254" layer="1"/>
 <wire x1="-31.242" y1="-21.336" x2="-29.464" y2="-19.558" width="0.254" layer="1"/>
-<via x="-29.464" y="-19.558" extent="1-16" drill="0.25"/>
+<via x="-29.464" y="-19.558" extent="1-16" drill="0.2"/>
 <wire x1="-20.828" y1="-10.922" x2="-29.464" y2="-19.558" width="0.254" layer="16"/>
 </signal>
 <signal name="M4_INB">
@@ -3467,7 +3472,7 @@ JLC7628 Stackup
 <wire x1="-56.388" y1="-6.096" x2="-55.372" y2="-7.112" width="0.254" layer="16"/>
 <wire x1="-49.276" y1="-7.112" x2="-49.022" y2="-7.366" width="0.254" layer="16"/>
 <wire x1="-55.372" y1="-7.112" x2="-49.276" y2="-7.112" width="0.254" layer="16"/>
-<via x="-49.022" y="-14.986" extent="1-16" drill="0.25"/>
+<via x="-49.022" y="-14.986" extent="1-16" drill="0.2"/>
 <wire x1="-49.022" y1="-7.366" x2="-49.022" y2="-14.986" width="0.254" layer="16"/>
 <wire x1="-49.022" y1="-14.986" x2="-49.022" y2="-17.018" width="0.254" layer="1"/>
 <wire x1="-44.1738" y1="-21.8662" x2="-30.734" y2="-21.8662" width="0.254" layer="1"/>
@@ -3477,15 +3482,16 @@ JLC7628 Stackup
 <wire x1="6.096" y1="29.972" x2="22.352" y2="29.972" width="0.254" layer="1"/>
 <wire x1="22.352" y1="29.972" x2="22.86" y2="30.48" width="0.254" layer="1"/>
 <wire x1="22.86" y1="30.48" x2="22.86" y2="35.56" width="0.254" layer="1"/>
-<via x="-20.828" y="-11.938" extent="1-16" drill="0.25"/>
+<via x="-20.828" y="-11.938" extent="1-16" drill="0.2"/>
 <wire x1="-52.86" y1="-27.94" x2="-51.562" y2="-27.94" width="0.254" layer="1"/>
 <wire x1="-51.562" y1="-27.94" x2="-44.831" y2="-21.209" width="0.254" layer="1"/>
 <wire x1="-16.51" y1="-7.62" x2="-16.51" y2="7.366" width="0.254" layer="1"/>
 <wire x1="-20.828" y1="-11.938" x2="-16.51" y2="-7.62" width="0.254" layer="1"/>
 <wire x1="-30.734" y1="-21.8662" x2="-29.464" y2="-20.5962" width="0.254" layer="1"/>
 <wire x1="-29.464" y1="-20.5962" x2="-29.464" y2="-20.574" width="0.254" layer="1"/>
-<via x="-29.464" y="-20.574" extent="1-16" drill="0.25"/>
+<via x="-29.464" y="-20.574" extent="1-16" drill="0.2"/>
 <wire x1="-29.464" y1="-20.574" x2="-20.828" y2="-11.938" width="0.254" layer="16"/>
+<wire x1="-20.828" y1="-11.938" x2="-20.8058" y2="-11.938" width="0.254" layer="16"/>
 </signal>
 <signal name="N_INT">
 <contactref element="LS_NORD" pad="2"/>
@@ -3688,7 +3694,7 @@ JLC7628 Stackup
 <wire x1="34.671" y1="-16.129" x2="34.671" y2="-13.97" width="0.6096" layer="1"/>
 <wire x1="57.15" y1="36.83" x2="50.8" y2="36.83" width="0.6096" layer="1"/>
 <wire x1="50.8" y1="36.83" x2="40.64" y2="36.83" width="0.6096" layer="16"/>
-<via x="40.64" y="36.83" extent="1-16" drill="0.25"/>
+<via x="40.64" y="36.83" extent="1-16" drill="0.508"/>
 <wire x1="40.64" y1="36.83" x2="39.37" y2="36.83" width="0.6096" layer="1"/>
 <wire x1="49.403" y1="-6.35" x2="51.435" y2="-4.318" width="0.4572" layer="1"/>
 <wire x1="39.37" y1="-6.35" x2="41.91" y2="-6.35" width="0.4572" layer="1"/>
@@ -3699,7 +3705,7 @@ JLC7628 Stackup
 <wire x1="-17.78" y1="44.58" x2="-17.78" y2="46.99" width="0.6096" layer="1"/>
 <wire x1="58.74" y1="-31.75" x2="39.37" y2="-31.75" width="0.4064" layer="1"/>
 <wire x1="43.5" y1="55.88" x2="39.37" y2="55.88" width="0.4064" layer="1"/>
-<via x="39.37" y="55.88" extent="1-16" drill="0.25"/>
+<via x="39.37" y="55.88" extent="1-16" drill="0.3048"/>
 <wire x1="39.37" y1="55.88" x2="34.29" y2="55.88" width="0.4064" layer="16"/>
 <wire x1="41.91" y1="-8.76" x2="41.91" y2="-6.35" width="0.4064" layer="1"/>
 <wire x1="45.085" y1="-9.21" x2="45.085" y2="-6.35" width="0.4064" layer="1"/>
@@ -3796,12 +3802,12 @@ JLC7628 Stackup
 <vertex x="-28.448" y="-63.754"/>
 <vertex x="-11.43" y="-63.754"/>
 </polygon>
-<via x="-28.067" y="-63.119" extent="1-16" drill="0.25"/>
-<via x="-25.527" y="-63.119" extent="1-16" drill="0.25"/>
-<via x="-23.495" y="-63.119" extent="1-16" drill="0.25"/>
-<via x="-29.972" y="-60.579" extent="1-16" drill="0.25"/>
-<via x="-27.432" y="-60.579" extent="1-16" drill="0.25"/>
-<via x="-24.892" y="-60.579" extent="1-16" drill="0.25"/>
+<via x="-28.067" y="-63.119" extent="1-16" drill="0.508"/>
+<via x="-25.527" y="-63.119" extent="1-16" drill="0.508"/>
+<via x="-23.495" y="-63.119" extent="1-16" drill="0.508"/>
+<via x="-29.972" y="-60.579" extent="1-16" drill="0.508"/>
+<via x="-27.432" y="-60.579" extent="1-16" drill="0.508"/>
+<via x="-24.892" y="-60.579" extent="1-16" drill="0.508"/>
 <contactref element="IC1" pad="4"/>
 <contactref element="C1" pad="2"/>
 <contactref element="C6" pad="2"/>
@@ -3818,31 +3824,31 @@ JLC7628 Stackup
 <vertex x="-3.81" y="-51.8"/>
 </polygon>
 <wire x1="20.32" y1="-47.035" x2="20.32" y2="-48.625" width="0.254" layer="1"/>
-<via x="20.32" y="-48.625" extent="1-16" drill="0.4"/>
+<via x="20.32" y="-48.625" extent="1-16" drill="0.35"/>
 <wire x1="22.86" y1="-47.035" x2="22.86" y2="-48.625" width="0.254" layer="1"/>
-<via x="22.86" y="-48.625" extent="1-16" drill="0.4"/>
+<via x="22.86" y="-48.625" extent="1-16" drill="0.35"/>
 <wire x1="20.32" y1="-40.37" x2="20.32" y2="-42.656" width="0.8128" layer="1"/>
-<via x="20.32" y="-42.656" extent="1-16" drill="0.4"/>
+<via x="20.32" y="-42.656" extent="1-16" drill="0.5"/>
 <wire x1="12.7" y1="-62.4332" x2="12.9032" y2="-62.23" width="0.8128" layer="16"/>
 <wire x1="12.9032" y1="-62.23" x2="17.78" y2="-62.23" width="1.016" layer="16"/>
 <wire x1="21.59" y1="-58.42" x2="21.59" y2="-51.8" width="1.016" layer="16"/>
 <wire x1="17.78" y1="-62.23" x2="21.59" y2="-58.42" width="1.016" layer="16"/>
 <wire x1="2" y1="-34.5" x2="1.972" y2="-34.528" width="0.8128" layer="1"/>
 <wire x1="1.972" y1="-34.528" x2="-1.231996875" y2="-34.528" width="0.8128" layer="1"/>
-<via x="2" y="-34.5" extent="1-16" drill="0.4"/>
+<via x="2" y="-34.5" extent="1-16" drill="0.45"/>
 <wire x1="10.48" y1="-45.45" x2="8.89" y2="-45.45" width="0.8128" layer="1"/>
-<via x="8.89" y="-45.45" extent="1-16" drill="0.25"/>
+<via x="8.89" y="-45.45" extent="1-16" drill="0.45"/>
 <wire x1="10.48" y1="-47.99" x2="8.89" y2="-47.99" width="0.8128" layer="1"/>
-<via x="8.89" y="-47.99" extent="1-16" drill="0.25"/>
-<via x="18.288" y="-30.464" extent="1-16" drill="0.25"/>
-<via x="22.352" y="-30.48" extent="1-16" drill="0.25"/>
-<via x="20.32" y="-30.464" extent="1-16" drill="0.25"/>
+<via x="8.89" y="-47.99" extent="1-16" drill="0.45"/>
+<via x="18.288" y="-30.464" extent="1-16" drill="0.3"/>
+<via x="22.352" y="-30.48" extent="1-16" drill="0.3"/>
+<via x="20.32" y="-30.464" extent="1-16" drill="0.3"/>
 <wire x1="27.94" y1="-38.785" x2="27.94" y2="-35.925" width="0.8128" layer="1"/>
-<via x="27.94" y="-35.925" extent="1-16" drill="0.4"/>
+<via x="27.94" y="-35.925" extent="1-16" drill="0.35"/>
 <wire x1="30.48" y1="-37.7" x2="30.48" y2="-35.925" width="0.8128" layer="1"/>
-<via x="30.48" y="-35.925" extent="1-16" drill="0.4"/>
+<via x="30.48" y="-35.925" extent="1-16" drill="0.35"/>
 <wire x1="33.02" y1="-37.7" x2="33.02" y2="-35.925" width="0.8128" layer="1"/>
-<via x="33.02" y="-35.925" extent="1-16" drill="0.4"/>
+<via x="33.02" y="-35.925" extent="1-16" drill="0.35"/>
 <contactref element="S1" pad="2"/>
 <contactref element="S5" pad="2"/>
 <contactref element="S8" pad="2"/>
@@ -3866,21 +3872,21 @@ JLC7628 Stackup
 <wire x1="0.574" y1="-7.305" x2="1.27" y2="-8.001" width="0.254" layer="1"/>
 <contactref element="R13" pad="2"/>
 <contactref element="R14" pad="2"/>
-<via x="50.8" y="15.24" extent="1-16" drill="0.25"/>
-<via x="62.23" y="15.24" extent="1-16" drill="0.25"/>
+<via x="50.8" y="15.24" extent="1-16" drill="0.254"/>
+<via x="62.23" y="15.24" extent="1-16" drill="0.254"/>
 <wire x1="57.48" y1="5.8" x2="57.48" y2="7.0102" width="0.254" layer="1"/>
 <wire x1="57.48" y1="7.0102" x2="57.4802" y2="7.0104" width="0.254" layer="1"/>
-<via x="57.4802" y="7.0104" extent="1-16" drill="0.25"/>
+<via x="57.4802" y="7.0104" extent="1-16" drill="0.254"/>
 <wire x1="52.68" y1="-5.8" x2="52.68" y2="-7.518" width="0.254" layer="1"/>
 <wire x1="52.68" y1="-7.518" x2="52.07" y2="-8.128" width="0.254" layer="1"/>
-<via x="52.07" y="-8.128" extent="1-16" drill="0.25"/>
+<via x="52.07" y="-8.128" extent="1-16" drill="0.254"/>
 <wire x1="59.08" y1="-5.8" x2="59.08" y2="-7.264" width="0.254" layer="1"/>
 <wire x1="60.706" y1="-8.89" x2="62.23" y2="-8.89" width="0.254" layer="1"/>
-<via x="62.23" y="-8.89" extent="1-16" drill="0.25"/>
+<via x="62.23" y="-8.89" extent="1-16" drill="0.254"/>
 <wire x1="59.08" y1="-7.264" x2="60.706" y2="-8.89" width="0.254" layer="1"/>
 <wire x1="61.68" y1="-0.8" x2="60.5156" y2="-0.8" width="0.254" layer="1"/>
 <wire x1="60.5156" y1="-0.8" x2="60.5028" y2="-0.8128" width="0.254" layer="1"/>
-<via x="60.5028" y="-0.8128" extent="1-16" drill="0.25"/>
+<via x="60.5028" y="-0.8128" extent="1-16" drill="0.254"/>
 <wire x1="74.93" y1="0" x2="77.47" y2="0" width="0.4064" layer="16"/>
 <wire x1="71.628" y1="29.591" x2="69.4055" y2="28.702" width="0.4064" layer="16"/>
 <wire x1="69.342" y1="28.702" x2="69.4055" y2="28.702" width="0.4064" layer="16"/>
@@ -3906,11 +3912,11 @@ JLC7628 Stackup
 <wire x1="53.086" y1="-53.086" x2="54.991" y2="-54.991" width="0.4064" layer="16"/>
 <wire x1="69.342" y1="-28.702" x2="69.3674" y2="-28.702" width="0.4064" layer="16"/>
 <wire x1="71.501" y1="-29.591" x2="69.3674" y2="-28.702" width="0.4064" layer="16"/>
-<via x="-32.766" y="-64.77" extent="1-16" drill="0.25"/>
-<via x="69.85" y="-6.35" extent="1-16" drill="0.25"/>
-<via x="71.12" y="-6.35" extent="1-16" drill="0.25"/>
-<via x="72.39" y="-6.35" extent="1-16" drill="0.25"/>
-<via x="71.12" y="-0.762" extent="1-16" drill="0.25"/>
+<via x="-32.766" y="-64.77" extent="1-16" drill="0.254"/>
+<via x="69.85" y="-6.35" extent="1-16" drill="0.254"/>
+<via x="71.12" y="-6.35" extent="1-16" drill="0.254"/>
+<via x="72.39" y="-6.35" extent="1-16" drill="0.254"/>
+<via x="71.12" y="-0.762" extent="1-16" drill="0.254"/>
 <polygon width="0.2032" layer="16" thermals="no">
 <vertex x="-11.43" y="-63.754"/>
 <vertex x="-11.43" y="-61.214"/>
@@ -3948,43 +3954,43 @@ JLC7628 Stackup
 <contactref element="R10" pad="1"/>
 <contactref element="R12" pad="1"/>
 <contactref element="R11" pad="1"/>
-<via x="18.288" y="-29.448" extent="1-16" drill="0.25"/>
-<via x="22.352" y="-29.464" extent="1-16" drill="0.25"/>
-<via x="20.32" y="-29.448" extent="1-16" drill="0.25"/>
-<via x="19.304" y="-29.464" extent="1-16" drill="0.25"/>
-<via x="21.336" y="-29.448" extent="1-16" drill="0.25"/>
-<via x="21.336" y="-30.464" extent="1-16" drill="0.25"/>
-<via x="19.304" y="-30.464" extent="1-16" drill="0.25"/>
-<via x="18.288" y="-32.496" extent="1-16" drill="0.25"/>
-<via x="22.352" y="-32.512" extent="1-16" drill="0.25"/>
-<via x="20.32" y="-32.496" extent="1-16" drill="0.25"/>
-<via x="18.288" y="-31.48" extent="1-16" drill="0.25"/>
-<via x="22.352" y="-31.496" extent="1-16" drill="0.25"/>
-<via x="20.32" y="-31.48" extent="1-16" drill="0.25"/>
-<via x="19.304" y="-31.496" extent="1-16" drill="0.25"/>
-<via x="21.336" y="-31.48" extent="1-16" drill="0.25"/>
-<via x="21.336" y="-32.496" extent="1-16" drill="0.25"/>
-<via x="19.304" y="-32.496" extent="1-16" drill="0.25"/>
-<via x="18.288" y="-34.528" extent="1-16" drill="0.25"/>
-<via x="22.352" y="-34.544" extent="1-16" drill="0.25"/>
-<via x="20.32" y="-34.528" extent="1-16" drill="0.25"/>
-<via x="18.288" y="-33.512" extent="1-16" drill="0.25"/>
-<via x="22.352" y="-33.528" extent="1-16" drill="0.25"/>
-<via x="20.32" y="-33.512" extent="1-16" drill="0.25"/>
-<via x="19.304" y="-33.528" extent="1-16" drill="0.25"/>
-<via x="21.336" y="-33.512" extent="1-16" drill="0.25"/>
-<via x="21.336" y="-34.528" extent="1-16" drill="0.25"/>
-<via x="19.304" y="-34.528" extent="1-16" drill="0.25"/>
-<via x="18.288" y="-36.56" extent="1-16" drill="0.25"/>
-<via x="22.352" y="-36.576" extent="1-16" drill="0.25"/>
-<via x="20.32" y="-36.56" extent="1-16" drill="0.25"/>
-<via x="18.288" y="-35.544" extent="1-16" drill="0.25"/>
-<via x="22.352" y="-35.56" extent="1-16" drill="0.25"/>
-<via x="20.32" y="-35.544" extent="1-16" drill="0.25"/>
-<via x="19.304" y="-35.56" extent="1-16" drill="0.25"/>
-<via x="21.336" y="-35.544" extent="1-16" drill="0.25"/>
-<via x="21.336" y="-36.56" extent="1-16" drill="0.25"/>
-<via x="19.304" y="-36.56" extent="1-16" drill="0.25"/>
+<via x="18.288" y="-29.448" extent="1-16" drill="0.3"/>
+<via x="22.352" y="-29.464" extent="1-16" drill="0.3"/>
+<via x="20.32" y="-29.448" extent="1-16" drill="0.3"/>
+<via x="19.304" y="-29.464" extent="1-16" drill="0.3"/>
+<via x="21.336" y="-29.448" extent="1-16" drill="0.3"/>
+<via x="21.336" y="-30.464" extent="1-16" drill="0.3"/>
+<via x="19.304" y="-30.464" extent="1-16" drill="0.3"/>
+<via x="18.288" y="-32.496" extent="1-16" drill="0.3"/>
+<via x="22.352" y="-32.512" extent="1-16" drill="0.3"/>
+<via x="20.32" y="-32.496" extent="1-16" drill="0.3"/>
+<via x="18.288" y="-31.48" extent="1-16" drill="0.3"/>
+<via x="22.352" y="-31.496" extent="1-16" drill="0.3"/>
+<via x="20.32" y="-31.48" extent="1-16" drill="0.3"/>
+<via x="19.304" y="-31.496" extent="1-16" drill="0.3"/>
+<via x="21.336" y="-31.48" extent="1-16" drill="0.3"/>
+<via x="21.336" y="-32.496" extent="1-16" drill="0.3"/>
+<via x="19.304" y="-32.496" extent="1-16" drill="0.3"/>
+<via x="18.288" y="-34.528" extent="1-16" drill="0.3"/>
+<via x="22.352" y="-34.544" extent="1-16" drill="0.3"/>
+<via x="20.32" y="-34.528" extent="1-16" drill="0.3"/>
+<via x="18.288" y="-33.512" extent="1-16" drill="0.3"/>
+<via x="22.352" y="-33.528" extent="1-16" drill="0.3"/>
+<via x="20.32" y="-33.512" extent="1-16" drill="0.3"/>
+<via x="19.304" y="-33.528" extent="1-16" drill="0.3"/>
+<via x="21.336" y="-33.512" extent="1-16" drill="0.3"/>
+<via x="21.336" y="-34.528" extent="1-16" drill="0.3"/>
+<via x="19.304" y="-34.528" extent="1-16" drill="0.3"/>
+<via x="18.288" y="-36.56" extent="1-16" drill="0.3"/>
+<via x="22.352" y="-36.576" extent="1-16" drill="0.3"/>
+<via x="20.32" y="-36.56" extent="1-16" drill="0.3"/>
+<via x="18.288" y="-35.544" extent="1-16" drill="0.3"/>
+<via x="22.352" y="-35.56" extent="1-16" drill="0.3"/>
+<via x="20.32" y="-35.544" extent="1-16" drill="0.3"/>
+<via x="19.304" y="-35.56" extent="1-16" drill="0.3"/>
+<via x="21.336" y="-35.544" extent="1-16" drill="0.3"/>
+<via x="21.336" y="-36.56" extent="1-16" drill="0.3"/>
+<via x="19.304" y="-36.56" extent="1-16" drill="0.3"/>
 </signal>
 <signal name="+12V">
 <contactref element="IC1" pad="1"/>
@@ -4079,12 +4085,12 @@ JLC7628 Stackup
 <contactref element="IC5" pad="12"/>
 <contactref element="C14" pad="1"/>
 <contactref element="C12" pad="+"/>
-<via x="-20.574" y="-59.055" extent="1-16" drill="0.25"/>
-<via x="-18.669" y="-59.055" extent="1-16" drill="0.25"/>
-<via x="-16.637" y="-59.055" extent="1-16" drill="0.25"/>
-<via x="-22.479" y="-56.515" extent="1-16" drill="0.25"/>
-<via x="-19.939" y="-56.515" extent="1-16" drill="0.25"/>
-<via x="-17.399" y="-56.515" extent="1-16" drill="0.25"/>
+<via x="-20.574" y="-59.055" extent="1-16" drill="0.508"/>
+<via x="-18.669" y="-59.055" extent="1-16" drill="0.508"/>
+<via x="-16.637" y="-59.055" extent="1-16" drill="0.508"/>
+<via x="-22.479" y="-56.515" extent="1-16" drill="0.508"/>
+<via x="-19.939" y="-56.515" extent="1-16" drill="0.508"/>
+<via x="-17.399" y="-56.515" extent="1-16" drill="0.508"/>
 <polygon width="0.2032" layer="16" thermals="no">
 <vertex x="-11.43" y="-59.69"/>
 <vertex x="-20.955" y="-59.69"/>
@@ -4244,9 +4250,9 @@ JLC7628 Stackup
 <wire x1="60.64" y1="-31.75" x2="60.64" y2="-33.02" width="0.4064" layer="1"/>
 <wire x1="60.64" y1="-33.02" x2="60.64" y2="-34.29" width="0.4064" layer="1"/>
 <wire x1="60.64" y1="-33.02" x2="63.5" y2="-33.02" width="0.4064" layer="1"/>
-<via x="63.5" y="-33.02" extent="1-16" drill="0.25"/>
+<via x="63.5" y="-33.02" extent="1-16" drill="0.3048"/>
 <wire x1="63.5" y1="-33.02" x2="67.31" y2="-33.02" width="0.4064" layer="16"/>
-<via x="67.31" y="-33.02" extent="1-16" drill="0.25"/>
+<via x="67.31" y="-33.02" extent="1-16" drill="0.3048"/>
 <wire x1="67.31" y1="-33.02" x2="69.342" y2="-34.036" width="0.4064" layer="1"/>
 <wire x1="-2.54" y1="-74.93" x2="-2.54" y2="-77.47" width="0.4064" layer="1"/>
 <wire x1="26.355346875" y1="-70.314015625" x2="26.355346875" y2="-70.47554375" width="0.4064" layer="1"/>
@@ -4289,10 +4295,10 @@ JLC7628 Stackup
 <contactref element="S16" pad="3"/>
 <contactref element="S1" pad="3"/>
 <polygon width="0.2032" layer="1" orphans="yes">
-<vertex x="3.81" y="77.521075"/>
+<vertex x="3.81" y="77.679059375"/>
 <vertex x="3.81" y="76.70968125" curve="69"/>
-<vertex x="-70.836040625" y="30.30291875"/>
-<vertex x="-71.60874375" y="30.612" curve="-70"/>
+<vertex x="-70.935484375" y="30.241096875"/>
+<vertex x="-71.86274375" y="30.612" curve="-70"/>
 </polygon>
 <wire x1="2.54" y1="76.962" x2="2.54" y2="74.93" width="0.4064" layer="1"/>
 <wire x1="-26.355346875" y1="70.314015625" x2="-26.355346875" y2="70.609696875" width="0.4064" layer="1"/>
@@ -4304,7 +4310,7 @@ JLC7628 Stackup
 <wire x1="7.62" y1="68.26" x2="8.89" y2="68.26" width="0.4064" layer="16"/>
 <wire x1="8.89" y1="68.26" x2="10.16" y2="68.26" width="0.4064" layer="16"/>
 <wire x1="8.89" y1="68.26" x2="8.89" y2="73.914" width="0.4064" layer="16"/>
-<via x="8.89" y="73.914" extent="1-16" drill="0.25"/>
+<via x="8.89" y="73.914" extent="1-16" drill="0.3"/>
 <wire x1="8.89" y1="73.914" x2="8.89" y2="76.2" width="0.4064" layer="1"/>
 <wire x1="8.89" y1="76.2" x2="8.128" y2="76.962" width="0.4064" layer="1"/>
 <wire x1="8.128" y1="76.962" x2="2.54" y2="76.962" width="0.4064" layer="1"/>
@@ -4318,7 +4324,7 @@ JLC7628 Stackup
 <wire x1="72.136" y1="-2.794" x2="70.9295" y2="-4.0005" width="0.2032" layer="16"/>
 <wire x1="61.68" y1="-4" x2="62.8772" y2="-4" width="0.2032" layer="1"/>
 <wire x1="62.8772" y1="-4" x2="62.8777" y2="-4.0005" width="0.2032" layer="1"/>
-<via x="62.8777" y="-4.0005" extent="1-16" drill="0.25"/>
+<via x="62.8777" y="-4.0005" extent="1-16" drill="0.35"/>
 <wire x1="62.8777" y1="-4.0005" x2="70.9295" y2="-4.0005" width="0.2032" layer="16"/>
 </signal>
 <signal name="SP6">
@@ -4830,7 +4836,7 @@ JLC7628 Stackup
 <wire x1="53.467" y1="27.305" x2="52.55" y2="27.305" width="0.254" layer="1"/>
 <wire x1="-20.32" y1="50.8" x2="-20.32" y2="49.53" width="0.254" layer="1"/>
 <wire x1="-20.32" y1="49.53" x2="-19.304" y2="48.514" width="0.254" layer="1"/>
-<via x="35.56" y="48.514" extent="1-16" drill="0.25"/>
+<via x="35.56" y="48.514" extent="1-16" drill="0.2"/>
 <wire x1="35.56" y1="48.514" x2="44.196" y2="48.514" width="0.254" layer="16"/>
 <wire x1="44.196" y1="48.514" x2="53.594" y2="39.116" width="0.254" layer="16"/>
 <wire x1="53.594" y1="39.116" x2="53.594" y2="34.798" width="0.254" layer="16"/>
@@ -4849,7 +4855,7 @@ JLC7628 Stackup
 <wire x1="60.198" y1="33.782" x2="60.198" y2="27.686" width="0.254" layer="1"/>
 <wire x1="-17.78" y1="50.8" x2="-17.78" y2="49.53" width="0.254" layer="1"/>
 <wire x1="-17.78" y1="49.53" x2="-17.272" y2="49.022" width="0.254" layer="1"/>
-<via x="36.068" y="49.022" extent="1-16" drill="0.25"/>
+<via x="36.068" y="49.022" extent="1-16" drill="0.2"/>
 <wire x1="44.45" y1="49.022" x2="36.068" y2="49.022" width="0.254" layer="16"/>
 <wire x1="-17.272" y1="49.022" x2="36.068" y2="49.022" width="0.254" layer="1"/>
 <wire x1="57.15" y1="34.29" x2="54.864" y2="34.29" width="0.254" layer="16"/>
@@ -4861,21 +4867,21 @@ JLC7628 Stackup
 <contactref element="R15" pad="2"/>
 <contactref element="LD1" pad="A"/>
 <wire x1="49.53" y1="-16.19" x2="49.53" y2="-19.05" width="0.254" layer="16"/>
-<via x="49.53" y="-19.05" extent="1-16" drill="0.25"/>
+<via x="49.53" y="-19.05" extent="1-16" drill="0.35"/>
 <wire x1="49.53" y1="-19.05" x2="49.53" y2="-20.348" width="0.254" layer="1"/>
 </signal>
 <signal name="N$21">
 <contactref element="R16" pad="2"/>
 <contactref element="LD2" pad="A"/>
 <wire x1="53.34" y1="-16.19" x2="53.34" y2="-19.05" width="0.254" layer="16"/>
-<via x="53.34" y="-19.05" extent="1-16" drill="0.25"/>
+<via x="53.34" y="-19.05" extent="1-16" drill="0.35"/>
 <wire x1="53.34" y1="-19.05" x2="53.34" y2="-20.348" width="0.254" layer="1"/>
 </signal>
 <signal name="N$22">
 <contactref element="R17" pad="2"/>
 <contactref element="LD3" pad="A"/>
 <wire x1="57.15" y1="-16.19" x2="57.15" y2="-19.05" width="0.254" layer="16"/>
-<via x="57.15" y="-19.05" extent="1-16" drill="0.25"/>
+<via x="57.15" y="-19.05" extent="1-16" drill="0.35"/>
 <wire x1="57.15" y1="-19.05" x2="57.15" y2="-20.348" width="0.254" layer="1"/>
 </signal>
 <signal name="LED3">
@@ -4883,7 +4889,7 @@ JLC7628 Stackup
 <contactref element="IC6" pad="12"/>
 <wire x1="59.88" y1="5.8" x2="59.88" y2="4.762" width="0.254" layer="1"/>
 <wire x1="59.88" y1="4.762" x2="59.182" y2="4.064" width="0.254" layer="1"/>
-<via x="59.182" y="4.064" extent="1-16" drill="0.25"/>
+<via x="59.182" y="4.064" extent="1-16" drill="0.35"/>
 <wire x1="57.15" y1="-12.954" x2="57.15" y2="-14.29" width="0.254" layer="16"/>
 <wire x1="59.182" y1="4.064" x2="59.182" y2="-5.842" width="0.254" layer="16"/>
 <wire x1="59.182" y1="-5.842" x2="59.182" y2="-10.922" width="0.254" layer="16"/>
@@ -4894,7 +4900,7 @@ JLC7628 Stackup
 <contactref element="IC6" pad="41"/>
 <wire x1="57.48" y1="-5.8" x2="57.48" y2="-6.909" width="0.254" layer="1"/>
 <wire x1="57.48" y1="-6.909" x2="57.404" y2="-6.985" width="0.254" layer="1"/>
-<via x="57.404" y="-6.985" extent="1-16" drill="0.25"/>
+<via x="57.404" y="-6.985" extent="1-16" drill="0.35"/>
 <wire x1="57.404" y1="-6.985" x2="53.34" y2="-11.049" width="0.254" layer="16"/>
 <wire x1="53.34" y1="-11.049" x2="53.34" y2="-14.29" width="0.254" layer="16"/>
 </signal>
@@ -4903,7 +4909,7 @@ JLC7628 Stackup
 <contactref element="IC6" pad="22"/>
 <wire x1="51.88" y1="5.8" x2="51.88" y2="4.636" width="0.254" layer="1"/>
 <wire x1="51.88" y1="4.636" x2="51.816" y2="4.572" width="0.254" layer="1"/>
-<via x="51.816" y="4.572" extent="1-16" drill="0.25"/>
+<via x="51.816" y="4.572" extent="1-16" drill="0.35"/>
 <wire x1="51.816" y1="4.572" x2="49.53" y2="2.286" width="0.254" layer="16"/>
 <wire x1="49.53" y1="2.286" x2="49.53" y2="-14.29" width="0.254" layer="16"/>
 </signal>
@@ -4932,7 +4938,7 @@ JLC7628 Stackup
 <contactref element="R18" pad="2"/>
 <contactref element="LD4" pad="A"/>
 <wire x1="60.96" y1="-16.19" x2="60.96" y2="-19.05" width="0.254" layer="16"/>
-<via x="60.96" y="-19.05" extent="1-16" drill="0.25"/>
+<via x="60.96" y="-19.05" extent="1-16" drill="0.35"/>
 <wire x1="60.96" y1="-19.05" x2="60.96" y2="-20.475" width="0.254" layer="1"/>
 </signal>
 <signal name="LED4">
@@ -4940,7 +4946,7 @@ JLC7628 Stackup
 <contactref element="IC6" pad="8"/>
 <wire x1="61.68" y1="1.6" x2="63.043" y2="1.6" width="0.254" layer="1"/>
 <wire x1="63.043" y1="1.6" x2="63.246" y2="1.397" width="0.254" layer="1"/>
-<via x="63.246" y="1.397" extent="1-16" drill="0.25"/>
+<via x="63.246" y="1.397" extent="1-16" drill="0.35"/>
 <wire x1="63.246" y1="1.397" x2="63.5" y2="1.143" width="0.254" layer="16"/>
 <wire x1="60.96" y1="-4.826" x2="60.96" y2="-14.29" width="0.254" layer="16"/>
 <wire x1="63.5" y1="1.143" x2="63.5" y2="-2.286" width="0.254" layer="16"/>
@@ -4950,14 +4956,14 @@ JLC7628 Stackup
 <contactref element="SW1L" pad="C"/>
 <contactref element="R13" pad="1"/>
 <wire x1="49.05" y1="27.305" x2="50.419" y2="27.305" width="0.254" layer="1"/>
-<via x="50.419" y="27.305" extent="1-16" drill="0.25"/>
+<via x="50.419" y="27.305" extent="1-16" drill="0.2"/>
 <wire x1="50.419" y1="27.305" x2="51.755" y2="27.305" width="0.254" layer="16"/>
 </signal>
 <signal name="N$18">
 <contactref element="SW2L" pad="C"/>
 <contactref element="R14" pad="1"/>
 <wire x1="55.4" y1="27.305" x2="56.769" y2="27.305" width="0.254" layer="1"/>
-<via x="56.769" y="27.305" extent="1-16" drill="0.25"/>
+<via x="56.769" y="27.305" extent="1-16" drill="0.2"/>
 <wire x1="56.769" y1="27.305" x2="58.105" y2="27.305" width="0.254" layer="16"/>
 </signal>
 <signal name="V-">
@@ -5031,15 +5037,15 @@ JLC7628 Stackup
 <vertex x="-19.05" y="8.636"/>
 <vertex x="-19.05" y="11.049"/>
 </polygon>
-<via x="-36.068" y="10.668" extent="1-16" drill="0.25"/>
-<via x="-33.274" y="10.668" extent="1-16" drill="0.25"/>
-<via x="-36.068" y="9.652" extent="1-16" drill="0.25"/>
-<via x="-33.274" y="9.652" extent="1-16" drill="0.25"/>
-<via x="-36.068" y="8.636" extent="1-16" drill="0.25"/>
-<via x="-33.274" y="8.636" extent="1-16" drill="0.25"/>
-<via x="-34.671" y="10.668" extent="1-16" drill="0.25"/>
-<via x="-34.671" y="9.652" extent="1-16" drill="0.25"/>
-<via x="-34.671" y="8.636" extent="1-16" drill="0.25"/>
+<via x="-36.068" y="10.668" extent="1-16" drill="0.2"/>
+<via x="-33.274" y="10.668" extent="1-16" drill="0.2"/>
+<via x="-36.068" y="9.652" extent="1-16" drill="0.2"/>
+<via x="-33.274" y="9.652" extent="1-16" drill="0.2"/>
+<via x="-36.068" y="8.636" extent="1-16" drill="0.2"/>
+<via x="-33.274" y="8.636" extent="1-16" drill="0.2"/>
+<via x="-34.671" y="10.668" extent="1-16" drill="0.2"/>
+<via x="-34.671" y="9.652" extent="1-16" drill="0.2"/>
+<via x="-34.671" y="8.636" extent="1-16" drill="0.2"/>
 <polygon width="0.2032" layer="1" thermals="no">
 <vertex x="-50.546" y="11.176"/>
 <vertex x="-45.974" y="11.176"/>
@@ -5060,12 +5066,12 @@ JLC7628 Stackup
 <vertex x="-34.036" y="-11.176"/>
 <vertex x="-37.846" y="-11.176"/>
 </polygon>
-<via x="-36.068" y="-8.636" extent="1-16" drill="0.25"/>
-<via x="-36.068" y="-9.652" extent="1-16" drill="0.25"/>
-<via x="-36.068" y="-10.668" extent="1-16" drill="0.25"/>
-<via x="-34.671" y="-8.636" extent="1-16" drill="0.25"/>
-<via x="-34.671" y="-9.652" extent="1-16" drill="0.25"/>
-<via x="-34.671" y="-10.668" extent="1-16" drill="0.25"/>
+<via x="-36.068" y="-8.636" extent="1-16" drill="0.2"/>
+<via x="-36.068" y="-9.652" extent="1-16" drill="0.2"/>
+<via x="-36.068" y="-10.668" extent="1-16" drill="0.2"/>
+<via x="-34.671" y="-8.636" extent="1-16" drill="0.2"/>
+<via x="-34.671" y="-9.652" extent="1-16" drill="0.2"/>
+<via x="-34.671" y="-10.668" extent="1-16" drill="0.2"/>
 <polygon width="0.2032" layer="1" thermals="no">
 <vertex x="-58.674" y="-11.176"/>
 <vertex x="-58.674" y="-4.064"/>
@@ -5076,15 +5082,15 @@ JLC7628 Stackup
 <vertex x="-68.072" y="-7.366"/>
 <vertex x="-68.072" y="-11.176"/>
 </polygon>
-<via x="-63.246" y="-8.636" extent="1-16" drill="0.25"/>
-<via x="-60.452" y="-8.636" extent="1-16" drill="0.25"/>
-<via x="-63.246" y="-9.652" extent="1-16" drill="0.25"/>
-<via x="-60.452" y="-9.652" extent="1-16" drill="0.25"/>
-<via x="-63.246" y="-10.668" extent="1-16" drill="0.25"/>
-<via x="-60.452" y="-10.668" extent="1-16" drill="0.25"/>
-<via x="-61.849" y="-8.636" extent="1-16" drill="0.25"/>
-<via x="-61.849" y="-9.652" extent="1-16" drill="0.25"/>
-<via x="-61.849" y="-10.668" extent="1-16" drill="0.25"/>
+<via x="-63.246" y="-8.636" extent="1-16" drill="0.2"/>
+<via x="-60.452" y="-8.636" extent="1-16" drill="0.2"/>
+<via x="-63.246" y="-9.652" extent="1-16" drill="0.2"/>
+<via x="-60.452" y="-9.652" extent="1-16" drill="0.2"/>
+<via x="-63.246" y="-10.668" extent="1-16" drill="0.2"/>
+<via x="-60.452" y="-10.668" extent="1-16" drill="0.2"/>
+<via x="-61.849" y="-8.636" extent="1-16" drill="0.2"/>
+<via x="-61.849" y="-9.652" extent="1-16" drill="0.2"/>
+<via x="-61.849" y="-10.668" extent="1-16" drill="0.2"/>
 <polygon width="0.2032" layer="1" thermals="no">
 <vertex x="-58.674" y="11.176"/>
 <vertex x="-58.674" y="4.064"/>
@@ -5095,30 +5101,30 @@ JLC7628 Stackup
 <vertex x="-68.072" y="7.366"/>
 <vertex x="-68.072" y="11.176"/>
 </polygon>
-<via x="-63.246" y="10.668" extent="1-16" drill="0.25"/>
-<via x="-60.452" y="10.668" extent="1-16" drill="0.25"/>
-<via x="-63.246" y="9.652" extent="1-16" drill="0.25"/>
-<via x="-60.452" y="9.652" extent="1-16" drill="0.25"/>
-<via x="-63.246" y="8.636" extent="1-16" drill="0.25"/>
-<via x="-60.452" y="8.636" extent="1-16" drill="0.25"/>
-<via x="-61.849" y="10.668" extent="1-16" drill="0.25"/>
-<via x="-61.849" y="9.652" extent="1-16" drill="0.25"/>
-<via x="-61.849" y="8.636" extent="1-16" drill="0.25"/>
-<via x="-48.768" y="5.842" extent="1-16" drill="0.25"/>
-<via x="-47.752" y="5.842" extent="1-16" drill="0.25"/>
-<via x="-48.768" y="5.08" extent="1-16" drill="0.25"/>
-<via x="-47.752" y="5.08" extent="1-16" drill="0.25"/>
-<via x="-48.768" y="4.318" extent="1-16" drill="0.25"/>
-<via x="-47.752" y="4.318" extent="1-16" drill="0.25"/>
-<via x="-48.768" y="-4.318" extent="1-16" drill="0.25"/>
-<via x="-47.752" y="-4.318" extent="1-16" drill="0.25"/>
-<via x="-48.768" y="-5.08" extent="1-16" drill="0.25"/>
-<via x="-47.752" y="-5.08" extent="1-16" drill="0.25"/>
-<via x="-48.768" y="-5.842" extent="1-16" drill="0.25"/>
-<via x="-47.752" y="-5.842" extent="1-16" drill="0.25"/>
+<via x="-63.246" y="10.668" extent="1-16" drill="0.2"/>
+<via x="-60.452" y="10.668" extent="1-16" drill="0.2"/>
+<via x="-63.246" y="9.652" extent="1-16" drill="0.2"/>
+<via x="-60.452" y="9.652" extent="1-16" drill="0.2"/>
+<via x="-63.246" y="8.636" extent="1-16" drill="0.2"/>
+<via x="-60.452" y="8.636" extent="1-16" drill="0.2"/>
+<via x="-61.849" y="10.668" extent="1-16" drill="0.2"/>
+<via x="-61.849" y="9.652" extent="1-16" drill="0.2"/>
+<via x="-61.849" y="8.636" extent="1-16" drill="0.2"/>
+<via x="-48.768" y="5.842" extent="1-16" drill="0.2"/>
+<via x="-47.752" y="5.842" extent="1-16" drill="0.2"/>
+<via x="-48.768" y="5.08" extent="1-16" drill="0.2"/>
+<via x="-47.752" y="5.08" extent="1-16" drill="0.2"/>
+<via x="-48.768" y="4.318" extent="1-16" drill="0.2"/>
+<via x="-47.752" y="4.318" extent="1-16" drill="0.2"/>
+<via x="-48.768" y="-4.318" extent="1-16" drill="0.2"/>
+<via x="-47.752" y="-4.318" extent="1-16" drill="0.2"/>
+<via x="-48.768" y="-5.08" extent="1-16" drill="0.2"/>
+<via x="-47.752" y="-5.08" extent="1-16" drill="0.2"/>
+<via x="-48.768" y="-5.842" extent="1-16" drill="0.2"/>
+<via x="-47.752" y="-5.842" extent="1-16" drill="0.2"/>
 </signal>
 <signal name="N$23">
-<via x="48.26" y="4.064" extent="1-16" drill="0.25"/>
+<via x="48.26" y="4.064" extent="1-16" drill="0.2"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
@@ -5142,6 +5148,7 @@ JLC7628 Stackup
 <approved hash="8,1,53ba759080b0be87"/>
 <approved hash="8,1,01248e12e2ebc0c4"/>
 <approved hash="8,1,e5af27bf6a2652c4"/>
+<approved hash="20,16,550bd2201fe7b4b5"/>
 <approved hash="8,1,32b60361022306a1"/>
 <approved hash="8,1,41b86b4693ffb850"/>
 <approved hash="8,1,8331f9abd5ad9369"/>
@@ -5166,7 +5173,16 @@ JLC7628 Stackup
 <approved hash="8,16,1c2ff0553c3fd148"/>
 <approved hash="8,16,680a15bdd753a7e5"/>
 <approved hash="8,16,82401afcf41af8f6"/>
-<approved hash="20,16,f9576c809fc2266c"/>
+<approved hash="23,1,f4b9b139b0ddf55d"/>
+<approved hash="23,16,3fc057c2b8d815da"/>
+<approved hash="23,16,e4fb10109008c245"/>
+<approved hash="23,16,f8e6f6461aec801c"/>
+<approved hash="23,16,82401afcf41af8f6"/>
+<approved hash="23,16,84f31d1d1f6e6264"/>
+<approved hash="23,16,680a15bdd753a7e5"/>
+<approved hash="23,16,0afad810d8120af8"/>
+<approved hash="23,16,60ff8c8182fe6e80"/>
+<approved hash="23,16,81cf8337861384eb"/>
 </errors>
 </board>
 </drawing>
