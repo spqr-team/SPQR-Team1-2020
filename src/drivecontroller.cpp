@@ -15,6 +15,9 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     pDir = 0;
     pSpeed = 0;
     pTilt = 0;
+    gDir = 0;
+    gSpeed = 0;
+    gTilt = 0;
 
     vx = 0;
     vy = 0;
@@ -24,14 +27,15 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     speed3 = 0;
     speed4 = 0;
 
+    pid = new PID(&input, &output, &setpoint, (double)KP,  (double)KI,  (double)KD, P_ON_M, REVERSE);
     delta = 0;
-    errorP = 0;
-    errorI = 0;
-    errorD = 0;
-    
-    errorePre = 0;
-    pidfactor = 0;
-    integral = 0;
+    input = 0;
+    output = 0;
+    setpoint = 0;
+
+    pid->SetMode(AUTOMATIC);
+    pid->SetSampleTime(2);
+
     canUnlock = true;
     unlockTime = 0;
 
@@ -50,6 +54,7 @@ void DriveController::prepareDrive(int dir, int speed, int tilt){
 void DriveController::prepareDrive(int dir, int speed){
     pDir = dir;
     pSpeed = speed;
+    pDir = gTilt;
 }
 
 void DriveController::drivePrepared(){
@@ -61,6 +66,10 @@ float DriveController::torad(float f){
 }
 
 void DriveController::drive(int dir, int speed, int tilt){
+    gDir = dir;
+    gSpeed = speed;
+    gTilt = tilt;
+
     vx = ((speed * cosins[dir]));
     vy = ((-speed * sins[dir]));
 
@@ -80,22 +89,21 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed4 = -(speed2);
 
     // calcola l'errore di posizione rispetto allo 0
-    delta = compass->getValue();
-    if(delta > 180) delta = delta-360;
-    delta = delta - tilt;
+    delta = (compass->getValue()-tilt+360)%360;
+;
+    setpoint = 0;
+    pid->SetControllerDirection(REVERSE);
 
-    // calcola correzione proporzionale
-    errorP = KP * delta;
+    if(delta > 180) {
+        setpoint = 359;//delta = delta-360;
+        pid->SetControllerDirection(DIRECT);
+    }
 
-    // calcola correzione derivativa
-    errorD = KD * (delta - errorePre);
-    errorePre = delta;
+    input = delta;
 
-    // calcola correzione integrativa
-    integral = 0.5 * integral + delta;
-    errorI = KI * integral;
-    // calcota correzione complessiva
-    pidfactor =  errorD + errorP + errorI;               
+    pid->Compute();             
+
+    pidfactor = delta > 180 ? output*-1 : output;
 
     speed1 += pidfactor;
     speed2 += pidfactor;
