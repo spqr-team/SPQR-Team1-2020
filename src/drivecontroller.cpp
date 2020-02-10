@@ -15,9 +15,6 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     pDir = 0;
     pSpeed = 0;
     pTilt = 0;
-    gDir = 0;
-    gSpeed = 0;
-    gTilt = 0;
 
     vx = 0;
     vy = 0;
@@ -51,12 +48,6 @@ void DriveController::prepareDrive(int dir, int speed, int tilt){
     pTilt = tilt;
 }
 
-void DriveController::prepareDrive(int dir, int speed){
-    pDir = dir;
-    pSpeed = speed;
-    pDir = gTilt;
-}
-
 void DriveController::drivePrepared(){
     drive(pDir, pSpeed, pTilt);
 }
@@ -66,10 +57,6 @@ float DriveController::torad(float f){
 }
 
 void DriveController::drive(int dir, int speed, int tilt){
-    gDir = dir;
-    gSpeed = speed;
-    gTilt = tilt;
-
     vx = ((speed * cosins[dir]));
     vy = ((-speed * sins[dir]));
 
@@ -100,9 +87,7 @@ void DriveController::drive(int dir, int speed, int tilt){
     }
 
     input = delta;
-
     pid->Compute();             
-
     pidfactor = delta > 180 ? output*-1 : output;
 
     speed1 += pidfactor;
