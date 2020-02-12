@@ -4616,10 +4616,7 @@ JLC7628 Stackup
 <vertex x="-52.578" y="-14.732"/>
 <vertex x="-53.594" y="-14.732"/>
 </polygon>
-<via x="-51.689" y="-8.382" extent="1-16" drill="0.2"/>
-<via x="-51.181" y="-8.382" extent="1-16" drill="0.2"/>
-<via x="-51.181" y="-8.89" extent="1-16" drill="0.2"/>
-<via x="-51.689" y="-8.89" extent="1-16" drill="0.2"/>
+<via x="-51.435" y="-8.636" extent="1-16" drill="0.5"/>
 </signal>
 <signal name="M4_OUTB">
 <contactref element="IC5" pad="7"/>
@@ -5085,26 +5082,18 @@ JLC7628 Stackup
 <via x="-61.849" y="10.668" extent="1-16" drill="0.25"/>
 <via x="-61.849" y="9.652" extent="1-16" drill="0.25"/>
 <via x="-61.849" y="8.636" extent="1-16" drill="0.25"/>
-<via x="-49.022" y="5.842" extent="1-16" drill="0.25"/>
-<via x="-47.498" y="5.842" extent="1-16" drill="0.25"/>
-<via x="-49.022" y="5.08" extent="1-16" drill="0.25"/>
-<via x="-47.498" y="5.08" extent="1-16" drill="0.25"/>
-<via x="-49.022" y="4.318" extent="1-16" drill="0.25"/>
-<via x="-47.498" y="4.318" extent="1-16" drill="0.25"/>
-<via x="-49.022" y="-4.318" extent="1-16" drill="0.25"/>
-<via x="-47.498" y="-4.318" extent="1-16" drill="0.25"/>
-<via x="-49.022" y="-5.08" extent="1-16" drill="0.25"/>
-<via x="-47.498" y="-5.08" extent="1-16" drill="0.25"/>
-<via x="-49.022" y="-5.842" extent="1-16" drill="0.25"/>
-<via x="-47.498" y="-5.842" extent="1-16" drill="0.25"/>
-<via x="-36.068" y="-7.62" extent="1-16" drill="0.25"/>
-<via x="-34.671" y="-7.62" extent="1-16" drill="0.25"/>
-<via x="-48.26" y="-4.318" extent="1-16" drill="0.25"/>
-<via x="-48.26" y="-5.08" extent="1-16" drill="0.25"/>
-<via x="-48.26" y="-5.842" extent="1-16" drill="0.25"/>
-<via x="-48.26" y="5.842" extent="1-16" drill="0.25"/>
-<via x="-48.26" y="5.08" extent="1-16" drill="0.25"/>
-<via x="-48.26" y="4.318" extent="1-16" drill="0.25"/>
+<via x="-48.768" y="5.842" extent="1-16" drill="0.25"/>
+<via x="-47.752" y="5.842" extent="1-16" drill="0.25"/>
+<via x="-48.768" y="5.08" extent="1-16" drill="0.25"/>
+<via x="-47.752" y="5.08" extent="1-16" drill="0.25"/>
+<via x="-48.768" y="4.318" extent="1-16" drill="0.25"/>
+<via x="-47.752" y="4.318" extent="1-16" drill="0.25"/>
+<via x="-48.768" y="-4.318" extent="1-16" drill="0.25"/>
+<via x="-47.752" y="-4.318" extent="1-16" drill="0.25"/>
+<via x="-48.768" y="-5.08" extent="1-16" drill="0.25"/>
+<via x="-47.752" y="-5.08" extent="1-16" drill="0.25"/>
+<via x="-48.768" y="-5.842" extent="1-16" drill="0.25"/>
+<via x="-47.752" y="-5.842" extent="1-16" drill="0.25"/>
 </signal>
 <signal name="N$23">
 <via x="48.26" y="4.064" extent="1-16" drill="0.25"/>

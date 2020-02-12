@@ -24746,84 +24746,84 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <pinref part="R19" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="INA_4" class="0">
+<net name="M4_A" class="0">
 <segment>
 <pinref part="IC5" gate="G$1" pin="IN_A"/>
 <wire x1="137.16" y1="165.1" x2="132.08" y2="165.1" width="0.1524" layer="91"/>
 <pinref part="R22" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="INB_4" class="0">
+<net name="M4_B" class="0">
 <segment>
 <pinref part="IC5" gate="G$1" pin="IN_B"/>
 <wire x1="137.16" y1="157.48" x2="132.08" y2="157.48" width="0.1524" layer="91"/>
 <pinref part="R23" gate="G$1" pin="1"/>
 </segment>
 </net>
-<net name="INA_3" class="0">
+<net name="N$24" class="0">
 <segment>
 <pinref part="R26" gate="G$1" pin="1"/>
 <pinref part="IC4" gate="G$1" pin="IN_A"/>
 <wire x1="20.32" y1="165.1" x2="25.4" y2="165.1" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="INB_3" class="0">
+<net name="N$25" class="0">
 <segment>
 <pinref part="R27" gate="G$1" pin="1"/>
 <pinref part="IC4" gate="G$1" pin="IN_B"/>
 <wire x1="20.32" y1="157.48" x2="25.4" y2="157.48" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="INA_1" class="0">
+<net name="N$26" class="0">
 <segment>
 <pinref part="R24" gate="G$1" pin="1"/>
 <pinref part="IC2" gate="G$1" pin="IN_A"/>
 <wire x1="20.32" y1="215.9" x2="25.4" y2="215.9" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="INB_1" class="0">
+<net name="N$27" class="0">
 <segment>
 <pinref part="R25" gate="G$1" pin="1"/>
 <pinref part="IC2" gate="G$1" pin="IN_B"/>
 <wire x1="20.32" y1="208.28" x2="25.4" y2="208.28" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="INA_2" class="0">
+<net name="N$28" class="0">
 <segment>
 <pinref part="R20" gate="G$1" pin="1"/>
 <pinref part="IC3" gate="G$1" pin="IN_A"/>
 <wire x1="132.08" y1="215.9" x2="137.16" y2="215.9" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="INB_2" class="0">
+<net name="N$29" class="0">
 <segment>
 <pinref part="R21" gate="G$1" pin="1"/>
 <pinref part="IC3" gate="G$1" pin="IN_B"/>
 <wire x1="132.08" y1="208.28" x2="137.16" y2="208.28" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PWM_1" class="0">
+<net name="N$30" class="0">
 <segment>
 <pinref part="R28" gate="G$1" pin="2"/>
 <pinref part="IC2" gate="G$1" pin="PWM"/>
 <wire x1="63.5" y1="208.28" x2="60.96" y2="208.28" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PWM3" class="0">
+<net name="N$31" class="0">
 <segment>
 <pinref part="IC4" gate="G$1" pin="PWM"/>
 <pinref part="R29" gate="G$1" pin="2"/>
 <wire x1="60.96" y1="157.48" x2="63.5" y2="157.48" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PWM_2" class="0">
+<net name="N$32" class="0">
 <segment>
 <pinref part="IC3" gate="G$1" pin="PWM"/>
 <pinref part="R30" gate="G$1" pin="2"/>
 <wire x1="175.26" y1="208.28" x2="172.72" y2="208.28" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="PWM_4" class="0">
+<net name="N$33" class="0">
 <segment>
 <pinref part="IC5" gate="G$1" pin="PWM"/>
 <pinref part="R31" gate="G$1" pin="2"/>
