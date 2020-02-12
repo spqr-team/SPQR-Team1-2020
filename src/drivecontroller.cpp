@@ -31,7 +31,7 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     setpoint = 0;
 
     pid->SetMode(AUTOMATIC);
-    pid->SetSampleTime(2);
+    pid->SetSampleTime(5);
 
     canUnlock = true;
     unlockTime = 0;

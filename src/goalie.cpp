@@ -1,6 +1,7 @@
 #include "goalie.h"
 #include "sensors.h"
 #include "vars.h"
+#include "positionsys_zone.h"
 
 Goalie::Goalie() : Game() {
   init();
@@ -17,7 +18,7 @@ void Goalie::init(){
 }
 
 void Goalie::realPlay(){
-  if(ball->ballSeen) this->goalie(50);
+  if(ball->ballSeen) this->goCenter();
   else drive->prepareDrive(0,0,0);
 }
 
@@ -36,11 +37,19 @@ void Goalie::goalie(int plusang) {
     else dir = dir;
 
     storcimentoPorta();
+<<<<<<< HEAD
     if(ball->distance > 200 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, cstorc);
     else {
       drive->prepareDrive(dir, 350, 0);
       cstorc = 0;
     }
+=======
+    //if(ball->distance > 200 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(ball->dir, 350, cstorc);
+    //else {
+      drive->prepareDrive(ball->dir, 350, 0);
+    //  cstorc = 0;
+    //}
+>>>>>>> 5a9ce6692fe1b3165fa36a1f5a11c729c8818dd4
   }
 }
 

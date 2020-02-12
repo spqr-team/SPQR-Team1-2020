@@ -60,6 +60,7 @@ class PositionSysZone : public PositionSystem{
         PositionSysZone();
         void update() override;
         void test() override;
+        void goCenter();
 
         //returns the zone calculated
         int getValue();
@@ -110,7 +111,7 @@ class PositionSysZone : public PositionSystem{
         void testLogicZone();
 
         //movement
-        void goCenter();
+        //void goCenter();
         void goGoalPost();
         void centerGoalPost();
         void centerGoalPostCamera(bool);
