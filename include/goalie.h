@@ -16,7 +16,7 @@
 #define GOALIE_ATKDIR_PLUSANG2_COR 70
 #define GOALIE_ATKDIR_PLUSANG3_COR 70
 
-class Goalie : public Game{
+class Goalie : public Game, public PositionSysZone{
 
     public:
         Goalie();
