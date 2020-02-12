@@ -22,6 +22,8 @@ void loop() {
   goalie->play(role==1);
   keeper->play(role==0);  
 
+  Serial.println(CURRENT_DATA_READ.IMUAngle);
+
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  
   updateStatusVector();

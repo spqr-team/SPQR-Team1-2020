@@ -76,8 +76,9 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed4 = -(speed2);
 
     // calcola l'errore di posizione rispetto allo 0
-    delta = (compass->getValue()-tilt+360)%360;
-;
+//    delta = (compass->getValue()-tilt+360)%360;
+   delta = (CURRENT_DATA_READ.IMUAngle-tilt+360)%360;
+
     setpoint = 0;
     pid->SetControllerDirection(REVERSE);
 

@@ -4,7 +4,7 @@
 void initStatusVector(){
     currentSVIndex = 0;
 
-    for(int i=0; i>=dim; i++){
+    for(int i=0; i<dim; i++){
         inputs[i] = input();
         datas[i] = data();
     }

@@ -21,24 +21,24 @@ void Goalie::realPlay(){
   else drive->prepareDrive(0,0,0);
 }
 
+int dir, degrees2;
 void Goalie::goalie(int plusang) {
   if(ball->distance < 185) drive->prepareDrive(ball->angle, 350, 0);
   else{
     if(ball->angle > 340 || ball->angle < 20) plusang -= 20;
-    if(ball->angle > 180) ball->degrees2 = ball->angle - 360;
-    else ball->degrees2 = ball->angle;
+    if(ball->angle > 180) degrees2 = ball->angle - 360;
+    else degrees2 = ball->angle;
 
-    if(ball->degrees2 > 0) ball->dir = ball->angle + plusang;              //45 con 8 ruote
-    else ball->dir = ball->angle - plusang;                                 //45 con 8 ruote
+    if(degrees2 > 0) dir = ball->angle + plusang;              //45 con 8 ruote
+    else dir = ball->angle - plusang;                                 //45 con 8 ruote
 
-    if(ball->dir < 0) ball->dir = ball->dir + 360;
-    else ball->dir = ball->dir;
-    ball->b = ball->dir;
+    if(dir < 0) dir = dir + 360;
+    else dir = dir;
 
     storcimentoPorta();
-    if(ball->distance > 200 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(ball->dir, 350, cstorc);
+    if(ball->distance > 200 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, cstorc);
     else {
-      drive->prepareDrive(ball->dir, 350, 0);
+      drive->prepareDrive(dir, 350, 0);
       cstorc = 0;
     }
   }

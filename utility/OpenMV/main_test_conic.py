@@ -29,13 +29,8 @@ blue_led.on()
 #thresholds = [  (54, 93, -10, 25, 55, 70),    # thresholds yellow goal
 #                (30, 45, 1, 40, -60, -19)]    # thresholds blue goal
 #
-<<<<<<< HEAD
-thresholds = [  (49, 84, -8, 31, 20, 80),    # thresholds yellow goal
-                (0, 51, -4, 44, -59, -21)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
-=======
 thresholds = [  (30, 70, -12, 19, 41, 68)  ,    # thresholds yellow goal
                 (0, 70, -2, 34, -59, -21)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
->>>>>>> 3c09f031f1833bf48d5dc14c166307217dee7fcf
 
 roi = (0, 6, 318, 152)
 
@@ -57,11 +52,7 @@ sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QQVGA)
 sensor.set_contrast(+2)
 sensor.set_saturation(+1)
-<<<<<<< HEAD
 sensor.set_brightness(-3)
-=======
-sensor.set_brightness(-2)
->>>>>>> 3c09f031f1833bf48d5dc14c166307217dee7fcf
 sensor.set_quality(0)
 sensor.set_auto_exposure(False, 6000)
 sensor.set_auto_gain(True)
@@ -84,11 +75,11 @@ while(True):
 
     blue_led.off()
 
-    tt_yellow = [(0,999,0,1)]     ## creo una lista di tuple per il giallo, valore x = 999 : non trovata
+    tt_yellow = [(0,999,0,1)]      ## creo una lista di tuple per il giallo, valore x = 999 : non trovata
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=150, area_threshold=150, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=100, area_threshold=150, merge = True):
         img.draw_rectangle(blob.rect())
         img.draw_cross(blob.cx(), blob.cy())
 

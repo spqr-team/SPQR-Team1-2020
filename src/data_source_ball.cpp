@@ -8,12 +8,16 @@ DataSourceBall :: DataSourceBall(HardwareSerial* ser_, int baud) : DataSource(se
 }
 
 void DataSourceBall :: postProcess(){
-    if((value & 0x01) == 1){
-        distance = value;
-        ballSeen = distance > 1;
-      }else{ 
-        angle = value * 2; 
-      }
+  if((value & 0x01) == 1){
+      distance = value;
+      ballSeen = distance > 1;
+  }else{ 
+    angle = value * 2; 
+  }
+  CURRENT_INPUT_WRITE.ballByte = value;
+  CURRENT_DATA_WRITE.ballAngle = angle;
+  CURRENT_DATA_WRITE.ballDistance = distance;
+  CURRENT_DATA_WRITE.ballSeen = ballSeen;
 }
 
 void DataSourceBall :: test(){

@@ -17,10 +17,8 @@ void DataSourceBNO055::readSensor(){
   if(millis() - lastTime > DATA_CLOCK){
     imu::Vector<3> euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
     this->value = (int) euler.x();
-
-    CURRENT_INPUT_WRITE.IMUAngle = this->value;
-    CURRENT_DATA_WRITE.IMUAngle = this->value;
-
     lastTime = millis();
   }
+  CURRENT_INPUT_WRITE.IMUAngle = this->value;
+  CURRENT_DATA_WRITE.IMUAngle = this->value;
 }

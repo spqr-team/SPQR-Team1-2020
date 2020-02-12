@@ -46,7 +46,7 @@ void DataSourceCameraConic :: readSensor(){
         yAngle = (yAngle+360)%360;
         bAngle = (bAngle+360)%360;
 
-        int angleFix = compass->getValue() > 180 ? compass->getValue() - 360 : compass->getValue();
+        int angleFix = CURRENT_DATA_READ.IMUAngle > 180 ? CURRENT_DATA_READ.IMUAngle - 360 : CURRENT_DATA_READ.IMUAngle;
 
         //Fixes with IMU
         yAngleFix = ((int) ((yAngle + angleFix*0.8)) + 360) % 360 ;
@@ -66,6 +66,18 @@ void DataSourceCameraConic :: readSensor(){
         count++;
       }
     }   
+    //Important: update status vector
+    CURRENT_INPUT_WRITE.cameraByte = value;
+    CURRENT_DATA_WRITE.xb = true_xb;
+    CURRENT_DATA_WRITE.yb = true_yb;
+    CURRENT_DATA_WRITE.xy = true_xy;
+    CURRENT_DATA_WRITE.yy = true_yy;
+    CURRENT_DATA_WRITE.yAngle = yAngle;
+    CURRENT_DATA_WRITE.bAngle = bAngle;
+    CURRENT_DATA_WRITE.yAngleFix = yAngleFix;
+    CURRENT_DATA_WRITE.bAngleFix = bAngleFix;
+    CURRENT_DATA_WRITE.yDist = yDist;
+    CURRENT_DATA_WRITE.bDist = bDist;
   }
 }
 
