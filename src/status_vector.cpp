@@ -12,4 +12,6 @@ void initStatusVector(){
 
 void updateStatusVector(){
     currentSVIndex = (currentSVIndex+1) % dim;
+    CURRENT_DATA_WRITE = CURRENT_DATA_READ;
+    CURRENT_INPUT_WRITE = CURRENT_INPUT_READ;
 }
