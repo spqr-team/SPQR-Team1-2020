@@ -1,5 +1,5 @@
 #pragma once
-#define DEBUG Serial3
+#define DEBUG Serial
 
 #define LED_R 20
 #define LED_Y 17

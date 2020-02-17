@@ -23,6 +23,9 @@ void loop() {
   goalie->play(role==1);
   keeper->play(role==0);  
 
+  camera->test();
+
+
   // Last thing to do: movement and update status vector
 
   drive->drivePrepared();  

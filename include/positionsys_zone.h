@@ -56,7 +56,7 @@
 #define SOUTH_EAST 9
 
 #define CAMERA_CENTER_X 3
-#define CAMERA_CENTER_Y 1
+#define CAMERA_CENTER_Y 10
 
 class PositionSysZone : public PositionSystem{
     public:
