@@ -18,8 +18,8 @@ void Goalie::init(){
 }
 
 void Goalie::realPlay(){
-  if(ball->ballSeen) this->goCenter();
-  else drive->prepareDrive(0,0,0);
+  if(ball->ballSeen) this->goalie(45);
+  else ((PositionSysZone*)ps)->goCenter();
 }
 
 int dir, degrees2;
