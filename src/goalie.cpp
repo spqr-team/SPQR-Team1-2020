@@ -18,7 +18,7 @@ void Goalie::init(){
 }
 
 void Goalie::realPlay(){
-  if(ball->ballSeen) this->goalie(50);
+  if(ball->ballSeen) this->goalie(45);
   else ((PositionSysZone*)ps)->goCenter();
 }
 

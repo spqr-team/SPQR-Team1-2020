@@ -373,15 +373,15 @@ void PositionSysZone::testLogicZone(){
 
 
 void PositionSysZone::goCenter() {
-  if((camera->true_yb + camera->true_yy) >= 3 && (camera->true_yb + camera->true_yy) <= -3) {
-    //dx o sx
-   if((camera->true_yb + camera->true_yy) < 0) drive->prepareDrive(0, 200, 0);
-   else if ((camera->true_yb + camera->true_yy) > 0) drive->prepareDrive(270, 200, 0);
-  }  
-  if(camera->true_xb >= -10 && camera->true_xb <= 10);
-  else if(camera->true_xb >= -5 && camera->true_xb <= 35) drive->prepareDrive(90, 200, 0);
-  else if(camera->true_xb >= 5 && camera->true_xb <= -35) drive->prepareDrive(180, 200, 0);
- /*  if (zoneIndex == 8)
+  if((camera->true_yb + camera->true_yy) >= 0) drive->prepareDrive(180, 75, 0);
+  else if ((camera->true_yb + camera->true_yy) <= -CAMERA_CENTER_Y) drive->prepareDrive(0, 75, 0); 
+  else drive->prepareDrive(0, 0, 0);
+/*   if(camera->true_xb < -CAMERA_CENTER_X || camera->true_xy < -CAMERA_CENTER_X) drive->prepareDrive(90, 75, 0);
+  else if(camera->true_xb > CAMERA_CENTER_X || camera->true_xy > CAMERA_CENTER_X) drive->prepareDrive(270, 75, 0);
+  else drive->prepareDrive(0, 0, 0); */
+ /*  
+ PREVIOUS
+  if (zoneIndex == 8)
     drive->prepareDrive(330, GOCENTER_VEL);
   if (zoneIndex == 7)
     drive->prepareDrive(0, GOCENTER_VEL);
