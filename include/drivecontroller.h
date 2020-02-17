@@ -2,12 +2,12 @@
 
 #include <Arduino.h>
 #include "motor.h"
-#include "PID_v1.h"
+#include "PID_v2.h"
 
 //PID Constants
-#define KP 1.2
+#define KP 1.5
 #define KI 0.0
-#define KD 0.0
+#define KD 0.3
 
 #define UNLOCK_THRESH 800
 
@@ -35,9 +35,9 @@ class DriveController{
         PID* pid;
         int pDir, pSpeed, pTilt;
         int gDir, gSpeed, gTilt;
-        int speed1, speed2, speed3, speed4, errorePre, integral, pidfactor, errorP, errorD, errorI, delta;
+        float x, y, vx, vy, speed1, speed2, speed3, speed4, pidfactor, delta;
+
         double input, output, setpoint;
-        int vx, vy;
         
         float sins[360], cosins[360];
 

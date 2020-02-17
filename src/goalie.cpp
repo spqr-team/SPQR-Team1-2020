@@ -18,15 +18,15 @@ void Goalie::init(){
 }
 
 void Goalie::realPlay(){
-  if(ball->ballSeen) this->goCenter();
-  else drive->prepareDrive(0,0,0);
+  if(ball->ballSeen) this->goalie(50);
+  else ((PositionSysZone*)ps)->goCenter();
 }
 
 int dir, degrees2;
 void Goalie::goalie(int plusang) {
-  if(ball->distance < 185) drive->prepareDrive(ball->angle, 350, 0);
+  if(ball->distance < 160) drive->prepareDrive(ball->angle, 350, 0);
   else{
-    if(ball->angle > 340 || ball->angle < 20) plusang -= 20;
+    if(ball->angle > 340 || ball->angle < 20) plusang *= 0.15;
     if(ball->angle > 180) degrees2 = ball->angle - 360;
     else degrees2 = ball->angle;
 
@@ -37,7 +37,7 @@ void Goalie::goalie(int plusang) {
     else dir = dir;
 
     storcimentoPorta();
-    if(ball->distance > 200 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, cstorc);
+    if(ball->distance > 190 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, 0);
     else {
       drive->prepareDrive(dir, 350, 0);
       cstorc = 0;

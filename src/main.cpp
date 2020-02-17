@@ -12,7 +12,7 @@ void setup() {
   initSensors();
   initGames();
   
-  delay(1500);
+  delay(500);
 }
 
 

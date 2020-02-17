@@ -24,14 +24,17 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     speed3 = 0;
     speed4 = 0;
 
-    pid = new PID(&input, &output, &setpoint, (double)KP,  (double)KI,  (double)KD, P_ON_M, REVERSE);
     delta = 0;
     input = 0;
     output = 0;
     setpoint = 0;
 
+    pid = new PID(&input, &output, &setpoint, KP, KI, KD, REVERSE);
+
+    pid->SetSampleTime(1.5);
+    pid->SetDerivativeLag(1);
+    pid->SetOutputLimits(-255,255);
     pid->SetMode(AUTOMATIC);
-    pid->SetSampleTime(5);
 
     canUnlock = true;
     unlockTime = 0;
@@ -75,22 +78,16 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed3 = -(speed1);
     speed4 = -(speed2);
 
-    // calcola l'errore di posizione rispetto allo 0
-//    delta = (compass->getValue()-tilt+360)%360;
-   delta = (CURRENT_DATA_READ.IMUAngle-tilt+360)%360;
-
-    setpoint = 0;
-    pid->SetControllerDirection(REVERSE);
-
-    if(delta > 180) {
-        setpoint = 359;//delta = delta-360;
-        pid->SetControllerDirection(DIRECT);
-    }
+    //  calcola l'errore di posizione rispetto allo 0
+    delta = CURRENT_DATA_READ.IMUAngle;
+    if(delta > 180) delta = delta - 360;
 
     input = delta;
-    pid->Compute();             
-    pidfactor = delta > 180 ? output*-1 : output;
+    setpoint = 0;
+    
+    pid->Compute();
 
+    pidfactor = output;
     speed1 += pidfactor;
     speed2 += pidfactor;
     speed3 += pidfactor;
