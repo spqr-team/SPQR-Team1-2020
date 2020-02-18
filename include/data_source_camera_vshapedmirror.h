@@ -9,8 +9,8 @@ class DataSourceCameraVShaped : public DataSource{
         void test() override;
         int fixCamIMU(int);
         void readSensor() override;
-        int getValueAtk(bool);
-        int getValueDef(bool);
+        // int getValueAtk(bool);
+        // int getValueDef(bool);
         
         int goalOrientation, pAtk, pDef, imuOff, portx, valX, valY, valB, oldGoalX, oldGoalY, oldGoalB;
         int cameraReady;

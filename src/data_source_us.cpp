@@ -1,5 +1,7 @@
 #include "data_source_us.h"
 #include "vars.h"
+#include "status_vector.h"
+
 
 DataSourceUS::DataSourceUS(TwoWire* i2c_, int addr) : DataSource(i2c_, addr){
   us_flag = false;
@@ -76,22 +78,41 @@ void DataSourceUS::usTrigger() {
 }
 
 void DataSourceUS::usReceive() {
-    // transmit to device #112s
-    i2c->beginTransmission(i2CAddr);
-    // sets register pointer to echo 1 register(0x02)
-    i2c->write(byte(0x02));
-    i2c->endTransmission();
+  // transmit to device #112s
+  i2c->beginTransmission(i2CAddr);
+  // sets register pointer to echo 1 register(0x02)
+  i2c->write(byte(0x02));
+  i2c->endTransmission();
 
-    // step 4: request reading from sensor
-    // request 2 bytes from slave device #112
-    i2c->requestFrom(i2CAddr, 2);
+  // step 4: request reading from sensor
+  // request 2 bytes from slave device #112
+  i2c->requestFrom(i2CAddr, 2);
 
-    // step 5: receive reading from sensor
-    // receive high byte (overwrites  previous reading)
-    reading = i2c->read();
-    // shift high byte to be high 8 bits
-    reading = reading << 8;
-    // receive low byte as lower 8 bit
-    reading |= i2c->read();
-    value = reading;
+  // step 5: receive reading from sensor
+  // receive high byte (overwrites  previous reading)
+  reading = i2c->read();
+  // shift high byte to be high 8 bits
+  reading = reading << 8;
+  // receive low byte as lower 8 bit
+  reading |= i2c->read();
+  value = reading;
+
+  switch(i2CAddr){
+    case 112:
+    CURRENT_INPUT_WRITE.USfr = value;
+    CURRENT_DATA_WRITE.USfr = value;
+    break;
+    case 113:
+    CURRENT_INPUT_WRITE.USdx = value;
+    CURRENT_DATA_WRITE.USdx = value;
+    break;
+    case 114:
+    CURRENT_INPUT_WRITE.USrr = value;
+    CURRENT_DATA_WRITE.USrr = value;
+    break;
+    case 115:
+    CURRENT_INPUT_WRITE.USsx = value;
+    CURRENT_DATA_WRITE.USsx = value;
+    break;
   }
+}

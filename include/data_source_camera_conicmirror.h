@@ -1,11 +1,13 @@
 #pragma once
+
+#include "data_source.h"
+
 #define startp 105
 #define endp 115
 //Coords are mapped from 0 up to this value
 #define MAP_MAX 100
 #define HALF_MAP_MAX  50
 //#define unkn 0b01101001 
-#include "data_source.h"
 
 class DataSourceCameraConic : public DataSource{
 
@@ -13,8 +15,8 @@ class DataSourceCameraConic : public DataSource{
         DataSourceCameraConic(HardwareSerial* ser, int baud);
         void test() override;
         void readSensor() override;
-        int getValueAtk(bool);
-        int getValueDef(bool);
+        // int getValueAtk(bool);
+        // int getValueDef(bool);
 
         int yAngle, bAngle, yAngleFix, bAngleFix, yDist, bDist;
 

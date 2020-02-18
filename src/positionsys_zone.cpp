@@ -1,6 +1,7 @@
 #include "positionsys_zone.h"
 #include "vars.h"
 #include "sensors.h"
+#include "status_vector.h"
 
 PositionSysZone::PositionSysZone(){
     for(int i = 0; i < 3; i++){
@@ -174,17 +175,17 @@ void PositionSysZone::phyZoneUS(){
   else
     DxF = DxF_Def;
 
-  Lx_mis = usCtrl->getValue(1) + usCtrl->getValue(3) + robot; // larghezza totale stimata
-  Ly_mis = usCtrl->getValue(0) + usCtrl->getValue(2) + robot; // lunghezza totale stimata
+  Lx_mis = CURRENT_DATA_READ.USdx + CURRENT_DATA_READ.USsx + robot; // larghezza totale stimata
+  Ly_mis = CURRENT_DATA_READ.USfr + CURRENT_DATA_READ.USrr + robot; // lunghezza totale stimata
 
   // controllo orizzontale
-  if ((Lx_mis < Lx_max) && (Lx_mis > Lx_min) && (usCtrl->getValue(1) > 25) && (usCtrl->getValue(3) > 25)) {
+  if ((Lx_mis < Lx_max) && (Lx_mis > Lx_min) && (CURRENT_DATA_READ.USdx > 25) && (CURRENT_DATA_READ.USsx > 25)) {
     // se la misura orizzontale é accettabile
     good_field_x = true;
     status_x = CENTER;
-    if (usCtrl->getValue(1) < DxF) // robot é vicino al bordo dEASTro
+    if (CURRENT_DATA_READ.USdx < DxF) // robot é vicino al bordo dEASTro
       status_x = EAST;
-    if (usCtrl->getValue(3) < DxF) // robot é vicino al bordo sinistro
+    if (CURRENT_DATA_READ.USsx < DxF) // robot é vicino al bordo sinistro
       status_x = WEST;
 
     if (status_x == CENTER) {
@@ -200,7 +201,7 @@ void PositionSysZone::phyZoneUS(){
     }
   } else {
     // la misura non é pulita per la presenza di un ostacolo
-    if ((usCtrl->getValue(1) >= (DxF + 10)) || (usCtrl->getValue(3) >= (DxF + 10))) {
+    if ((CURRENT_DATA_READ.USdx >= (DxF + 10)) || (CURRENT_DATA_READ.USsx >= (DxF + 10))) {
       // se ho abbastanza spazio a dEASTra o a sinistra
       // devo stare per forza al cento
       status_x = CENTER;
@@ -233,19 +234,19 @@ void PositionSysZone::phyZoneUS(){
     // se la misura verticale é accettabile
     good_field_y = true;
     status_y = CENTER;
-    if (usCtrl->getValue(0) < Dy) {
+    if (CURRENT_DATA_READ.USfr < Dy) {
       status_y = NORTH; // robot é vicino alla porta avversaria
       if (Dy == DyP)
         goal_zone = true; //  davanti alla porta in zona goal
     }
-    if (usCtrl->getValue(2) < Dy)
+    if (CURRENT_DATA_READ.USrr < Dy)
       status_y = SOUTH; // robot é vicino alla propria porta
   } else {
     // la misura non é pulita per la presenza di un ostacolo
     status_y = 255; // non so la coordinata y
-    if (usCtrl->getValue(0) >= (Dy + 0))
+    if (CURRENT_DATA_READ.USfr >= (Dy + 0))
       status_y = CENTER; // ma se ho abbastanza spazio dietro o avanti
-    if (usCtrl->getValue(2) >= (Dy + 0))
+    if (CURRENT_DATA_READ.USrr >= (Dy + 0))
       status_y = CENTER; //  e'probabile che stia al CENTER
   }
 
@@ -262,9 +263,9 @@ void PositionSysZone::phyZoneUS(){
 void PositionSysZone::phyZoneCam(){
 
   //IMU-fixed attack angle
-  camA = camera->getValueAtk(true);
+  camA = CURRENT_DATA_READ.angleAtkFix;
   //IMU-fixed defence angle
-  camD = camera->getValueDef(true);
+  camD = CURRENT_DATA_READ.angleDefFix;
 
   //Negative angle means that the robot is positioned to the right of the goalpost
   //Positive angle means that the robot is positioned to the left of the goalpost
@@ -416,7 +417,7 @@ void PositionSysZone::goCenter() {
 //     drive->prepareDrive(270, vel);
 //   } else {
 //     stop_menamoli = false;
-//     if (usCtrl->getValue(2) >= 25)
+//     if (CURRENT_DATA_READ.USrr >= 25)
 //       drive->prepareDrive(180, vel);
 //     else
 //       drive->prepareDrive(0, 0);
@@ -425,7 +426,7 @@ void PositionSysZone::goCenter() {
 
 
 void PositionSysZone::AAANGOLO() {
-  if((usCtrl->getValue(2) <= 45) && ((usCtrl->getValue(1) <= 50) || (usCtrl->getValue(3) <= 50))) drive->prepareDrive(0, 350, 0);
+  if((CURRENT_DATA_READ.USrr <= 45) && ((CURRENT_DATA_READ.USdx <= 50) || (CURRENT_DATA_READ.USsx <= 50))) drive->prepareDrive(0, 350, 0);
 }
 
 int PositionSysZone::diff(int a, int b){

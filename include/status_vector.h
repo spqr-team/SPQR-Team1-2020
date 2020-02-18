@@ -1,5 +1,7 @@
 #pragma once
 #include <Arduino.h>
+#include "game.h"
+#include "systems.h"
 
 /**
  * STATUS VECTOR:
@@ -33,8 +35,11 @@ typedef struct input{
 }input;
 
 typedef struct data{
-    int IMUAngle, ballAngle, ballDistance, yAngle, bAngle, yAngleFix, bAngleFix, yDist, bDist,
-        speed, tilt, dir, USfr, USsx, USdx, USrr, lineOutDir, matePos, role;
+    int IMUAngle, ballAngle, ballDistance, yAngle, bAngle, yAngleFix, bAngleFix, yDist, bDist, angleAtk, angleAtkFix, angleDef, angleDefFix,
+        speed, tilt, dir, USfr, USsx, USdx, USrr, lineOutDir, matePos, role, axisBlock[4];
+    Game* game;
+    LineSystem* lineSystem;
+    PositionSystem* posSystem;
     byte xb, yb, xy, yy, lineSeen, lineActive;
     bool mate, ATKgoal, DEFgoal, ballSeen;
 }data;

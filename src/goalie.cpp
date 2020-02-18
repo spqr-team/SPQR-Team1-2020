@@ -1,6 +1,7 @@
 #include "goalie.h"
 #include "sensors.h"
 #include "vars.h"
+#include "status_vector.h"
 #include "positionsys_zone.h"
 
 Goalie::Goalie() : Game() {
@@ -46,8 +47,8 @@ void Goalie::goalie(int plusang) {
 }
 
 void Goalie::storcimentoPorta() {
-  if (camera->getValueAtk(true ) >= 10 && camera->getValueAtk(true) <= 90) cstorc+=9;
-  else if (camera->getValueAtk(true)  <= 350 && camera->getValueAtk(true) >= 270) cstorc-=9;
+  if (CURRENT_DATA_READ.angleAtkFix >= 10 && CURRENT_DATA_READ.angleAtkFix <= 90) cstorc+=9;
+  else if (CURRENT_DATA_READ.angleAtkFix  <= 350 && CURRENT_DATA_READ.angleAtkFix >= 270) cstorc-=9;
   // else cstorc *= 0.7;
   cstorc = constrain(cstorc, -45, 45);
 }

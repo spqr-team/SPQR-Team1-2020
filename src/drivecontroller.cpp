@@ -1,5 +1,6 @@
 #include "drivecontroller.h"
 #include "sensors.h"
+#include "status_vector.h"
 
 DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_){
     m1 = m1_;
@@ -60,6 +61,7 @@ float DriveController::torad(float f){
 }
 
 void DriveController::drive(int dir, int speed, int tilt){
+
     vx = ((speed * cosins[dir]));
     vy = ((-speed * sins[dir]));
 
@@ -102,4 +104,12 @@ void DriveController::drive(int dir, int speed, int tilt){
     m2->drive((int) speed2);
     m3->drive((int) speed3);
     m4->drive((int) speed4);
+
+    CURRENT_DATA_WRITE.dir = dir;
+    CURRENT_DATA_WRITE.speed = speed;
+    CURRENT_DATA_WRITE.tilt = tilt;
+    CURRENT_DATA_WRITE.axisBlock[0] = vxp;
+    CURRENT_DATA_WRITE.axisBlock[1] = vxn;
+    CURRENT_DATA_WRITE.axisBlock[2] = vyp;
+    CURRENT_DATA_WRITE.axisBlock[3] = vyn;
 } 

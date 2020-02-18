@@ -1,5 +1,7 @@
 #include "data_source_camera_vshapedmirror.h"
 #include "sensors.h"
+#include "status_vector.h"
+
 
 DataSourceCameraVShaped::DataSourceCameraVShaped(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){}
 
@@ -64,7 +66,6 @@ void DataSourceCameraVShaped :: readSensor(){
 }
 
 void DataSourceCameraVShaped :: postProcess(){
-
   if (valY != -74)
     oldGoalY = valY;
   if (valB != -74)
@@ -90,33 +91,46 @@ void DataSourceCameraVShaped :: postProcess(){
     datavalid = 0;
     cameraReady = 1;  //attivo flag di ricezione pacchetto
   }
-}
 
-int DataSourceCameraVShaped::getValueAtk(bool fixed){
   //attacco gialla
   if(goalOrientation == HIGH){
-    if(fixed) return fixCamIMU(valY);
-    return valY;
-  }
-  //attacco blu
-  if(goalOrientation == LOW){
-    if(fixed) return fixCamIMU(valB);
-    return valB;
+    CURRENT_DATA_WRITE.angleAtkFix = fixCamIMU(valY);
+    CURRENT_DATA_WRITE.angleAtk = valY;
+    CURRENT_DATA_WRITE.angleDef = fixCamIMU(valB);
+    CURRENT_DATA_WRITE.angleDefFix = valB;
+  }else{
+    CURRENT_DATA_WRITE.angleAtkFix = fixCamIMU(valB);
+    CURRENT_DATA_WRITE.angleAtkFix = valB;
+    CURRENT_DATA_WRITE.angleDef = fixCamIMU(valY);
+    CURRENT_DATA_WRITE.angleDefFix = valY;
   }
 }
 
-int DataSourceCameraVShaped::getValueDef(bool fixed){
-  //difendo gialla
-  if(goalOrientation == HIGH){
-    if(fixed) return fixCamIMU(valY);
-    return valY;
-  }
-  //difendo blu
-  if(goalOrientation == LOW){
-    if(fixed) return fixCamIMU(valB);
-    return valB;
-  }
-}
+// int DataSourceCameraVShaped::getValueAtk(bool fixed){
+//   //attacco gialla
+//   if(goalOrientation == HIGH){
+//     if(fixed) return fixCamIMU(valY);
+//     return valY;
+//   }
+//   //attacco blu
+//   if(goalOrientation == LOW){
+//     if(fixed) return fixCamIMU(valB);
+//     return valB;
+//   }
+// }
+
+// int DataSourceCameraVShaped::getValueDef(bool fixed){
+//   //difendo gialla
+//   if(goalOrientation == HIGH){
+//     if(fixed) return fixCamIMU(valY);
+//     return valY;
+//   }
+//   //difendo blu
+//   if(goalOrientation == LOW){
+//     if(fixed) return fixCamIMU(valB);
+//     return valB;
+//   }
+// }
 
 void DataSourceCameraVShaped::test(){
     goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu

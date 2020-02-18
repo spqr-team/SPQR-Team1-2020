@@ -1,7 +1,7 @@
 #pragma once
 
-#include "data_source.h"
 #include <Adafruit_BNO055.h>
+#include "data_source.h"
 #include <Arduino.h>
 
 #define DATA_CLOCK 10

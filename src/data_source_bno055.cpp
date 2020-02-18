@@ -1,4 +1,5 @@
 #include "data_source_bno055.h"
+#include "status_vector.h"
 
 //bool loaded = false;
 

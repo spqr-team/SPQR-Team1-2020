@@ -1,5 +1,6 @@
 #include "data_source_ball.h"
 #include "vars.h"
+#include "status_vector.h"
 
 DataSourceBall :: DataSourceBall(HardwareSerial* ser_, int baud) : DataSource(ser_, baud) {
   ballSeen = false;

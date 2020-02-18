@@ -4,7 +4,6 @@
 #include "Arduino.h"
 #include "HardwareSerial.h"
 #include "vars.h"
-#include "status_vector.h"
 
 class DataSource {
 

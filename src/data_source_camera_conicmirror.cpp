@@ -1,5 +1,5 @@
 #include "data_source_camera_conicmirror.h"
-#include "sensors.h"
+#include "status_vector.h"
 
 DataSourceCameraConic::DataSourceCameraConic(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){
   true_xb = 0;
@@ -78,18 +78,29 @@ void DataSourceCameraConic :: readSensor(){
     CURRENT_DATA_WRITE.bAngleFix = bAngleFix;
     CURRENT_DATA_WRITE.yDist = yDist;
     CURRENT_DATA_WRITE.bDist = bDist;
+    if(goalOrientation == HIGH){
+      CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.yAngle;
+      CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
+      CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.bAngle;
+      CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.bAngleFix;
+    }else{
+      CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.bAngle;
+      CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
+      CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.yAngle;
+      CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.yAngleFix;
+    }
   }
 }
 
 
-int DataSourceCameraConic::getValueAtk(bool fixed){
-  if(fixed) return goalOrientation == HIGH ? yAngleFix : bAngleFix;
-  else return goalOrientation == HIGH ? yAngle : bAngle;
-}
-int DataSourceCameraConic::getValueDef(bool fixed){
-  if(fixed) return goalOrientation == LOW ? yAngleFix : bAngleFix;
-  else return goalOrientation == LOW ? yAngle : bAngle;
-}
+// int DataSourceCameraConic::getValueAtk(bool fixed){
+//   if(fixed) return goalOrientation == HIGH ? yAngleFix : bAngleFix;
+//   else return goalOrientation == HIGH ? yAngle : bAngle;
+// }
+// int DataSourceCameraConic::getValueDef(bool fixed){
+//   if(fixed) return goalOrientation == LOW ? yAngleFix : bAngleFix;
+//   else return goalOrientation == LOW ? yAngle : bAngle;
+// }
 
 void DataSourceCameraConic::test(){
   goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu

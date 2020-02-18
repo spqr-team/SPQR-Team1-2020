@@ -3,6 +3,7 @@
 #include "games.h"
 #include "linesys_2019.h"
 #include <Arduino.h>
+#include "status_vector.h"
 
 Keeper::Keeper() : Game() {
     init();
@@ -44,8 +45,8 @@ void Keeper::keeper() {
         angle = (KEEPER_ANGLE_DX + ball->angle) * M_PI / 180;
         angleX = abs(cos(angle));
 
-        if(ball->angle >= 0 && ball->angle <= KEEPER_ANGLE_DX && camera->getValueDef(true) < 30) drive->prepareDrive(KEEPER_ANGLE_DX, KEEPER_BASE_VEL*angleX*KEEPER_VEL_MULT);
-        else if(ball->angle >= KEEPER_ANGLE_SX && ball->angle <= 360  && camera->getValueDef(true) > -30) drive->prepareDrive(KEEPER_ANGLE_SX, KEEPER_BASE_VEL*angleX*KEEPER_VEL_MULT);
+        if(ball->angle >= 0 && ball->angle <= KEEPER_ANGLE_DX && CURRENT_DATA_READ.angleDefFix < 30) drive->prepareDrive(KEEPER_ANGLE_DX, KEEPER_BASE_VEL*angleX*KEEPER_VEL_MULT);
+        else if(ball->angle >= KEEPER_ANGLE_SX && ball->angle <= 360  && CURRENT_DATA_READ.angleDefFix > -30) drive->prepareDrive(KEEPER_ANGLE_SX, KEEPER_BASE_VEL*angleX*KEEPER_VEL_MULT);
         else if(ball->angle < KEEPER_ANGLE_SX && ball->angle > KEEPER_ANGLE_DX){
             int ball_degrees2 = ball->angle > 180? ball->angle-360:ball->angle;
             int dir = ball_degrees2 > 0 ? ball->angle + KEEPER_BALL_BACK_ANGLE : ball->angle - KEEPER_BALL_BACK_ANGLE;
@@ -57,11 +58,11 @@ void Keeper::keeper() {
 }
 
 void Keeper::centerGoalPostCamera(bool checkBack){
-    if (camera->getValueDef(true) > CENTERGOALPOST_CAM_MAX) {
+    if (CURRENT_DATA_READ.angleDefFix > CENTERGOALPOST_CAM_MAX) {
         drive->prepareDrive(KEEPER_ANGLE_SX, CENTERGOALPOST_VEL1);
-    } else if (camera->getValueDef(true) < CENTERGOALPOST_CAM_MIN) {
+    } else if (CURRENT_DATA_READ.angleDefFix < CENTERGOALPOST_CAM_MIN) {
         drive->prepareDrive(KEEPER_ANGLE_DX, CENTERGOALPOST_VEL1);
-    }else if(camera->getValueDef(true) > CENTERGOALPOST_CAM_MIN && camera->getValueDef(true) < CENTERGOALPOST_CAM_MAX){
+    }else if(CURRENT_DATA_READ.angleDefFix > CENTERGOALPOST_CAM_MIN && CURRENT_DATA_READ.angleDefFix < CENTERGOALPOST_CAM_MAX){
         if(!ball->ballSeen) drive->prepareDrive(0, 0, 0);
         if(checkBack){
             if(usCtrl->getValue(2) > CENTERGOALPOST_US_MAX){
