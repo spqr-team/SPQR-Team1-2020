@@ -6,8 +6,8 @@
 
 //PID Constants
 #define KP 1.5
-#define KI 0.0
-#define KD 0.3
+#define KI 0
+#define KD 0.1
 
 #define UNLOCK_THRESH 800
 

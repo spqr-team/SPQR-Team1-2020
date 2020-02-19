@@ -88,22 +88,24 @@ void DataSourceCameraVShaped :: postProcess(){
       pDef = valY * -1;
     }
 
+
+    //attacco gialla
+    if(goalOrientation == HIGH){
+      CURRENT_DATA_WRITE.angleAtkFix = fixCamIMU(valY);
+      CURRENT_DATA_WRITE.angleAtk = valY;
+      CURRENT_DATA_WRITE.angleDef = fixCamIMU(valB);
+      CURRENT_DATA_WRITE.angleDefFix = valB;
+    }else{
+      CURRENT_DATA_WRITE.angleAtkFix = fixCamIMU(valB);
+      CURRENT_DATA_WRITE.angleAtkFix = valB;
+      CURRENT_DATA_WRITE.angleDef = fixCamIMU(valY);
+      CURRENT_DATA_WRITE.angleDefFix = valY;
+    }
+
     datavalid = 0;
     cameraReady = 1;  //attivo flag di ricezione pacchetto
   }
 
-  //attacco gialla
-  if(goalOrientation == HIGH){
-    CURRENT_DATA_WRITE.angleAtkFix = fixCamIMU(valY);
-    CURRENT_DATA_WRITE.angleAtk = valY;
-    CURRENT_DATA_WRITE.angleDef = fixCamIMU(valB);
-    CURRENT_DATA_WRITE.angleDefFix = valB;
-  }else{
-    CURRENT_DATA_WRITE.angleAtkFix = fixCamIMU(valB);
-    CURRENT_DATA_WRITE.angleAtkFix = valB;
-    CURRENT_DATA_WRITE.angleDef = fixCamIMU(valY);
-    CURRENT_DATA_WRITE.angleDefFix = valY;
-  }
 }
 
 // int DataSourceCameraVShaped::getValueAtk(bool fixed){

@@ -2,6 +2,7 @@
 #include "sensors.h"
 #include "vars.h"
 #include "status_vector.h"
+#include "math.h"
 #include "positionsys_zone.h"
 
 Goalie::Goalie() : Game() {
@@ -38,7 +39,7 @@ void Goalie::goalie(int plusang) {
     else dir = dir;
 
     storcimentoPorta();
-    if(ball->distance > 190 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, 0);
+    if(ball->distance > 185 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, cstorc);
     else {
       drive->prepareDrive(dir, 350, 0);
       cstorc = 0;
@@ -48,7 +49,7 @@ void Goalie::goalie(int plusang) {
 
 void Goalie::storcimentoPorta() {
   if (CURRENT_DATA_READ.angleAtkFix >= 10 && CURRENT_DATA_READ.angleAtkFix <= 90) cstorc+=9;
-  else if (CURRENT_DATA_READ.angleAtkFix  <= 350 && CURRENT_DATA_READ.angleAtkFix >= 270) cstorc-=9;
+  else if (CURRENT_DATA_READ.angleAtkFix  <= -10 && CURRENT_DATA_READ.angleAtkFix >= -90) cstorc-=9;
   // else cstorc *= 0.7;
   cstorc = constrain(cstorc, -45, 45);
 }

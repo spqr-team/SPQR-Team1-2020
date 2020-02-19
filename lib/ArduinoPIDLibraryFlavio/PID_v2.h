@@ -59,6 +59,10 @@ class PID
       kd_lagpam = val;
     }
 
+    void setAngleWrap(bool a){
+      angleWrap = a;
+    }
+
     double getDerivative(){
       return filteredDerivative;
     }
@@ -98,6 +102,6 @@ class PID
 
 	unsigned long SampleTime;
 	double outMin, outMax;
-	bool inAuto, pOnE;
+	bool inAuto, pOnE, angleWrap;
 };
 #endif

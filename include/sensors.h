@@ -31,7 +31,7 @@ s_extr LineSys2019* linesCtrl;
 
 s_extr DataSourceBNO055* compass;
 s_extr DataSourceBall* ball;
-s_extr DataSourceCameraConic* camera;
+s_extr DataSourceCameraVShaped* camera;
 s_extr DriveController* drive;
 s_extr DataSourceBT* bt;
 

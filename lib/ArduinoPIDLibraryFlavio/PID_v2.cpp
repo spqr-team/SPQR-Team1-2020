@@ -65,6 +65,12 @@ bool PID::Compute()
       /*Compute all the working error variables*/
       double input = *myInput;
       double error = *mySetpoint - input;
+
+      if(angleWrap){
+         if(error < -179) error += 360;
+         if(error > 180) error -= 360;
+      }
+      
       double dInput = (input - lastInput);
       outputSum+= (ki * error);
 

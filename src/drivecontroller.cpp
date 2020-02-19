@@ -30,10 +30,11 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     output = 0;
     setpoint = 0;
 
-    pid = new PID(&input, &output, &setpoint, KP, KI, KD, REVERSE);
+    pid = new PID(&input, &output, &setpoint, KP, KI, KD, 1,DIRECT);
 
     pid->SetSampleTime(1.5);
-    pid->SetDerivativeLag(1);
+    pid->setAngleWrap(true);
+    pid->SetDerivativeLag(2);
     pid->SetOutputLimits(-255,255);
     pid->SetMode(AUTOMATIC);
 
@@ -46,7 +47,7 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     vyn = 0;
 }
 
-void DriveController::prepareDrive(int dir, int speed, int tilt){
+void DriveController::prepareDrive(int dir, int speed, int tilt=0){
     pDir = dir;
     pSpeed = speed;
     pTilt = tilt;
@@ -81,7 +82,7 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed4 = -(speed2);
 
     //  calcola l'errore di posizione rispetto allo 0
-    delta = CURRENT_DATA_READ.IMUAngle;
+    delta = compass->getValue();
     if(delta > 180) delta = delta - 360;
 
     input = delta;
@@ -89,7 +90,7 @@ void DriveController::drive(int dir, int speed, int tilt){
     
     pid->Compute();
 
-    pidfactor = output;
+    pidfactor = -output;
     speed1 += pidfactor;
     speed2 += pidfactor;
     speed3 += pidfactor;

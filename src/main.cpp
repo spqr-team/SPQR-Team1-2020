@@ -24,6 +24,7 @@ void loop() {
   keeper->play(role==0);  
 
   // Last thing to do: movement and update status vector
+  drive->prepareDrive(0,0,0);
   drive->drivePrepared();  
   updateStatusVector();
 } 
