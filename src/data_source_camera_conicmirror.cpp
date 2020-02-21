@@ -78,29 +78,39 @@ void DataSourceCameraConic :: readSensor(){
     CURRENT_DATA_WRITE.bAngleFix = bAngleFix;
     CURRENT_DATA_WRITE.yDist = yDist;
     CURRENT_DATA_WRITE.bDist = bDist;
+
+    if(xb == unkn || yb == unkn) CURRENT_DATA_WRITE.bSeen = false;
+    else CURRENT_DATA_WRITE.bSeen = true;
+    if(xy == unkn || yy == unkn) CURRENT_DATA_WRITE.ySeen = false;
+    else CURRENT_DATA_WRITE.ySeen = true;
+
     if(goalOrientation == HIGH){
       CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.yAngle;
       CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
+      CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.ySeen;
       CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.bAngle;
       CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.bAngleFix;
+      CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.bSeen;
     }else{
       CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.bAngle;
       CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
+      CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.bSeen;
       CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.yAngle;
       CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.yAngleFix;
+      CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.ySeen;
     }
   }
 }
 
 
-// int DataSourceCameraConic::getValueAtk(bool fixed){
+// int DataSource<CameraConic::getValueAtk(bool fixed){
 //   if(fixed) return goalOrientation == HIGH ? yAngleFix : bAngleFix;
 //   else return goalOrientation == HIGH ? yAngle : bAngle;
 // }
 // int DataSourceCameraConic::getValueDef(bool fixed){
 //   if(fixed) return goalOrientation == LOW ? yAngleFix : bAngleFix;
 //   else return goalOrientation == LOW ? yAngle : bAngle;
-// }
+// }>
 
 void DataSourceCameraConic::test(){
   goalOrientation = digitalRead(SWITCH_SX);     //se HIGH attacco gialla, difendo blu

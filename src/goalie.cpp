@@ -3,7 +3,7 @@
 #include "vars.h"
 #include "status_vector.h"
 #include "math.h"
-#include "positionsys_zone.h"
+#include "positionsys_camera.h"
 
 Goalie::Goalie() : Game() {
   init();
@@ -20,15 +20,15 @@ void Goalie::init(){
 }
 
 void Goalie::realPlay(){
-  if(ball->ballSeen) this->goalie(45);
-  else ((PositionSysZone*)ps)->goCenter();
+  if(ball->ballSeen) this->goalie(50);
+  else ((PositionSysCamera*)ps)->goCenter();
 }
 
 int dir, degrees2;
 void Goalie::goalie(int plusang) {
-  if(ball->distance < 160) drive->prepareDrive(ball->angle, 350, 0);
+  if(ball->distance < CATCH_DIST) drive->prepareDrive(ball->angle, 350, 0);
   else{
-    if(ball->angle > 340 || ball->angle < 20) plusang *= 0.15;
+    if(ball->angle > 345 || ball->angle < 15) plusang *= 0.15;
     if(ball->angle > 180) degrees2 = ball->angle - 360;
     else degrees2 = ball->angle;
 
@@ -39,7 +39,7 @@ void Goalie::goalie(int plusang) {
     else dir = dir;
 
     storcimentoPorta();
-    if(ball->distance > 185 && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, cstorc);
+    if(ball->distance > TILT_DIST && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, cstorc);
     else {
       drive->prepareDrive(dir, 350, 0);
       cstorc = 0;
@@ -48,8 +48,8 @@ void Goalie::goalie(int plusang) {
 }
 
 void Goalie::storcimentoPorta() {
-  if (CURRENT_DATA_READ.angleAtkFix >= 10 && CURRENT_DATA_READ.angleAtkFix <= 90) cstorc+=9;
-  else if (CURRENT_DATA_READ.angleAtkFix  <= -10 && CURRENT_DATA_READ.angleAtkFix >= -90) cstorc-=9;
-  // else cstorc *= 0.7;
+  if (CURRENT_DATA_READ.angleAtkFix >= 5 && CURRENT_DATA_READ.angleAtkFix <= 60) cstorc+=9;
+  else if (CURRENT_DATA_READ.angleAtkFix  <= 355 && CURRENT_DATA_READ.angleAtkFix >= 210) cstorc-=9;
+  else cstorc *= 0.9;
   cstorc = constrain(cstorc, -45, 45);
 }

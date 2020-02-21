@@ -63,6 +63,9 @@ float DriveController::torad(float f){
 
 void DriveController::drive(int dir, int speed, int tilt){
 
+    speed = (speed * KSPD + oldSpeed * (1-KSPD))*GLOBAL_SPD_MULT;
+    tilt = tilt > 180 ? tilt - 360 : tilt;
+
     vx = ((speed * cosins[dir]));
     vy = ((-speed * sins[dir]));
 
@@ -82,11 +85,11 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed4 = -(speed2);
 
     //  calcola l'errore di posizione rispetto allo 0
-    delta = compass->getValue();
+    delta = CURRENT_DATA_READ.IMUAngle;
     if(delta > 180) delta = delta - 360;
 
     input = delta;
-    setpoint = 0;
+    setpoint = tilt;
     
     pid->Compute();
 
@@ -105,6 +108,8 @@ void DriveController::drive(int dir, int speed, int tilt){
     m2->drive((int) speed2);
     m3->drive((int) speed3);
     m4->drive((int) speed4);
+
+    oldSpeed = speed;
 
     CURRENT_DATA_WRITE.dir = dir;
     CURRENT_DATA_WRITE.speed = speed;

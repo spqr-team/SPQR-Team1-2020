@@ -6,8 +6,16 @@
 
 //PID Constants
 #define KP 1.5
-#define KI 0
+#define KI 0.2
 #define KD 0.1
+
+#define KSPD 0.3
+
+//BEST NUMBERS YET
+//USE MOVING AVERAGE AND ANGLE WRAP
+// #define KP 1.5
+// #define KI 0
+// #define KD 0.1
 
 #define UNLOCK_THRESH 800
 
@@ -33,8 +41,7 @@ class DriveController{
         Motor* m3;
         Motor* m4;
         PID* pid;
-        int pDir, pSpeed, pTilt;
-        int gDir, gSpeed, gTilt;
+        int pDir, pSpeed, pTilt, oldSpeed;
         float x, y, vx, vy, speed1, speed2, speed3, speed4, pidfactor, delta;
 
         double input, output, setpoint;

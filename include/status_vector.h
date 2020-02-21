@@ -35,13 +35,21 @@ typedef struct input{
 }input;
 
 typedef struct data{
-    int IMUAngle, ballAngle, ballDistance, yAngle, bAngle, yAngleFix, bAngleFix, yDist, bDist, angleAtk, angleAtkFix, angleDef, angleDefFix,
-        speed, tilt, dir, USfr, USsx, USdx, USrr, lineOutDir, matePos, role, axisBlock[4];
+    int IMUAngle, ballAngle, ballDistance, 
+        yAngle, bAngle, yAngleFix, bAngleFix, 
+        yDist, bDist, 
+        angleAtk, angleAtkFix, angleDef, angleDefFix,
+        speed, tilt, dir, axisBlock[4],
+        USfr, USsx, USdx, USrr, 
+        lineOutDir, matePos, role;
     Game* game;
     LineSystem* lineSystem;
     PositionSystem* posSystem;
     byte xb, yb, xy, yy, lineSeen, lineActive;
-    bool mate, ATKgoal, DEFgoal, ballSeen;
+    bool mate, 
+        ATKgoal, DEFgoal, 
+        atkSeen, defSeen, bSeen, ySeen,
+        ballSeen;
 }data;
 
 sv_extr input inputs[dim];

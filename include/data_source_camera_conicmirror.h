@@ -4,10 +4,10 @@
 
 #define startp 105
 #define endp 115
+#define unkn 116
 //Coords are mapped from 0 up to this value
 #define MAP_MAX 100
 #define HALF_MAP_MAX  50
-//#define unkn 0b01101001 
 
 class DataSourceCameraConic : public DataSource{
 

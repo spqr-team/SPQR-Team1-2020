@@ -1,14 +1,23 @@
-# color tracking with conic mirror - By: EmaMaker - wed 15 jan 2020
+# goal dist tracking with conic mirror - By: EmaMaker - fri 21 feb 2020
 # Based on:
 # color tracking - By: paolix - ven mag 18 2018
 
 # Automatic RGB565 Color Tracking Example
 #
 import sensor, image, time, pyb, math
-
 from pyb import UART
 uart = UART(3,19200, timeout_char = 1000)
 
+def torad(f):
+    return (f*math.pi/180) % math.pi
+
+#These measures are in centimeters
+FIELD_W = 131
+FIELD_H = 193
+GOALS_DEPTH = 207
+
+#Attack 1 means attacking yellow, attack 0 means attacking blue
+ATTACKING = 0
 
 # LED Setup ##################################################################
 
@@ -29,8 +38,8 @@ blue_led.on()
 #thresholds = [  (54, 93, -10, 25, 55, 70),    # thresholds yellow goal
 #                (30, 45, 1, 40, -60, -19)]    # thresholds blue goal
 #
-thresholds = [  (57, 93, -18, 14, 28, 77)  ,    # thresholds yellow goal
-                (31, 68, -20, 18, -47, -17)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (40, 100, -3, 35, 16, 96)  ,    # thresholds yellow goal
+                (39, 59, -13, 12, -43, -19)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 roi = (0, 6, 318, 152)
 
@@ -51,7 +60,7 @@ sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QQVGA)
 sensor.set_contrast(+2)
-sensor.set_saturation(+1)
+sensor.set_saturation(2)
 sensor.set_brightness(-3)
 sensor.set_quality(0)
 sensor.set_auto_exposure(False, 6000)
@@ -60,7 +69,6 @@ sensor.skip_frames(time = 300)
 
 clock = time.clock()
 ##############################################################################
-
 
 
 # [] list
@@ -79,7 +87,7 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=70, area_threshold=100, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=45, area_threshold=80, merge = True):
         img.draw_rectangle(blob.rect())
         img.draw_cross(blob.cx(), blob.cy())
 
@@ -95,22 +103,58 @@ while(True):
     nb = len(tt_blue)
 
     '''Yellow'''
-    area,cx,cy,code = tt_yellow[ny-1]    # coordinata x del piu' grande y se montata al contrario
+    area,cx,cy,code = tt_yellow[ny-1]
     cx = img.width() / 2 - cx
     cy = img.height() / 2 - cy
-    angle = math.pi/2 - math.atan2(cy, cx)
-    dist = math.sqrt(cx*cx + cy*cy)
-    string_yellow = "Y"+str(cx)+" | "+str(cy)+" | "+str(angle)+" | "+str(dist)+str(area)+"y"
-    print (string_yellow)   # test on serial terminal
+    yAngle = math.pi/2 - math.atan2(cy, cx)
+    yDist = math.sqrt(cx*cx + cy*cy)
+    string_yellow = "Y"+str(cx)+" | "+str(cy)+" | "+str(yAngle)+" | "+str(yDist)+str(area)+"y"
+    #print (string_yellow)   # test on serial terminal
 
     '''Blue'''
-    area,cx,cy,code = tt_blue[nb-1]    # coordinata x del piu' grande y se montata al contrario
+    area,cx,cy,code = tt_blue[nb-1]
     cx = img.width() / 2 - cx
     cy = img.height() / 2 - cy
-    angle = math.pi/2 - math.atan2(cy, cx)
-    dist = math.sqrt(cx*cx + cy*cy)
-    string_blue = "B"+str(cx)+" | "+str(cy)+" | |"+str(angle)+" | "+str(dist)+str(area)+"b"
-    print (string_blue)   # test on serial terminal
+    bAngle = math.pi/2 - math.atan2(cy, cx)
+    bDist = math.sqrt(cx*cx + cy*cy)
+    string_blue = "B"+str(cx)+" | "+str(cy)+" | |"+str(bAngle)+" | "+str(bDist)+str(area)+"b"
+    #print (string_blue)   # test on serial terminal
+
+    #Now calculate distance and position
+    #Goal 1 is the one in front of the robot
+    #Goal 2 is the one facing the back of the robot
+
+    #convert in [0, 360), to be sure
+    bAngle = int(bAngle * 180 / math.pi)
+    yAngle = int(yAngle * 180 / math.pi)
+
+    bAngle = (bAngle +  360) % 360;
+    yAngle = (yAngle +  360) % 360;
+
+    #Now bring it back to [-179, 180]
+    if bAngle > 180:
+        bAngle = bAngle - 360
+
+    if yAngle > 180:
+        yAngle = yAngle - 360
+
+    if ATTACKING == 1:
+        angle1 = abs(yAngle)
+        angle2 = abs(bAngle - 180)
+    else:
+        angle1 = abs(bAngle)
+        angle2 = abs(yAngle - 180)
+
+    dist1 = (GOALS_DEPTH * math.sin(angle2) ) / (math.sin(angle1+angle2))
+    dist2 = (GOALS_DEPTH * math.sin(angle1) ) / (math.sin(angle1+angle2))
+
+    print("------")
+    print(angle1)
+    print(angle2)
+    print(dist1)
+    print(dist2)
+    print("------")
+
 
     #print ("..................................")
 
