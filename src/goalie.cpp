@@ -20,8 +20,9 @@ void Goalie::init(){
 }
 
 void Goalie::realPlay(){
-  if(ball->ballSeen) this->goalie(50);
-  else ((PositionSysCamera*)ps)->goCenter();
+  ((PositionSysCamera*)ps)->goCenter();
+  // if(ball->ballSeen) this->goalie(50);
+  // else ((PositionSysCamera*)ps)->goCenter();
 }
 
 int dir, degrees2;

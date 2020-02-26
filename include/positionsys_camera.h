@@ -1,7 +1,7 @@
 #include "systems.h"
 
-#define CAMERA_CENTER_X 0
-#define CAMERA_CENTER_Y 0
+#define CAMERA_CENTER_X 3
+#define CAMERA_CENTER_Y 6
 
 class PositionSysCamera : public PositionSystem{
 

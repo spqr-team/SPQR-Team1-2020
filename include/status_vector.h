@@ -39,13 +39,14 @@ typedef struct data{
         yAngle, bAngle, yAngleFix, bAngleFix, 
         yDist, bDist, 
         angleAtk, angleAtkFix, angleDef, angleDefFix,
+        cam_xb, cam_yb, cam_xy, cam_yy,
         speed, tilt, dir, axisBlock[4],
         USfr, USsx, USdx, USrr, 
         lineOutDir, matePos, role;
     Game* game;
     LineSystem* lineSystem;
     PositionSystem* posSystem;
-    byte xb, yb, xy, yy, lineSeen, lineActive;
+    byte lineSeen, lineActive;
     bool mate, 
         ATKgoal, DEFgoal, 
         atkSeen, defSeen, bSeen, ySeen,
