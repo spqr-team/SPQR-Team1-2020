@@ -38,6 +38,9 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     pid->SetOutputLimits(-255,255);
     pid->SetMode(AUTOMATIC);
 
+    // Complementary filter for speed
+    speedFilter = new ComplementaryFilter(0.3);
+
     canUnlock = true;
     unlockTime = 0;
 
@@ -63,7 +66,7 @@ float DriveController::torad(float f){
 
 void DriveController::drive(int dir, int speed, int tilt){
 
-    speed = (speed * KSPD + oldSpeed * (1-KSPD))*GLOBAL_SPD_MULT;
+    speed = speedFilter->calculate(speed)*GLOBAL_SPD_MULT;
     tilt = tilt > 180 ? tilt - 360 : tilt;
 
     vx = ((speed * cosins[dir]));

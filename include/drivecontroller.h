@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include "motor.h"
 #include "PID_v2.h"
+#include "complementary_filter.h"
 
 //PID Constants
 #define KP 1.5
@@ -41,6 +42,7 @@ class DriveController{
         Motor* m3;
         Motor* m4;
         PID* pid;
+        ComplementaryFilter* speedFilter;
         int pDir, pSpeed, pTilt, oldSpeed;
         float x, y, vx, vy, speed1, speed2, speed3, speed4, pidfactor, delta;
 
