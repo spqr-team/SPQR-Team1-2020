@@ -25,6 +25,7 @@ void loop() {
 
   // Last thing to do: movement and update status vector
   // drive->prepareDrive(0,0,  CURRENT_DATA_READ.angleAtkFix);
+
   drive->drivePrepared();  
   updateStatusVector();
 } 

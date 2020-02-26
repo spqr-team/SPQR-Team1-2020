@@ -47,7 +47,7 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     vyn = 0;
 }
 
-void DriveController::prepareDrive(int dir, int speed, int tilt=0){
+void DriveController::prepareDrive(int dir, int speed, int tilt){
     pDir = dir;
     pSpeed = speed;
     pTilt = tilt;
