@@ -38,8 +38,8 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (72, 100, -18, 11, 12, 65)  ,    # thresholds yellow goal
-                (39, 61, -18, 11, -47, -16)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (23, 38, -34, -8, -12, 22),    # thresholds yellow goal
+                (69, 98, -14, 30, 66, 113)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 roi = (0, 6, 318, 152)
 
@@ -60,10 +60,11 @@ sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QQVGA)
 sensor.set_contrast(+3)
-sensor.set_saturation(0)
-sensor.set_brightness(-2)
+sensor.set_saturation(2)
+sensor.set_brightness(0)
 sensor.set_quality(0)
-sensor.set_auto_exposure(False, 6000)
+sensor.set_auto_whitebal(False)
+sensor.set_auto_exposure(False, 5000)
 sensor.set_auto_gain(True)
 sensor.skip_frames(time = 300)
 
