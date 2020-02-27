@@ -63,36 +63,47 @@ void PositionSysCamera :: setCameraPID(){
     Y->SetSampleTime(2);
 }
 
+/*Knowing the sum of the absolute values of the y position of the goals, it calculates the missing goal y knowing the other one
+We know the sum of the absolute values is a fixed number.
+By subtracting the absolute value of the goal y we know to the sum of the absolute values, we get the absolute value of the missing goal y
+The sign of the goal y we found is simply the reverse of the one we got
+*/
+int PositionSysCamera::calcOtherGoalY(int goalY){
+    int otherGoalY = CAMERA_CENTER_Y_ABS_SUM - abs(goalY);
+    otherGoalY = goalY < 0 ? otherGoalY : -otherGoalY;
+    return otherGoalY;
+}
+
 void PositionSysCamera :: CameraPID(){   
     if(CURRENT_DATA_READ.bSeen == true && CURRENT_DATA_READ.ySeen == true){
         Inputx = (CURRENT_DATA_READ.cam_xy + CURRENT_DATA_READ.cam_xb) / 2;
         Inputy = CURRENT_DATA_READ.cam_yb + CURRENT_DATA_READ.cam_yy;
-        Setpointx = CAMERA_CENTER_X;
-        Setpointy = CAMERA_CENTER_Y_BOTH;
-    }
-    if (CURRENT_DATA_READ.bSeen == true && CURRENT_DATA_READ.ySeen == false){
+    }else if (CURRENT_DATA_READ.bSeen == true && CURRENT_DATA_READ.ySeen == false){
         Inputx = CURRENT_DATA_READ.cam_xb;
-        Inputy = CURRENT_DATA_READ.cam_yb;
-        Setpointx = CAMERA_CENTER_X;
-        Setpointy = CAMERA_CENTER_Y_BLUE; 
-    }
-    if (CURRENT_DATA_READ.bSeen == false && CURRENT_DATA_READ.ySeen == true){
+        Inputy = CURRENT_DATA_READ.cam_yb + calcOtherGoalY(CURRENT_DATA_READ.cam_yb);
+    }else if (CURRENT_DATA_READ.bSeen == false && CURRENT_DATA_READ.ySeen == true){
         Inputx = CURRENT_DATA_READ.cam_xy;
-        Inputy = CURRENT_DATA_READ.cam_yy;
-        Setpointx = CAMERA_CENTER_X;
-        Setpointy = CAMERA_CENTER_Y_YELLOW;
+        Inputy = CURRENT_DATA_READ.cam_yy + calcOtherGoalY(CURRENT_DATA_READ.cam_yy);
         //Setpointy todo
     }else{
 
     }
+    Setpointx = CAMERA_CENTER_X;
+    Setpointy = CAMERA_CENTER_Y;
     //TODO: no goal seen
         
     X->Compute();
     Y->Compute();
     
-    // DEBUG.println(Outputx);
+    // DEBUG.print(CURRENT_DATA_READ.cam_yb);
+    // DEBUG.print(" ");
+    // DEBUG.println(calcOtherGoalY(CURRENT_DATA_READ.cam_yb));
 
-    int dir = -90-(atan2(-Outputy,-Outputx)*180/3.14);
-    dir = (dir+360) % 360;
-    drive->prepareDrive(dir, 100, 0);
+    if(abs(Outputx) <= 1 && abs(Outputy) <= 1){
+        drive->prepareDrive(0,0,0);
+    }else{
+        int dir = -90-(atan2(-Outputy,-Outputx)*180/3.14);
+        dir = (dir+360) % 360;
+        drive->prepareDrive(dir, 100, 0);
+    }
 }

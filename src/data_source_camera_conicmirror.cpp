@@ -52,8 +52,8 @@ void DataSourceCameraConic ::readSensor() {
         yAngleFix = ((int)((yAngle + angleFix * 0.8)) + 360) % 360;
         bAngleFix = ((int)((bAngle + angleFix * 0.8)) + 360) % 360;
 
-        yDist = sqrt((true_yy - 50) * (true_yy - 50) + (50 - true_xy) * (50 - true_xy));
-        bDist = sqrt((true_yb - 50) * (true_yb - 50) + (50 - true_xb) * (50 - true_xb));
+        yDist = sqrt((true_yy) * (true_yy) + (true_xy) * (true_xy));
+        bDist = sqrt((true_yb) * (true_yb) + (true_xb) * (true_xb));
 
         //Important: update status vector
         CURRENT_INPUT_WRITE.cameraByte = value;
@@ -68,14 +68,10 @@ void DataSourceCameraConic ::readSensor() {
         CURRENT_DATA_WRITE.yDist = yDist;
         CURRENT_DATA_WRITE.bDist = bDist;
 
-        if (xb == unkn || yb == unkn)
-          CURRENT_DATA_WRITE.bSeen = false;
-        else
-          CURRENT_DATA_WRITE.bSeen = true;
-        if (xy == unkn || yy == unkn)
-          CURRENT_DATA_WRITE.ySeen = false;
-        else
-          CURRENT_DATA_WRITE.ySeen = true;
+        if (xb == unkn || yb == unkn) CURRENT_DATA_WRITE.bSeen = false;
+        else CURRENT_DATA_WRITE.bSeen = true;
+        if (xy == unkn || yy == unkn) CURRENT_DATA_WRITE.ySeen = false;
+        else CURRENT_DATA_WRITE.ySeen = true;
 
         if (goalOrientation == HIGH) {
           CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.yAngle;
@@ -132,7 +128,9 @@ void DataSourceCameraConic::test()
   DEBUG.print(" | ");
   DEBUG.print(bAngleFix);
   DEBUG.print(" | ");
-  DEBUG.println(bDist);
+  DEBUG.print(bDist);
+  DEBUG.print(" | ");
+  DEBUG.println(CURRENT_DATA_READ.bSeen);
   DEBUG.println(" --- ");
 
   DEBUG.print("Yellow: ");
@@ -140,7 +138,9 @@ void DataSourceCameraConic::test()
   DEBUG.print(" | ");
   DEBUG.print(yAngleFix);
   DEBUG.print(" | ");
-  DEBUG.println(yDist);
+  DEBUG.print(yDist);
+  DEBUG.print(" | ");
+  DEBUG.println(CURRENT_DATA_READ.ySeen);
   DEBUG.println("---------------");
   DEBUG.print("Data: ");
   DEBUG.print(true_xb);

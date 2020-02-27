@@ -2,9 +2,8 @@
 #include "systems.h"
 
 #define CAMERA_CENTER_X 0
-#define CAMERA_CENTER_Y_BOTH 3
-#define CAMERA_CENTER_Y_BLUE -60
-#define CAMERA_CENTER_Y_YELLOW -30
+#define CAMERA_CENTER_Y -13
+#define CAMERA_CENTER_Y_ABS_SUM 72
 
 #define Kpx 1
 #define Kix 0
@@ -22,6 +21,7 @@ class PositionSysCamera : public PositionSystem{
         void test() override;
         void setCameraPID();
         void CameraPID();
+        int calcOtherGoalY(int goalY);
 
         double Inputx, Outputx, Setpointx, Inputy, Outputy, Setpointy;
 
