@@ -2,8 +2,12 @@
 #include "systems.h"
 
 #define CAMERA_CENTER_X 0
-#define CAMERA_CENTER_Y -13
+#define CAMERA_CENTER_Y -18
 #define CAMERA_CENTER_Y_ABS_SUM 72
+//Actually it's ± MAX_VAL
+#define MAX_X 25
+#define MAX_Y (CAMERA_CENTER_Y_ABS_SUM/2)
+#define DIST_MULT 1.65
 
 #define Kpx 1
 #define Kix 0
@@ -24,7 +28,7 @@ class PositionSysCamera : public PositionSystem{
         int calcOtherGoalY(int goalY);
 
         double Inputx, Outputx, Setpointx, Inputy, Outputy, Setpointy;
-
+        int MAX_DIST;
         PID* X;
         PID* Y;
 

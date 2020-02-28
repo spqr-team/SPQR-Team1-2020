@@ -27,7 +27,7 @@ void PositionSysCamera::goCenter(){
     /*MAKING A SINGLE LINE HERE, DOESN'T WORK FOR NOW*/
     /* int x = 1;
     int y = 1;
-    
+    ;
     //Trying using an angle
     if(CURRENT_DATA_READ.bSeen == true && CURRENT_DATA_READ.ySeen == true){
     if((CURRENT_DATA_READ.cam_yy) > CAMERA_CENTER_Y || (CURRENT_DATA_READ.cam_yb + CURRENT_DATA_READ.cam_yy) < -CAMERA_CENTER_Y) 
@@ -44,6 +44,7 @@ void PositionSysCamera::goCenter(){
 
 //using a pid controller for the movement, or trying at least
 void PositionSysCamera :: setCameraPID(){
+    MAX_DIST = sqrt(MAX_X*MAX_X + MAX_Y*MAX_Y);
     Inputx = 0;
     Outputx = 0;
     Setpointx = 0;
@@ -65,7 +66,7 @@ void PositionSysCamera :: setCameraPID(){
 
 /*Knowing the sum of the absolute values of the y position of the goals, it calculates the missing goal y knowing the other one
 We know the sum of the absolute values is a fixed number.
-By subtracting the absolute value of the goal y we know to the sum of the absolute values, we get the absolute value of the missing goal y
+By♦ subtracting the absolute value of the goal y we know to the sum of the absolute values, we get the absolute value of the missing goal y
 The sign of the goal y we found is simply the reverse of the one we got
 */
 int PositionSysCamera::calcOtherGoalY(int goalY){
@@ -86,11 +87,10 @@ void PositionSysCamera :: CameraPID(){
         Inputy = CURRENT_DATA_READ.cam_yy + calcOtherGoalY(CURRENT_DATA_READ.cam_yy);
         //Setpointy todo
     }else{
-
+        //TODO: no goal seen
     }
     Setpointx = CAMERA_CENTER_X;
     Setpointy = CAMERA_CENTER_Y;
-    //TODO: no goal seen
         
     X->Compute();
     Y->Compute();
@@ -99,11 +99,15 @@ void PositionSysCamera :: CameraPID(){
     // DEBUG.print(" ");
     // DEBUG.println(calcOtherGoalY(CURRENT_DATA_READ.cam_yb));
 
-    if(abs(Outputx) <= 1 && abs(Outputy) <= 1){
+    /*if(abs(Outputx) <= 1 && abs(Outputy) <= 1){
         drive->prepareDrive(0,0,0);
-    }else{
+    }else{*/
         int dir = -90-(atan2(-Outputy,-Outputx)*180/3.14);
         dir = (dir+360) % 360;
-        drive->prepareDrive(dir, 100, 0);
-    }
+
+        int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
+        int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, 350);
+        drive->prepareDrive(dir, speed, 0);
+        //DEBUG.println(dir);
+    //}
 }
