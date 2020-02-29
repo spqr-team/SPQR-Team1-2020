@@ -1,9 +1,9 @@
 #include <Arduino.h>
 
-#include "sensors.h"
-#include "games.h"
-#include "status_vector.h"
-#include "positionsys_zone.h"
+#include "behaviour_control/status_vector.h"
+#include "position/positionsys_zone.h"
+#include "sensors/sensors.h"
+#include "strategy_roles/games.h"
 
 void setup() {
   delay(1500);
