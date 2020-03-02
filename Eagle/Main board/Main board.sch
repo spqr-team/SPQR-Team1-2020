@@ -21966,7 +21966,6 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <part name="P-8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="V-" device=""/>
 <part name="P-9" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="V-" device=""/>
 <part name="GND29" library="supply1" deviceset="GND" device=""/>
-<part name="R19" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R1206" package3d_urn="urn:adsk.eagle:package:23540/2"/>
 <part name="GND30" library="supply1" deviceset="GND" device=""/>
 <part name="GND31" library="supply1" deviceset="GND" device=""/>
 <part name="GND32" library="supply1" deviceset="GND" device=""/>
@@ -22015,6 +22014,7 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <part name="GND46" library="supply1" deviceset="GND" device=""/>
 <part name="C28" library="Panasonic 1500uF" deviceset="EEV-FK1C152Q" device=""/>
 <part name="P-12" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="V-" device=""/>
+<part name="TOF_TOP" library="CONNECTER" deviceset="TWIG_2.0" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -22109,10 +22109,10 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <wire x1="358.14" y1="132.08" x2="332.74" y2="132.08" width="0.1524" layer="97"/>
 <wire x1="332.74" y1="132.08" x2="332.74" y2="162.56" width="0.1524" layer="97"/>
 <text x="358.14" y="129.54" size="1.778" layer="97" rot="MR0">BLUETOOTH</text>
-<wire x1="375.92" y1="185.42" x2="398.78" y2="185.42" width="0.1524" layer="97"/>
+<wire x1="363.22" y1="185.42" x2="398.78" y2="185.42" width="0.1524" layer="97"/>
 <wire x1="398.78" y1="185.42" x2="398.78" y2="162.56" width="0.1524" layer="97"/>
-<wire x1="398.78" y1="162.56" x2="375.92" y2="162.56" width="0.1524" layer="97"/>
-<wire x1="375.92" y1="162.56" x2="375.92" y2="185.42" width="0.1524" layer="97"/>
+<wire x1="398.78" y1="162.56" x2="363.22" y2="162.56" width="0.1524" layer="97"/>
+<wire x1="363.22" y1="162.56" x2="363.22" y2="185.42" width="0.1524" layer="97"/>
 <text x="398.78" y="160.02" size="1.778" layer="97" rot="MR0">ToF</text>
 <wire x1="-12.7" y1="261.62" x2="48.26" y2="261.62" width="0.1524" layer="97"/>
 <wire x1="48.26" y1="261.62" x2="48.26" y2="236.22" width="0.1524" layer="97"/>
@@ -22701,10 +22701,6 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <instance part="GND29" gate="1" x="93.98" y="138.43" smashed="yes">
 <attribute name="VALUE" x="91.44" y="135.89" size="1.778" layer="96"/>
 </instance>
-<instance part="R19" gate="G$1" x="85.09" y="142.24" smashed="yes">
-<attribute name="NAME" x="81.28" y="143.7386" size="1.778" layer="95"/>
-<attribute name="VALUE" x="81.28" y="138.938" size="1.778" layer="96"/>
-</instance>
 <instance part="GND30" gate="1" x="21.59" y="186.69" smashed="yes">
 <attribute name="VALUE" x="19.05" y="184.15" size="1.778" layer="96"/>
 </instance>
@@ -22868,6 +22864,9 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 </instance>
 <instance part="P-12" gate="1" x="269.24" y="142.24" smashed="yes">
 <attribute name="VALUE" x="271.78" y="144.78" size="1.778" layer="96" rot="R270"/>
+</instance>
+<instance part="TOF_TOP" gate="G$1" x="370.84" y="173.99" smashed="yes" rot="MR0">
+<attribute name="NAME" x="373.38" y="166.37" size="1.27" layer="95" rot="MR0"/>
 </instance>
 </instances>
 <busses>
@@ -23444,6 +23443,9 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <pinref part="+3V18" gate="G$1" pin="+3V3"/>
 <wire x1="384.81" y1="177.8" x2="388.62" y2="177.8" width="0.1524" layer="91"/>
 <wire x1="388.62" y1="177.8" x2="388.62" y2="179.07" width="0.1524" layer="91"/>
+<pinref part="TOF_TOP" gate="G$1" pin="1"/>
+<wire x1="374.65" y1="177.8" x2="384.81" y2="177.8" width="0.1524" layer="91"/>
+<junction x="384.81" y="177.8"/>
 </segment>
 <segment>
 <pinref part="+3V19" gate="G$1" pin="+3V3"/>
@@ -23856,7 +23858,6 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <pinref part="GND29" gate="1" pin="GND"/>
 <wire x1="93.98" y1="140.97" x2="93.98" y2="142.24" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="142.24" x2="90.17" y2="142.24" width="0.1524" layer="91"/>
-<pinref part="R19" gate="G$1" pin="2"/>
 </segment>
 <segment>
 <pinref part="GND30" gate="1" pin="GND"/>
@@ -23892,6 +23893,9 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <pinref part="GND34" gate="1" pin="GND"/>
 <wire x1="384.81" y1="170.18" x2="388.62" y2="170.18" width="0.1524" layer="91"/>
 <wire x1="388.62" y1="170.18" x2="388.62" y2="168.91" width="0.1524" layer="91"/>
+<pinref part="TOF_TOP" gate="G$1" pin="4"/>
+<wire x1="374.65" y1="170.18" x2="384.81" y2="170.18" width="0.1524" layer="91"/>
+<junction x="384.81" y="170.18"/>
 </segment>
 <segment>
 <pinref part="GND35" gate="1" pin="GND"/>
@@ -24961,7 +24965,6 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <pinref part="P-9" gate="1" pin="V-"/>
 <wire x1="76.2" y1="140.97" x2="76.2" y2="142.24" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="142.24" x2="80.01" y2="142.24" width="0.1524" layer="91"/>
-<pinref part="R19" gate="G$1" pin="1"/>
 </segment>
 <segment>
 <pinref part="J2" gate="G$1" pin="2"/>
@@ -25071,6 +25074,9 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <pinref part="TOF" gate="G$1" pin="2"/>
 <wire x1="384.81" y1="175.26" x2="396.24" y2="175.26" width="0.1524" layer="91"/>
 <label x="396.24" y="175.26" size="1.778" layer="95" rot="MR0"/>
+<pinref part="TOF_TOP" gate="G$1" pin="2"/>
+<wire x1="374.65" y1="175.26" x2="384.81" y2="175.26" width="0.1524" layer="91"/>
+<junction x="384.81" y="175.26"/>
 </segment>
 <segment>
 <pinref part="U$1" gate="G$1" pin="36/A17"/>
@@ -25083,6 +25089,9 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <pinref part="TOF" gate="G$1" pin="3"/>
 <wire x1="384.81" y1="172.72" x2="396.24" y2="172.72" width="0.1524" layer="91"/>
 <label x="396.24" y="172.72" size="1.778" layer="95" rot="MR0"/>
+<pinref part="TOF_TOP" gate="G$1" pin="3"/>
+<wire x1="374.65" y1="172.72" x2="384.81" y2="172.72" width="0.1524" layer="91"/>
+<junction x="384.81" y="172.72"/>
 </segment>
 <segment>
 <pinref part="U$1" gate="G$1" pin="37/A18"/>
