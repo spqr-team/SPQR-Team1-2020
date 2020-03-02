@@ -23,6 +23,10 @@ DataSourceCameraConic::DataSourceCameraConic(HardwareSerial *ser_, int baud) : D
   bAngle = 0;
   bAngleFix = 0;
   bDist = 0;
+  true_xb_fixed = 0;
+  true_yb_fixed = 0;
+  true_xy_fixed = 0;
+  true_yy_fixed = 0;
 }
 
 void DataSourceCameraConic ::readSensor() {
@@ -37,24 +41,35 @@ void DataSourceCameraConic ::readSensor() {
       if ((count = 4) && (start == true)) {
         data_received = true;
 
-        true_xb = xb - 50;
-        true_yb = 50 - yb;
-        true_xy = xy - 50;
-        true_yy = 50 - yy;
-
-        true_xb_fixed = true_xb*(cos(CURRENT_DATA_READ.IMUAngle)) - true_yb*(sin(CURRENT_DATA_READ.IMUAngle));
-        true_xy_fixed = true_xy*(cos(CURRENT_DATA_READ.IMUAngle)) - true_yy*(sin(CURRENT_DATA_READ.IMUAngle));
-        true_yb_fixed = true_xb*(sin(CURRENT_DATA_READ.IMUAngle)) + true_yb*(cos(CURRENT_DATA_READ.IMUAngle));
-        true_yy_fixed = true_xy*(sin(CURRENT_DATA_READ.IMUAngle)) + true_yy*(cos(CURRENT_DATA_READ.IMUAngle));
-        
+        true_xb = xb;
+        true_yb = yb;
+        true_xy = xy;
+        true_yy = yy;
 
 
-        //Remap from [0,100] to [-50, +49] to correctly compute angles and distances and calculate them
-        yAngle = -90 - (atan2(true_yy, true_xy) * 180 / 3.14);
-        bAngle = -90 - (atan2(true_yb, true_xb) * 180 / 3.14);
+        //Where are the goals relative to the robot?
+        true_xb = 50 - true_xb;
+        true_yb = true_yb - 50;
+        true_xy = 50 - true_xy;
+        true_yy = true_yy - 50;
+        //Remap from [0,100] to [-50, +50] to correctly compute angles and distances and calculate them
+        yAngle = 90 - (atan2(true_yy, true_xy) * 180 / 3.14);
+        bAngle = 90 - (atan2(true_yb, true_xb) * 180 / 3.14);
         //Now cast angles to [0, 359] domain angle flip them
         yAngle = (yAngle + 360) % 360;
         bAngle = (bAngle + 360) % 360;
+        yDist = sqrt((true_yy) * (true_yy) + (true_xy) * (true_xy));
+        bDist = sqrt((true_yb) * (true_yb) + (true_xb) * (true_xb));
+
+
+        //Rotate the point on the cartesian plane to compensate the robot tilt
+        // float angleFix = CURRENT_DATA_READ.IMUAngle*IMUTOC_AMULT;
+        // angleFix = (angleFix * 3.14) / 180;
+        // float angleFix = CURRENT_DATA_READ.IMUAngle*3.14/180;
+        // true_xb_fixed = (true_xb*(cos(angleFix))) - (true_yb*(sin(angleFix)));
+        // true_yb_fixed = (true_xb*(sin(angleFix))) + (true_yb*(cos(angleFix)));
+        // true_xy_fixed = (true_xy*(cos(angleFix))) - (true_yy*(sin(angleFix)));
+        // true_yy_fixed = (true_xy*(sin(angleFix))) + (true_yy*(cos(angleFix)));
 
         int angleFix = CURRENT_DATA_READ.IMUAngle > 180 ? CURRENT_DATA_READ.IMUAngle - 360 : CURRENT_DATA_READ.IMUAngle;
 
@@ -62,8 +77,6 @@ void DataSourceCameraConic ::readSensor() {
         yAngleFix = ((int)((yAngle + angleFix * 0.8)) + 360) % 360;
         bAngleFix = ((int)((bAngle + angleFix * 0.8)) + 360) % 360;
 
-        yDist = sqrt((true_yy) * (true_yy) + (true_xy) * (true_xy));
-        bDist = sqrt((true_yb) * (true_yb) + (true_xb) * (true_xb));
 
         //Important: update status vector
         CURRENT_INPUT_WRITE.cameraByte = value;
@@ -71,6 +84,10 @@ void DataSourceCameraConic ::readSensor() {
         CURRENT_DATA_WRITE.cam_yb = true_yb;
         CURRENT_DATA_WRITE.cam_xy = true_xy;
         CURRENT_DATA_WRITE.cam_yy = true_yy;
+        CURRENT_DATA_WRITE.cam_xb_fixed = true_xb_fixed;
+        CURRENT_DATA_WRITE.cam_yb_fixed = true_yb_fixed;
+        CURRENT_DATA_WRITE.cam_xy_fixed = true_xy_fixed;
+        CURRENT_DATA_WRITE.cam_yy_fixed = true_yy_fixed;
         CURRENT_DATA_WRITE.yAngle = yAngle;
         CURRENT_DATA_WRITE.bAngle = bAngle;
         CURRENT_DATA_WRITE.yAngleFix = yAngleFix;
@@ -145,10 +162,11 @@ void DataSourceCameraConic::test(){
   DEBUG.print(CURRENT_DATA_READ.cam_yb);
   DEBUG.print(")");
   DEBUG.print(" | Fixed coords: (");
-  DEBUG.print(CURRENT_DATA_READ.cam_xy_fixed);
+  DEBUG.print(CURRENT_DATA_READ.cam_xb_fixed);
   DEBUG.print(",");
-  DEBUG.println(CURRENT_DATA_READ.cam_yy_fixed);
-  DEBUG.println(")---------------");
+  DEBUG.print(CURRENT_DATA_READ.cam_yb_fixed);
+  DEBUG.println(")");
+  DEBUG.println("----------------");
   DEBUG.print("Yellow: Angle: ");
   DEBUG.print(yAngle);
   DEBUG.print(" | Fixed Angle: ");
@@ -165,7 +183,8 @@ void DataSourceCameraConic::test(){
   DEBUG.print(" | Fixed coords: (");
   DEBUG.print(CURRENT_DATA_READ.cam_xy_fixed);
   DEBUG.print(",");
-  DEBUG.println(CURRENT_DATA_READ.cam_yy_fixed);
-  DEBUG.println(")---------------");
+  DEBUG.print(CURRENT_DATA_READ.cam_yy_fixed);
+  DEBUG.println(")");
+  DEBUG.println("---------------");
   delay(150);
 }

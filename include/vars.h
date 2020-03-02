@@ -1,5 +1,5 @@
 #pragma once
-#define DEBUG Serial
+#define DEBUG Serial3
 
 #define GLOBAL_SPD_MULT 1.0
 

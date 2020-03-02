@@ -2,8 +2,8 @@
 
 #include "position/systems.h"
 
-#define CAMERA_CENTER_X 0
-#define CAMERA_CENTER_Y 0
+#define CAMERA_CENTER_X 10
+#define CAMERA_CENTER_Y -13
 #define CAMERA_CENTER_Y_ABS_SUM 72
 //Actually it's ± MAX_VAL
 #define MAX_X 25

@@ -89,6 +89,13 @@ void PositionSysCamera :: CameraPID(){
     }else{
         //TODO: no goal seen
     }
+
+    //To have the axis corresponding to the real cartesian plane Inputx and InputY must be multiplied by -1
+    //This is because the coordinates given as input are relative to the robot, while the coordinates used in the setpoint
+    //are on an absolute cartesian plane with it's center in the center of the field
+    Inputx *= -1;
+    Inputy *= -1;
+
     Setpointx = CAMERA_CENTER_X;
     Setpointy = CAMERA_CENTER_Y;
         

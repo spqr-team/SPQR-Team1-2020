@@ -64,7 +64,7 @@ sensor.set_saturation(1)
 sensor.set_brightness(0)
 sensor.set_quality(0)
 sensor.set_auto_whitebal(False)
-sensor.set_auto_exposure(False, 4500)
+sensor.set_auto_exposure(False, 6500)
 sensor.set_auto_gain(True)
 sensor.skip_frames(time = 300)
 

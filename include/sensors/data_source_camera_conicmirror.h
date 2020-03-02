@@ -8,6 +8,8 @@
 //Coords are mapped from 0 up to this value
 #define MAP_MAX 100
 #define HALF_MAP_MAX  50
+//Imu To Camera Angle Mult
+#define IMUTOC_AMULT 1
 
 class DataSourceCameraConic : public DataSource{
 
