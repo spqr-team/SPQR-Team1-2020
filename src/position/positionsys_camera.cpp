@@ -52,12 +52,12 @@ void PositionSysCamera :: setCameraPID(){
     Outputy = 0;
     Setpointy = 0;
     
-    X = new PID(&Inputx, &Outputx, &Setpointx, Kpx, Kix, Kdx, DIRECT);
+    X = new PID(&Inputx, &Outputx, &Setpointx, Kpx, Kix, Kdx, REVERSE);
     X->SetOutputLimits(-50,50);
     X->SetMode(AUTOMATIC);
     X->SetDerivativeLag(1);
     X->SetSampleTime(2);
-    Y = new PID(&Inputy, &Outputy, &Setpointy, Kpy, Kiy, Kdy, DIRECT);
+    Y = new PID(&Inputy, &Outputy, &Setpointy, Kpy, Kiy, Kdy, REVERSE);
     Y->SetOutputLimits(-50,50);
     Y->SetMode(AUTOMATIC);
     Y->SetDerivativeLag(1);
@@ -102,7 +102,7 @@ void PositionSysCamera :: CameraPID(){
     /*if(abs(Outputx) <= 1 && abs(Outputy) <= 1){
         drive->prepareDrive(0,0,0);
     }else{*/
-        int dir = -90-(atan2(-Outputy,-Outputx)*180/3.14);
+        int dir = -90-(atan2(Outputy,Outputx)*180/3.14);
         dir = (dir+360) % 360;
 
         int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
