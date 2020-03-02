@@ -16,25 +16,26 @@
 #define S4I A1
 #define S4O A2
 
-#define LINE_THRESH 90
-#define EXTIME 100
+#define LINE_THRESH_CAM 90
+#define EXIT_TIME 100
 #define LINES_EXIT_SPD 350
 
-class LineSys2019 : public LineSystem{
+class LineSysCamera : public LineSystem{
 
     public:
-        LineSys2019();
-        LineSys2019(vector<DataSource*> in_, vector<DataSource*> out);
+        LineSysCamera();
+        LineSysCamera(vector<DataSource*> in_, vector<DataSource*> out);
 
         void update() override;
         void test() override;
         void outOfBounds();
+        void checkLineSensors();
         
     private:
         vector<DataSource*> in, out;
         DataSource* ds;
         bool fboundsX, fboundsY, fboundsOX, fboundsOY, slow;
-        int inV, outV, linesensOldX, linesensOldY, value, linetriggerI[4], linetriggerO[4], i;
+        int inV, outV, linesensOldX, linesensOldY, value, linetriggerI[4], linetriggerO[4], linepins[4], i;
         elapsedMillis exitTimer;
         int outDir, outVel;
         byte linesens;

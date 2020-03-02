@@ -42,7 +42,8 @@ typedef struct data{
         cam_xb, cam_yb, cam_xy, cam_yy,
         speed, tilt, dir, axisBlock[4],
         USfr, USsx, USdx, USrr, 
-        lineOutDir, matePos, role;
+        lineOutDir, matePos, role, cam_xb_fixed,
+        cam_xy_fixed, cam_yb_fixed, cam_yy_fixed;
     Game* game;
     LineSystem* lineSystem;
     PositionSystem* posSystem;

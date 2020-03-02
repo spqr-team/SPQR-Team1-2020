@@ -21,7 +21,8 @@ class DataSourceCameraConic : public DataSource{
         int yAngle, bAngle, yAngleFix, bAngleFix, yDist, bDist;
 
         int count = 0, unkn_counter;
-        int xb, yb, xy, yy, true_xb, true_xy, true_yb, true_yy, calc_xb, calc_yb, calc_xy, calc_yy;
+        int xb, yb, xy, yy, true_xb, true_xy, true_yb, true_yy, calc_xb, calc_yb, calc_xy, calc_yy, true_xb_fixed,
+            true_xy_fixed, true_yb_fixed, true_yy_fixed;
         bool data_received = false, start = false, end = false;
 
         int goalOrientation, pAtk, pDef;
