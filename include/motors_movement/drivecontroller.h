@@ -38,12 +38,12 @@ class DriveController{
         int vxp, vyp, vxn, vyn;
         bool canUnlock;
         unsigned long unlockTime;
-
-    private:
         Motor* m1;
         Motor* m2;
         Motor* m3;
         Motor* m4;
+
+    private:
         PID* pid;
         ComplementaryFilter* speedFilter;
         int pDir, pSpeed, pTilt, oldSpeed;
