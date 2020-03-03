@@ -54,7 +54,7 @@ void TestMenu :: testMenu(){
     do{
         switch(testNum){
             case '0':
-                DEBUG.println("Exiting test menu, play good ;)");
+                DEBUG.println("Exiting test menu, may the odds be in your favor c:");
                 flagtest = false;
                 return;
             break;
@@ -89,15 +89,17 @@ void TestMenu :: testMenu(){
                 currentRole = DEBUG.read();
                 switch(currentRole){
                     case '1':
-                        ((LineSysCamera*)goalie->ls)->test();
+                        (goalie->ls)->test();
                     break;
                     case '2':
-                        ((LineSysCamera*)keeper->ls)->test();
+                        (keeper->ls)->test();
                     break;
                     default:
                         DEBUG.println("INVALID ROLE");
                     break;
                 }
+            break;
+            default:
             break;
         }
     } while (DEBUG.available() == 0);
