@@ -1,56 +1,64 @@
-/*
-  Example Bluetooth Serial Passthrough Sketch
-  by: Jim Lindblom
-  SparkFun Electronics
-  date: February 26, 2013
-  license: Public domain
-
-  This example sketch converts an RN-42 bluetooth module to
-  communicate at 9600 bps (from 115200), and passes any serial
-  data between Serial Monitor and bluetooth module.
-*/
+/*Author: EmaMaker (emamaker.altervista.org) on 8/3/2020
+  Write and read data from two bluesmirf rn-42 at the same time*/
 #include <SoftwareSerial.h>
 
 int bluetoothTx = 2;  // TX-O pin of bluetooth mate, Arduino D2
 int bluetoothRx = 3;  // RX-I pin of bluetooth mate, Arduino D3
 
 //SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
-<<<<<<< HEAD
-=======
+#define bluetooth1 Serial3
+#define bluetooth2 Serial2
 
-#define bluetooth Serial3
->>>>>>> 5c0171dd181357ae6f20ec98cb5c060f067c30fc
+HardwareSerial* current= nullptr;
 
-#define bluetooth Serial3
+char a = ' ';
 
 void setup() {
   Serial.begin(9600);  // Begin the serial monitor at 9600bps
-<<<<<<< HEAD
-  
-  bluetooth.begin(9600);  // Start bluetooth serial at 9600
-=======
-  bluetooth.begin(9600);
->>>>>>> 5c0171dd181357ae6f20ec98cb5c060f067c30fc
+  bluetooth1.begin(19200);
+  bluetooth2.begin(19200);
 }
 
-void read() {
-  while (bluetooth.available()) {
+void read(HardwareSerial* bluetooth) {
+  while (bluetooth->available()) {
+    if(bluetooth == &bluetooth1){
+      Serial.print("Bluetooth1 Read: ");
+    }else if(bluetooth == &bluetooth2){
+      Serial.print("Bluetooth2 Read: ");
+    }
     // Send any characters the bluetooth prints to the serial monitor
-    Serial.print((char)bluetooth.read());
+    Serial.println((char)bluetooth->read());
     delay(50);
   }
 }
 
-void write() {
-  while (Serial.available()) {
+void write(HardwareSerial* bluetooth) {
+  if(a != ' ') {
+    if(bluetooth == &bluetooth1){
+      Serial.print("Bluetooth1 Write: ");
+    }else if(bluetooth == &bluetooth2){
+      Serial.print("Bluetooth2 Write: ");
+    }
     // Send any characters the Serial monitor prints to the bluetooth
-    bluetooth.print((char)Serial.read());
-    delay(50);
+    Serial.println(a);
+    bluetooth->print(a);
+    a = ' ';
   }
-  // and loop forever and ever!
 }
 
+bool b = false;
 void loop() {
-  read();
-  write();
+  b = !b;
+  
+  while(Serial.available() > 0){
+    a = (char)Serial.read();
+    if(a == '-') current = &bluetooth1;
+    else if(a == '_') current = &bluetooth2;
+    if(a == '-' || a == '_') a = ' ';
+  }
+
+  if(current != nullptr) write(current);
+
+  read(&bluetooth1);
+  read(&bluetooth2);
 }
