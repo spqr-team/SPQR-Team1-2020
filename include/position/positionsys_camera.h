@@ -24,6 +24,9 @@ class PositionSysCamera : public PositionSystem{
     public:
         PositionSysCamera();
         void goCenter();
+        void centerGoal();
+        void setMoveSetpoints(int x, int y);
+        void addMoveOnAxis(int x, int y);
         void update() override;
         void test() override;
         void setCameraPID();
@@ -31,7 +34,8 @@ class PositionSysCamera : public PositionSystem{
         int calcOtherGoalY(int goalY);
 
         double Inputx, Outputx, Setpointx, Inputy, Outputy, Setpointy;
-        int MAX_DIST;
+        int MAX_DIST, vx, vy, axisx, axisy;
+        bool givenMovement;
         PID* X;
         PID* Y;
 

@@ -1,17 +1,13 @@
 #include "motors_movement/drivecontroller.h"
 #include "sensors/sensors.h"
 #include "behaviour_control/status_vector.h"
+#include "vars.h"
 
 DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_){
     m1 = m1_;
     m2 = m2_;
     m3 = m3_;
     m4 = m4_;
-    
-    for(int i = 0; i < 360; i++){
-        sins[i] = (float) sin(torad(i));
-        cosins[i] =  (float) cos(torad(i));
-    }
 
     pDir = 0;
     pSpeed = 0;
@@ -69,8 +65,9 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed = speedFilter->calculate(speed)*GLOBAL_SPD_MULT;
     tilt = tilt > 180 ? tilt - 360 : tilt;
 
-    vx = ((speed * cosins[dir]));
-    vy = ((-speed * sins[dir]));
+    //TODO: Changing CURRENT_DATA_READ to CURRENT_DATA_WRITE?
+    vx = ((speed * cosins[dir])) + CURRENT_DATA_READ.addvx;
+    vy = ((-speed * sins[dir])) + CURRENT_DATA_READ.addvy;
 
     if((((vy < 0 && vxn == 1) || (vy > 0 && vxp == 1) || (vx < 0 && vyp == 1) || (vx > 0 && vyn == 1)) && canUnlock) || (millis() > this->unlockTime+UNLOCK_THRESH)) {
         vxn = 0;

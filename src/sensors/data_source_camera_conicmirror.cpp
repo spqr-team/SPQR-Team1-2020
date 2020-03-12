@@ -45,6 +45,8 @@ void DataSourceCameraConic ::readSensor() {
         true_yb = yb;
         true_xy = xy;
         true_yy = yy;
+
+        computeCoordsAngles();
       }
       end = true;
       start = false;
