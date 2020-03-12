@@ -1,5 +1,6 @@
 #include <Arduino.h>
 
+#include "test_menu.h"
 #include "behaviour_control/status_vector.h"
 #include "position/positionsys_zone.h"
 #include "sensors/sensors.h"
@@ -19,10 +20,12 @@ void setup() {
 
 void loop() {
   updateSensors();
-
+/*   TestMenu testmenu;
+  testmenu.testMenu();
   goalie->play(role==1);
   keeper->play(role==0);
-
+ */
+drive->m1->test();
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  
   updateStatusVector();
