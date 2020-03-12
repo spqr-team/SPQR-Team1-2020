@@ -24,15 +24,10 @@ void loop() {
   testmenu.testMenu();
   goalie->play(role==1);
   keeper->play(role==0);
-<<<<<<< HEAD
- */
-drive->m1->test();
-=======
 
   camera->test();
 
->>>>>>> 4cd4b8f9d6012a435a9d2e4f1e1983a0adf3475e
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  
-  updateStatusVector();
+  updateStatusVector(); */
 } 

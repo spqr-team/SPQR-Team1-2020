@@ -56,6 +56,7 @@ void TestMenu :: testMenu(){
             case '0':
                 DEBUG.println("Exiting test menu, may the odds be in your favor c:");
                 flagtest = false;
+                DEBUG.flush();
                 return;
             break;
             case '1':
