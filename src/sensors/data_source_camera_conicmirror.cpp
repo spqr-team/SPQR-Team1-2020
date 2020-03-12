@@ -45,81 +45,10 @@ void DataSourceCameraConic ::readSensor() {
         true_yb = yb;
         true_xy = xy;
         true_yy = yy;
-
-
-        //Where are the goals relative to the robot?
-        true_xb = 50 - true_xb;
-        true_yb = true_yb - 50;
-        true_xy = 50 - true_xy;
-        true_yy = true_yy - 50;
-        //Remap from [0,100] to [-50, +50] to correctly compute angles and distances and calculate them
-        yAngle = 90 - (atan2(true_yy, true_xy) * 180 / 3.14);
-        bAngle = 90 - (atan2(true_yb, true_xb) * 180 / 3.14);
-        //Now cast angles to [0, 359] domain angle flip them
-        yAngle = (yAngle + 360) % 360;
-        bAngle = (bAngle + 360) % 360;
-        yDist = sqrt((true_yy) * (true_yy) + (true_xy) * (true_xy));
-        bDist = sqrt((true_yb) * (true_yb) + (true_xb) * (true_xb));
-
-
-        //Rotate the point on the cartesian plane to compensate the robot tilt
-        // float angleFix = CURRENT_DATA_READ.IMUAngle*IMUTOC_AMULT;
-        // angleFix = (angleFix * 3.14) / 180;
-        // float angleFix = CURRENT_DATA_READ.IMUAngle*3.14/180;
-        // true_xb_fixed = (true_xb*(cos(angleFix))) - (true_yb*(sin(angleFix)));
-        // true_yb_fixed = (true_xb*(sin(angleFix))) + (true_yb*(cos(angleFix)));
-        // true_xy_fixed = (true_xy*(cos(angleFix))) - (true_yy*(sin(angleFix)));
-        // true_yy_fixed = (true_xy*(sin(angleFix))) + (true_yy*(cos(angleFix)));
-
-        int angleFix = CURRENT_DATA_READ.IMUAngle > 180 ? CURRENT_DATA_READ.IMUAngle - 360 : CURRENT_DATA_READ.IMUAngle;
-
-        //Fixes with IMU
-        yAngleFix = ((int)((yAngle + angleFix * 0.8)) + 360) % 360;
-        bAngleFix = ((int)((bAngle + angleFix * 0.8)) + 360) % 360;
-
-
-        //Important: update status vector
-        CURRENT_INPUT_WRITE.cameraByte = value;
-        CURRENT_DATA_WRITE.cam_xb = true_xb;
-        CURRENT_DATA_WRITE.cam_yb = true_yb;
-        CURRENT_DATA_WRITE.cam_xy = true_xy;
-        CURRENT_DATA_WRITE.cam_yy = true_yy;
-        CURRENT_DATA_WRITE.cam_xb_fixed = true_xb_fixed;
-        CURRENT_DATA_WRITE.cam_yb_fixed = true_yb_fixed;
-        CURRENT_DATA_WRITE.cam_xy_fixed = true_xy_fixed;
-        CURRENT_DATA_WRITE.cam_yy_fixed = true_yy_fixed;
-        CURRENT_DATA_WRITE.yAngle = yAngle;
-        CURRENT_DATA_WRITE.bAngle = bAngle;
-        CURRENT_DATA_WRITE.yAngleFix = yAngleFix;
-        CURRENT_DATA_WRITE.bAngleFix = bAngleFix;
-        CURRENT_DATA_WRITE.yDist = yDist;
-        CURRENT_DATA_WRITE.bDist = bDist;
-
-        if (xb == unkn || yb == unkn) CURRENT_DATA_WRITE.bSeen = false;
-        else CURRENT_DATA_WRITE.bSeen = true;
-        if (xy == unkn || yy == unkn) CURRENT_DATA_WRITE.ySeen = false;
-        else CURRENT_DATA_WRITE.ySeen = true;
-
-        if (goalOrientation == HIGH) {
-          CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.yAngle;
-          CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
-          CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.ySeen;
-          CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.bAngle;
-          CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.bAngleFix;
-          CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.bSeen;
-        } else {
-          CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.bAngle;
-          CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
-          CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.bSeen;
-          CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.yAngle;
-          CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.yAngleFix;
-          CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.ySeen;
-        }
       }
-    end = true;
-    start = false;
-    }   
-    else{
+      end = true;
+      start = false;
+    } else{
       if (start == true)
       {
         if (count == 0)
@@ -136,14 +65,80 @@ void DataSourceCameraConic ::readSensor() {
   }
 }
 
-// int DataSource<CameraConic::getValueAtk(bool fixed){
-//   if(fixed) return goalOrientation == HIGH ? yAngleFix : bAngleFix;
-//   else return goalOrientation == HIGH ? yAngle : bAngle;
-// }
-// int DataSourceCameraConic::getValueDef(bool fixed){
-//   if(fixed) return goalOrientation == LOW ? yAngleFix : bAngleFix;
-//   else return goalOrientation == LOW ? yAngle : bAngle;
-// }>
+
+void DataSourceCameraConic ::computeCoordsAngles() {
+  //Where are the goals relative to the robot?
+  //Remap from [0,100] to [-50, +50] to correctly compute angles and distances and calculate them, getting the original coords calculated by the camera
+  true_xb = 50 - true_xb;
+  true_yb = true_yb - 50;
+  true_xy = 50 - true_xy;
+  true_yy = true_yy - 50;
+
+  yAngle = 90 - (atan2(true_yy, true_xy) * 180 / 3.14);
+  bAngle = 90 - (atan2(true_yb, true_xb) * 180 / 3.14);
+  //Now cast angles to [0, 359] domain angle flip them
+  yAngle = (yAngle + 360) % 360;
+  bAngle = (bAngle + 360) % 360;
+  yDist = sqrt((true_yy) * (true_yy) + (true_xy) * (true_xy));
+  bDist = sqrt((true_yb) * (true_yb) + (true_xb) * (true_xb));
+  // int angleFix = CURRENT_DATA_READ.IMUAngle > 180 ? CURRENT_DATA_READ.IMUAngle - 360 : CURRENT_DATA_READ.IMUAngle;
+
+  // //Fixes with IMU
+  // yAngleFix = ((int)((yAngle + angleFix * 0.8)) + 360) % 360;
+  // bAngleFix = ((int)((bAngle + angleFix * 0.8)) + 360) % 360;
+
+  //Rotate the points of the goals on the cartesian plane to compensate the robot tilt
+  int tmp = CURRENT_DATA_READ.IMUAngle > 180 ? CURRENT_DATA_READ.IMUAngle - 360 : CURRENT_DATA_READ.IMUAngle;
+  //We are considering the angle being negative if going counterclockwise and positive is going clockwise.
+  //The formula used below assumes the angle being positive in counterclockwise and negative in clockwise, so the angle must be multiplied by -1
+  //A little explanation of the formula used here can be found on wikipedia: https://en.wikipedia.org/wiki/Rotation_of_axes
+  float angleFix = -tmp*3.14/180;
+  true_xb_fixed = (true_xb*(cos(angleFix))) - (true_yb*(sin(angleFix)));
+  true_yb_fixed = (true_xb*(sin(angleFix))) + (true_yb*(cos(angleFix)));
+  true_xy_fixed = (true_xy*(cos(angleFix))) - (true_yy*(sin(angleFix)));
+  true_yy_fixed = (true_xy*(sin(angleFix))) + (true_yy*(cos(angleFix)));
+
+  yAngleFix = 90 - (atan2(true_yy_fixed, true_xy_fixed) * 180 / 3.14);
+  bAngleFix = 90 - (atan2(true_yb_fixed, true_xb_fixed) * 180 / 3.14);
+
+  //Important: update status vector
+  CURRENT_INPUT_WRITE.cameraByte = value;
+  CURRENT_DATA_WRITE.cam_xb = true_xb;
+  CURRENT_DATA_WRITE.cam_yb = true_yb;
+  CURRENT_DATA_WRITE.cam_xy = true_xy;
+  CURRENT_DATA_WRITE.cam_yy = true_yy;
+  CURRENT_DATA_WRITE.cam_xb_fixed = true_xb_fixed;
+  CURRENT_DATA_WRITE.cam_yb_fixed = true_yb_fixed;
+  CURRENT_DATA_WRITE.cam_xy_fixed = true_xy_fixed;
+  CURRENT_DATA_WRITE.cam_yy_fixed = true_yy_fixed;
+  CURRENT_DATA_WRITE.yAngle = yAngle;
+  CURRENT_DATA_WRITE.bAngle = bAngle;
+  CURRENT_DATA_WRITE.yAngleFix = yAngleFix;
+  CURRENT_DATA_WRITE.bAngleFix = bAngleFix;
+  CURRENT_DATA_WRITE.yDist = yDist;
+  CURRENT_DATA_WRITE.bDist = bDist;
+
+  if (xb == unkn || yb == unkn) CURRENT_DATA_WRITE.bSeen = false;
+  else CURRENT_DATA_WRITE.bSeen = true;
+  if (xy == unkn || yy == unkn) CURRENT_DATA_WRITE.ySeen = false;
+  else CURRENT_DATA_WRITE.ySeen = true;
+
+  if (goalOrientation == HIGH) {
+    CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.yAngle;
+    CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
+    CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.ySeen;
+    CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.bAngle;
+    CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.bAngleFix;
+    CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.bSeen;
+  } else {
+    CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.bAngle;
+    CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
+    CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.bSeen;
+    CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.yAngle;
+    CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.yAngleFix;
+    CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.ySeen;
+  }
+}
 
 void DataSourceCameraConic::test(){
   goalOrientation = digitalRead(SWITCH_SX); //se HIGH attacco gialla, difendo blu

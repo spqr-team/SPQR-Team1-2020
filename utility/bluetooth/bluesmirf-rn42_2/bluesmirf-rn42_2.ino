@@ -1,68 +1,52 @@
-/*
-  Example Bluetooth Serial Passthrough Sketch
-  by: Jim Lindblom
-  SparkFun Electronics
-  date: February 26, 2013
-  license: Public domain
+/*Use this script to reprogram the bluesmirf-rn42 using an arduino microcontroller.
+Bluesmirf defaults the uart speed to 115200 after factory reset, so a SoftwareSerial may not be ideal for a long use, but it can be used to enter command mode and temp-change the uart speed to 9600 using the SU,9600 command
+First of all it may be useful to reset the BT module to its factory settings, a useful video on how to do it can be found here: https://www.youtube.com/watch?v=8gZNF3bFpzI
+Upload a Blink program to the arduino, when the pin is high give power to the module, an instant short-flashing on the status led followed by a couple of seconds of the led being off means that the module has been reset
+Now you can connect with this script and setup the BT module:
+Enter command mode sending $$ no line ending in serial
+Give the following commands to setup the bluesmirf as intended for our use
+Read the manual for further information about the commands used
+SM,2           Trigger mode
+SA,0           No authentication needed
+SU,19200        Baud rate to 19200
+SR, address    The address the module has to connect to
+ST, number     Amount of time (in seconds) of inactivity after which the connection is terminated (1 is too low, 3 is used during the tests, 2 should to the thing)
 
-  This example sketch converts an RN-42 bluetooth module to
-  communicate at 9600 bps (from 115200), and passes any serial
-  data between Serial Monitor and bluetooth module.
+When trying to connect one bluetooth module with another one, please make sure that the two are powered off with at least 300mS of difference: if they are trying to connect with each other at the same moment, the connection will fail
 */
+
 #include <SoftwareSerial.h>
 
 int bluetoothTx = 2;  // TX-O pin of bluetooth mate, Arduino D2
 int bluetoothRx = 3;  // RX-I pin of bluetooth mate, Arduino D3
 
-SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
+//SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
+#define bluetooth Serial3
 
-void setup()
-{
+void setup() {
   Serial.begin(9600);  // Begin the serial monitor at 9600bps
-
-  /*bluetooth.begin(115200);  // The Bluetooth Mate defaults to 115200bps
-    bluetooth.print("$");  // Print three times individually
-    bluetooth.print("$");
-    bluetooth.print("$");  // Enter command mode
-    delay(100);  // Short delay, wait for the Mate to send back CMD
-    bluetooth.println("U,9600,N");  // Temporarily Change the baudrate to 9600, no parity
-    //115200 can be too fast at times for NewSoftSerial to relay the data reliably*/
-
   delay(1000);
-
-  bluetooth.begin(9600);  // Start bluetooth serial at 9600
-  bluetooth.print("$");  // Print three times individually
-  bluetooth.print("$");
-  bluetooth.print("$");
-  read();
-  delay(1000);
-  bluetooth.println("SA,0");
-  read();
-  bluetooth.println("SM,6");
-  read();
-  delay(1000);
-  bluetooth.println("C");
-  read();
+  bluetooth.begin(19200);
 }
 
 void read() {
   while (bluetooth.available()) {
-    // Send any characters the bluetooth prints to the serial monitor
+    // Send any characters the bluetooth pri$$$nts to the serial monitor
     Serial.print((char)bluetooth.read());
-    delay(50);
   }
 }
 
 void write() {
   while (Serial.available()) {
     // Send any characters the Serial monitor prints to the bluetooth
-    bluetooth.print((char)Serial.read());
-    delay(50);
+    char a = (char)Serial.read();
+    bluetooth.print(a);
+    Serial.print(a);
   }
   // and loop forever and ever!
 }
 
 void loop() {
-  bluetooth.write(42);
-  delay(500);
+  read();
+  write();
 }

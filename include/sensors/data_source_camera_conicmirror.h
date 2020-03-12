@@ -17,6 +17,7 @@ class DataSourceCameraConic : public DataSource{
         DataSourceCameraConic(HardwareSerial* ser, int baud);
         void test() override;
         void readSensor() override;
+        void computeCoordsAngles();
         // int getValueAtk(bool);
         // int getValueDef(bool);
 
