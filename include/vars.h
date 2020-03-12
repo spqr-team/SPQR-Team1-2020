@@ -1,5 +1,5 @@
 #pragma once
-#define DEBUG Serial3
+#define DEBUG Serial
 
 #ifdef VARS
 #define extr

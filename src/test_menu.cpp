@@ -56,6 +56,7 @@ void TestMenu :: testMenu(){
             case '0':
                 DEBUG.println("Exiting test menu, may the odds be in your favor c:");
                 flagtest = false;
+                DEBUG.flush();
                 return;
             break;
             case '1':
@@ -83,6 +84,7 @@ void TestMenu :: testMenu(){
             break;
             case '7':
             case '8':
+            if(DEBUG.available() == 0){
                 DEBUG.println("To do Line Sensors test, decide the role first");
                 DEBUG.println("1)Keeper");
                 DEBUG.println("2)Goalie");
@@ -97,6 +99,7 @@ void TestMenu :: testMenu(){
                     default:
                         DEBUG.println("INVALID ROLE");
                     break;
+                    }
                 }
             break;
             default:

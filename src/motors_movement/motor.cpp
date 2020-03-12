@@ -41,9 +41,9 @@ void Motor::test(){
     digitalWrite(pinA, 1);
     digitalWrite(pinB, 0);
     analogWrite(pinPwm, 255);
-    delay(150);
+    delay(1500);
     digitalWrite(pinA, 0);
     digitalWrite(pinB, 1);
     analogWrite(pinPwm, 255);
-    delay(150);
+    delay(1500);
 }
