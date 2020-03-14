@@ -30,19 +30,23 @@ int dir, degrees2;
 void Goalie::goalie(int plusang) {
   if(ball->distance < CATCH_DIST) drive->prepareDrive(ball->angle, 350, 0);
   else{
-    if(ball->angle > 345 || ball->angle < 15) plusang *= 0.15;
+/*     if(ball->angle > 345 || ball->angle < 15) plusang *= 0.15;
+    FRONT */
+    if (ball->angle > 345 && ball->angle < 15) plusang *= 0.15;
     if(ball->angle > 180) degrees2 = ball->angle - 360;
     else degrees2 = ball->angle;
 
     if(degrees2 > 0) dir = ball->angle + plusang;              //45 con 8 ruote
-    else dir = ball->angle - plusang;                                 //45 con 8 ruote
+    else dir = ball->angle - plusang;                          //45 con 8 ruote
 
     if(dir < 0) dir = dir + 360;
     else dir = dir;
 
     storcimentoPorta();
-    if(ball->distance > TILT_DIST && (ball->angle > 340 || ball->angle < 20)) drive->prepareDrive(dir, 350, cstorc);
-    else {
+    if(ball->distance > TILT_DIST && (ball->angle > 340 || ball->angle < 20)){
+      plusang -= 20;
+      drive->prepareDrive(dir, 350, cstorc);
+    } else {
       drive->prepareDrive(dir, 350, 0);
       cstorc = 0;
     }
