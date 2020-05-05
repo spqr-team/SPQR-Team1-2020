@@ -21,8 +21,6 @@
 #include "sensors/data_source_bno055.h"
 #include "sensors/data_source_camera_conicmirror.h"
 #include "sensors/data_source_camera_vshapedmirror.h"
-#include "sensors/currently_unused/data_source_us.h"
-
 
 
 void initSensors();
