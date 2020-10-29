@@ -7,7 +7,7 @@
 #define TILT_MULT 1.8
 #define TILT_DIST 180
 #define CATCH_DIST 150
-#define GOALIE_ATKSPD_LAT  255
+#define GOALIE_ATKSPD_LAT  320 //255
 #define GOALIE_ATKSPD_BAK  350
 #define GOALIE_ATKSPD_FRT  345
 #define GOALIE_ATKSPD_STRK 355
@@ -28,7 +28,7 @@ class Goalie : public Game, public PositionSysZone{
     private:
         void realPlay() override;
         void init() override;
-        void goalie(int);
+        void goalie();
         void ballBack(); 
         void storcimentoPorta();
 
