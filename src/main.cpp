@@ -7,6 +7,9 @@
 #include "sensors/sensors.h"
 #include "strategy_roles/games.h"
 #include "vars.h"
+#include "test_menu.h"
+
+TestMenu* testmenu;
 
 void setup() {
   delay(1500);
@@ -17,6 +20,7 @@ void setup() {
       cosins[i] =  (float) cos((i*3.14/180));
   }
 
+  testmenu = new TestMenu();
   initStatusVector();
   initSensors();
   initGames();
@@ -27,8 +31,8 @@ void setup() {
 
 void loop() {
   updateSensors();
-  //TestMenu testmenu;
-  //testmenu.testMenu();
+  if(DEBUG.available()) testmenu->testMenu();
+  
   goalie->play(role==1);
   keeper->play(role==0);
 
