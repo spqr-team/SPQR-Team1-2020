@@ -22,53 +22,53 @@ void Goalie::init(){
 }
 
 void Goalie::realPlay(){
-  if(ball->ballSeen) this->goalie();
+  if(CURRENT_DATA_READ.ballSeen) this->goalie();
   else ((PositionSysCamera*)ps)->goCenter();
 }
 
 void Goalie::goalie() {
-  if(ball->angle>= 350 || ball->angle<= 20)  {
-    if(ball->distance > 190) atk_direction = 0;
-    else atk_direction = ball->angle;
+  if(CURRENT_DATA_READ.ballAngle>= 350 || CURRENT_DATA_READ.ballAngle<= 20)  {
+    if(CURRENT_DATA_READ.ballDistance > 190) atk_direction = 0;
+    else atk_direction = CURRENT_DATA_READ.ballAngle;
     atk_speed = GOALIE_ATKSPD_FRT;
   }
 
-  if(ball->angle>= 90 && ball->angle<= 270) {
+  if(CURRENT_DATA_READ.ballAngle>= 90 && CURRENT_DATA_READ.ballAngle<= 270) {
     ballBack();
     atk_speed = GOALIE_ATKSPD_BAK;                   
   }
 
-    if(ball->angle> 10   && ball->angle<  30)   {
-      atk_direction = ball->angle+ GOALIE_ATKDIR_PLUSANG1;
+    if(CURRENT_DATA_READ.ballAngle> 10   && CURRENT_DATA_READ.ballAngle<  30)   {
+      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG1;
       atk_speed = GOALIE_ATKSPD_LAT;
     }
-    if(ball->angle>= 30 && ball->angle<  45)    {
-      atk_direction = ball->angle+ GOALIE_ATKDIR_PLUSANG2;
+    if(CURRENT_DATA_READ.ballAngle>= 30 && CURRENT_DATA_READ.ballAngle<  45)    {
+      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG2;
       atk_speed = GOALIE_ATKSPD_LAT;
     }
-    if(ball->angle>= 45 && ball->angle<  90)    {
-      atk_direction = ball->angle+ GOALIE_ATKDIR_PLUSANG3;
+    if(CURRENT_DATA_READ.ballAngle>= 45 && CURRENT_DATA_READ.ballAngle<  90)    {
+      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG3;
       atk_speed = GOALIE_ATKSPD_LAT;
     }
-    if(ball->angle> 270 && ball->angle<= 315)   {
-      atk_direction = ball->angle- GOALIE_ATKDIR_PLUSANG3_COR;
+    if(CURRENT_DATA_READ.ballAngle> 270 && CURRENT_DATA_READ.ballAngle<= 315)   {
+      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG3_COR;
       atk_speed = GOALIE_ATKSPD_LAT;
     }
-    if(ball->angle> 315 && ball->angle<= 330)   {
-      atk_direction = ball->angle- GOALIE_ATKDIR_PLUSANG2_COR;
+    if(CURRENT_DATA_READ.ballAngle> 315 && CURRENT_DATA_READ.ballAngle<= 330)   {
+      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG2_COR;
       atk_speed = GOALIE_ATKSPD_LAT;
     }
-    if(ball->angle> 330 && ball->angle<  350)   {
-      atk_direction = ball->angle- GOALIE_ATKDIR_PLUSANG1_COR;
+    if(CURRENT_DATA_READ.ballAngle> 330 && CURRENT_DATA_READ.ballAngle<  350)   {
+      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG1_COR;
       atk_speed = GOALIE_ATKSPD_LAT;
     }
 
-  // if((ball->angle>= 330 || ball->angle<= 30) && ball->distance > 190) {      //storcimento
+  // if((CURRENT_DATA_READ.ballAngle>= 330 || CURRENT_DATA_READ.ballAngle<= 30) && CURRENT_DATA_READ.ballDistance > 190) {      //storcimento
   //   atk_speed = GOALIE_ATKSPD_STRK;                                          //dove i gigahertz hanno fallito
   //   drive->prepareDrive(atk_direction, atk_speed, cstorc);
   // }
   // else  
-  drive->prepareDrive(atk_direction, 100);
+  drive->prepareDrive(atk_direction, atk_speed);
 }
 
 
@@ -78,13 +78,13 @@ void Goalie::ballBack() {
   int dir;
 
   int plusang;
-  if(ball->distance > 130) plusang = GOALIE_ATKDIR_PLUSANGBAK;
+  if(CURRENT_DATA_READ.ballDistance > 130) plusang = GOALIE_ATKDIR_PLUSANGBAK;
   else plusang = 0;
   
-  if(ball->angle> 180) ball_degrees2 = ball->angle- 360;
-  else ball_degrees2 = ball->angle;
-  if(ball_degrees2 > 0) dir = ball->angle+ plusang;              //45 con 8 ruote
-  else dir = ball->angle- plusang;                                 //45 con 8 ruote
+  if(CURRENT_DATA_READ.ballAngle> 180) ball_degrees2 = CURRENT_DATA_READ.ballAngle- 360;
+  else ball_degrees2 = CURRENT_DATA_READ.ballAngle;
+  if(ball_degrees2 > 0) dir = CURRENT_DATA_READ.ballAngle+ plusang;              //45 con 8 ruote
+  else dir = CURRENT_DATA_READ.ballAngle- plusang;                                 //45 con 8 ruote
   if(dir < 0) dir = dir + 360;
   else dir = dir;
   atk_direction = dir;
