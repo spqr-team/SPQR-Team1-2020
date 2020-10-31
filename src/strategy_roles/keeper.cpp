@@ -5,6 +5,7 @@
 #include "sensors/sensors.h"
 #include "strategy_roles/keeper.h"
 #include "strategy_roles/games.h"
+#include "position/positionsys_camera.h"
 
 
 Keeper::Keeper() : Game() {
@@ -28,7 +29,7 @@ void Keeper::init(){
 
 void Keeper::realPlay() {
     if(ball->ballSeen) keeper();
-    else drive->prepareDrive(0,0,0);
+    else ((PositionSysCamera*)ps)->centerGoal();
 }
 
 void Keeper::keeper() {

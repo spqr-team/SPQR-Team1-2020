@@ -17,7 +17,7 @@
 #define S4O A2
 
 #define LINE_THRESH_CAM 90
-#define EXIT_TIME 100
+#define EXIT_TIME 125
 #define LINES_EXIT_SPD 350
 
 class LineSysCamera : public LineSystem{

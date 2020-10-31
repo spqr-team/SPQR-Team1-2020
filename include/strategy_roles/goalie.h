@@ -5,7 +5,7 @@
 #include "strategy_roles/game.h"
 
 #define TILT_MULT 1.8
-#define TILT_DIST 180
+#define TILT_DIST 170
 #define CATCH_DIST 150
 #define GOALIE_ATKSPD_LAT  320 //255
 #define GOALIE_ATKSPD_BAK  350
