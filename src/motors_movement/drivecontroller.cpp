@@ -66,8 +66,12 @@ void DriveController::drive(int dir, int speed, int tilt){
     tilt = tilt > 180 ? tilt - 360 : tilt;
 
     //TODO: Changing CURRENT_DATA_READ to CURRENT_DATA_WRITE?
-    vx = ((speed * cosins[dir])) + CURRENT_DATA_READ.addvx;
-    vy = ((-speed * sins[dir])) + CURRENT_DATA_READ.addvy;
+    // Disable vector sum because calculations are a bitty crappy imho. Will have to test if it's what makes the robot act strange with lines
+    // Re enabling the below lines requires to comment out drive->prepareDrive and uncommenting the lines relative to vector sum inside positionsys_camera and comment out the other lines here
+    // vx = ((speed * cosins[dir])) + CURRENT_DATA_READ.addvx;
+    // vy = ((-speed * sins[dir])) + CURRENT_DATA_READ.addvy;
+    vx = ((speed * cosins[dir]));
+    vy = ((-speed * sins[dir]));
 
     if((((vy < 0 && vxn == 1) || (vy > 0 && vxp == 1) || (vx < 0 && vyp == 1) || (vx > 0 && vyn == 1)) && canUnlock) || (millis() > this->unlockTime+UNLOCK_THRESH)) {
         vxn = 0;
@@ -84,7 +88,7 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed3 = -(speed1);
     speed4 = -(speed2);
 
-    //  calcola l'errore di posizione rispetto allo 0
+    // Calculate position error relative to the 0
     delta = CURRENT_DATA_READ.IMUAngle;
     if(delta > 180) delta = delta - 360;
 

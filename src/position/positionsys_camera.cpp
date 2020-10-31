@@ -118,13 +118,16 @@ void PositionSysCamera::CameraPID(){
         int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, 350);
         drive->prepareDrive(dir, speed, 0);
 
+
+        //Disable below lines for now because they probably result in unexpected behaviour on lines. Re enabling them requires to comment out the drive->prepareDrive above
+        //and check the notes in drivecontroller for the other stuff to comment and uncomment
+
         //TODO: add complementary filter on this speed if we keep using it
+        // vx = ((speed * cosins[dir]));
+        // vy = ((-speed * sins[dir]));
 
-        vx = ((speed * cosins[dir]));
-        vy = ((-speed * sins[dir]));
-
-        CURRENT_DATA_WRITE.addvx = vx;
-        CURRENT_DATA_WRITE.addvy = vy;
+        // CURRENT_DATA_WRITE.addvx = vx;
+        // CURRENT_DATA_WRITE.addvy = vy;
     }
 }
 
