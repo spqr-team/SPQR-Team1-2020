@@ -84,7 +84,7 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=30, area_threshold=40, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=50, area_threshold=50, merge = True):
         img.draw_rectangle(blob.rect())
         img.draw_cross(blob.cx(), blob.cy())
 

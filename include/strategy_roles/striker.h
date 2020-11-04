@@ -19,16 +19,16 @@
 #define GOALIE_ATKDIR_PLUSANG2_COR 70
 #define GOALIE_ATKDIR_PLUSANG3_COR 70
 
-class Goalie : public Game, public PositionSysZone{
+class Striker : public Game, public PositionSysZone{
 
     public:
-        Goalie();
-        Goalie(LineSystem* ls, PositionSystem* ps);
+        Striker();
+        Striker(LineSystem* ls, PositionSystem* ps);
 
     private:
         void realPlay() override;
         void init() override;
-        void goalie();
+        void striker();
         void ballBack(); 
         void storcimentoPorta();
 

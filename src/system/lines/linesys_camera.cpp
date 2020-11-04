@@ -1,5 +1,5 @@
-#include "sensors/linesys_camera.h"
-#include "position/positionsys_camera.h"
+#include "systems/lines/linesys_camera.h"
+#include "systems/position/positionsys_camera.h"
 #include "sensors/sensors.h"
 #include "strategy_roles/games.h"
 
@@ -78,7 +78,7 @@ void LineSysCamera::outOfBounds(){
   }
 
   if (exitTimer <= EXTIME){
-    ((PositionSysCamera*)goalie->ps)->goCenter();
+    ((PositionSysCamera*)striker->ps)->goCenter();
     tookLine = true;
   }else{
     drive->canUnlock = true;

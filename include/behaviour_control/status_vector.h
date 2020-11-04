@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include "strategy_roles/game.h"
-#include "position/systems.h"
+#include "systems/systems.h"
 
 /**
  * STATUS VECTOR:

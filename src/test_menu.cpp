@@ -3,12 +3,12 @@
 #include "sensors/data_source_bno055.h"
 #include "sensors/data_source_bt.h"
 #include "sensors/data_source_camera_conicmirror.h"
-#include "sensors/linesys_camera.h"
-#include "sensors/linesys_2019.h"
+#include "systems/lines/linesys_camera.h"
+#include "systems/lines/linesys_2019.h"
 #include "sensors/sensors.h"
 #include "motors_movement/motor.h"
 #include "motors_movement/drivecontroller.h"
-#include "position/positionsys_camera.h"
+#include "systems/position/positionsys_camera.h"
 #include "strategy_roles/game.h"
 #include "strategy_roles/games.h"
 #include "behaviour_control/data_source.h"
@@ -91,7 +91,7 @@ void TestMenu :: testMenu(){
                 currentRole = DEBUG.read();
                 switch(currentRole){
                     case '1':
-                        (goalie->ls)->test();
+                        (striker->ls)->test();
                     break;
                     case '2':
                         (keeper->ls)->test();

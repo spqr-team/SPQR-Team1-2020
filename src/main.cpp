@@ -3,7 +3,6 @@
 #define VARS
 
 #include "behaviour_control/status_vector.h"
-#include "position/positionsys_zone.h"
 #include "sensors/sensors.h"
 #include "strategy_roles/games.h"
 #include "vars.h"
@@ -33,7 +32,7 @@ void loop() {
   updateSensors();
   if(DEBUG.available()) testmenu->testMenu();
   
-  goalie->play(role==1);
+  striker->play(role==1);
   keeper->play(role==0);
 
   // Last thing to do: movement and update status vector

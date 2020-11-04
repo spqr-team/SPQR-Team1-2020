@@ -1,5 +1,5 @@
 #include "behaviour_control/status_vector.h"
-#include "position/positionsys_camera.h"
+#include "systems/position/positionsys_camera.h"
 #include "sensors/sensors.h"
 #include "vars.h"
 

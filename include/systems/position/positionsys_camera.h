@@ -1,12 +1,12 @@
 #include "PID_v2.h"
 
-#include "position/systems.h"
+#include "systems/systems.h"
 
 //Note: those variables can be changes, and will need to change depending on camera calibration
 
 //Camera center: those setpoints correspond to the center of the field
-#define CAMERA_CENTER_X 1
-#define CAMERA_CENTER_Y -10
+#define CAMERA_CENTER_X -5
+#define CAMERA_CENTER_Y -17
 
 //Camera goal: those setpoints correspond to the position of the center of the goal on the field
 #define CAMERA_GOAL_X 0

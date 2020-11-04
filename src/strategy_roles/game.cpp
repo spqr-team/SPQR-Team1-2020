@@ -1,6 +1,6 @@
 #include "behaviour_control/status_vector.h"
 #include "strategy_roles/game.h"
-#include "position/positionsys_camera.h"
+#include "systems/position/positionsys_camera.h"
 
 Game::Game() {}
 Game::Game(LineSystem* ls_, PositionSystem* ps_) {
