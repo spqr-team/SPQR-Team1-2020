@@ -1,50 +1,51 @@
 /**
   Sensor Mapping
     Sensor  Angle Pin Port
-    S0      0     A3  C3
-    S1            A2  C2
-    S2            A1  C1
-    S3            A0  C0
-    S4      90    13  B5
-    S5            12  B4
-    S6            11  B3
-    S7            10  B2
-    S8      180   9   B1
-    S9            8   B0
-    S10           7   D7
-    S11           6   D6
-    S12     270   5   D5
-    S13           4   D4
-    S14           3   D3
-    S15           2   D2
+    S1      0     26  PD6
+    S2            25  PD4
+    S3            19  PD1
+    S4            18  PD0
+    S5      90    1   PE6
+    S6            40  PF1
+    S7            39  PF4
+    S8            38  PF5
+    S9      180   37  PF6
+    S10           36  PF7
+    S11           32  PC7
+    S12           31  PC6
+    S13     270   30  PB6
+    S14           29  PB5
+    S15           28  PB4
+    S16           27  PD7
     loop cycle duration: 3.2 millis
 **/
 
-#define S9 ((PINB & 1))
-#define S8 ((PINB & 2) >> 1)
-#define S7 ((PINB & 4) >> 2)
-#define S6 ((PINB & 8) >> 3)
-#define S5 ((PINB & 16) >> 4)
-#define S4 ((PINB & 32) >> 5)
+#define S5 ((PORTE & 64 ) >> 6)
 
-#define S3 ((PINC & 1))
-#define S2 ((PINC & 2) >> 1)
-#define S1 ((PINC & 4) >> 2)
-#define S0 ((PINC & 8) >> 3)
+#define S11 ((PORTC & 128 ) >> 7)
+#define S12 ((PORTC & 64 ) >> 6)
 
-#define S15 ((PIND & 4) >> 2)
-#define S14 ((PIND & 8) >> 3)
-#define S13 ((PIND & 16) >> 4)
-#define S12 ((PIND & 32) >> 5)
-#define S11 ((PIND & 64) >> 6)
-#define S10 ((PIND & 128) >> 7)
+#define S13 ((PORTB & 64 ) >> 6)
+#define S14 ((PORTB & 32 ) >> 5)
+#define S15 ((PORTB & 16) >> 4)
+
+#define S1 ((PORTD & 64 ) >> 6)
+#define S2 ((PORTD & 16 ) >> 4)
+#define S3 ((PORTD & 2 ) >> 1)
+#define S4 (PORTD & 1 )
+#define S16 ((PORTD & 128) >> 7)
+
+#define S6 ((PORTF & 2 ) >> 1)
+#define S7 ((PORTF & 16 ) >> 4)
+#define S8 ((PORTF & 32 ) >> 5)
+#define S9 ((PORTF & 64 ) >> 6)
+#define S10 ((PORTF & 128 ) >> 7)
 
 #define NCYCLES 350
 #define BROKEN  300
 #define TOO_LOW 60
 
 int counter[16];
-int pins[] = {A3, A2, A1, A0, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 int distance;
 int nmax = 0;
 int sensor = 0;
@@ -63,30 +64,30 @@ byte sendAngle = 0, sendDistance = 0;
 byte sendByte = 0;
 
 unsigned long t = 0;
-
+t
 void setup() {
   delay(1000);
 
   Serial.begin(57600);
 
-  pinMode(2, INPUT);
-  pinMode(3, INPUT);
-  pinMode(4, INPUT);
-  pinMode(5, INPUT);
-  pinMode(6, INPUT);
-  pinMode(7, INPUT);
-  pinMode(8, INPUT);
-  pinMode(9, INPUT);
-  pinMode(10, INPUT);
-  pinMode(11, INPUT);
-  pinMode(12, INPUT);
-  pinMode(13, INPUT);
-  pinMode(A0, INPUT);
-  pinMode(A1, INPUT);
-  pinMode(A2, INPUT);
-  pinMode(A3, INPUT);
+  pinMode(26, INPUT);   //S1
+  pinMode(25, INPUT);   //S2
+  pinMode(19, INPUT);   //S3
+  pinMode(18, INPUT);   //S4
+  pinMode(1, INPUT);    //S5
+  pinMode(40, INPUT);   //S6
+  pinMode(39, INPUT);   //S7
+  pinMode(38, INPUT);   //S8
+  pinMode(37, INPUT);   //S9
+  pinMode(36, INPUT);   //S10
+  pinMode(32, INPUT);   //S11
+  pinMode(31, INPUT);   //S12
+  pinMode(30, INPUT);   //S13
+  pinMode(29, INPUT);   //S14
+  pinMode(28, INPUT);   //S15
+  pinMode(27, INPUT);   //S16
 
-  pinMode(A4, OUTPUT);
+  pinMode(22, OUTPUT);  //LED1
 
   for (int i = 0; i < 16; i++) {
     xs[i] = cos((22.5 * PI / 180) * i);
@@ -108,22 +109,22 @@ void readBallInterpolation() {
 
   //reads from the register
   for (int i = 0; i < NCYCLES; i++) {
-    counter[0] += !S0;
-    counter[1] += !S1;
-    counter[2] += !S2;
-    counter[3] += !S3;
-    counter[4] += !S4;
-    counter[5] += !S5;
-    counter[6] += !S6;
-    counter[7] += !S7;
-    counter[8] += !S8;
-    counter[9] += !S9;
-    counter[10] += !S10;
-    counter[11] += !S11;
-    counter[12] += !S12;
-    counter[13] += !S13;
-    counter[14] += !S14;
-    counter[15] += !S15;
+    counter[0] += !S1;
+    counter[1] += !S2;
+    counter[2] += !S3;
+    counter[3] += !S4;
+    counter[4] += !S5;
+    counter[5] += !S6;
+    counter[6] += !S7;
+    counter[7] += !S8;
+    counter[8] += !S9;
+    counter[9] += !S10;
+    counter[10] += !S11;
+    counter[11] += !S12;
+    counter[12] += !S13;
+    counter[13] += !S14;
+    counter[14] += !S15;
+    counter[15] += !S16;
   }
 
   float x = 0, y = 0;
@@ -152,9 +153,9 @@ void readBallInterpolation() {
   
   //turn led on
   if (dist == 0) {
-    digitalWrite(A4, LOW);
+    digitalWrite(22, LOW);
   } else {
-    digitalWrite(A4, HIGH);
+    digitalWrite(22, HIGH);
   }
 }
 
@@ -163,8 +164,7 @@ void sendDataInterpolation() {
     sendAngle = ((byte) (angle / 2)) & 0b11111110;
     Serial.write(sendAngle);
   }else{
-    sendDistance = dist;
-    if(sendDistance > 254) sendDistance = 254;
+    sendDistance = map(sendDistance, 0, NCYCLES, 254, 0);
     sendDistance = sendDistance |= 0b00000001;
     Serial.write(sendDistance);
   }
@@ -174,8 +174,6 @@ void sendDataInterpolation() {
 void test() {
   readBallInterpolation();
 
-  Serial.print(S0);
-  Serial.print(" | ");
   Serial.print(S1);
   Serial.print(" | ");
   Serial.print(S2);
@@ -205,6 +203,8 @@ void test() {
   Serial.print(S14);
   Serial.print(" | ");
   Serial.print(S15);
+  Serial.print(" | ");
+  Serial.print(S16);
   Serial.print(" ()  ");
   Serial.println(sensor);
 }
