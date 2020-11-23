@@ -1,10 +1,11 @@
 #include <Arduino.h>
 
 #include "behaviour_control/status_vector.h"
-#include "sensors/linesys_2019.h"
+#include "systems/lines/linesys_2019.h"
 #include "sensors/sensors.h"
 #include "strategy_roles/keeper.h"
 #include "strategy_roles/games.h"
+#include "systems/position/positionsys_camera.h"
 
 
 Keeper::Keeper() : Game() {
@@ -28,14 +29,14 @@ void Keeper::init(){
 
 void Keeper::realPlay() {
     if(ball->ballSeen) keeper();
-    else drive->prepareDrive(0,0,0);
+    else ((PositionSysCamera*)ps)->centerGoal();
 }
 
 void Keeper::keeper() {
 
     if(ball->distance > KEEPER_ATTACK_DISTANCE){
         // Ball is quite near
-        goalie->play();
+        striker->play();
         if(!this->ls->tookLine){
             keeperAttackTimer = 0;
             keeper_tookTimer = true;

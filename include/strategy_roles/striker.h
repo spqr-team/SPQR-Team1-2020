@@ -5,9 +5,9 @@
 #include "strategy_roles/game.h"
 
 #define TILT_MULT 1.8
-#define TILT_DIST 180
+#define TILT_DIST 170
 #define CATCH_DIST 150
-#define GOALIE_ATKSPD_LAT  255
+#define GOALIE_ATKSPD_LAT  320 //255
 #define GOALIE_ATKSPD_BAK  350
 #define GOALIE_ATKSPD_FRT  345
 #define GOALIE_ATKSPD_STRK 355
@@ -19,16 +19,16 @@
 #define GOALIE_ATKDIR_PLUSANG2_COR 70
 #define GOALIE_ATKDIR_PLUSANG3_COR 70
 
-class Goalie : public Game, public PositionSysZone{
+class Striker : public Game, public PositionSysZone{
 
     public:
-        Goalie();
-        Goalie(LineSystem* ls, PositionSystem* ps);
+        Striker();
+        Striker(LineSystem* ls, PositionSystem* ps);
 
     private:
         void realPlay() override;
         void init() override;
-        void goalie(int);
+        void striker();
         void ballBack(); 
         void storcimentoPorta();
 

@@ -51,6 +51,4 @@ class DriveController{
 
         double input, output, setpoint;
         
-        float sins[360], cosins[360];
-
 };

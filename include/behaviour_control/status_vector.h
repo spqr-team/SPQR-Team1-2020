@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include "strategy_roles/game.h"
-#include "position/systems.h"
+#include "systems/systems.h"
 
 /**
  * STATUS VECTOR:
@@ -43,7 +43,8 @@ typedef struct data{
         speed, tilt, dir, axisBlock[4],
         USfr, USsx, USdx, USrr, 
         lineOutDir, matePos, role, cam_xb_fixed,
-        cam_xy_fixed, cam_yb_fixed, cam_yy_fixed;
+        cam_xy_fixed, cam_yb_fixed, cam_yy_fixed,
+        posx, posy, addvx, addvy;
     Game* game;
     LineSystem* lineSystem;
     PositionSystem* posSystem;
