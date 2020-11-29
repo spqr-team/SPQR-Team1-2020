@@ -45,6 +45,16 @@
 #define BROKEN  300
 #define TOO_LOW 60
 
+#define LED1ON (PORTD = PORTD | 0b00100000)
+#define LED1OFF (PORTD & 0b11011111)
+#define LED2ON (PORTD = PORTD | 0b00100000)
+#define LED2OFF (PORTF & 0b01111110)
+#define LED3ON (PORTB | 0b10000000)
+#define LED3OFF (PORTB & 0b01111111)
+#define LED4ON (PORTB | 0b00000001)
+#define LED4OFF (PORTB & 0b11111110)
+
+
 int counter[16];
 int distance;
 int nmax = 0;
@@ -64,13 +74,13 @@ byte sendAngle = 0, sendDistance = 0;
 byte sendByte = 0;
 
 unsigned long t = 0;
-t
+
 void setup() {
   delay(1000);
 
   Serial.begin(57600);
 
-  pinMode(26, INPUT);   //S1
+  /*pinMode(26, INPUT);   //S1
   pinMode(25, INPUT);   //S2
   pinMode(19, INPUT);   //S3
   pinMode(18, INPUT);   //S4
@@ -85,9 +95,21 @@ void setup() {
   pinMode(30, INPUT);   //S13
   pinMode(29, INPUT);   //S14
   pinMode(28, INPUT);   //S15
-  pinMode(27, INPUT);   //S16
+  pinMode(27, INPUT);   //S16*/
 
-  pinMode(22, OUTPUT);  //LED1
+  /*For now replace pinMode with writes to the direction register. 
+    We don't know if pinMode will work on those sensors, and it has proven not be working on digitalWrite for reasons probably relative to compatibility between Arduino and our board,
+    but this needs further investigation*/  
+
+  //Set the LEDs as outputs, keep the rest as input by default
+
+  //LED3(PB7) and LED4 (PB0)
+  DDRB=0b10000001;
+  //LED2 (PF0)
+  DDRF=0b00000001;
+  //LED1 (PD5)
+  DDRD=0b00100000;
+  DDRE = 0b00000000;
 
   for (int i = 0; i < 16; i++) {
     xs[i] = cos((22.5 * PI / 180) * i);
@@ -153,9 +175,9 @@ void readBallInterpolation() {
   
   //turn led on
   if (dist == 0) {
-    digitalWrite(22, LOW);
+    LED1ON;
   } else {
-    digitalWrite(22, HIGH);
+    LED1OFF;
   }
 }
 

@@ -1,8 +1,8 @@
 #define BTN0 A3
 #define BTN1 A4
 #define BTN2 A5
-#define LED_Y 11
-#define LED_R 17
+#define LED_Y 41
+#define LED_R 22
 
 void setup (){
   Serial1.begin(19200);
@@ -20,10 +20,10 @@ void loop ()  {
   //We have three config. buttons, making a packet out of a single byte with a start header, so teensy can use it as it wants
   //The header is signed by the two most important bits put high, so 128+64 in OR with other bits shifted by the needed ammount
   //This approach only admits 5 configuration buttons, it should be enough
-  b = 0b11000000;
-  b |= digitalRead(BTN0);
-  b |= digitalRead(BTN1) << 1;
-  b |= digitalRead(BTN2) << 2;
+  b = 0b11000111;
+  //b |= digitalRead(BTN0);
+  //b |= digitalRead(BTN1) << 1;
+  //b |= digitalRead(BTN2) << 2;
   if(oldB != b) Serial1.write(b);  
   oldB = b;
 
