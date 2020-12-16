@@ -11,6 +11,7 @@ Motor::Motor(int a, int b, int pwm, int angle_){
     pinMode(pinA, OUTPUT);
     pinMode(pinB, OUTPUT);
     pinMode(pinPwm, OUTPUT);
+    analogWriteFrequency(pinPwm, 5000);
 }
 
 Motor::Motor(){ }
@@ -38,12 +39,14 @@ void Motor::drive(int speed){
 }
 
 void Motor::test(){
-    digitalWrite(pinA, 1);
-    digitalWrite(pinB, 0);
-    analogWrite(pinPwm, 255);
-    delay(1500);
     digitalWrite(pinA, 0);
     digitalWrite(pinB, 1);
     analogWrite(pinPwm, 255);
     delay(1500);
+
+    digitalWrite(pinA, 1);
+    digitalWrite(pinB, 0);
+    analogWrite(pinPwm, 255);
+    delay(1500);
+
 }
