@@ -31,6 +31,8 @@ void TestMenu :: testMenu(){
     DEBUG.println("6)Camera test");
     DEBUG.println("7)Line Sensors camera test");
     DEBUG.println("8)Line Sensors test");
+    DEBUG.println("u)Read Serial messages from 32u4");
+    DEBUG.println("s)Send test to 32u4 status LEDs");
     do{
         testNum = DEBUG.read();
         DEBUG.println();
@@ -46,6 +48,8 @@ void TestMenu :: testMenu(){
         else if (testNum == '6') DEBUG.println("Camera Test");
         else if (testNum == '7') DEBUG.println("Line Sensors camera test, turn on SW_ELETT");
         else if (testNum == '8') DEBUG.println("Line Sensors test, turn on SW_ELETT");
+        else if (testNum == 'u') DEBUG.println("Reading from 32u4");
+        else if (testNum == 's') DEBUG.println("Testing LEDs. Sending bytes to 32u4");
     else {
       DEBUG.println("UNKNOWN COMMAND");
       flagtest = false;
@@ -101,6 +105,27 @@ void TestMenu :: testMenu(){
                     break;
                     }
                 }
+            break;
+            case 'u':
+              while(Serial2.available()) DEBUG.print((char)Serial2.read());
+            break;
+            case 's':
+                DEBUG.println("Remember LED1 is not used by teensy");
+                DEBUG.println("LED2");
+                Serial2.write(0b00000001);
+                delay(1500);
+
+                DEBUG.println("LED3");
+                Serial2.write(0b00000010);
+                delay(1500);
+
+
+                DEBUG.println("LED4");
+                Serial2.write(0b00000100);
+                
+                delay(1500);
+                Serial2.write(0);
+                delay(1500);
             break;
             default:
             break;
