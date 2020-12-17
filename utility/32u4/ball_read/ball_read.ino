@@ -92,11 +92,11 @@ void setup() {
   //Set the LEDs as outputs, keep the rest as input by default
 
   //LED3(PB7) and LED4 (PB0)
-  //DDRB |= 0b10000001;
+  DDRB |= 0b10000001;
   //LED2 (PF0)
-  //DDRF |= 0b00000001;
+  DDRF |= 0b00000001;
   //LED1 (PD5)
-  //DDRD |= 0b00100000;
+  DDRD |= 0b00100000;
   
   /*pinMode(26, INPUT);   //S1
   pinMode(25, INPUT);   //S2
@@ -125,6 +125,7 @@ void loop() {
   readBallInterpolation();
   //printCounter();
   sendDataInterpolation();
+  readFromTeensy();
   //test();
   //delay(100);
 }
@@ -182,11 +183,11 @@ void readBallInterpolation() {
   distance = nmax;
   
   //turn led on
-  /*if (distance == 0) {
+  if (distance == 0) {
     LED1OFF;
   } else {
     LED1ON;
-  }*/
+  }
 }
 
 void sendDataInterpolation() {
@@ -256,4 +257,16 @@ void printCounter() {
     
   Serial1.println();
   delay(100);
+}
+
+void readFromTeensy(){
+  while(Serial1.available()){
+    byte b = Serial1.read();
+    if(b & 0b00000001 == 1) LED2ON;
+    else LED2OFF;
+    if((b & 0b00000010) >> 1 == 1) LED3ON;
+    else LED3OFF;
+    if((b & 0b00000100) >> 2 == 1) LED4ON;
+    else LED4OFF;
+  }
 }
