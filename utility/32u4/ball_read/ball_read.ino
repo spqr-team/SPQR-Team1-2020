@@ -20,39 +20,42 @@
     loop cycle duration: 3.2 millis
 **/
 
-#define S5 ((PORTE & 64 ) >> 6)
+#define S5 ((PINE & 64 ) >> 6)
 
-#define S11 ((PORTC & 128 ) >> 7)
-#define S12 ((PORTC & 64 ) >> 6)
+#define S11 ((PINC & 128 ) >> 7)
+#define S12 ((PINC & 64 ) >> 6)
 
-#define S13 ((PORTB & 64 ) >> 6)
-#define S14 ((PORTB & 32 ) >> 5)
-#define S15 ((PORTB & 16) >> 4)
+#define S13 ((PINB & 64 ) >> 6)
+#define S14 ((PINB & 32 ) >> 5)
+#define S15 ((PINB & 16) >> 4)
 
-#define S1 ((PORTD & 64 ) >> 6)
-#define S2 ((PORTD & 16 ) >> 4)
-#define S3 ((PORTD & 2 ) >> 1)
-#define S4 (PORTD & 1 )
-#define S16 ((PORTD & 128) >> 7)
+#define S1 ((PIND & 64 ) >> 6)
+#define S2 ((PIND & 16 ) >> 4)
+#define S3 ((PIND & 2 ) >> 1)
+#define S4 (PIND & 1 )
+#define S16 ((PIND & 128) >> 7)
 
-#define S6 ((PORTF & 2 ) >> 1)
-#define S7 ((PORTF & 16 ) >> 4)
-#define S8 ((PORTF & 32 ) >> 5)
-#define S9 ((PORTF & 64 ) >> 6)
-#define S10 ((PORTF & 128 ) >> 7)
+#define S6 ((PINF & 2 ) >> 1)
+#define S7 ((PINF & 16 ) >> 4)
+#define S8 ((PINF & 32 ) >> 5)
+#define S9 ((PINF & 64 ) >> 6)
+#define S10 ((PINF & 128 ) >> 7)
 
-#define NCYCLES 350
-#define BROKEN  300
-#define TOO_LOW 60
+#define NCYCLES 250
+#define BROKEN  230
+#define TOO_LOW 45
 
 #define LED1ON (PORTD = PORTD | 0b00100000)
-#define LED1OFF (PORTD & 0b11011111)
-#define LED2ON (PORTD = PORTD | 0b00100000)
-#define LED2OFF (PORTF & 0b01111110)
-#define LED3ON (PORTB | 0b10000000)
-#define LED3OFF (PORTB & 0b01111111)
-#define LED4ON (PORTB | 0b00000001)
-#define LED4OFF (PORTB & 0b11111110)
+#define LED1OFF (PORTD = PORTD & 0b11011111)
+
+#define LED2ON (PORTF = PORTF | 0b00000001)
+#define LED2OFF (PORTF = PORTF & 0b11111110)
+
+#define LED3ON (PORTB = PORTB | 0b10000000)
+#define LED3OFF (PORTB = PORTB & 0b01111111)
+
+#define LED4ON (PORTB = PORTB | 0b00000001)
+#define LED4OFF (PORTB = PORTB & 0b11111110)
 
 
 int counter[16];
@@ -68,7 +71,8 @@ byte ballInfo = 0;
 float xs[16];
 float ys[16];
 
-float angle = 0, dist = 0;
+float angle = 0;
+int dist = 0;
 boolean sending = false;
 byte sendAngle = 0, sendDistance = 0;
 byte sendByte = 0;
@@ -78,8 +82,22 @@ unsigned long t = 0;
 void setup() {
   delay(1000);
 
-  Serial.begin(57600);
+  Serial1.begin(57600);
 
+  
+  /*For now replace pinMode with writes to the direction register. 
+    We don't know if pinMode will work on those sensors, and it has proven not be working on digitalWrite for reasons probably relative to compatibility between Arduino and our board,
+    but this needs further investigation*/  
+
+  //Set the LEDs as outputs, keep the rest as input by default
+
+  //LED3(PB7) and LED4 (PB0)
+  //DDRB |= 0b10000001;
+  //LED2 (PF0)
+  //DDRF |= 0b00000001;
+  //LED1 (PD5)
+  //DDRD |= 0b00100000;
+  
   /*pinMode(26, INPUT);   //S1
   pinMode(25, INPUT);   //S2
   pinMode(19, INPUT);   //S3
@@ -96,21 +114,7 @@ void setup() {
   pinMode(29, INPUT);   //S14
   pinMode(28, INPUT);   //S15
   pinMode(27, INPUT);   //S16*/
-
-  /*For now replace pinMode with writes to the direction register. 
-    We don't know if pinMode will work on those sensors, and it has proven not be working on digitalWrite for reasons probably relative to compatibility between Arduino and our board,
-    but this needs further investigation*/  
-
-  //Set the LEDs as outputs, keep the rest as input by default
-
-  //LED3(PB7) and LED4 (PB0)
-  DDRB=0b10000001;
-  //LED2 (PF0)
-  DDRF=0b00000001;
-  //LED1 (PD5)
-  DDRD=0b00100000;
-  DDRE = 0b00000000;
-
+  
   for (int i = 0; i < 16; i++) {
     xs[i] = cos((22.5 * PI / 180) * i);
     ys[i] = sin((22.5 * PI / 180) * i);
@@ -119,7 +123,10 @@ void setup() {
 
 void loop() {
   readBallInterpolation();
+  //printCounter();
   sendDataInterpolation();
+  //test();
+  //delay(100);
 }
 
 /**--- READ BALL USING SENSORS ANGLE INTERPOLATION ---**/
@@ -168,73 +175,85 @@ void readBallInterpolation() {
   for (int i = 0; i < 16; i++) {
     if (counter[i] > nmax) {
       nmax = counter[i];
+      sensor = i;
     }
   }
 
-  dist = nmax;
+  distance = nmax;
   
   //turn led on
-  if (dist == 0) {
-    LED1ON;
-  } else {
+  /*if (distance == 0) {
     LED1OFF;
-  }
+  } else {
+    LED1ON;
+  }*/
 }
 
 void sendDataInterpolation() {
   if(sending){
     sendAngle = ((byte) (angle / 2)) & 0b11111110;
-    Serial.write(sendAngle);
+    Serial1.write(sendAngle);
   }else{
-    sendDistance = map(sendDistance, 0, NCYCLES, 254, 0);
+    sendDistance = map(distance, 0, NCYCLES, 254, 0);
     sendDistance = sendDistance |= 0b00000001;
-    Serial.write(sendDistance);
+    Serial1.write(sendDistance);
   }
   sending = !sending;
 }
 
 void test() {
   readBallInterpolation();
+  
+  Serial1.println("===========");
+  Serial1.print(S1);
+  Serial1.print(" | ");
+  Serial1.print(S2);
+  Serial1.print(" | ");
+  Serial1.print(S3);
+  Serial1.print(" | ");
+  Serial1.print(S4);
+  Serial1.print(" | ");
+  Serial1.print(S5);
+  Serial1.print(" | ");
+  Serial1.print(S6);
+  Serial1.print(" | ");
+  Serial1.print(S7);
+  Serial1.print(" | ");
+  Serial1.print(S8);
+  Serial1.print(" | ");
+  Serial1.print(S9);
+  Serial1.print(" | ");
+  Serial1.print(S10);
+  Serial1.print(" | ");
+  Serial1.print(S11);
+  Serial1.print(" | ");
+  Serial1.print(S12);
+  Serial1.print(" | ");
+  Serial1.print(S13);
+  Serial1.print(" | ");
+  Serial1.print(S14);
+  Serial1.print(" | ");
+  Serial1.print(S15);
+  Serial1.print(" | ");
+  Serial1.print(S16);
+  Serial1.print(" ---  ");
+  Serial1.println(sensor);
+  Serial1.println("===========");
+  delay(100);
 
-  Serial.print(S1);
-  Serial.print(" | ");
-  Serial.print(S2);
-  Serial.print(" | ");
-  Serial.print(S3);
-  Serial.print(" | ");
-  Serial.print(S4);
-  Serial.print(" | ");
-  Serial.print(S5);
-  Serial.print(" | ");
-  Serial.print(S6);
-  Serial.print(" | ");
-  Serial.print(S7);
-  Serial.print(" | ");
-  Serial.print(S8);
-  Serial.print(" | ");
-  Serial.print(S9);
-  Serial.print(" | ");
-  Serial.print(S10);
-  Serial.print(" | ");
-  Serial.print(S11);
-  Serial.print(" | ");
-  Serial.print(S12);
-  Serial.print(" | ");
-  Serial.print(S13);
-  Serial.print(" | ");
-  Serial.print(S14);
-  Serial.print(" | ");
-  Serial.print(S15);
-  Serial.print(" | ");
-  Serial.print(S16);
-  Serial.print(" ()  ");
-  Serial.println(sensor);
 }
+
 
 void printCounter() {
   for (int i = 0; i < 16; i++) {
-    Serial.print(counter[i]);
-    Serial.print(" | ");
+    Serial1.print(counter[i]);
+    Serial1.print(" | ");
   }
-  Serial.println();
+    Serial1.print("\t\t| Angle: " );
+    Serial1.print(angle);
+    Serial1.print("||| Distance: " );
+    Serial1.print(distance);
+    
+  Serial1.println();
+  delay(100);
 }
