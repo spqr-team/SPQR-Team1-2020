@@ -8,18 +8,13 @@
 #include "PID_v2.h"
 
 
-//PID Constants
+//BEST NUMBERS YET
+//USE MOVING AVERAGE AND ANGLE WRAP
 #define KP 1.5
-#define KI 0.2
+#define KI 0
 #define KD 0.1
 
 #define KSPD 0.3
-
-//BEST NUMBERS YET
-//USE MOVING AVERAGE AND ANGLE WRAP
-// #define KP 1.5
-// #define KI 0
-// #define KD 0.1
 
 #define UNLOCK_THRESH 800
 
