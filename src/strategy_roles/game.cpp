@@ -17,6 +17,5 @@ void Game::play(bool condition){
         CURRENT_DATA_WRITE.posSystem = (this->ps);
         CURRENT_DATA_WRITE.lineSystem = (this->ls);
         CURRENT_DATA_WRITE.game = this;
-        ((PositionSysCamera*)ps)->CameraPID();
     }
 }

@@ -3,6 +3,10 @@
 #include "sensors/sensors.h"
 #include <Arduino.h>
 
+PositionSystemEmpty::PositionSystemEmpty(){
+    
+}
+
 void PositionSystemEmpty::update(){
 }
 

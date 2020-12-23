@@ -17,12 +17,14 @@ class PositionSystem{
 
 class LineSystemEmpty : public LineSystem{
     public:
+        LineSystemEmpty();
         void update() override;
         void test() override;
 };
 
 class PositionSystemEmpty : public PositionSystem{
     public:
+        PositionSystemEmpty();
         void update() override;
         void test() override;
         void goCenter() override;

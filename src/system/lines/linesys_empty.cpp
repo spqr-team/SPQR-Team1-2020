@@ -3,6 +3,9 @@
 #include "sensors/sensors.h"
 #include <Arduino.h>
 
+LineSystemEmpty::LineSystemEmpty(){
+}
+
 void LineSystemEmpty::update(){
     tookLine = false;
 }
