@@ -23,7 +23,7 @@ void Striker::init(){
 
 void Striker::realPlay(){
   if(CURRENT_DATA_READ.ballSeen) this->striker();
-  else ((PositionSysCamera*)ps)->goCenter();
+  else ps->goCenter();
 }
 
 void Striker::striker() {

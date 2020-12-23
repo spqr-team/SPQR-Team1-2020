@@ -29,8 +29,8 @@ class PositionSysCamera : public PositionSystem{
 
     public:
         PositionSysCamera();
-        void goCenter();
-        void centerGoal();
+        void goCenter() override;
+        void centerGoal() override;
         void setMoveSetpoints(int x, int y);
         void addMoveOnAxis(int x, int y);
         void update() override;

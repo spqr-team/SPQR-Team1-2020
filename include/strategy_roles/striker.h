@@ -19,7 +19,7 @@
 #define GOALIE_ATKDIR_PLUSANG2_COR 70
 #define GOALIE_ATKDIR_PLUSANG3_COR 70
 
-class Striker : public Game, public PositionSysZone{
+class Striker : public Game{
 
     public:
         Striker();
