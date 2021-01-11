@@ -85,8 +85,8 @@ void DriveController::drive(int dir, int speed, int tilt){
 
     speed1 = ((vx * sins[m1->angle] ) + (vy * cosins[m1->angle] ));
     speed2 = ((vx * sins[m2->angle]) + (vy * cosins[m2->angle]));
-    speed3 = -(speed1);
-    speed4 = -(speed2);
+    speed3 = ((vx * sins[m3->angle]) + (vy * cosins[m3->angle]));
+    speed4 = ((vx * sins[m4->angle]) + (vy * cosins[m4->angle]));
 
     // Calculate position error relative to the 0
     delta = CURRENT_DATA_READ.IMUAngle;

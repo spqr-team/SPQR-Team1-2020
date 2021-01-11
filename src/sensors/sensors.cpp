@@ -9,8 +9,8 @@ void initSensors(){
     pinMode(LED_Y, OUTPUT);
     pinMode(LED_G, OUTPUT);
   
-    drive = new DriveController(new Motor(12, 11, 4, 55), new  Motor(25, 24, 5, 135), new Motor(27, 26, 2, 225), new Motor(29, 28, 3, 305));
-    //drive = new DriveController(new Motor(12, 11, 2, 45),new  Motor(25, 24, 5, 135), new Motor(27, 26, 6, 225), new Motor(21, 22, 23, 315));
+    drive = new DriveController(new Motor(11, 12, 4, 55), new  Motor(24, 25, 5, 135), new Motor(26, 27, 2, 225), new Motor(28, 29, 3, 305));
+        //drive = new DriveController(new Motor(12, 11, 2, 45),new  Motor(25, 24, 5, 135), new Motor(27, 26, 6, 225), new Motor(21, 22, 23, 315));
     compass = new DataSourceBNO055();
     ball = new DataSourceBall(&Serial2, 57600);
     //ball = new DataSourceBall(&Serial4, 57600);
