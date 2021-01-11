@@ -11,7 +11,7 @@ DataSourceBall :: DataSourceBall(HardwareSerial* ser_, int baud) : DataSource(se
 void DataSourceBall :: postProcess(){
   if((value & 0x01) == 1){
       distance = value;
-      ballSeen = distance > 1;
+      ballSeen = distance == 255 ? 0 : 1;
   }else{ 
     angle = value * 2; 
   }
@@ -26,7 +26,9 @@ void DataSourceBall :: test(){
     if(ballSeen){
     DEBUG.print(angle); 
     DEBUG.print(" | ");
-    DEBUG.println(distance); 
+    DEBUG.print(distance); 
+    DEBUG.print(" | ");
+    DEBUG.println(ballSeen); 
     }else{
     DEBUG.println("Not seeing ball");
     }
