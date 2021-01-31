@@ -27,6 +27,9 @@ void setup() {
   delay(500);
 
   drive->prepareDrive(0,0,0);
+
+  //Startup sound
+  tone(BUZZER, 220.00, 250);
 }
 
 
@@ -34,11 +37,9 @@ void loop() {
   updateSensors();
   if(DEBUG.available()) testmenu->testMenu();
   
-  striker_test->play(1);
-  // striker->play(role==1);
+  // striker_test->play(1);
+  striker->play(1);
   // keeper->play(role==0);
-
-  // drive->prepareDrive(0,0,0);
 
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  

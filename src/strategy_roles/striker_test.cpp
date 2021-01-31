@@ -20,7 +20,7 @@ void StrikerTest::init(){
 
 void StrikerTest::realPlay(){
   if(CURRENT_DATA_READ.ballSeen) striker();
-  else drive->prepareDrive(0,0,0);
+  else ps->goCenter();
 }
 
 void StrikerTest::striker() {
