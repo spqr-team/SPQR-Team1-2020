@@ -10,12 +10,13 @@ Game::Game(LineSystem* ls_, PositionSystem* ps_) {
 
 void Game::play(bool condition){
     if(condition) {
+
+        CURRENT_DATA_WRITE.game = this;
+        CURRENT_DATA_WRITE.posSystem = (this->ps);
+        CURRENT_DATA_WRITE.lineSystem = (this->ls);
+        
         ps->update();
         realPlay();
         ls->update();
-
-        CURRENT_DATA_WRITE.posSystem = (this->ps);
-        CURRENT_DATA_WRITE.lineSystem = (this->ls);
-        CURRENT_DATA_WRITE.game = this;
     }
 }
