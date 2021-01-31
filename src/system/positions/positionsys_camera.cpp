@@ -31,7 +31,7 @@ PositionSysCamera::PositionSysCamera() {
 }
 
 void PositionSysCamera::update(){
-    int posx, posy;
+    int posx = 0, posy = 0;
 
     //Calculate robot position based on just-read coordinates for camera. Using CURRENT_DATA_WRITE instead of CURRENT_DATA_READ othwerise we would be late by 1 loop cycle, but the calculations have to stay in sync
     //Coordinates are referred to a cartesian plane with the origin at the center of the field. Angles starting at the north of the robot
@@ -80,6 +80,7 @@ void PositionSysCamera::addMoveOnAxis(int x, int y){
 
 void PositionSysCamera::goCenter(){
     setMoveSetpoints(CAMERA_CENTER_X, CAMERA_CENTER_Y);
+    CameraPID();
 }
 
 void PositionSysCamera::centerGoal(){
@@ -115,7 +116,7 @@ void PositionSysCamera::CameraPID(){
         dir = (dir+360) % 360;
 
         int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
-        int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, 350);
+        int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, 120);
         drive->prepareDrive(dir, speed, 0);
 
 

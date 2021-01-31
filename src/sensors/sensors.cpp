@@ -2,14 +2,14 @@
 #include "sensors/sensors.h"
 
 void initSensors(){
-    pinMode(SWITCH_DX, INPUT);
-    pinMode(SWITCH_SX, INPUT);
+    pinMode(SWITCH_1, INPUT);
+    pinMode(SWITCH_2, INPUT);
 
     pinMode(LED_R, OUTPUT);
     pinMode(LED_Y, OUTPUT);
     pinMode(LED_G, OUTPUT);
   
-    drive = new DriveController(new Motor(11, 12, 4, 55), new  Motor(24, 25, 5, 135), new Motor(26, 27, 2, 225), new Motor(28, 29, 3, 305));
+    drive = new DriveController(new Motor(12, 11, 4, 55), new  Motor(25, 24, 5, 135), new Motor(27, 26, 2, 225), new Motor(29, 28, 3, 305));
         //drive = new DriveController(new Motor(12, 11, 2, 45),new  Motor(25, 24, 5, 135), new Motor(27, 26, 6, 225), new Motor(21, 22, 23, 315));
     compass = new DataSourceBNO055();
     ball = new DataSourceBall(&Serial2, 57600);
@@ -21,8 +21,8 @@ void initSensors(){
  }
 
 void updateSensors(){
-    role = digitalRead(SWITCH_DX);
-    camera->goalOrientation = digitalRead(SWITCH_SX);
+    role = digitalRead(SWITCH_1);
+    camera->goalOrientation = digitalRead(SWITCH_2);
     
     compass->update();
     ball->update();

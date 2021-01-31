@@ -5,16 +5,16 @@
 //Note: those variables can be changes, and will need to change depending on camera calibration
 
 //Camera center: those setpoints correspond to the center of the field
-#define CAMERA_CENTER_X -5
-#define CAMERA_CENTER_Y -17
+#define CAMERA_CENTER_X -10
+#define CAMERA_CENTER_Y 20
 
 //Camera goal: those setpoints correspond to the position of the center of the goal on the field
 #define CAMERA_GOAL_X 0
-#define CAMERA_GOAL_Y -20
+#define CAMERA_GOAL_Y 0
 
-#define CAMERA_CENTER_Y_ABS_SUM 72
+#define CAMERA_CENTER_Y_ABS_SUM 50
 //Actually it's ± MAX_VAL
-#define MAX_X 25
+#define MAX_X 50
 #define MAX_Y (CAMERA_CENTER_Y_ABS_SUM/2)
 #define DIST_MULT 1.65
 

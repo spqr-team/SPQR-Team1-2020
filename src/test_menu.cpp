@@ -12,6 +12,7 @@
 #include "strategy_roles/game.h"
 #include "strategy_roles/games.h"
 #include "behaviour_control/data_source.h"
+#include "behaviour_control/status_vector.h"
 
 void TestMenu :: testMenu(){
     DEBUG.println();
@@ -84,27 +85,15 @@ void TestMenu :: testMenu(){
                 bt->test();
             break;
             case '6':
+                updateStatusVector();
                 camera->test();
+                delay(100);
             break;
             case '7':
+            break;
             case '8':
-            if(DEBUG.available() == 0){
-                DEBUG.println("To do Line Sensors test, decide the role first");
-                DEBUG.println("1)Keeper");
-                DEBUG.println("2)Goalie");
-                currentRole = DEBUG.read();
-                switch(currentRole){
-                    case '1':
-                        (striker->ls)->test();
-                    break;
-                    case '2':
-                        (keeper->ls)->test();
-                    break;
-                    default:
-                        DEBUG.println("INVALID ROLE");
-                    break;
-                    }
-                }
+                CURRENT_DATA_READ.game->ls->test();
+                delay(200);
             break;
             case 'u':
               while(Serial2.available()) DEBUG.print((char)Serial2.read());

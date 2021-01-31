@@ -7,15 +7,6 @@
 
 #include "vars.h" 
 
-#define S1I 21 //A14 N
-#define S1O 20 //A15
-#define S2I 17 //A16 E
-#define S2O 16 //A17
-#define S3I 15 //A20 S
-#define S3O 14 //A0
-#define S4I 23 //A1  O
-#define S4O 22 //A2
-
 #define LINE_THRESH 90
 #define EXTIME 200
 #define LINES_EXIT_SPD 350

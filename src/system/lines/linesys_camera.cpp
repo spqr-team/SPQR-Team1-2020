@@ -2,6 +2,7 @@
 #include "systems/position/positionsys_camera.h"
 #include "sensors/sensors.h"
 #include "strategy_roles/games.h"
+#include "behaviour_control/status_vector.h"
 
 LineSysCamera::LineSysCamera(){}
 LineSysCamera::LineSysCamera(vector<DataSource*> in_, vector<DataSource*> out_){
@@ -38,12 +39,12 @@ void LineSysCamera ::update() {
   for(auto it = in.begin(); it != in.end(); it++){
     i = it - in.begin();
     ds = *it;
-    linetriggerI[i] = ds->getValue() > LINE_THRESH;
+    linetriggerI[i] = ds->getValue() > LINE_THRESH_CAM;
   }
   for(auto it = out.begin(); it != out.end(); it++){
     i = it - out.begin();
     ds = *it;
-    linetriggerO[i] = ds->getValue() > LINE_THRESH;
+    linetriggerO[i] = ds->getValue() > LINE_THRESH_CAM;
   }
 
   for(int i = 0; i < 4; i++){
@@ -51,21 +52,20 @@ void LineSysCamera ::update() {
     outV = outV | (linetriggerO[i] << i);
   }
 
-
-  if ((inV > 0) || (outV > 0)) {
-    if(exitTimer > EXIT_TIME) {
+  if (inV > 0 || outV > 0) {
+    if(millis() - exitTimer > EXIT_TIME) {
       fboundsX = true;
       fboundsY = true;
     }
-    exitTimer = 0;
+    exitTimer = millis();
   }
 
   linesens |= inV | outV;
   outOfBounds();
-  }
+}
 
 void LineSysCamera::outOfBounds(){
-
+  // digitalWriteFast(BUZZER, LOW);
   if(fboundsX == true) {
     if(linesens & 0x02) linesensOldX = 2;
     else if(linesens & 0x08) linesensOldX = 8;
@@ -77,11 +77,12 @@ void LineSysCamera::outOfBounds(){
     if(linesensOldY != 0) fboundsY = false;
   }
 
-  if (exitTimer <= EXTIME){
-    ((PositionSysCamera*)striker->ps)->goCenter();
+  if (millis() - exitTimer < EXIT_TIME){
+    CURRENT_DATA_WRITE.game->ps->goCenter();
     tookLine = true;
+    tone(BUZZER, 220.00, 250);
   }else{
-    drive->canUnlock = true;
+    // drive->canUnlock = true;
     linesens = 0;
     linesensOldY = 0;
     linesensOldX = 0;

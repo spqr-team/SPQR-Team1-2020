@@ -76,8 +76,9 @@ void DataSourceCameraConic ::computeCoordsAngles() {
   true_xy = 50 - true_xy;
   true_yy = true_yy - 50;
 
-  yAngle = 90 - (atan2(true_yy, true_xy) * 180 / 3.14);
-  bAngle = 90 - (atan2(true_yb, true_xb) * 180 / 3.14);
+  //-90 + to account for phase shifting with goniometric circle
+  yAngle = -90 + (atan2(true_yy, true_xy) * 180 / 3.14);
+  bAngle = -90 + (atan2(true_yb, true_xb) * 180 / 3.14);
   //Now cast angles to [0, 359] domain angle flip them
   yAngle = (yAngle + 360) % 360;
   bAngle = (bAngle + 360) % 360;
@@ -143,7 +144,7 @@ void DataSourceCameraConic ::computeCoordsAngles() {
 }
 
 void DataSourceCameraConic::test(){
-  goalOrientation = digitalRead(SWITCH_SX); //se HIGH attacco gialla, difendo blu
+  goalOrientation = digitalRead(SWITCH_2); //se HIGH attacco gialla, difendo blu
   update();
   DEBUG.print("Blue: Angle: ");
   DEBUG.print(bAngle);

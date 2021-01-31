@@ -38,13 +38,13 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (69, 100, -2, 15, 16, 40),    # thresholds yellow goal
-                (32, 77, -2, 12, -48, -10)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (75, 100, -10, 13, 12, 40),    # thresholds yellow goal
+                (40, 70, -13, 13, -35, -11)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 roi = (0, 6, 318, 152)
 
 # Camera Setup ###############################################################
-'''sensor.reset()
+'''sensor.reset()xxxx
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
 sensor.skip_frames(time = 2000)
@@ -104,15 +104,21 @@ while(True):
     y_area, y1_cx, y1_cy, y_code = tt_yellow[ny-1]
     b_area, b1_cx, b1_cy, b_code = tt_blue[nb-1]
 
-    y_cx = int(img.width() / 2 - y1_cx)
-    y_cy = int(img.height() / 2 - y1_cy)
-    b_cx = int(img.width() / 2 - b1_cx)
-    b_cy = int(img.height() / 2 - b1_cy)
+    #Formulas to compute position of points, considering that the H7 is rotated by a certain angle
+    #x = y-offset
+    #y = offset - x
+
+    y_cx = int(y1_cy - img.height() / 2)
+    y_cy = int(img.width() / 2 - y1_cx)
+    b_cx = int(b1_cy - img.height() / 2)
+    b_cy = int(img.width() / 2 - b1_cx)
+
+    print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
 
     #Normalize data between 0 and 100
     if y_found == True:
-        y_cx = val_map(y_cx, -img.width() / 2, img.width() / 2, 100, 0)
-        y_cy = val_map(y_cy, -img.height() / 2, img.height() / 2, 0, 100)
+        y_cx = val_map(y_cx, -img.height() / 2, img.height() / 2, 100, 0)
+        y_cy = val_map(y_cy, -img.width() / 2, img.width() / 2, 0, 100)
         #Prepare for send as a list of characters
         s_ycx = chr(y_cx)
         s_ycy = chr(y_cy)
@@ -124,8 +130,8 @@ while(True):
         s_ycy = y_cy
 
     if b_found == True:
-        b_cx = val_map(b_cx, -img.width() / 2, img.width() / 2, 100, 0)
-        b_cy = val_map(b_cy, -img.height() / 2, img.height() / 2, 0, 100)
+        b_cx = val_map(b_cx, -img.height() / 2, img.height() / 2, 100, 0)
+        b_cy = val_map(b_cy, -img.width() / 2, img.width() / 2, 0, 100)
 
         #Prepare for send as a list of characters
         s_bcx = chr(b_cx)
@@ -137,7 +143,6 @@ while(True):
         s_bcx = b_cx
         s_bcy = b_cy
 
-    print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
 
 
     uart.write(START_BYTE)
@@ -146,4 +151,3 @@ while(True):
     uart.write(s_ycx)
     uart.write(s_ycy)
     uart.write(END_BYTE)
-

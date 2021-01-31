@@ -7,17 +7,17 @@
 
 #include "vars.h" 
 
-#define S1I 21 //A14 N
-#define S1O 20 //A15
-#define S2I 17 //A16 E
-#define S2O 16 //A17
-#define S3I 15 //A20 S
-#define S3O 14 //A0
-#define S4I 23 //A1  O
-#define S4O 22 //A2
+#define S1I A7
+#define S1O A6
+#define S2I A2
+#define S2O A3
+#define S3I A1
+#define S3O A0
+#define S4I A9
+#define S4O A8
 
-#define LINE_THRESH_CAM 90
-#define EXIT_TIME 125
+#define LINE_THRESH_CAM 300
+#define EXIT_TIME 250
 #define LINES_EXIT_SPD 350
 
 class LineSysCamera : public LineSystem{
@@ -36,7 +36,7 @@ class LineSysCamera : public LineSystem{
         DataSource* ds;
         bool fboundsX, fboundsY, fboundsOX, fboundsOY, slow;
         int inV, outV, linesensOldX, linesensOldY, value, linetriggerI[4], linetriggerO[4], linepins[4], i;
-        elapsedMillis exitTimer;
+        unsigned long exitTimer;
         int outDir, outVel;
         byte linesens;
 };
