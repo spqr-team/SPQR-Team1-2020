@@ -38,7 +38,7 @@ void loop() {
   if(DEBUG.available()) testmenu->testMenu();
   
   // striker_test->play(1);
-  striker->play(1);
+  striker_test->play(1);
   // keeper->play(role==0);
 
   // Last thing to do: movement and update status vector

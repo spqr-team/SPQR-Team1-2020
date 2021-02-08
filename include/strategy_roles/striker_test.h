@@ -4,20 +4,11 @@
 #include "sensors/sensors.h"
 #include "strategy_roles/game.h"
 
-#define TILT_MULT 1.8
-#define TILT_DIST 170
-#define CATCH_DIST 150
-#define GOALIE_ATKSPD_LAT  120 //255
-#define GOALIE_ATKSPD_BAK  120
-#define GOALIE_ATKSPD_FRT  120
-#define GOALIE_ATKSPD_STRK 120
-#define GOALIE_ATKDIR_PLUSANG1 20
-#define GOALIE_ATKDIR_PLUSANG2 35
-#define GOALIE_ATKDIR_PLUSANG3 40
-#define GOALIE_ATKDIR_PLUSANGBAK 40
-#define GOALIE_ATKDIR_PLUSANG1_COR 60
-#define GOALIE_ATKDIR_PLUSANG2_COR 70
-#define GOALIE_ATKDIR_PLUSANG3_COR 70
+#define TARGET_MAX_DIST 100
+#define TARGET_MIN_DIST 80
+#define TARGET_DIST (TARGET_MAX_DIST - TARGET_MIN_DIST)/2
+#define ANGLE_SHIFT_STEP 15
+#define STRIKER_SPD 50
 
 class StrikerTest : public Game{
 
@@ -31,6 +22,6 @@ class StrikerTest : public Game{
         void striker();
         void ballBack(); 
 
-        int atk_speed, atk_direction;
-    
+        int angleShift, angleDiff, robotAngle, newAngle, 
+            moveAngle, robotX, robotY, robotX_new, robotY_new;  
 };
