@@ -26,6 +26,13 @@ def val_map(x, in_min, in_max, out_min, out_max):
     out_max = int(out_max)
     return int((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min)
 
+# Check side
+def isInLeftSide(img, x):
+    return x < img.width() / 2
+
+def isInRightSide(img, x):
+    return x > img.width() / 2
+
 
 # LED Setup ##################################################################
 red_led = pyb.LED(1)
@@ -38,10 +45,10 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (75, 100, -10, 13, 12, 40),    # thresholds yellow goal
-                (40, 70, -13, 13, -35, -11)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (67, 100, -14, 28, 32, 58),    # thresholds yellow goal
+                (53, 69, -21, 11, -44, -13)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
-roi = (0, 6, 318, 152)
+roi = (50,5,250, 230)
 
 # Camera Setup ###############################################################
 '''sensor.reset()xxxx
@@ -59,18 +66,18 @@ clock = time.clock()'''
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
-sensor.set_contrast(1)
-sensor.set_saturation(0)
-sensor.set_brightness(3)
-sensor.set_quality(0)
+sensor.set_windowing(roi)
+sensor.set_contrast(0)
+sensor.set_saturation(3)
+sensor.set_brightness(2)
 sensor.set_auto_whitebal(True)
-sensor.set_auto_exposure(False, 3500)
-sensor.set_auto_gain(True)
+sensor.set_auto_exposure(False, 7500)
+sensor.set_auto_gain(False, gain_db=20)
 sensor.skip_frames(time = 300)
 
 clock = time.clock()
 ##############################################################################
-
+e
 
 while(True):
     clock.tick()
@@ -84,9 +91,9 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=40, area_threshold=50, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=50, area_threshold=70, merge = True):
         img.draw_rectangle(blob.rect())
-        img.draw_cross(blob.cx(), blob.cy())
+        #img.draw_cross(blob.cx(), blob.cy())
 
         if (blob.code() == 1):
             tt_yellow = tt_yellow +  [ (blob.area(),blob.cx(),blob.cy(),blob.code() ) ]
@@ -101,22 +108,24 @@ while(True):
     ny = len(tt_yellow)
     nb = len(tt_blue)
 
-    y_area, y1_cx, y1_cy, y_code = tt_yellow[ny-1]
-    b_area, b1_cx, b1_cy, b_code = tt_blue[nb-1]
 
     #Formulas to compute position of points, considering that the H7 is rotated by a certain angle
     #x = y-offset
     #y = offset - x
 
+    #Compute everything related to Yellow First
+
+    y_area, y1_cx, y1_cy, y_code = tt_yellow[ny-1]
+
+
     y_cx = int(y1_cy - img.height() / 2)
     y_cy = int(img.width() / 2 - y1_cx)
-    b_cx = int(b1_cy - img.height() / 2)
-    b_cy = int(img.width() / 2 - b1_cx)
 
-    print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
 
     #Normalize data between 0 and 100
     if y_found == True:
+        img.draw_cross(y1_cx, y1_cy)
+
         y_cx = val_map(y_cx, -img.height() / 2, img.height() / 2, 100, 0)
         y_cy = val_map(y_cy, -img.width() / 2, img.width() / 2, 0, 100)
         #Prepare for send as a list of characters
@@ -129,21 +138,43 @@ while(True):
         s_ycx = y_cx
         s_ycy = y_cy
 
+
+
+    #Compute everything relative to Blue
+    '''Given the light situation in our lab and given that blue is usually harder to spot than yellow, we need to check it we got
+    a blue blob that is in the same side of the ground as the yellow one, if so, discard it and check a new one
+    '''
+
+    b_cx = BYTE_UNKNOWN
+    b_cy = BYTE_UNKNOWN
+    #Prepare for send as a list of characters
+    s_bcx = b_cx
+    s_bcy = b_cy
+
+    index = 1
     if b_found == True:
-        b_cx = val_map(b_cx, -img.height() / 2, img.height() / 2, 100, 0)
-        b_cy = val_map(b_cy, -img.width() / 2, img.width() / 2, 0, 100)
+        while nb-index >= 0:
+            b_area, b1_cx, b1_cy, b_code = tt_blue[nb-index]
 
-        #Prepare for send as a list of characters
-        s_bcx = chr(b_cx)
-        s_bcy = chr(b_cy)
-    else:
-        b_cx = BYTE_UNKNOWN
-        b_cy = BYTE_UNKNOWN
-        #Prepare for send as a list of characters
-        s_bcx = b_cx
-        s_bcy = b_cy
+            # If the two blobs are on opposide side of the field, everything is good
+            if (not y_found) or ((isInRightSide(img, b1_cx) and isInLeftSide(img, y1_cx)) or (isInRightSide(img, y1_cx) and isInLeftSide(img, b1_cx))):
 
+                img.draw_cross(b1_cx, b1_cy)
 
+                b_cx = int(b1_cy - img.height() / 2)
+                b_cy = int(img.width() / 2 - b1_cx)
+
+                b_cx = val_map(b_cx, -img.height() / 2, img.height() / 2, 100, 0)
+                b_cy = val_map(b_cy, -img.width() / 2, img.width() / 2, 0, 100)
+
+                #Prepare for send as a list of characters
+                s_bcx = chr(b_cx)
+                s_bcy = chr(b_cy)
+
+                break
+            index += 1
+
+    print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
 
     uart.write(START_BYTE)
     uart.write(s_bcx)
