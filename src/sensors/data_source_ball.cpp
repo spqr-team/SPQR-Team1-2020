@@ -23,13 +23,13 @@ void DataSourceBall :: postProcess(){
 
 void DataSourceBall :: test(){
     this->update();
-    if(ballSeen){
+    // if(ballSeen){
     DEBUG.print(angle); 
     DEBUG.print(" | ");
     DEBUG.print(distance); 
     DEBUG.print(" | ");
     DEBUG.println(ballSeen); 
-    }else{
-    DEBUG.println("Not seeing ball");
-    }
+    // }else{
+    // DEBUG.println("Not seeing ball");
+    // }
 }

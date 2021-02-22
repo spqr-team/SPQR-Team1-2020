@@ -19,12 +19,12 @@ PositionSysCamera::PositionSysCamera() {
     givenMovement = false;
     
     X = new PID(&Inputx, &Outputx, &Setpointx, Kpx, Kix, Kdx, REVERSE);
-    X->SetOutputLimits(-50,50);
+    X->SetOutputLimits(-MAX_X, MAX_X);
     X->SetMode(AUTOMATIC);
     X->SetDerivativeLag(1);
     X->SetSampleTime(2);
     Y = new PID(&Inputy, &Outputy, &Setpointy, Kpy, Kiy, Kdy, REVERSE);
-    Y->SetOutputLimits(-50,50);
+    Y->SetOutputLimits(-MAX_Y,MAX_Y);
     Y->SetMode(AUTOMATIC);
     Y->SetDerivativeLag(1);
     Y->SetSampleTime(2);
@@ -70,6 +70,7 @@ void PositionSysCamera::setMoveSetpoints(int x, int y){
     Setpointx = x;
     Setpointy = y;
     givenMovement = true;
+    CameraPID();
 }
 
 void PositionSysCamera::addMoveOnAxis(int x, int y){
@@ -85,6 +86,7 @@ void PositionSysCamera::goCenter(){
 
 void PositionSysCamera::centerGoal(){
     setMoveSetpoints(CAMERA_GOAL_X, CAMERA_GOAL_Y);
+    CameraPID();
 }
 
 /*Knowing the sum of the absolute values of the y position of the goals, it calculates the missing goal y knowing the other one
@@ -108,7 +110,7 @@ void PositionSysCamera::CameraPID(){
         Setpointy += axisy;
 
         X->Compute();
-        Y->Compute();
+        Y->Compute();   
         
         //Compute an X and Y to give to the PID later
         //There's surely a better way to do this
@@ -116,7 +118,7 @@ void PositionSysCamera::CameraPID(){
         dir = (dir+360) % 360;
 
         int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
-        int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, 120);
+        int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, 80);
         drive->prepareDrive(dir, speed, 0);
 
 

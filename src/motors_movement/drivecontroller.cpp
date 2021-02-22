@@ -28,7 +28,7 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
 
     pid = new PID(&input, &output, &setpoint, KP, KI, KD, 1,DIRECT);
 
-    pid->SetSampleTime(1.5);
+    pid->SetSampleTime(2.5);
     pid->setAngleWrap(true);
     pid->SetDerivativeLag(2);
     pid->SetOutputLimits(-255,255);

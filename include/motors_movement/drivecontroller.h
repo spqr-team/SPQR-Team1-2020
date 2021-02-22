@@ -10,9 +10,9 @@
 
 //BEST NUMBERS YET
 //USE MOVING AVERAGE AND ANGLE WRAP
-#define KP 1.5
-#define KI 0
-#define KD 0.1
+#define KP 0.8
+#define KI 0.0
+#define KD 0.025
 
 #define KSPD 0.3
 
@@ -41,6 +41,7 @@ class DriveController{
     private:
         PID* pid;
         ComplementaryFilter* speedFilter;
+        ComplementaryFilter* dirFilter;
         int pDir, pSpeed, pTilt, oldSpeed;
         float x, y, vx, vy, speed1, speed2, speed3, speed4, pidfactor, delta;
 
