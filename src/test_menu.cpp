@@ -4,7 +4,6 @@
 #include "sensors/data_source_bt.h"
 #include "sensors/data_source_camera_conicmirror.h"
 #include "systems/lines/linesys_camera.h"
-#include "systems/lines/linesys_2019.h"
 #include "sensors/sensors.h"
 #include "motors_movement/motor.h"
 #include "motors_movement/drivecontroller.h"
@@ -90,10 +89,10 @@ void TestMenu :: testMenu(){
                 delay(100);
             break;
             case '7':
-            break;
-            case '8':
                 CURRENT_DATA_READ.game->ls->test();
                 delay(200);
+            break;
+            case '8':
             break;
             case 'u':
               while(Serial2.available()) DEBUG.print((char)Serial2.read());

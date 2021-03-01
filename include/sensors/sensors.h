@@ -12,7 +12,6 @@
 #include "behaviour_control/ds_ctrl.h"
 #include "motors_movement/drivecontroller.h"
 #include "motors_movement/motor.h"
-#include "systems/lines/linesys_2019.h"
 #include "systems/lines/linesys_camera.h"
 #include "systems/position/positionsys_zone.h"
 #include "systems/systems.h"
@@ -29,7 +28,6 @@ void updateSensors();
 s_extr vector<DataSource*> dUs;
 
 s_extr DataSourceCtrl* usCtrl;
-s_extr LineSys2019* linesCtrl;
 
 s_extr DataSourceBNO055* compass;
 s_extr DataSourceBall* ball;

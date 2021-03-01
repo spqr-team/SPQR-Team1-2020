@@ -1,7 +1,6 @@
 #include <Arduino.h>
 
 #include "behaviour_control/status_vector.h"
-#include "systems/lines/linesys_2019.h"
 #include "sensors/sensors.h"
 #include "strategy_roles/keeper.h"
 #include "strategy_roles/games.h"
