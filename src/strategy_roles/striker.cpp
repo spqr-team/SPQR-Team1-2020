@@ -6,94 +6,61 @@
 
 #include "math.h"
 
-
-Striker::Striker() : Game() {
+Striker::Striker() : Game()
+{
   init();
 }
 
-Striker::Striker(LineSystem* ls_, PositionSystem* ps_) : Game(ls_, ps_) {
+Striker::Striker(LineSystem *ls_, PositionSystem *ps_) : Game(ls_, ps_)
+{
   init();
 }
 
-void Striker::init(){
-    atk_speed = 0;
-    atk_direction = 0;
-    cstorc = 0;
+void Striker::init()
+{
+  atk_speed = 0;
+  atk_direction = 0;
+  cstorc = 0;
 }
 
-void Striker::realPlay(){
-  if(CURRENT_DATA_READ.ballSeen) this->striker();
-  else ps->goCenter();
+void Striker::realPlay()
+{
+  if (CURRENT_DATA_READ.ballSeen)
+    this->striker();
+  else
+    ps->goCenter();
 }
 
-void Striker::striker() {
-  if(CURRENT_DATA_READ.ballAngle>= 350 || CURRENT_DATA_READ.ballAngle<= 20)  {
-    if(CURRENT_DATA_READ.ballDistance > 190) atk_direction = 0;
-    else atk_direction = CURRENT_DATA_READ.ballAngle;
-    atk_speed = GOALIE_ATKSPD_FRT;
+void Striker::striker()
+{
+  int plusang = STRIKER_PLUSANG, ball_degrees2, dir, ball_deg = CURRENT_DATA_READ.ballAngle;
+
+  if (CURRENT_DATA_READ.ballDistance > STRIKER_ATTACK_DISTANCE)
+  {
+    drive->prepareDrive(ball_deg > 180 ? CURRENT_DATA_READ.ballAngle - 10 : CURRENT_DATA_READ.ballAngle + 10, 100, 0);
+    return;
   }
-
-  if(CURRENT_DATA_READ.ballAngle>= 90 && CURRENT_DATA_READ.ballAngle<= 270) {
-    ballBack();
-    atk_speed = GOALIE_ATKSPD_BAK;                   
-  }
-
-    if(CURRENT_DATA_READ.ballAngle> 10   && CURRENT_DATA_READ.ballAngle<  30)   {
-      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG1;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle>= 30 && CURRENT_DATA_READ.ballAngle<  45)    {
-      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG2;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle>= 45 && CURRENT_DATA_READ.ballAngle<  90)    {
-      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG3;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle> 270 && CURRENT_DATA_READ.ballAngle<= 315)   {
-      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG3_COR;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle> 315 && CURRENT_DATA_READ.ballAngle<= 330)   {
-      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG2_COR;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle> 330 && CURRENT_DATA_READ.ballAngle<  350)   {
-      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG1_COR;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-
-  // if((CURRENT_DATA_READ.ballAngle>= 330 || CURRENT_DATA_READ.ballAngle<= 30) && CURRENT_DATA_READ.ballDistance > 190) {      //storcimento
-  //   atk_speed = GOALIE_ATKSPD_STRK;                                          //dove i gigahertz hanno fallito
-  //   drive->prepareDrive(atk_direction, atk_speed, cstorc);
-  // }
-  // else  
-  drive->prepareDrive(atk_direction, atk_speed);
-}
-
-
-
-void Striker::ballBack() {
-  int ball_degrees2;
-  int dir;
-
-  int plusang;
-  if(CURRENT_DATA_READ.ballDistance > 130) plusang = GOALIE_ATKDIR_PLUSANGBAK;
-  else plusang = 0;
   
-  if(CURRENT_DATA_READ.ballAngle> 180) ball_degrees2 = CURRENT_DATA_READ.ballAngle- 360;
-  else ball_degrees2 = CURRENT_DATA_READ.ballAngle;
-  if(ball_degrees2 > 0) dir = CURRENT_DATA_READ.ballAngle+ plusang;              //45 con 8 ruote
-  else dir = CURRENT_DATA_READ.ballAngle- plusang;                                 //45 con 8 ruote
-  if(dir < 0) dir = dir + 360;
-  else dir = dir;
-  atk_direction = dir;
+
+  if (ball_deg > 340 || ball_deg < 20)
+    plusang -= STRIKER_PLUSANG_VISIONCONE; //se ho la palla in un range di +-20 davanti, diminuisco di 20 il plus
+  if (ball_deg > 180)
+    ball_degrees2 = ball_deg - 360; //ragiono in +180 -180
+  else
+    ball_degrees2 = ball_deg;
+
+  if (ball_degrees2 > 0)
+    dir = ball_deg + plusang; //se sto nel quadrante positivo aggiungo
+  else
+    dir = ball_deg - plusang; //se sto nel negativo sottraggo
+
+  if (dir < 0)
+    dir = dir + 360; //se sto nel quadrante negativo ricappotto
+  else
+    dir = dir;
+  drive->prepareDrive(dir, 100, 0);
 }
 
-
-void Striker::storcimentoPorta() {
-  if (CURRENT_DATA_READ.angleAtkFix >= 5 && CURRENT_DATA_READ.angleAtkFix <= 60) cstorc+=9;
-  else if (CURRENT_DATA_READ.angleAtkFix  <= 355 && CURRENT_DATA_READ.angleAtkFix >= 210) cstorc-=9;
-  else cstorc *= 0.9;
-  cstorc = constrain(cstorc, -45, 45);
+void Striker::storcimentoPorta()
+{
 }

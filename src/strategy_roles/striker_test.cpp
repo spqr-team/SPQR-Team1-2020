@@ -23,57 +23,75 @@ void StrikerTest::realPlay(){
   else ps->goCenter();
 }
 
-void StrikerTest::striker() {
-  if(CURRENT_DATA_READ.ballAngle>= 350 || CURRENT_DATA_READ.ballAngle<= 20)  {
-    if(CURRENT_DATA_READ.ballDistance > 190) atk_direction = 0;
-    else atk_direction = CURRENT_DATA_READ.ballAngle;
-    atk_speed = GOALIE_ATKSPD_FRT;
-  }
+void StrikerTest::striker()
+{
+  /*First implementation of "orbital striker", a new way to approach the problem with less lines.
+  It works with robot's positions, calculating the final one using the angle shift over
+  and over again until we have an acceptable result. That result is used to drive->prepareDrive with the speed.*/
+  // if (CURRENT_DATA_READ.ballDistance > )
+  //   drive->prepareDrive(CURRENT_DATA_READ.ballAngle, STRIKER_SPD);
+  // else
+  // {
+    // if (CURRENT_DATA_READ.ballAngle > 340 && CURRENT_DATA_READ.ballAngle < 20)
+    // {
+    //   drive->prepareDrive(0, 100, 0);
+    // }
+    // else
+    // {
+    //   int ballAngle = (90 - CURRENT_DATA_READ.ballAngle  + 360) % 360;
+    //   robotAngle = (ballAngle - 180 + 360) % 360;
 
-  if(CURRENT_DATA_READ.ballAngle>= 90 && CURRENT_DATA_READ.ballAngle<= 270) {
-  int ball_degrees2;
-  int dir;
+    //   DEBUG.print("Ball is at angle (goniometric circle): ");
+    //   DEBUG.println(ballAngle);
+    //   DEBUG.print("Robot is at angle ");
+    //   DEBUG.println(robotAngle);
 
-  int plusang;
-  if(CURRENT_DATA_READ.ballDistance > 130) plusang = GOALIE_ATKDIR_PLUSANGBAK;
-  else plusang = 0;
-  
-  if(CURRENT_DATA_READ.ballAngle> 180) ball_degrees2 = CURRENT_DATA_READ.ballAngle- 360;
-  else ball_degrees2 = CURRENT_DATA_READ.ballAngle;
-  if(ball_degrees2 > 0) dir = CURRENT_DATA_READ.ballAngle+ plusang;              //45 con 8 ruote
-  else dir = CURRENT_DATA_READ.ballAngle- plusang;                                 //45 con 8 ruote
-  if(dir < 0) dir = dir + 360;
-  else dir = dir;
-  atk_direction = dir;
-    atk_speed = GOALIE_ATKSPD_BAK;                   
-  }
+    //   float robotAngle_rad = robotAngle*3.14 / 180;
+    //   robotX = CURRENT_DATA_READ.ballDistance * cos(robotAngle_rad);
+    //   robotY = CURRENT_DATA_READ.ballDistance * sin(robotAngle_rad);
 
-    if(CURRENT_DATA_READ.ballAngle> 10   && CURRENT_DATA_READ.ballAngle<  30)   {
-      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG1;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle>= 30 && CURRENT_DATA_READ.ballAngle<  45)    {
-      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG2;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle>= 45 && CURRENT_DATA_READ.ballAngle<  90)    {
-      atk_direction = CURRENT_DATA_READ.ballAngle+ GOALIE_ATKDIR_PLUSANG3;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle> 270 && CURRENT_DATA_READ.ballAngle<= 315)   {
-      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG3_COR;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle> 315 && CURRENT_DATA_READ.ballAngle<= 330)   {
-      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG2_COR;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
-    if(CURRENT_DATA_READ.ballAngle> 330 && CURRENT_DATA_READ.ballAngle<  350)   {
-      atk_direction = CURRENT_DATA_READ.ballAngle- GOALIE_ATKDIR_PLUSANG1_COR;
-      atk_speed = GOALIE_ATKSPD_LAT;
-    }
+    //   DEBUG.print("Coords of the robot relative to the ball: (");
+    //   DEBUG.print(robotX);
+    //   DEBUG.print(", ");
+    //   DEBUG.print(robotY);
+    //   DEBUG.println(")");
 
-  drive->prepareDrive(atk_direction, atk_speed);
+    //   // angleDiff = min(((-robotAngle + 360) % 360), ((robotAngle + 360) % 360));
+    //   // angleShift = min(angleDiff, ANGLE_SHIFT_STEP);
+
+    //   angleShift = ANGLE_SHIFT_STEP;
+
+    //   if (robotAngle >= 0 && robotAngle <= 180)
+    //     newAngle = robotAngle - angleShift;
+    //   else
+    //     newAngle = robotAngle + angleShift;
+
+    //   DEBUG.print("New ball-robot angle: ");
+    //   DEBUG.println(newAngle);
+
+    //   float newAngle_rad = (newAngle)*3.14 / 180;
+
+    //   robotX_new = TARGET_DIST * cos(newAngle_rad);
+    //   robotY_new = TARGET_DIST * sin(newAngle_rad);
+
+    //   DEBUG.print("New coords of the robot relative to the ball: (");
+    //   DEBUG.print(robotX_new);
+    //   DEBUG.print(", ");
+    //   DEBUG.print(robotY_new);
+    //   DEBUG.println(")");
+
+    //   moveAngle = (atan2((robotX_new - robotX), (robotY_new - robotY))) * 180 / 3.14;
+    //   moveAngle = (moveAngle + 360) % 360;
+
+    //   DEBUG.print("Direction to move in: ");
+    //   DEBUG.println(moveAngle);
+
+    //   drive->prepareDrive(moveAngle, STRIKER_SPD);
+    // }
+  // }
+
+  // delay(1000);
+  // DEBUG.println("==========");
 }
 
 

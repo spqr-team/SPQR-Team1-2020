@@ -37,11 +37,9 @@ void loop() {
   updateSensors();
   if(DEBUG.available()) testmenu->testMenu();
   
-  // striker_test->play(1);
   striker->play(1);
-  // keeper->play(1);
-
-  // drive->prepareDrive(0, 100,0);
+  // striker_test->play(1);
+  // keeper->play(role==0);
 
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  
