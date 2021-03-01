@@ -5,8 +5,8 @@
 //Note: those variables can be changes, and will need to change depending on camera calibration
 
 //Camera center: those setpoints correspond to the center of the field
-#define CAMERA_CENTER_X -10
-#define CAMERA_CENTER_Y 20
+#define CAMERA_CENTER_X -0
+#define CAMERA_CENTER_Y 0
 
 //Camera goal: those setpoints correspond to the position of the center of the goal on the field
 #define CAMERA_GOAL_X 10
