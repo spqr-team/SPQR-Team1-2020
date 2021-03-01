@@ -37,6 +37,8 @@ void loop() {
   updateSensors();
   if(DEBUG.available()) testmenu->testMenu();
   
+  // drive->prepareDrive(0,0,0);
+
   striker->play(1);
   // striker_test->play(1);
   // keeper->play(role==0);

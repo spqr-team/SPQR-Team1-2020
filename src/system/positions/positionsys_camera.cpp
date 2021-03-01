@@ -118,7 +118,7 @@ void PositionSysCamera::CameraPID(){
         dir = (dir+360) % 360;
 
         int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
-        int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, 80);
+        int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, 350);
         drive->prepareDrive(dir, speed, 0);
 
 

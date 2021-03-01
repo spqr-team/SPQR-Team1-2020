@@ -7,114 +7,32 @@ Motor::Motor(int a, int b, int pwm, int angle_){
     this->pinB = b;
     this->pinPwm = pwm;
     this->angle = angle_;
-    this->oldSpeed = 0;
-    this->diff = 0;
-    this->micros_wait = 0;
+
+    filter = new ComplementaryFilter(0.8);
 
     pinMode(pinA, OUTPUT);
     pinMode(pinB, OUTPUT);
     pinMode(pinPwm, OUTPUT);
-    analogWriteFrequency(pinPwm, 15000);
+    analogWriteFrequency(pinPwm, 5000);
 }
 
 Motor::Motor(){ }
 
 void Motor::drive(int speed){
+    speed = filter->calculate(speed);
 
-    // Create a smooth transitioning between the old and new speed value, to avoid the motor drivers going into overcurrent protection
-    diff = abs(abs(speed) - abs(oldSpeed));
-
-    if(diff < 10) return;
-
-    micros_wait = (float)DRIVE_DURATION_MS/diff * 1000;
-    float micros_wait_half = micros_wait * 0.5;
-    
-    if(oldSpeed > 0 && speed > 0){
-        
+    if(speed > 0){
         digitalWriteFast(pinA, HIGH);
         digitalWriteFast(pinB, LOW);
-
-        if(oldSpeed < speed){
-            // Ramp up 
-            for(int i = oldSpeed; i < speed; i++){
-                analogWrite(pinPwm, i);
-            }
-            
-        } else if(oldSpeed > speed) {
-            // Slow down
-            for(int i = oldSpeed; i > speed; i--){
-                analogWrite(pinPwm, i);
-            }
-        }
-
-    }
-    else if(oldSpeed < 0 && speed < 0){
+    }else if(speed < 0){
         digitalWriteFast(pinA, LOW);
         digitalWriteFast(pinB, HIGH);
-
-        if(oldSpeed < speed){
-            // Ramp up 
-            for(int i = oldSpeed; i < speed; i++){
-                analogWrite(pinPwm, -i);
-            }
-            
-        } else if(oldSpeed > speed) {
-            // Slow down
-            for(int i = oldSpeed; i > speed; i--){
-                analogWrite(pinPwm, -i);
-            }
-
-        }
-
+        speed *= -1;
+    }else{
+        digitalWriteFast(pinA, LOW);
+        digitalWriteFast(pinB, LOW);
     }
-    else if(oldSpeed < 0 && speed > 0){
-
-        digitalWriteFast(pinA, LOW);
-        digitalWriteFast(pinB, HIGH);
-
-        for(int i = oldSpeed; i <= 0; i++){
-            analogWrite(pinPwm, -i);
-        }
-
-        digitalWriteFast(pinA, LOW);
-        digitalWriteFast(pinB, LOW);
-
-        delayMicroseconds(micros_wait);
-
-        digitalWriteFast(pinA, HIGH);
-        digitalWriteFast(pinB, LOW);
-
-        for(int i = 0; i < speed; i++){
-            analogWrite(pinPwm, i);
-        }
-
-    }else if(oldSpeed > 0 && speed < 0){
-
-        digitalWriteFast(pinA, HIGH);
-        digitalWriteFast(pinB, LOW);
-
-        for(int i = oldSpeed; i >= 0; i--){
-            analogWrite(pinPwm, i);
-            delayMicroseconds(micros_wait_half);
-        }
-
-
-        digitalWriteFast(pinA, LOW);
-        digitalWriteFast(pinB, LOW);
-
-        delayMicroseconds(micros_wait);
-
-        digitalWriteFast(pinA, LOW);
-        digitalWriteFast(pinB, HIGH);
-
-        for(int i = 0; i > speed; i--){
-            analogWrite(pinPwm, -i);
-            delayMicroseconds(micros_wait_half);
-        }
-
-    }
-
-    oldSpeed = speed;
+    analogWrite(pinPwm, speed);
 }
 
 void Motor::test(){

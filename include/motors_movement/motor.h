@@ -12,9 +12,11 @@ class Motor {
         Motor();
         void drive(int speed);
         void test();
-    
-    public:
-        int pinA, pinB, pinPwm, angle, oldSpeed, diff;
-        float micros_wait;
 
+    public:
+        int angle;
+
+    private:
+        int pinA, pinB, pinPwm;
+        ComplementaryFilter* filter;
 };

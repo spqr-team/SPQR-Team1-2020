@@ -4,7 +4,7 @@
 #include "sensors/sensors.h"
 #include "strategy_roles/game.h"
 
-#define STRIKER_ATTACK_DISTANCE 125
+#define STRIKER_ATTACK_DISTANCE 300
 #define STRIKER_PLUSANG 55
 #define STRIKER_PLUSANG_VISIONCONE 20
 
