@@ -58,7 +58,7 @@ void Striker::striker()
     dir = dir + 360; //se sto nel quadrante negativo ricappotto
   else
     dir = dir;
-  drive->prepareDrive(dir, 100, 0);
+  drive->prepareDrive(dir, MAX_VEL_EIGTH, 0);
 }
 
 void Striker::storcimentoPorta()
