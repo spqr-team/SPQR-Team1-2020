@@ -2,10 +2,14 @@
 
 #include "systems/systems.h"
 
-//Note: those variables can be changes, and will need to change depending on camera calibration
+/*Camera translation: because of mechanical imprecision, the center of the camera and the center of the cone mirror may not coincide
+To overcome this, each coordinate needs to be shifted by some amount, defined on a per-robot basis that needs to be recalibrated each time.
+These values need to be subtracted from the coords used in setMoveSetpoints*/
+#define CAMERA_TRANSLATION_X 0
+#define CAMERA_TRANSLATION_Y 12
 
-//Camera center: those setpoints correspond to the center of the field
-#define CAMERA_CENTER_X -0
+//Camera center: those setpoints correspond to what we consider the center of the field
+#define CAMERA_CENTER_X 0
 #define CAMERA_CENTER_Y 0
 
 //Camera goal: those setpoints correspond to the position of the center of the goal on the field
