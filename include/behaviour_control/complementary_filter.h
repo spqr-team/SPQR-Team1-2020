@@ -1,3 +1,5 @@
+#pragma once
+
 #include "vars.h"
 
 class ComplementaryFilter{
