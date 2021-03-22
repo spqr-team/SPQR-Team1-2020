@@ -70,18 +70,19 @@ void DriveController::drive(int dir, int speed, int tilt){
     // Re enabling the below lines requires to comment out drive->prepareDrive and uncommenting the lines relative to vector sum inside positionsys_camera and comment out the other lines here
     // vx = ((speed * cosins[dir])) + CURRENT_DATA_READ.addvx;
     // vy = ((-speed * sins[dir])) + CURRENT_DATA_READ.addvy;
+
     vx = ((speed * cosins[dir]));
     vy = ((-speed * sins[dir]));
 
-    if((((vy < 0 && vxn == 1) || (vy > 0 && vxp == 1) || (vx < 0 && vyp == 1) || (vx > 0 && vyn == 1)) && canUnlock) || (millis() > this->unlockTime+UNLOCK_THRESH)) {
-        vxn = 0;
-        vxp = 0;
-        vyp = 0;
-        vyn = 0;
-    }
+    // if((((vy < 0 && vxn == 1) || (vy > 0 && vxp == 1) || (vx < 0 && vyp == 1) || (vx > 0 && vyn == 1)) && canUnlock) || (millis() > this->unlockTime+UNLOCK_THRESH)) {
+    //     vxn = 0;
+    //     vxp = 0;
+    //     vyp = 0;
+    //     vyn = 0;
+    // }
 
-    if((vy > 0 && vxn == 1) || (vy < 0 && vxp == 1)) vy = 0;
-    if((vx > 0 && vyp == 1) || (vx < 0 && vyn == 1)) vx = 0; 
+    // if((vy > 0 && vxn == 1) || (vy < 0 && vxp == 1)) vy = 0;
+    // if((vx > 0 && vyp == 1) || (vx < 0 && vyn == 1)) vx = 0; 
 
     speed1 = ((vx * sins[m1->angle] ) + (vy * cosins[m1->angle] ));
     speed2 = ((vx * sins[m2->angle]) + (vy * cosins[m2->angle]));
@@ -102,6 +103,34 @@ void DriveController::drive(int dir, int speed, int tilt){
     speed2 += pidfactor;
     speed3 += pidfactor;
     speed4 += pidfactor;
+
+    // Find the maximum speed and scale all of them for the maximum to be 255
+    float maxVel = 0;
+    maxVel = max(abs(speed1), maxVel);
+    maxVel = max(abs(speed2), maxVel);
+    maxVel = max(abs(speed3), maxVel);
+    maxVel = max(abs(speed4), maxVel);
+
+    if(maxVel > 255){
+        // Ratio to 255
+        float ratio = maxVel/255;
+
+        // //Scale all the velocities
+        speed1 /= ratio;
+        speed2 /= ratio;
+        speed3 /= ratio;
+        speed4 /= ratio;
+
+        DEBUG.print(speed1);
+        DEBUG.print(" | ");
+        DEBUG.print(speed2);
+        DEBUG.print(" | ");
+        DEBUG.print(speed3);
+        DEBUG.print(" | ");
+        DEBUG.print(speed4);
+        DEBUG.print(" | ");
+        DEBUG.println(maxVel);  
+    }
 
     speed1 = constrain(speed1, -255, 255);
     speed2 = constrain(speed2, -255, 255);

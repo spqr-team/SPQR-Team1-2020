@@ -10,6 +10,9 @@
 
 TestMenu* testmenu;
 
+bool striker_condition = false;
+bool keeper_condition = false;
+
 void setup() {
   delay(1500);
   DEBUG.begin(9600);
@@ -37,11 +40,11 @@ void loop() {
   updateSensors();
   if(DEBUG.available()) testmenu->testMenu();
   
-  // drive->prepareDrive(0,0,0);
+  striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
+  keeper_condition = role == LOW;
 
-  striker->play(1);
-  // striker_test->play(1);
-  // keeper->play(role==0);
+  striker->play(striker_condition);
+  keeper->play(keeper_condition);
 
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  

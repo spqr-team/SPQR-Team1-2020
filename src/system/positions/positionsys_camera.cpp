@@ -77,16 +77,15 @@ void PositionSysCamera::addMoveOnAxis(int x, int y){
     axisx += x;
     axisy += y;
     givenMovement = true;
+    CameraPID();
 }
 
 void PositionSysCamera::goCenter(){
     setMoveSetpoints(CAMERA_CENTER_X, CAMERA_CENTER_Y);
-    CameraPID();
 }
 
 void PositionSysCamera::centerGoal(){
     setMoveSetpoints(CAMERA_GOAL_X, CAMERA_GOAL_Y);
-    CameraPID();
 }
 
 /*Knowing the sum of the absolute values of the y position of the goals, it calculates the missing goal y knowing the other one
@@ -119,6 +118,7 @@ void PositionSysCamera::CameraPID(){
 
         int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
         int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0,  MAX_VEL);
+        speed = speed > 25 ? speed : 0;
         drive->prepareDrive(dir, speed, 0);
 
 

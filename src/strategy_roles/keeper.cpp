@@ -7,6 +7,8 @@
 #include "systems/position/positionsys_camera.h"
 #include <Arduino.h>
 
+int currentPosition = 0;
+
 Keeper::Keeper() : Game()
 {
     init();
@@ -18,7 +20,7 @@ Keeper::Keeper(LineSystem *ls_, PositionSystem *ps_) : Game(ls_, ps_)
 
 void Keeper::init()
 {
-    point_spacing = (abs(CAMERA_GOAL_MIN_X) + abs(CAMERA_GOAL_MAX_X)) / KEEPER_N_POINTS;
+    shouldStrike = false;
 }
 
 void Keeper::realPlay()
@@ -31,15 +33,23 @@ void Keeper::realPlay()
 
 void Keeper::keeper()
 {
-    //Convert Ball position into a coordinate in the Camera Position Sys plane
-    float ball_x = cos((-90 + CURRENT_DATA_READ.ballAngle) * 3.14 / 180);
-    // Remap between GOAL positions
-    ball_x = (int)map(ball_x, -1, 1, CAMERA_GOAL_MIN_X, CAMERA_GOAL_MAX_X);
+    shouldStrike = false;
 
-    // for (int i = CAMERA_GOAL_MIN_X; i <= CAMERA_GOAL_MAX_X; i += point_spacing)
-    //     if (ball_x < i)
-    //     {
-            ((PositionSysCamera *)ps)->setMoveSetpoints(ball_x, CAMERA_GOAL_Y);
-        //     break;
-        // }
+    if(CURRENT_DATA_READ.ballDistance < KEEPER_ATTACK_DISTANCE || (CURRENT_DATA_READ.ballAngle >= 90 && CURRENT_DATA_READ.ballAngle <= 270)){
+        shouldStrike = true;
+        return;
+    }
+    
+    if(CURRENT_DATA_READ.ballAngle >= 330 || CURRENT_DATA_READ.ballAngle <= 30) currentPosition = currentPosition; //Unneeded, just here for clarity
+    else if(CURRENT_DATA_READ.ballAngle > 30 && CURRENT_DATA_READ.ballAngle < 90) currentPosition ++;
+    else if(CURRENT_DATA_READ.ballAngle > 270 && CURRENT_DATA_READ.ballAngle < 330) currentPosition --;
+    else{
+        shouldStrike = true;
+    }
+
+    currentPosition = constrain(currentPosition, KEEPER_POINT_LEFT, KEEPER_POINT_RIGHT);
+
+    if(currentPosition == KEEPER_POINT_LEFT) ((PositionSysCamera*)ps)->setMoveSetpoints(KEEPER_POINT_LEFT_C, CAMERA_GOAL_Y);
+    else if(currentPosition == KEEPER_POINT_CENTER) ((PositionSysCamera*)ps)->setMoveSetpoints(KEEPER_POINT_CENTER_C, CAMERA_GOAL_Y);
+    else if(currentPosition == KEEPER_POINT_RIGHT) ((PositionSysCamera*)ps)->setMoveSetpoints(KEEPER_POINT_RIGHT_C, CAMERA_GOAL_Y);
 }

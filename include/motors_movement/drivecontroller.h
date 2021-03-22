@@ -18,11 +18,11 @@
 
 #define UNLOCK_THRESH 800
 
-#define MAX_VEL 310
-#define MAX_VEL_EIGTH 248
-#define MAX_VEL_HALF 155
-#define MAX_VEL_3QUARTERS 232
-#define MAX_VEL_QUARTER 78
+#define MAX_VEL 150
+#define MAX_VEL_EIGTH 120
+#define MAX_VEL_HALF 75
+#define MAX_VEL_3QUARTERS 112
+#define MAX_VEL_QUARTER 38
 
 class DriveController{
 

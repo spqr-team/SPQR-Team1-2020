@@ -16,7 +16,7 @@
 #define S4I A9
 #define S4O A8
 
-#define LINE_THRESH_CAM 600
+#define LINE_THRESH_CAM 300
 #define EXIT_TIME 250
 #define LINES_EXIT_SPD 350
 
