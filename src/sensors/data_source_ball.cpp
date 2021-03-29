@@ -13,10 +13,14 @@ void DataSourceBall :: postProcess(){
       distance = value;
       ballSeen = distance == 255 ? 0 : 1;
   }else{ 
-    angle = value * 2; 
+    angle = value * 2;
+    int imuAngle = CURRENT_DATA_READ.IMUAngle > 180 ? 360 -CURRENT_DATA_READ.IMUAngle : CURRENT_DATA_READ.IMUAngle;
+    int ballAngle = angle > 180 ? 360 -angle : angle;
+    angleFix = (ballAngle-imuAngle+360)%360;
   }
   CURRENT_INPUT_WRITE.ballByte = value;
   CURRENT_DATA_WRITE.ballAngle = angle;
+  CURRENT_DATA_WRITE.ballAngleFix = angleFix;
   CURRENT_DATA_WRITE.ballDistance = distance;
   CURRENT_DATA_WRITE.ballSeen = ballSeen;
 }
@@ -25,6 +29,8 @@ void DataSourceBall :: test(){
     this->update();
     // if(ballSeen){
     DEBUG.print(angle); 
+    DEBUG.print(" | ");
+    DEBUG.print(angleFix); 
     DEBUG.print(" | ");
     DEBUG.print(distance); 
     DEBUG.print(" | ");
