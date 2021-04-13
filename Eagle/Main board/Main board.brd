@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.6.2">
+<eagle version="9.5.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="0.000123031496" altunitdist="mil" altunit="mil"/>
@@ -185,7 +185,7 @@
 <layer number="255" name="routoute" color="7" fill="1" visible="no" active="yes"/>
 </layers>
 <board>
-<fusionsync huburn="a.cGVyc29uYWw6dWUyYTc1MWNh" projecturn="a.cGVyc29uYWw6dWUyYTc1MWNhIzIwMTgwMjE0MTE4MDA5Mzgx" f3durn="urn:adsk.wipprod:dm.lineage:VlYNU-ziQjyjoO-Cle67Jw" pcbguid="1e0b579e-3d1c-4bf5-8494-a54abdb96f0a" lastpulledtime="" lastsyncedchangeguid="6af248da-c338-5362-de9b-806c3488a461" latestrevisionid="" lastsyncedrevisionid="" lastboardhashguid="" lastpushedtime="" linktopcb3d="false"/>
+<fusionsync huburn="a.cGVyc29uYWw6dWUyYTc1MWNh" projecturn="a.cGVyc29uYWw6dWUyYTc1MWNhIzIwMTgwMjE0MTE4MDA5Mzgx" f3durn="urn:adsk.wipprod:dm.lineage:VlYNU-ziQjyjoO-Cle67Jw" pcbguid="1e0b579e-3d1c-4bf5-8494-a54abdb96f0a" lastpulledtime="" lastsyncedchangeguid="6af248da-c338-5362-de9b-806c3488a461"/>
 <plain>
 <circle x="0" y="0" radius="80" width="0.0254" layer="20"/>
 <circle x="0" y="0" radius="75" width="0.0254" layer="21"/>
@@ -10294,7 +10294,7 @@ JLC7628 Stackup
 <attribute name="VALUE" x="-36.83" y="-67.31" size="1.27" layer="27"/>
 </element>
 <element name="CB4" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0805" package3d_urn="urn:adsk.eagle:package:23617/2" value="0.1uF" x="10.16" y="67.31" smashed="yes" rot="MR270">
-<attribute name="NAME" x="6.35" y="68.834" size="1.27" layer="26" rot="MR270"/>
+<attribute name="NAME" x="12.7" y="68.834" size="1.27" layer="26" rot="MR270"/>
 <attribute name="POPULARITY" value="88" x="10.16" y="67.31" size="1.778" layer="28" rot="MR270" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="123.19" y="-40.64" size="1.778" layer="28" rot="MR270" display="off"/>
 <attribute name="VALUE" x="12.7" y="68.58" size="1.27" layer="28" rot="MR270"/>
@@ -10560,7 +10560,7 @@ JLC7628 Stackup
 <attribute name="VALUE" x="-34.925" y="-59.69" size="1.27" layer="27" rot="R180"/>
 </element>
 <element name="RB4" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="22" x="7.62" y="67.31" smashed="yes" rot="MR90">
-<attribute name="NAME" x="11.43" y="65.786" size="1.27" layer="26" rot="MR90"/>
+<attribute name="NAME" x="5.08" y="65.786" size="1.27" layer="26" rot="MR90"/>
 <attribute name="POPULARITY" value="86" x="7.62" y="67.31" size="1.778" layer="28" rot="MR90" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="-113.03" y="102.87" size="1.778" layer="28" rot="MR90" display="off"/>
 <attribute name="VALUE" x="5.08" y="66.675" size="1.27" layer="28" rot="MR90"/>
