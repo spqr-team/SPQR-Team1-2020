@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.5.2">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="25" altunitdist="mil" altunit="mil"/>
+<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="0.000123031496" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="14" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="no"/>
@@ -185,7 +185,7 @@
 <layer number="255" name="routoute" color="7" fill="1" visible="no" active="yes"/>
 </layers>
 <board>
-<fusionsync huburn="a.cGVyc29uYWw6dWUyYTc1MWNh" projecturn="a.cGVyc29uYWw6dWUyYTc1MWNhIzIwMTgwMjE0MTE4MDA5Mzgx" f3durn="urn:adsk.wipprod:dm.lineage:VlYNU-ziQjyjoO-Cle67Jw" pcbguid="1e0b579e-3d1c-4bf5-8494-a54abdb96f0a" lastpulledtime="" lastsyncedchangeguid="6af248da-c338-5362-de9b-806c3488a461"/>
+<fusionsync huburn="a.cGVyc29uYWw6dWUyYTc1MWNh" projecturn="a.cGVyc29uYWw6dWUyYTc1MWNhIzIwMTgwMjE0MTE4MDA5Mzgx" f3durn="urn:adsk.wipprod:dm.lineage:VlYNU-ziQjyjoO-Cle67Jw" pcbguid="1e0b579e-3d1c-4bf5-8494-a54abdb96f0a" lastpulledtime="" lastsyncedchangeguid="6af248da-c338-5362-de9b-806c3488a461" latestrevisionid="" lastsyncedrevisionid="" lastboardhashguid="" lastpushedtime="" linktopcb3d="false"/>
 <plain>
 <circle x="0" y="0" radius="80" width="0.0254" layer="20"/>
 <circle x="0" y="0" radius="75" width="0.0254" layer="21"/>
@@ -12232,11 +12232,9 @@ JLC7628 Stackup
 <signal name="SP11">
 <contactref element="S11" pad="1"/>
 <contactref element="IC6" pad="32"/>
-<wire x1="-51.28995" y1="-54.88205" x2="-50.292" y2="-53.8841" width="0.254" layer="1"/>
 <wire x1="43.84" y1="-3.2" x2="50.08" y2="-3.2" width="0.254" layer="1"/>
-<wire x1="-50.292" y1="-53.8841" x2="-50.292" y2="-52.578" width="0.254" layer="1"/>
-<wire x1="-50.292" y1="-52.578" x2="-66.294" y2="-36.576" width="0.254" layer="1"/>
-<wire x1="-66.294" y1="-36.576" x2="-66.294" y2="-26.924" width="0.254" layer="1"/>
+<wire x1="-50.449084375" y1="-53.690915625" x2="-66.294" y2="-37.846" width="0.254" layer="1"/>
+<wire x1="-66.294" y1="-37.846" x2="-66.294" y2="-26.924" width="0.254" layer="1"/>
 <wire x1="-66.294" y1="-26.924" x2="-71.882" y2="-21.336" width="0.254" layer="1"/>
 <wire x1="-71.882" y1="-21.336" x2="-71.882" y2="18.542" width="0.254" layer="1"/>
 <wire x1="-71.882" y1="18.542" x2="-63.5" y2="26.924" width="0.254" layer="1"/>
@@ -12248,6 +12246,8 @@ JLC7628 Stackup
 <wire x1="18.542" y1="69.85" x2="43.434" y2="44.958" width="0.254" layer="1"/>
 <wire x1="43.434" y1="44.958" x2="43.434" y2="-2.794" width="0.254" layer="1"/>
 <wire x1="43.434" y1="-2.794" x2="43.84" y2="-3.2" width="0.254" layer="1"/>
+<wire x1="-50.449084375" y1="-53.690915625" x2="-50.449084375" y2="-54.041184375" width="0.254" layer="1"/>
+<wire x1="-50.449084375" y1="-54.041184375" x2="-51.28995" y2="-54.88205" width="0.254" layer="1"/>
 </signal>
 <signal name="SP12">
 <contactref element="S12" pad="1"/>
