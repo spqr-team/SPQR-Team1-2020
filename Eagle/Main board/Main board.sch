@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.05" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -22007,7 +22007,7 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <part name="R33" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2"/>
 <part name="MOT" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="CHIPLED_1206" package3d_urn="urn:adsk.eagle:package:15823/2"/>
 <part name="R34" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2"/>
-<part name="ELECT" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="CHIPLED_1206" package3d_urn="urn:adsk.eagle:package:15823/2"/>
+<part name="LD_ELECT" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="CHIPLED_1206" package3d_urn="urn:adsk.eagle:package:15823/2"/>
 <part name="R35" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-EU_" device="R0805" package3d_urn="urn:adsk.eagle:package:23553/2"/>
 <part name="BALL" library="CONNECTER" deviceset="TWIG_2.0" device=""/>
 <part name="+3V22" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -22842,7 +22842,7 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <attribute name="NAME" x="260.1214" y="143.51" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="259.842" y="142.24" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="ELECT" gate="G$1" x="408.94" y="21.59" smashed="yes">
+<instance part="LD_ELECT" gate="G$1" x="408.94" y="21.59" smashed="yes">
 <attribute name="NAME" x="412.496" y="11.938" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="414.655" y="17.018" size="1.778" layer="96" rot="R90"/>
 </instance>
@@ -23780,7 +23780,7 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <wire x1="373.38" y1="45.72" x2="373.38" y2="12.7" width="0.1524" layer="91"/>
 <wire x1="408.94" y1="12.7" x2="403.86" y2="12.7" width="0.1524" layer="91"/>
 <junction x="403.86" y="12.7"/>
-<pinref part="ELECT" gate="G$1" pin="C"/>
+<pinref part="LD_ELECT" gate="G$1" pin="C"/>
 <wire x1="408.94" y1="16.51" x2="408.94" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -25180,7 +25180,7 @@ Source: &lt;a href="https://www.molex.com/pdm_docs/sd/436500201_sd.pdf"&gt; Data
 <net name="N$26" class="0">
 <segment>
 <pinref part="R35" gate="G$1" pin="1"/>
-<pinref part="ELECT" gate="G$1" pin="A"/>
+<pinref part="LD_ELECT" gate="G$1" pin="A"/>
 <wire x1="408.94" y1="29.21" x2="408.94" y2="24.13" width="0.1524" layer="91"/>
 </segment>
 </net>
