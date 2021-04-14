@@ -40,9 +40,9 @@ void Keeper::keeper()
         return;
     }
     
-    if(CURRENT_DATA_READ.ballAngle >= 330 || CURRENT_DATA_READ.ballAngle <= 30) currentPosition = currentPosition; //Unneeded, just here for clarity
-    else if(CURRENT_DATA_READ.ballAngle > 30 && CURRENT_DATA_READ.ballAngle < 90) currentPosition ++;
-    else if(CURRENT_DATA_READ.ballAngle > 270 && CURRENT_DATA_READ.ballAngle < 330) currentPosition --;
+    if(CURRENT_DATA_READ.ballAngle >= 340 || CURRENT_DATA_READ.ballAngle <= 20) currentPosition = currentPosition; //Unneeded, just here for clarity
+    else if(CURRENT_DATA_READ.ballAngle > 20 && CURRENT_DATA_READ.ballAngle < 90) currentPosition ++;
+    else if(CURRENT_DATA_READ.ballAngle > 270 && CURRENT_DATA_READ.ballAngle < 340) currentPosition --;
     else{
         shouldStrike = true;
     }
