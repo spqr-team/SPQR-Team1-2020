@@ -4,9 +4,9 @@
 #include "sensors/sensors.h"
 #include "strategy_roles/game.h"
 
-#define STRIKER_ATTACK_DISTANCE 300
+#define STRIKER_ATTACK_DISTANCE 100
 #define STRIKER_PLUSANG 55
-#define STRIKER_PLUSANG_VISIONCONE 20
+#define STRIKER_PLUSANG_VISIONCONE 10
 
 class Striker : public Game{
 
@@ -18,11 +18,12 @@ class Striker : public Game{
         void realPlay() override;
         void init() override;
         void striker();
-        void ballBack(); 
-        void storcimentoPorta();
+        int tilt();
 
-        int atk_speed, atk_direction;
+        int atk_speed, atk_direction, atk_tilt;
         float cstorc;
+
+        ComplementaryFilter* filter;
 
     
 };

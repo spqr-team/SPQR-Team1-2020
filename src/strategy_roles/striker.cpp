@@ -20,7 +20,10 @@ void Striker::init()
 {
   atk_speed = 0;
   atk_direction = 0;
+  atk_tilt = 0;
   cstorc = 0;
+
+  filter = new ComplementaryFilter(0.7);
 }
 
 void Striker::realPlay()
@@ -37,10 +40,9 @@ void Striker::striker()
 
   if (CURRENT_DATA_READ.ballDistance > STRIKER_ATTACK_DISTANCE)
   {
-    drive->prepareDrive(ball_deg > 180 ? CURRENT_DATA_READ.ballAngle - 10 : CURRENT_DATA_READ.ballAngle + 10, 100, 0);
+    drive->prepareDrive(ball_deg > 180 ? CURRENT_DATA_READ.ballAngle - 20 : CURRENT_DATA_READ.ballAngle + 20, MAX_VEL_EIGTH, 0);
     return;
   }
-  
 
   if (ball_deg > 340 || ball_deg < 20)
     plusang -= STRIKER_PLUSANG_VISIONCONE; //se ho la palla in un range di +-20 davanti, diminuisco di 20 il plus
@@ -58,9 +60,17 @@ void Striker::striker()
     dir = dir + 360; //se sto nel quadrante negativo ricappotto
   else
     dir = dir;
-  drive->prepareDrive(dir, MAX_VEL_EIGTH, 0);
+
+  drive->prepareDrive(dir, MAX_VEL_QUARTER, tilt());
 }
 
-void Striker::storcimentoPorta()
+int Striker::tilt()
 {
+  if (!CURRENT_DATA_READ.atkSeen) return 0;
+  if (CURRENT_DATA_READ.ballAngleFix >= 350 || CURRENT_DATA_READ.ballAngleFix <= 10)
+    atk_tilt =  (constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45) + 360) % 360;
+  else if((CURRENT_DATA_READ.ballAngleFix > 345 && CURRENT_DATA_READ.ballAngleFix < 350) || (CURRENT_DATA_READ.ballAngleFix > 10 && CURRENT_DATA_READ.ballAngleFix < 15))
+    atk_tilt = 0;
+  atk_tilt = filter->calculate(atk_tilt);
+  return atk_tilt;
 }
