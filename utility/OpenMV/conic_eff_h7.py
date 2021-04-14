@@ -45,8 +45,9 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (41, 68, 0, 30, 42, 103),    # thresholds yellow goal
-                (30, 50, -16, 12, -53, -15)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (48, 73, -15, 15, 29, 79),    # thresholds yellow goal
+                (12, 43, -15, 15, -41, -9)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+
 
 roi = (50,5,250, 230)
 
@@ -71,7 +72,7 @@ sensor.set_contrast(0)
 sensor.set_saturation(3)
 sensor.set_brightness(1)
 sensor.set_auto_whitebal(True)
-sensor.set_auto_exposure(False, 2500)
+sensor.set_auto_exposure(False, 6576)
 sensor.set_auto_gain(True)
 sensor.skip_frames(time = 300)
 
@@ -81,6 +82,8 @@ clock = time.clock()
 
 while(True):
     clock.tick()
+
+    print("Exposure: " + str(sensor.get_exposure_us()) + " Gain: " + str(sensor.get_gain_db()) + "White Bal: " + str(sensor.get_rgb_gain_db()))
 
     blue_led.off()
 
@@ -151,11 +154,33 @@ while(True):
     s_bcx = b_cx
     s_bcy = b_cy
 
-    index = 1
+    if b_found == True:
+        for i in range(nb-1, 0,-1):
+            b_area, b1_cx, b1_cy, b_code = tt_blue[i]
+            if (not y_found) or ((isInRightSide(img, b1_cx) and isInLeftSide(img, y1_cx)) or (isInRightSide(img, y1_cx) and isInLeftSide(img, b1_cx))):
+
+                img.draw_cross(b1_cx, b1_cy)
+
+                b_cx = int(b1_cy - img.height() / 2)
+                b_cy = int(img.width() / 2 - b1_cx)
+
+                #print("before :" + str(b_cx) + " " + str(b_cy))
+
+                b_cx = val_map(b_cx, -img.height() / 2, img.height() / 2, 100, 0)
+                b_cy = val_map(b_cy, -img.width() / 2, img.width() / 2, 0, 100)
+
+                #print("after :" + str(b_cx) + " " + str(b_cy))
+
+                #Prepare for send as a list of characters
+                s_bcx = chr(b_cx)
+                s_bcy = chr(b_cy)
+
+    '''index = 1
     if b_found == True:
         while nb-index >= 0:
             b_area, b1_cx, b1_cy, b_code = tt_blue[nb-index]
 
+            index += 1
             # If the two blobs are on opposide side of the field, everything is good
             if (not y_found) or ((isInRightSide(img, b1_cx) and isInLeftSide(img, y1_cx)) or (isInRightSide(img, y1_cx) and isInLeftSide(img, b1_cx))):
 
@@ -164,17 +189,25 @@ while(True):
                 b_cx = int(b1_cy - img.height() / 2)
                 b_cy = int(img.width() / 2 - b1_cx)
 
+                print("before :" + str(b_cx) + " " + str(b_cy))
                 b_cx = val_map(b_cx, -img.height() / 2, img.height() / 2, 100, 0)
                 b_cy = val_map(b_cy, -img.width() / 2, img.width() / 2, 0, 100)
+
+                print("after :" + str(b_cx) + " " + str(b_cy))
 
                 #Prepare for send as a list of characters
                 s_bcx = chr(b_cx)
                 s_bcy = chr(b_cy)
 
                 break
-            index += 1
+    else:
+        b_cx = BYTE_UNKNOWN
+        b_cy = BYTE_UNKNOWN
+        #Prepare for send as a list of characters
+        s_bcx = b_cx
+        s_bcy = b_cy'''
 
-    print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
+    #print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
 
     uart.write(START_BYTE)
     uart.write(s_bcx)
