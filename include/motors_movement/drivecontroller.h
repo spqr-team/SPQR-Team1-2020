@@ -18,11 +18,13 @@
 
 #define UNLOCK_THRESH 800
 
+//Max possible vel 310
+
 #define MAX_VEL 150
-#define MAX_VEL_EIGTH 120
-#define MAX_VEL_HALF 75
-#define MAX_VEL_3QUARTERS 112
-#define MAX_VEL_QUARTER 38
+#define MAX_VEL_EIGTH ((int)MAX_VEL*0.8)
+#define MAX_VEL_HALF ((int)MAX_VEL*0.5)
+#define MAX_VEL_3QUARTERS ((int)MAX_VEL*0.75)
+#define MAX_VEL_QUARTER ((int)MAX_VEL*0.25)
 
 class DriveController{
 
@@ -35,6 +37,7 @@ class DriveController{
         void drivePrepared();
         float updatePid();
         float torad(float f);
+        void resetDrive();
 
         int vxp, vyp, vxn, vyn;
         bool canUnlock;

@@ -15,7 +15,7 @@ bool keeper_condition = false;
 
 void setup() {
   delay(1500);
-  DEBUG.begin(9600);
+  DEBUG.begin(115200);
     
   for(int i = 0; i < 360; i++){
       sins[i] = (float) sin((i*3.14/180));
@@ -38,13 +38,16 @@ void setup() {
 
 void loop() {
   updateSensors();
-  if(DEBUG.available()) testmenu->testMenu();
+
+  drive->resetDrive();
   
   striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
   keeper_condition = role == LOW;
 
   striker->play(striker_condition);
   keeper->play(keeper_condition);
+
+  testmenu->testMenu();
 
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  
