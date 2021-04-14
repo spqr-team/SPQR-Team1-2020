@@ -2,6 +2,7 @@
 
 ComplementaryFilter::ComplementaryFilter(float k){
     this->K = k;
+    this->oldVal = 0;
 }
 
 float result;
