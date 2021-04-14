@@ -5,6 +5,6 @@
 class TestMenu{
     public:
         void testMenu();
-        char testNum, currentRole;
+        char testNum;
         bool flagtest;
 };
