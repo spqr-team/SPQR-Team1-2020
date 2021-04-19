@@ -135,7 +135,7 @@ void DataSourceCameraConic ::computeCoordsAngles() {
     CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.bSeen;
   } else {
     CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.bAngle;
-    CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
+    CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.bAngleFix;
     CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.bSeen;
     CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.yAngle;
     CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.yAngleFix;
@@ -144,7 +144,6 @@ void DataSourceCameraConic ::computeCoordsAngles() {
 }
 
 void DataSourceCameraConic::test(){
-  goalOrientation = digitalRead(SWITCH_2); //se HIGH attacco gialla, difendo blu
   update();
   DEBUG.print("Blue: Angle: ");
   DEBUG.print(bAngle);
