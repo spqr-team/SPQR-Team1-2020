@@ -79,7 +79,17 @@ void TestMenu::testMenu()
         case '8':
             DEBUG.println("Camera tilt Test");
             drive->resetDrive();
-            drive->prepareDrive(0, 0, (CURRENT_DATA_READ.angleAtkFix + 360) % 360);
+            drive->prepareDrive(0, 0, CURRENT_DATA_READ.angleAtkFix);
+            break;
+        case '9':
+            DEBUG.println("Switches as seen from behind:");
+            DEBUG.print("Right switch (role): ");
+            DEBUG.println(role);
+            DEBUG.print("Left switch (goalOrientation): ");
+            DEBUG.println(camera->goalOrientation);
+            DEBUG.print("Robot Identifier: ");
+            DEBUG.println(robot_indentifier);
+            delay(50);
             break;
         case 'u':
             DEBUG.println("32u4 receive Test");
@@ -118,6 +128,7 @@ void TestMenu::testMenu()
             DEBUG.println("6)Camera test");
             DEBUG.println("7)Line Sensors camera test");
             DEBUG.println("8)Camera tilt test");
+            DEBUG.println("9)Switches test");
             DEBUG.println("u)Read Serial messages from 32u4");
             DEBUG.println("s)Send test to 32u4 status LEDs");
             flagtest = false;

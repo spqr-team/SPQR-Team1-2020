@@ -36,3 +36,4 @@ s_extr DriveController* drive;
 s_extr DataSourceBT* bt;
 
 s_extr int role;
+s_extr int robot_indentifier;

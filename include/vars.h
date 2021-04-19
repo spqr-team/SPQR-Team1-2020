@@ -14,8 +14,8 @@ the new setup is the one commented, leds have to be written
 in the 32U4 code*/
 
 #define BUZZER 6
-#define SWITCH_1 39
-#define SWITCH_2 38
-#define SWITCH_3 33
+#define SWITCH_SX 39
+#define SWITCH_DX 38
+#define SWITCH_ID 33
 
 extr float sins[360], cosins[360];

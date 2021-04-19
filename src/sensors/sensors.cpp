@@ -2,8 +2,9 @@
 #include "sensors/sensors.h"
 
 void initSensors(){
-    pinMode(SWITCH_1, INPUT);
-    pinMode(SWITCH_2, INPUT);
+    pinMode(SWITCH_DX, INPUT);
+    pinMode(SWITCH_SX, INPUT);
+    pinMode(SWITCH_ID, INPUT);
     
     drive = new DriveController(new Motor(12, 11, 4, 55), new  Motor(25, 24, 5, 135), new Motor(27, 26, 2, 225), new Motor(29, 28, 3, 305));
         //drive = new DriveController(new Motor(12, 11, 2, 45),new  Motor(25, 24, 5, 135), new Motor(27, 26, 6, 225), new Motor(21, 22, 23, 315));
@@ -17,8 +18,9 @@ void initSensors(){
  }
 
 void updateSensors(){
-    role = digitalRead(SWITCH_1);
-    camera->goalOrientation = digitalRead(SWITCH_2);
+    role = digitalRead(SWITCH_DX);
+    camera->goalOrientation = digitalRead(SWITCH_SX);
+    robot_indentifier = digitalRead(SWITCH_ID);
     
     compass->update();
     ball->update();
