@@ -1,6 +1,9 @@
 #include "behaviour_control/status_vector.h"
 #include "sensors/data_source_camera_conicmirror.h"
 
+//Comment out to disable complementary filters on angles
+#define CAMERA_CONIC_FILTER_POINTS
+
 DataSourceCameraConic::DataSourceCameraConic(HardwareSerial *ser_, int baud) : DataSource(ser_, baud) {
   true_xb = 0;
   true_yb = 0;
@@ -27,6 +30,15 @@ DataSourceCameraConic::DataSourceCameraConic(HardwareSerial *ser_, int baud) : D
   true_yb_fixed = 0;
   true_xy_fixed = 0;
   true_yy_fixed = 0;
+
+  filter_yy = new ComplementaryFilter(FILTER_YY_COEFF);
+  filter_xy = new ComplementaryFilter(FILTER_YX_COEFF);
+  filter_yb = new ComplementaryFilter(FILTER_BY_COEFF);
+  filter_xb = new ComplementaryFilter(FILTER_BX_COEFF);
+  filter_yy_fix = new ComplementaryFilter(FILTER_YY_COEFF);
+  filter_xy_fix = new ComplementaryFilter(FILTER_YX_COEFF);
+  filter_yb_fix = new ComplementaryFilter(FILTER_BY_COEFF);
+  filter_xb_fix = new ComplementaryFilter(FILTER_BX_COEFF);
 }
 
 void DataSourceCameraConic ::readSensor() {
@@ -76,6 +88,13 @@ void DataSourceCameraConic ::computeCoordsAngles() {
   true_xy = 50 - true_xy;
   true_yy = true_yy - 50;
 
+  #ifdef CAMERA_CONIC_FILTER_POINTS
+  true_xb = filter_xb->calculate(true_xb);
+  true_yb = filter_yb->calculate(true_yb);
+  true_xy = filter_xy->calculate(true_xy);
+  true_yy = filter_yy->calculate(true_yy);
+  #endif
+
   //-90 + to account for phase shifting with goniometric circle
   yAngle = -90 + (atan2(true_yy, true_xy) * 180 / 3.14);
   bAngle = -90 + (atan2(true_yb, true_xb) * 180 / 3.14);
@@ -103,6 +122,13 @@ void DataSourceCameraConic ::computeCoordsAngles() {
 
   yAngleFix = 90 - (atan2(true_yy_fixed, true_xy_fixed) * 180 / 3.14);
   bAngleFix = 90 - (atan2(true_yb_fixed, true_xb_fixed) * 180 / 3.14);
+
+  #ifdef CAMERA_CONIC_FILTER_POINTS
+  true_xb_fixed = filter_xb_fix->calculate(true_xb_fixed);
+  true_yb_fixed = filter_yb_fix->calculate(true_yb_fixed);
+  true_xy_fixed = filter_xy_fix->calculate(true_xy_fixed);
+  true_yy_fixed = filter_yy_fix->calculate(true_yy_fixed);
+  #endif
 
   //Important: update status vector
   CURRENT_INPUT_WRITE.cameraByte = value;

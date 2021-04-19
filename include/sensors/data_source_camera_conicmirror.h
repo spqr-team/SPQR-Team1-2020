@@ -1,6 +1,7 @@
 #pragma once
 
 #include "behaviour_control/data_source.h"
+#include "behaviour_control/complementary_filter.h"
 
 #define startp 105
 #define endp 115
@@ -10,6 +11,12 @@
 #define HALF_MAP_MAX  50
 //Imu To Camera Angle Mult
 #define IMUTOC_AMULT 1
+
+#define FILTER_DEFAULT_COEFF 0.6
+#define FILTER_BY_COEFF FILTER_DEFAULT_COEFF
+#define FILTER_BX_COEFF FILTER_DEFAULT_COEFF
+#define FILTER_YY_COEFF FILTER_DEFAULT_COEFF
+#define FILTER_YX_COEFF FILTER_DEFAULT_COEFF
 
 class DataSourceCameraConic : public DataSource{
 
@@ -30,4 +37,6 @@ class DataSourceCameraConic : public DataSource{
 
         int goalOrientation, pAtk, pDef;
         int value;
+
+        ComplementaryFilter *filter_yy, *filter_xy, *filter_yb, *filter_xb, *filter_yy_fix, *filter_xy_fix, *filter_yb_fix, *filter_xb_fix;
 };

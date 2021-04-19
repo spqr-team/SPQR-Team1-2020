@@ -2,6 +2,7 @@
 #include "systems/position/positionsys_camera.h"
 #include "sensors/sensors.h"
 #include "vars.h"
+#include "math.h"
 
 PositionSysCamera::PositionSysCamera() {
     MAX_DIST = sqrt(MAX_X*MAX_X + MAX_Y*MAX_Y);
@@ -112,17 +113,18 @@ void PositionSysCamera::CameraPID(){
         Setpointy += axisy;
 
         X->Compute();
-        Y->Compute();   
+        Y->Compute();
         
         //Compute an X and Y to give to the PID later
         //There's surely a better way to do this
         int dir = -90-(atan2(Outputy,Outputx)*180/3.14);
         dir = (dir+360) % 360;
 
-        int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
+        int dist = sqrt( ( (CURRENT_DATA_WRITE.posx-Setpointx)*(CURRENT_DATA_WRITE.posx-Setpointx) ) + (CURRENT_DATA_WRITE.posy-Setpointy)*(CURRENT_DATA_WRITE.posy-Setpointy) );
+        // int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
         int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0,  MAX_VEL);
         speed = filterSpeed->calculate(speed);
-        speed = speed > 35 ? speed : 0;
+        speed = speed > 40 ? speed : 0;
         dir = filterDir->calculate(dir);
         // drive->prepareDrive(dir, speed, 0);
 

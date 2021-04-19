@@ -13,6 +13,8 @@
 #include "behaviour_control/data_source.h"
 #include "behaviour_control/status_vector.h"
 
+unsigned long timer = 0;
+
 void TestMenu::testMenu()
 {
     if (!(DEBUG.available() || flagtest))
@@ -90,6 +92,16 @@ void TestMenu::testMenu()
             DEBUG.print("Robot Identifier: ");
             DEBUG.println(robot_indentifier);
             delay(50);
+            break;
+        case 'p':
+            if(millis() - timer > 150){
+                timer = millis();
+                DEBUG.println("Position on the field (camera)");
+                DEBUG.print("X: ");
+                DEBUG.print(CURRENT_DATA_READ.posx);
+                DEBUG.print(" , Y: ");
+                DEBUG.println(CURRENT_DATA_READ.posy);
+            }
             break;
         case 'u':
             DEBUG.println("32u4 receive Test");

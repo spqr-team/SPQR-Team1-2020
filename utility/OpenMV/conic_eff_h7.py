@@ -45,11 +45,11 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (48, 73, -15, 15, 29, 79),    # thresholds yellow goal
-                (12, 43, -15, 15, -41, -9)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (54, 73, -4, 17, 18, 73),    # thresholds yellow goal
+                (36, 45, -7, 7, -35, -10)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 
-roi = (50,5,250, 230)
+roi = (80, 0, 240, 230)
 
 # Camera Setup ###############################################################
 '''sensor.reset()xxxx
@@ -69,7 +69,7 @@ sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
 sensor.set_windowing(roi)
 sensor.set_contrast(0)
-sensor.set_saturation(3)
+sensor.set_saturation(0)
 sensor.set_brightness(1)
 sensor.set_auto_whitebal(True)
 sensor.set_auto_exposure(False, 6576)
