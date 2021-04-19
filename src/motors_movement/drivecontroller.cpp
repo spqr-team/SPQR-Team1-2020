@@ -63,7 +63,7 @@ float DriveController::torad(float f){
 void DriveController::drive(int dir, int speed, int tilt){
 
     speed = speedFilter->calculate(speed)*GLOBAL_SPD_MULT;
-    tilt = tilt > 180 ? tilt - 360 : tilt;
+    //tilt = tilt > 180 ? tilt - 360 : tilt;
 
     //TODO: Changing CURRENT_DATA_READ to CURRENT_DATA_WRITE?
     // Disable vector sum because calculations are a bitty crappy imho. Will have to test if it's what makes the robot act strange with lines

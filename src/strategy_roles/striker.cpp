@@ -23,6 +23,8 @@ void Striker::init()
   atk_tilt = 0;
   cstorc = 0;
 
+  gotta_tilt = false;
+
   filter = new ComplementaryFilter(0.7);
 }
 
@@ -40,7 +42,7 @@ void Striker::striker()
 
   if (CURRENT_DATA_READ.ballDistance > STRIKER_ATTACK_DISTANCE)
   {
-    drive->prepareDrive(ball_deg > 180 ? CURRENT_DATA_READ.ballAngle - 20 : CURRENT_DATA_READ.ballAngle + 20, MAX_VEL_EIGTH, 0);
+    drive->prepareDrive(ball_deg > 180 ? CURRENT_DATA_READ.ballAngle - 20 : CURRENT_DATA_READ.ballAngle + 20, MAX_VEL_HALF, 0);
     return;
   }
 
@@ -61,16 +63,21 @@ void Striker::striker()
   else
     dir = dir;
 
-  drive->prepareDrive(dir, MAX_VEL_QUARTER, tilt());
+  drive->prepareDrive(dir, MAX_VEL_HALF, tilt());
 }
 
 int Striker::tilt()
 {
-  if (!CURRENT_DATA_READ.atkSeen) return 0;
-  if (CURRENT_DATA_READ.ballAngleFix >= 350 || CURRENT_DATA_READ.ballAngleFix <= 10)
-    atk_tilt =  (constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45) + 360) % 360;
-  else if((CURRENT_DATA_READ.ballAngleFix > 345 && CURRENT_DATA_READ.ballAngleFix < 350) || (CURRENT_DATA_READ.ballAngleFix > 10 && CURRENT_DATA_READ.ballAngleFix < 15))
-    atk_tilt = 0;
+  if (CURRENT_DATA_READ.ballDistance <= STRIKER_ATTACK_DISTANCE) gotta_tilt = true;
+  if (CURRENT_DATA_READ.ballDistance > STRIKER_ATTACK_DISTANCE && gotta_tilt) gotta_tilt = false;
+
+  if (CURRENT_DATA_READ.atkSeen && gotta_tilt) return 0;
+  if (CURRENT_DATA_READ.ballAngle >= 345 || CURRENT_DATA_READ.ballAngle <= 15) atk_tilt = CURRENT_DATA_READ.angleAtkFix;
+  else gotta_tilt = false;
+  // if (CURRENT_DATA_READ.ballAngle >= 350 || CURRENT_DATA_READ.ballAngle <= 10)
+  //   atk_tilt =  (constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45) + 360) % 360;
+  // else if((CURRENT_DATA_READ.ballAngle > 345 && CURRENT_DATA_READ.ballAngle < 350) || (CURRENT_DATA_READ.ballAngle > 10 && CURRENT_DATA_READ.ballAngle < 15))
+  //   atk_tilt = 0;
   atk_tilt = filter->calculate(atk_tilt);
   return atk_tilt;
 }
