@@ -12,6 +12,7 @@ class Motor {
         Motor();
         void drive(int speed);
         void test();
+        void stop();
 
     public:
         int angle;

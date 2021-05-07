@@ -158,3 +158,10 @@ void DriveController::resetDrive(){
     CURRENT_DATA_WRITE.addvy = 0;
     prepareDrive(0,0,0);
 }
+
+void DriveController::stopAll(){
+    m1->stop();
+    m2->stop();
+    m3->stop();
+    m4->stop();
+}

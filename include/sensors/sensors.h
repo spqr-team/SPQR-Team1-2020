@@ -10,11 +10,12 @@
 #include <Arduino.h>
 
 #include "behaviour_control/ds_ctrl.h"
-#include "motors_movement/drivecontroller.h"
 #include "motors_movement/motor.h"
+#include "motors_movement/roller.h"
+#include "motors_movement/drivecontroller.h"
+#include "systems/systems.h"
 #include "systems/lines/linesys_camera.h"
 #include "systems/position/positionsys_zone.h"
-#include "systems/systems.h"
 #include "sensors/data_source_ball.h"
 #include "sensors/data_source_bt.h"
 #include "sensors/data_source_bno055.h"
@@ -37,3 +38,5 @@ s_extr DataSourceBT* bt;
 
 s_extr int role;
 s_extr int robot_indentifier;
+
+s_extr Roller* roller;

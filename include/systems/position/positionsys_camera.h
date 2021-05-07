@@ -7,8 +7,8 @@
 /*Camera translation: because of mechanical imprecision, the center of the camera and the center of the cone mirror may not coincide
 To overcome this, each coordinate needs to be shifted by some amount, defined on a per-robot basis that needs to be recalibrated each time.
 These values need to be subtracted from the coords used in setMoveSetpoints*/
-#define CAMERA_TRANSLATION_X 10
-#define CAMERA_TRANSLATION_Y 0
+#define CAMERA_TRANSLATION_X 4
+#define CAMERA_TRANSLATION_Y 4
 //Camera center: those setpoints correspond to what we consider the center of the field
 #define CAMERA_CENTER_X 0
 #define CAMERA_CENTER_Y 0

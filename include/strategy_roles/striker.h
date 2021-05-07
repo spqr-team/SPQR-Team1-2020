@@ -25,8 +25,4 @@ class Striker : public Game{
         float cstorc;
 
         bool gotta_tilt;
-
-        ComplementaryFilter* filter;
-
-    
 };

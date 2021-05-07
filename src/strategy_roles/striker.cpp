@@ -1,10 +1,11 @@
 #include "behaviour_control/status_vector.h"
 #include "systems/position/positionsys_camera.h"
 #include "sensors/sensors.h"
+#include "sensors/data_source_ball.h"
 #include "strategy_roles/striker.h"
 #include "vars.h"
-
 #include "math.h"
+
 
 Striker::Striker() : Game()
 {
@@ -24,8 +25,6 @@ void Striker::init()
   cstorc = 0;
 
   gotta_tilt = false;
-
-  filter = new ComplementaryFilter(0.7);
 }
 
 void Striker::realPlay()
@@ -66,18 +65,29 @@ void Striker::striker()
   drive->prepareDrive(dir, MAX_VEL_HALF, tilt());
 }
 
-int Striker::tilt()
-{
-  if (CURRENT_DATA_READ.ballDistance <= STRIKER_ATTACK_DISTANCE) gotta_tilt = true;
-  if (CURRENT_DATA_READ.ballDistance > STRIKER_ATTACK_DISTANCE && gotta_tilt) gotta_tilt = false;
-
-  if (CURRENT_DATA_READ.atkSeen && gotta_tilt) return 0;
-  if (CURRENT_DATA_READ.ballAngle >= 345 || CURRENT_DATA_READ.ballAngle <= 15) atk_tilt = CURRENT_DATA_READ.angleAtkFix;
+int Striker::tilt() {
+  if (ball->isInMouth() || (ball->isInMouthMaxDistance() && gotta_tilt)) gotta_tilt = true;
   else gotta_tilt = false;
-  // if (CURRENT_DATA_READ.ballAngle >= 350 || CURRENT_DATA_READ.ballAngle <= 10)
-  //   atk_tilt =  (constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45) + 360) % 360;
-  // else if((CURRENT_DATA_READ.ballAngle > 345 && CURRENT_DATA_READ.ballAngle < 350) || (CURRENT_DATA_READ.ballAngle > 10 && CURRENT_DATA_READ.ballAngle < 15))
-  //   atk_tilt = 0;
-  atk_tilt = filter->calculate(atk_tilt);
+
+  if(!gotta_tilt || !CURRENT_DATA_READ.atkSeen) {
+    roller->speed(roller->MIN);
+    atk_tilt *= 0.8;
+    if(atk_tilt <= 10) atk_tilt = 0;
+  }else{
+    roller->speed(ROLLER_DEFAULT_SPEED);
+    atk_tilt = constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45);
+  }
+
   return atk_tilt;
+
+  // if (ball->isInMouth() || (ball->isInMouthMaxDistance() && gotta_tilt)) gotta_tilt = true;
+  // else gotta_tilt = false;
+
+  // if(!gotta_tilt || !CURRENT_DATA_READ.atkSeen) {
+  //   roller->speed(roller->MIN);
+  //   return 0;
+  // }else{
+  //   roller->speed(ROLLER_DEFAULT_SPEED);
+  //   return constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45);
+  // }
 }

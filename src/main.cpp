@@ -7,6 +7,9 @@
 #include "strategy_roles/games.h"
 #include "vars.h"
 #include "test_menu.h"
+#include "motors_movement/roller.h"
+
+void updateRoller();
 
 TestMenu* testmenu;
 
@@ -26,7 +29,7 @@ void setup() {
   initStatusVector();
   initSensors();
   initGames();
-  
+
   delay(500);
 
   drive->prepareDrive(0,0,0);
@@ -34,7 +37,6 @@ void setup() {
   //Startup sound
   tone(BUZZER, 220.00, 250);
 }
-
 
 void loop() {
   updateSensors();
@@ -46,7 +48,6 @@ void loop() {
 
   striker->play(striker_condition);
   keeper->play(keeper_condition);
-
   testmenu->testMenu();
 
   // Last thing to do: movement and update status vector

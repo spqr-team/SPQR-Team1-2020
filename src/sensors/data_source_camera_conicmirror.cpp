@@ -31,6 +31,9 @@ DataSourceCameraConic::DataSourceCameraConic(HardwareSerial *ser_, int baud) : D
   true_xy_fixed = 0;
   true_yy_fixed = 0;
 
+  goalOrientation = 0;
+  old_goalOrientation = 0;
+
   filter_yy = new ComplementaryFilter(FILTER_YY_COEFF);
   filter_xy = new ComplementaryFilter(FILTER_YX_COEFF);
   filter_yb = new ComplementaryFilter(FILTER_BY_COEFF);
@@ -120,15 +123,15 @@ void DataSourceCameraConic ::computeCoordsAngles() {
   true_xy_fixed = (true_xy*(cos(angleFix))) - (true_yy*(sin(angleFix)));
   true_yy_fixed = (true_xy*(sin(angleFix))) + (true_yy*(cos(angleFix)));
 
-  yAngleFix = 90 - (atan2(true_yy_fixed, true_xy_fixed) * 180 / 3.14);
-  bAngleFix = 90 - (atan2(true_yb_fixed, true_xb_fixed) * 180 / 3.14);
-
   #ifdef CAMERA_CONIC_FILTER_POINTS
   true_xb_fixed = filter_xb_fix->calculate(true_xb_fixed);
   true_yb_fixed = filter_yb_fix->calculate(true_yb_fixed);
   true_xy_fixed = filter_xy_fix->calculate(true_xy_fixed);
   true_yy_fixed = filter_yy_fix->calculate(true_yy_fixed);
   #endif
+
+  yAngleFix = 90 - (atan2(true_yy_fixed, true_xy_fixed) * 180 / 3.14);
+  bAngleFix = 90 - (atan2(true_yb_fixed, true_xb_fixed) * 180 / 3.14);
 
   //Important: update status vector
   CURRENT_INPUT_WRITE.cameraByte = value;

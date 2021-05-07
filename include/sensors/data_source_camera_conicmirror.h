@@ -35,7 +35,7 @@ class DataSourceCameraConic : public DataSource{
             true_xy_fixed, true_yb_fixed, true_yy_fixed;
         bool data_received = false, start = false, end = false;
 
-        int goalOrientation, pAtk, pDef;
+        int goalOrientation, old_goalOrientation, pAtk, pDef;
         int value;
 
         ComplementaryFilter *filter_yy, *filter_xy, *filter_yb, *filter_xb, *filter_yy_fix, *filter_xy_fix, *filter_yb_fix, *filter_xb_fix;

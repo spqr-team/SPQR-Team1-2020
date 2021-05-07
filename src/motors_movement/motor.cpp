@@ -35,6 +35,10 @@ void Motor::drive(int speed){
     analogWrite(pinPwm, speed);
 }
 
+void Motor::stop(){
+    this->drive(0);
+}
+
 void Motor::test(){
     digitalWriteFast(pinA, 0);
     digitalWriteFast(pinB, 1);

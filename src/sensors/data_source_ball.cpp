@@ -39,3 +39,11 @@ void DataSourceBall :: test(){
     // DEBUG.println("Not seeing ball");
     // }
 }
+
+bool DataSourceBall::isInMouth(){
+  return (CURRENT_DATA_READ.ballAngle > MOUTH_MIN_ANGLE || CURRENT_DATA_READ.ballAngle < MOUTH_MAX_ANGLE ) && CURRENT_DATA_READ.ballDistance<=MOUTH_DISTANCE;
+}
+
+bool DataSourceBall::isInMouthMaxDistance(){
+  return (CURRENT_DATA_READ.ballAngle>MOUTH_MIN_ANGLE || CURRENT_DATA_READ.ballAngle<MOUTH_MAX_ANGLE) && CURRENT_DATA_READ.ballDistance <= MOUTH_MAX_DISTANCE;
+}

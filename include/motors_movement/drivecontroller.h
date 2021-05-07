@@ -38,6 +38,7 @@ class DriveController{
         float updatePid();
         float torad(float f);
         void resetDrive();
+        void stopAll();
 
         int vxp, vyp, vxn, vyn;
         bool canUnlock;
