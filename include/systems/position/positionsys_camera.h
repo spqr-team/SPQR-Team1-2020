@@ -8,7 +8,7 @@
 To overcome this, each coordinate needs to be shifted by some amount, defined on a per-robot basis that needs to be recalibrated each time.
 These values need to be subtracted from the coords used in setMoveSetpoints*/
 #define CAMERA_TRANSLATION_X 4
-#define CAMERA_TRANSLATION_Y 4
+#define CAMERA_TRANSLATION_Y 12
 //Camera center: those setpoints correspond to what we consider the center of the field
 #define CAMERA_CENTER_X 0
 #define CAMERA_CENTER_Y 0

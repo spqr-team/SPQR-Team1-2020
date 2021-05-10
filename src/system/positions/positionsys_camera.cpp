@@ -126,18 +126,18 @@ void PositionSysCamera::CameraPID(){
         speed = filterSpeed->calculate(speed);
         speed = speed > 40 ? speed : 0;
         dir = filterDir->calculate(dir);
-        // drive->prepareDrive(dir, speed, 0);
+        drive->prepareDrive(dir, speed, 0);
 
 
         //Disable below lines for now because they probably result in unexpected behaviour on lines. Re enabling them requires to comment out the drive->prepareDrive above
         //and check the notes in drivecontroller for the other stuff to comment and uncomment
 
         //TODO: add complementary filter on this speed if we keep using it
-        vx = ((speed * cosins[dir]));
-        vy = ((-speed * sins[dir]));
+        // vx = ((speed * cosins[dir]));
+        // vy = ((-speed * sins[dir]));
 
-        CURRENT_DATA_WRITE.addvx = vx;
-        CURRENT_DATA_WRITE.addvy = vy;
+        // CURRENT_DATA_WRITE.addvx = vx;
+        // CURRENT_DATA_WRITE.addvy = vy;
     }
 }
 

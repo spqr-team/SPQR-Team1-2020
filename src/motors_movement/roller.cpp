@@ -91,5 +91,6 @@ void Roller::update(){
 }
 
 void Roller::speed(int speed){
-    roller->speed(speed);
+    if(roller_armed)
+        roller->speed(speed);
 }

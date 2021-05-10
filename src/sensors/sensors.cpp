@@ -8,7 +8,7 @@ void initSensors(){
     
     drive = new DriveController(new Motor(12, 11, 4, 55), new  Motor(25, 24, 5, 135), new Motor(27, 26, 2, 225), new Motor(29, 28, 3, 305));
     compass = new DataSourceBNO055();
-    ball = new DataSourceBall(&Serial2, 57600);
+    ball = new DataSourceBall(&BALL_32U4, 57600);
     camera = new DataSourceCameraConic(&Serial3, 19200);
     bt = new DataSourceBT(&Serial1, 115200);
     roller = new Roller(30, 31, 1000, 2000, 500);

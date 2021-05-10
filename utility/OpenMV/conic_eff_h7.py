@@ -45,11 +45,11 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (48, 83, -9, 18, 38, 82),    # thresholds yellow goal
-                (45, 61, -11, 14, -42, -22)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (55, 92, -3, 24, 60, 90),    # thresholds yellow goal
+                (33, 49, -9, 12, -52, -12)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 
-roi = (20, 0, 300, 220)
+roi = (30, 0, 290, 240)
 
 # Camera Setup ###############################################################
 '''sensor.reset()xxxx
@@ -94,7 +94,7 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=50, area_threshold=70, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=60, area_threshold=90, merge = True):
         img.draw_rectangle(blob.rect())
         #img.draw_cross(blob.cx(), blob.cy())
 
