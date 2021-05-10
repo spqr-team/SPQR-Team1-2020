@@ -52,7 +52,7 @@ void loop() {
 
   striker->play(striker_condition);
   keeper->play(keeper_condition);
-  // testmenu->testMenu();
+  testmenu->testMenu();
 
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  

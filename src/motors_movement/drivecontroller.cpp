@@ -96,53 +96,53 @@ void DriveController::drive(int dir, int speed, int tilt){
     input = delta;
     setpoint = tilt;
     
-    pid->Compute();
+    if(pid->Compute()){
+        pidfactor = -output;
+        speed1 += pidfactor;
+        speed2 += pidfactor;
+        speed3 += pidfactor;
+        speed4 += pidfactor;
 
-    pidfactor = -output;
-    speed1 += pidfactor;
-    speed2 += pidfactor;
-    speed3 += pidfactor;
-    speed4 += pidfactor;
+        // Find the maximum speed and scale all of them for the maximum to be 255
+        float maxVel = 0;
+        maxVel = max(abs(speed1), maxVel);
+        maxVel = max(abs(speed2), maxVel);
+        maxVel = max(abs(speed3), maxVel);
+        maxVel = max(abs(speed4), maxVel);
 
-    // Find the maximum speed and scale all of them for the maximum to be 255
-    float maxVel = 0;
-    maxVel = max(abs(speed1), maxVel);
-    maxVel = max(abs(speed2), maxVel);
-    maxVel = max(abs(speed3), maxVel);
-    maxVel = max(abs(speed4), maxVel);
+        if(maxVel > 255){
+            // Ratio to 255
+            float ratio = maxVel/255;
 
-    if(maxVel > 255){
-        // Ratio to 255
-        float ratio = maxVel/255;
+            // //Scale all the velocities
+            speed1 /= ratio;
+            speed2 /= ratio;
+            speed3 /= ratio;
+            speed4 /= ratio;
 
-        // //Scale all the velocities
-        speed1 /= ratio;
-        speed2 /= ratio;
-        speed3 /= ratio;
-        speed4 /= ratio;
+            // DEBUG.print(speed1);
+            // DEBUG.print(" | ");
+            // DEBUG.print(speed2);
+            // DEBUG.print(" | ");
+            // DEBUG.print(speed3);
+            // DEBUG.print(" | ");
+            // DEBUG.print(speed4);
+            // DEBUG.print(" | ");
+            // DEBUG.println(maxVel);  
+        }
 
-        // DEBUG.print(speed1);
-        // DEBUG.print(" | ");
-        // DEBUG.print(speed2);
-        // DEBUG.print(" | ");
-        // DEBUG.print(speed3);
-        // DEBUG.print(" | ");
-        // DEBUG.print(speed4);
-        // DEBUG.print(" | ");
-        // DEBUG.println(maxVel);  
+        speed1 = constrain(speed1, -255, 255);
+        speed2 = constrain(speed2, -255, 255);
+        speed3 = constrain(speed3, -255, 255);
+        speed4 = constrain(speed4, -255, 255);     
+
+        m1->drive((int) speed1);
+        m2->drive((int) speed2);
+        m3->drive((int) speed3);
+        m4->drive((int) speed4);
+
+        oldSpeed = speed;
     }
-
-    speed1 = constrain(speed1, -255, 255);
-    speed2 = constrain(speed2, -255, 255);
-    speed3 = constrain(speed3, -255, 255);
-    speed4 = constrain(speed4, -255, 255);     
-
-    m1->drive((int) speed1);
-    m2->drive((int) speed2);
-    m3->drive((int) speed3);
-    m4->drive((int) speed4);
-
-    oldSpeed = speed;
 
     CURRENT_DATA_WRITE.dir = dir;
     CURRENT_DATA_WRITE.speed = speed;
