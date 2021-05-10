@@ -22,7 +22,8 @@ Roller::Roller(int pinPwm_, int pinSense_, int MIN_, int MAX_, int ARM_){
     roller_setup_phase = 99;
 
     roller_counter = 0;
-
+    roller_speed = 0;
+    
     pinMode(pinSense, INPUT_PULLUP);
     roller = new ESC(pinPwm, MIN, MAX, ARM);
 }
@@ -85,12 +86,12 @@ void Roller::update(){
     this->setup();
 
   if(millis() - t > 10 && roller_armed){
-    roller->speed(1300);
+    roller->speed(roller_speed);
     t = millis();
   }
 }
 
-void Roller::speed(int speed){
+void Roller::speed(int speed_){
     if(roller_armed)
-        roller->speed(speed);
+        roller_speed = speed_;
 }

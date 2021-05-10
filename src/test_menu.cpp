@@ -60,6 +60,7 @@ void TestMenu::testMenu()
             drive->m2->test();
             drive->m3->test();
             drive->m4->test();
+            flagtest = true;
             break;
         case '4':
             DEBUG.println("Pid recenter test");

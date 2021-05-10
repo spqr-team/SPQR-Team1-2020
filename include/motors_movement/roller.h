@@ -16,5 +16,5 @@ class Roller{
         int pinPwm, pinSense, MIN, MAX, ARM;
         bool roller_arm_setup, roller_armed;
 
-        int roller_setup_phase, roller_counter;
+        int roller_setup_phase, roller_counter, roller_speed;
 };

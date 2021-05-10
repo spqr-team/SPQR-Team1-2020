@@ -121,15 +121,15 @@ void DriveController::drive(int dir, int speed, int tilt){
         speed3 /= ratio;
         speed4 /= ratio;
 
-        DEBUG.print(speed1);
-        DEBUG.print(" | ");
-        DEBUG.print(speed2);
-        DEBUG.print(" | ");
-        DEBUG.print(speed3);
-        DEBUG.print(" | ");
-        DEBUG.print(speed4);
-        DEBUG.print(" | ");
-        DEBUG.println(maxVel);  
+        // DEBUG.print(speed1);
+        // DEBUG.print(" | ");
+        // DEBUG.print(speed2);
+        // DEBUG.print(" | ");
+        // DEBUG.print(speed3);
+        // DEBUG.print(" | ");
+        // DEBUG.print(speed4);
+        // DEBUG.print(" | ");
+        // DEBUG.println(maxVel);  
     }
 
     speed1 = constrain(speed1, -255, 255);

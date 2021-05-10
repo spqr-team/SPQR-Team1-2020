@@ -17,6 +17,7 @@ bool striker_condition = false;
 bool keeper_condition = false;
 
 void setup() {
+  tone(BUZZER, 220, 250);
   delay(1500);
   DEBUG.begin(115200);
     
@@ -26,8 +27,11 @@ void setup() {
   }
 
   testmenu = new TestMenu();
+  tone(BUZZER, 240, 250);
   initStatusVector();
+  tone(BUZZER, 260, 250);
   initSensors();
+  tone(BUZZER, 320, 250);
   initGames();
 
   delay(500);
@@ -35,7 +39,7 @@ void setup() {
   drive->prepareDrive(0,0,0);
 
   //Startup sound
-  tone(BUZZER, 220.00, 250);
+  tone(BUZZER, 350.00, 250);
 }
 
 void loop() {
@@ -48,7 +52,7 @@ void loop() {
 
   striker->play(striker_condition);
   keeper->play(keeper_condition);
-  testmenu->testMenu();
+  // testmenu->testMenu();
 
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  

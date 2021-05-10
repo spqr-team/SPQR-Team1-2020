@@ -10,8 +10,19 @@ void initStatusVector(){
     }
 }
 
+data getDataAtIndex(int index){
+    index = constrain(index, 0, dim-1);
+    return datas[index];
+}
+
+data getDataAtIndex_backwardsFromCurrent(int steps){
+    steps = constrain(steps, 0, dim-1);
+    return getDataAtIndex((currentSVIndex-steps+dim) % dim);
+}
+
 void updateStatusVector(){
     currentSVIndex = (currentSVIndex+1) % dim;
     CURRENT_DATA_WRITE = CURRENT_DATA_READ;
     CURRENT_INPUT_WRITE = CURRENT_INPUT_READ;
 }
+

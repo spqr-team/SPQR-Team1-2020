@@ -30,7 +30,7 @@ PositionSysCamera::PositionSysCamera() {
     Y->SetDerivativeLag(1);
     Y->SetSampleTime(2);
 
-    filterDir = new ComplementaryFilter(0.65);
+    filterDir = new ComplementaryFilter(0.35);
     filterSpeed = new ComplementaryFilter(0.65);
 }
 
@@ -49,8 +49,24 @@ void PositionSysCamera::update(){
         posx = CURRENT_DATA_WRITE.cam_xy;
         posy = CURRENT_DATA_WRITE.cam_yy + calcOtherGoalY(CURRENT_DATA_WRITE.cam_yy);
     }else{
-        //TODO: no goal seen ?
+        // Go back in time until we found a valid status, when we saw at least one goal
+        int i = 1;
+        do{
+            valid_data = getDataAtIndex_backwardsFromCurrent(i);
+            i++;
+        }while(!valid_data.ySeen && !valid_data.bSeen);
+
+        if(valid_data.ySeen || valid_data.bSeen){
+            posx = valid_data.posx;
+            posy = valid_data.posy;
+
+            // Trick the status vector into thinking this was a valid status
+            CURRENT_DATA_WRITE.ySeen = valid_data.ySeen;
+            CURRENT_DATA_WRITE.bSeen = valid_data.bSeen;
+
+        }
     }
+    
     //IMPORTANT STEP: or the direction of the plane will be flipped
     posx *= -1;
     posy *= -1;
@@ -123,9 +139,9 @@ void PositionSysCamera::CameraPID(){
         int dist = sqrt( ( (CURRENT_DATA_WRITE.posx-Setpointx)*(CURRENT_DATA_WRITE.posx-Setpointx) ) + (CURRENT_DATA_WRITE.posy-Setpointy)*(CURRENT_DATA_WRITE.posy-Setpointy) );
         // int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
         int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0,  MAX_VEL);
-        speed = filterSpeed->calculate(speed);
-        speed = speed > 40 ? speed : 0;
-        dir = filterDir->calculate(dir);
+        speed = speed > 30 ? speed : 0;
+        dir = filterDir->calculate(dir);;
+        //speed = filterSpeed->calculate(speed);
         drive->prepareDrive(dir, speed, 0);
 
 

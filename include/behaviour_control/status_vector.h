@@ -22,7 +22,7 @@
 #define sv_extr extern
 #endif
 
-#define dim 20
+#define dim 50
 #define CURRENT_DATA_READ ( datas[((currentSVIndex-1+dim) % dim)]  )
 #define CURRENT_DATA_WRITE ( datas[((currentSVIndex))]  )
 #define CURRENT_INPUT_READ ( inputs[((currentSVIndex-1+dim) % dim)] )
@@ -61,3 +61,5 @@ sv_extr int currentSVIndex;
 
 void initStatusVector();
 void updateStatusVector();
+data getDataAtIndex(int index);
+data getDataAtIndex_backwardsFromCurrent(int steps);

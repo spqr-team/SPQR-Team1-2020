@@ -3,6 +3,7 @@
 #include "PID_v2.h"
 #include "systems/systems.h"
 #include "behaviour_control/complementary_filter.h"
+#include "behaviour_control/status_vector.h"
 
 /*Camera translation: because of mechanical imprecision, the center of the camera and the center of the cone mirror may not coincide
 To overcome this, each coordinate needs to be shifted by some amount, defined on a per-robot basis that needs to be recalibrated each time.
@@ -54,5 +55,7 @@ class PositionSysCamera : public PositionSystem{
         PID* Y;
         ComplementaryFilter* filterDir;
         ComplementaryFilter* filterSpeed;
+
+        data valid_data;
 
 };
