@@ -56,24 +56,14 @@ int Striker::tilt() {
   else gotta_tilt = false;
 
   if(!gotta_tilt || !CURRENT_DATA_READ.atkSeen) {
-    roller->speed(roller->MIN);
     atk_tilt *= 0.8;
     if(atk_tilt <= 10) atk_tilt = 0;
   }else{
-    roller->speed(ROLLER_DEFAULT_SPEED);
-    atk_tilt = constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45);
+    atk_tilt = roller->roller_armed ? CURRENT_DATA_READ.angleAtkFix : constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45);
   }
 
+  if(ball->isInFront()) roller->speed(ROLLER_DEFAULT_SPEED);
+  else roller->speed(roller->MIN);
+
   return atk_tilt;
-
-  // if (ball->isInMouth() || (ball->isInMouthMaxDistance() && gotta_tilt)) gotta_tilt = true;
-  // else gotta_tilt = false;
-
-  // if(!gotta_tilt || !CURRENT_DATA_READ.atkSeen) {
-  //   roller->speed(roller->MIN);
-  //   return 0;
-  // }else{
-  //   roller->speed(ROLLER_DEFAULT_SPEED);
-  //   return constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45);
-  // }
 }

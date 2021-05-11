@@ -29,17 +29,20 @@ void setup() {
   testmenu = new TestMenu();
   tone(BUZZER, 240, 250);
   initStatusVector();
+  delay(100);
+
   tone(BUZZER, 260, 250);
   initSensors();
+  delay(500);
+  
   tone(BUZZER, 320, 250);
   initGames();
-
-  delay(500);
-
-  drive->prepareDrive(0,0,0);
+  delay(200);
 
   //Startup sound
   tone(BUZZER, 350.00, 250);
+
+  drive->prepareDrive(0,0,0);
 }
 
 void loop() {

@@ -15,6 +15,7 @@ class DataSourceBall : public DataSource{
         void test() override;
         bool isInMouth();
         bool isInMouthMaxDistance();
+        bool isInFront();
         
         int angle, distance, angleFix;
         bool ballSeen;
