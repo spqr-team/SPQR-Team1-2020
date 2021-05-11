@@ -87,8 +87,10 @@ void PositionSysCamera::update(){
 
 //This means the last time this is called has the biggest priority, has for prepareDrive
 void PositionSysCamera::setMoveSetpoints(int x, int y){
-    Setpointx = x + CAMERA_TRANSLATION_X;
-    Setpointy = y + CAMERA_TRANSLATION_Y;
+    // Setpointx = x + CAMERA_TRANSLATION_X;
+    // Setpointy = y + CAMERA_TRANSLATION_Y;
+    Setpointx = x;
+    Setpointy = y;
     givenMovement = true;
     CameraPID();
 }
