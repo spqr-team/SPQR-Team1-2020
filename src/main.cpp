@@ -29,7 +29,7 @@ void setup() {
   testmenu = new TestMenu();
   tone(BUZZER, 240, 250);
   initStatusVector();
-  delay(100);
+  delay(250);
 
   tone(BUZZER, 260, 250);
   initSensors();
@@ -37,7 +37,7 @@ void setup() {
   
   tone(BUZZER, 320, 250);
   initGames();
-  delay(200);
+  delay(250);
 
   //Startup sound
   tone(BUZZER, 350.00, 250);

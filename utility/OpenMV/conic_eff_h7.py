@@ -45,11 +45,11 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (51, 74, -18, 12, 25, 70),    # thresholds yellow goal
-                (27, 40, -18, 13, -29, -10)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (61, 100, -11, 18, 60, 127),    # thresholds yellow goalz
+                (34, 52, -14, 21, -67, -20)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 
-roi = (80, 0, 240, 220)
+roi = (80, 0, 220, 200)
 
 # Camera Setup ###############################################################
 '''sensor.reset()xxxx
@@ -69,11 +69,11 @@ sensor.set_pixformat(sensor.RGB565)
 sensor.set_framesize(sensor.QVGA)
 sensor.set_windowing(roi)
 sensor.set_contrast(0)
-sensor.set_saturation(1)
-sensor.set_brightness(2)
-sensor.set_auto_whitebal(True)
-sensor.set_auto_exposure(True)
-sensor.set_auto_gain(True)
+sensor.set_saturation(2)
+sensor.set_brightness(3)
+sensor.set_auto_whitebal(False, (-6.02073, -4.528669, -0.707413))
+sensor.set_auto_exposure(False, 6576)
+#sensor.set_auto_gain(False, gain_db=8.78)
 sensor.skip_frames(time = 300)
 
 clock = time.clock()
@@ -83,7 +83,7 @@ clock = time.clock()
 while(True):
     clock.tick()
 
-    print("Exposure: " + str(sensor.get_exposure_us()) + " Gain: " + str(sensor.get_gain_db()) + "White Bal: " + str(sensor.get_rgb_gain_db()))
+    print("Exposure: " + str(sensor.get_exposure_us()) + " Gain: " + str(sensor.get_gain_db()) + " White Bal: " + str(sensor.get_rgb_gain_db()))
 
     blue_led.off()
 
@@ -94,7 +94,7 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=40, area_threshold=50, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=60, area_threshold=80, merge = True):
         img.draw_rectangle(blob.rect())
         #img.draw_cross(blob.cx(), blob.cy())
 

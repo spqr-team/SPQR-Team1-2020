@@ -47,8 +47,15 @@ void Striker::striker(){
   else dir = ball_deg - plusang;                                //se sto nel negativo sottraggo
 
   dir = (dir + 360) % 360;
-
   drive->prepareDrive(dir, MAX_VEL_HALF, tilt());
+
+  if(ball->isInFront()) roller->speed(ROLLER_DEFAULT_SPEED);
+  else roller->speed(roller->MIN);
+
+  // if(ball->isInMouth() && ( (CURRENT_DATA_READ.posx <= -30 && CURRENT_DATA_READ.posy >= 35) || (CURRENT_DATA_READ.posx >= 30 && CURRENT_DATA_READ.posy >= 35))){
+  //   ps->goCenter();
+  // }
+  
 }
 
 int Striker::tilt() {
@@ -61,9 +68,6 @@ int Striker::tilt() {
   }else{
     atk_tilt = roller->roller_armed ? CURRENT_DATA_READ.angleAtkFix : constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45);
   }
-
-  if(ball->isInFront()) roller->speed(ROLLER_DEFAULT_SPEED);
-  else roller->speed(roller->MIN);
 
   return atk_tilt;
 }

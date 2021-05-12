@@ -42,12 +42,24 @@ void PositionSysCamera::update(){
     if(CURRENT_DATA_WRITE.bSeen == true && CURRENT_DATA_WRITE.ySeen == true){
         posx = (CURRENT_DATA_WRITE.cam_xy + CURRENT_DATA_WRITE.cam_xb) / 2;
         posy = CURRENT_DATA_WRITE.cam_yb + CURRENT_DATA_WRITE.cam_yy;
+
+        //IMPORTANT STEP: or the direction of the plane will be flipped
+        posx *= -1;
+        posy *= -1;
     }else if (CURRENT_DATA_WRITE.bSeen == true && CURRENT_DATA_WRITE.ySeen == false){
         posx = CURRENT_DATA_WRITE.cam_xb;
         posy = CURRENT_DATA_WRITE.cam_yb + calcOtherGoalY(CURRENT_DATA_WRITE.cam_yb);
+
+        //IMPORTANT STEP: or the direction of the plane will be flipped
+        posx *= -1;
+        posy *= -1;
     }else if (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == true){
         posx = CURRENT_DATA_WRITE.cam_xy;
         posy = CURRENT_DATA_WRITE.cam_yy + calcOtherGoalY(CURRENT_DATA_WRITE.cam_yy);
+
+        //IMPORTANT STEP: or the direction of the plane will be flipped
+        posx *= -1;
+        posy *= -1;
     }else{
         // Go back in time until we found a valid status, when we saw at least one goal
         int i = 1;
@@ -66,10 +78,6 @@ void PositionSysCamera::update(){
 
         }
     }
-    
-    //IMPORTANT STEP: or the direction of the plane will be flipped
-    posx *= -1;
-    posy *= -1;
 
     CURRENT_DATA_WRITE.posx = posx;
     CURRENT_DATA_WRITE.posy = posy;
@@ -144,18 +152,18 @@ void PositionSysCamera::CameraPID(){
         speed = speed > 30 ? speed : 0;
         dir = filterDir->calculate(dir);;
         //speed = filterSpeed->calculate(speed);
-        drive->prepareDrive(dir, speed, 0);
+        // drive->prepareDrive(dir, speed, 0);
 
 
         //Disable below lines for now because they probably result in unexpected behaviour on lines. Re enabling them requires to comment out the drive->prepareDrive above
         //and check the notes in drivecontroller for the other stuff to comment and uncomment
 
         //TODO: add complementary filter on this speed if we keep using it
-        // vx = ((speed * cosins[dir]));
-        // vy = ((-speed * sins[dir]));
+        vx = ((speed * cosins[dir]));
+        vy = ((-speed * sins[dir]));
 
-        // CURRENT_DATA_WRITE.addvx = vx;
-        // CURRENT_DATA_WRITE.addvy = vy;
+        CURRENT_DATA_WRITE.addvx = vx;
+        CURRENT_DATA_WRITE.addvy = vy;
     }
 }
 

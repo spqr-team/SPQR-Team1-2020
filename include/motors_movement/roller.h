@@ -2,7 +2,7 @@
 
 #include "ESC.h"
 
-#define ROLLER_DEFAULT_SPEED 1100
+#define ROLLER_DEFAULT_SPEED 1200
 
 class Roller{
     public:

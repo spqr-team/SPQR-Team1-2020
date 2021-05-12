@@ -38,7 +38,7 @@ typedef struct data{
     int IMUAngle, ballAngle, ballAngleFix, ballDistance, 
         yAngle, bAngle, yAngleFix, bAngleFix, 
         yDist, bDist, 
-        angleAtk, angleAtkFix, angleDef, angleDefFix,
+        angleAtk, angleAtkFix, angleDef, angleDefFix, yAtk, yAtkFix, xAtk, xAtkFix, yDef, yDefFix, xDef, xDefFix,
         cam_xb, cam_yb, cam_xy, cam_yy,
         speed, tilt, dir, axisBlock[4],
         USfr, USsx, USdx, USrr, 

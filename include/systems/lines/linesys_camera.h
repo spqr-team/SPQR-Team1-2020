@@ -11,8 +11,8 @@
 #define S1O A6
 #define S2I A2
 #define S2O A3
-#define S3I A1
-#define S3O A0
+#define S3I A0
+#define S3O A1
 #define S4I A9
 #define S4O A8
 
