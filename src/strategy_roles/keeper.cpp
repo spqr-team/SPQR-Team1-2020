@@ -16,6 +16,7 @@ Keeper::Keeper() : Game()
 
 Keeper::Keeper(LineSystem *ls_, PositionSystem *ps_) : Game(ls_, ps_)
 {
+    init();
 }
 
 void Keeper::init()
