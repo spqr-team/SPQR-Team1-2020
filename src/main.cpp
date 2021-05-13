@@ -44,9 +44,12 @@ void setup() {
   tone(BUZZER, 350.00, 250);
 
   drive->prepareDrive(0,0,0);
+
+  pinMode(35, INPUT);
 }
 
 void loop() {
+  DEBUG.println(digitalReadFast(35));
   updateSensors();
 
   drive->resetDrive();
@@ -54,9 +57,9 @@ void loop() {
   striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
   keeper_condition = role == LOW;
 
-  striker->play(striker_condition);
-  keeper->play(keeper_condition);
-  // precision_shooter->play(1);
+  // striker->play(striker_condition);
+  // keeper->play(keeper_condition);
+  precision_shooter->play(1);
 
   testmenu->testMenu();
 

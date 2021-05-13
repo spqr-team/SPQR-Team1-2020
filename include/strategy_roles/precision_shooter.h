@@ -7,7 +7,7 @@
 #define PS_ATTACK_DISTANCE 110
 #define PS_TILT_STOP_DISTANCE 140
 #define PS_PLUSANG 55
-#define PS_PLUSANG_VISIONCONE 7
+#define PS_PLUSANG_VISIONCONE 10
 
 class PrecisionShooter : public Game{
 

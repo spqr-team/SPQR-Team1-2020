@@ -49,12 +49,8 @@ void Striker::striker(){
   dir = (dir + 360) % 360;
   drive->prepareDrive(dir, MAX_VEL_HALF, tilt());
 
-  if(ball->isInFront()) roller->speed(ROLLER_DEFAULT_SPEED);
+  if(ball->isInFront() && roller->roller_armed) roller->speed(ROLLER_DEFAULT_SPEED);
   else roller->speed(roller->MIN);
-
-  // if(ball->isInMouth() && ( (CURRENT_DATA_READ.posx <= -30 && CURRENT_DATA_READ.posy >= 35) || (CURRENT_DATA_READ.posx >= 30 && CURRENT_DATA_READ.posy >= 35))){
-  //   ps->goCenter();
-  // }
   
 }
 

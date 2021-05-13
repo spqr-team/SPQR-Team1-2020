@@ -36,6 +36,8 @@ void PrecisionShooter::realPlay()
 }
 
 unsigned long t3 = 0;
+unsigned long t4 = 0;
+boolean ignited = false;
 
 void PrecisionShooter::striker(){
 
@@ -60,13 +62,21 @@ void PrecisionShooter::striker(){
   if(ball->isInFront()) roller->speed(ROLLER_DEFAULT_SPEED);
   else roller->speed(roller->MIN);
 
-  if(ball->isInFront() && CURRENT_DATA_READ.ballDistance <= 85 &&  CURRENT_DATA_READ.posy >= 32 &&  (CURRENT_DATA_READ.posx >= 15  || CURRENT_DATA_READ.posx <= -15) ) {
-    t3 = millis();
+  if(ball->isInFront() && CURRENT_DATA_READ.ballDistance <= 78 && ( (CURRENT_DATA_READ.posy >= 32 &&  (CURRENT_DATA_READ.posx >= 15  || CURRENT_DATA_READ.posx <= -15)) ||  abs(tilt()) > 65 ) ) {
+    // Just let the robot slowly approach the ball
+    if(!ignited){
+      ignited = true;
+      t4 = millis();
+    }
+    if(millis() - t4 > 250  && ignited){
+      t3 = millis();
+    }
   }
 
-  if(millis() - t3 < 1000){
-    roller->speed(1800);
-    ps->goCenter();
+  if(millis() - t3 < 800){
+    roller->speed(roller->MAX);
+    drive->prepareDrive(180, MAX_VEL_3QUARTERS, 0);
+    ignited = false;
   }
 
 
@@ -74,7 +84,7 @@ void PrecisionShooter::striker(){
 }
 
 int PrecisionShooter::tilt() {
-  if (ball->isInMouth() /* || (ball->isInMouthMaxDistance() && gotta_tilt)*/ ) gotta_tilt = true;
+  if (ball->isInFront() && CURRENT_DATA_READ.ballDistance <= 90 /* || (ball->isInMouthMaxDistance() && gotta_tilt)*/ ) gotta_tilt = true;
   else gotta_tilt = false;
 
   if(!gotta_tilt || !CURRENT_DATA_READ.atkSeen) {

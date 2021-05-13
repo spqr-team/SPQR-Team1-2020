@@ -54,7 +54,8 @@ void PositionSysCamera::update(){
     posx *= -1;
     posy *= -1;
     
-    if(abs(CURRENT_DATA_READ.posx-CURRENT_DATA_WRITE.posx)>MAX_X  || abs(CURRENT_DATA_READ.posy-CURRENT_DATA_WRITE.posy)>MAX_Y|| (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false) ) {
+    //x = 66 is a very very strange bug I can't seem to track down. It's a dirty hack, I know
+    if(posx == 66 || (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false) ) {
         // Go back in time until we found a valid status, when we saw at least one goal
         int i = 1;
         do{
