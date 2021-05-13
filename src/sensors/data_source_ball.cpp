@@ -41,13 +41,13 @@ void DataSourceBall :: test(){
 }
 
 bool DataSourceBall::isInFront(){
-  return (CURRENT_DATA_READ.ballAngle > MOUTH_MIN_ANGLE || CURRENT_DATA_READ.ballAngle < MOUTH_MAX_ANGLE );
+  return CURRENT_DATA_READ.ballSeen && (CURRENT_DATA_READ.ballAngle > MOUTH_MIN_ANGLE || CURRENT_DATA_READ.ballAngle < MOUTH_MAX_ANGLE );
 }
 
 bool DataSourceBall::isInMouth(){
-  return isInFront() && CURRENT_DATA_READ.ballDistance<=MOUTH_DISTANCE;
+  return CURRENT_DATA_READ.ballSeen && (isInFront() && CURRENT_DATA_READ.ballDistance<=MOUTH_DISTANCE);
 }
 
 bool DataSourceBall::isInMouthMaxDistance(){
-  return isInFront() && CURRENT_DATA_READ.ballDistance <= MOUTH_MAX_DISTANCE;
+  return CURRENT_DATA_READ.ballSeen && (isInFront() && CURRENT_DATA_READ.ballDistance <= MOUTH_MAX_DISTANCE);
 }

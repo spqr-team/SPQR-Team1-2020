@@ -17,6 +17,7 @@ bool striker_condition = false;
 bool keeper_condition = false;
 
 void setup() {
+  pinMode(BUZZER, OUTPUT);
   tone(BUZZER, 220, 250);
   delay(1500);
   DEBUG.begin(115200);
@@ -53,9 +54,9 @@ void loop() {
   striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
   keeper_condition = role == LOW;
 
-  // striker->play(striker_condition);
-  // keeper->play(keeper_condition);
-  precision_shooter->play(1);
+  striker->play(striker_condition);
+  keeper->play(keeper_condition);
+  // precision_shooter->play(1);
 
   testmenu->testMenu();
 

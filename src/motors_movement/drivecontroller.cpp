@@ -68,11 +68,13 @@ void DriveController::drive(int dir, int speed, int tilt){
     //TODO: Changing CURRENT_DATA_READ to CURRENT_DATA_WRITE?
     // Disable vector sum because calculations are a bitty crappy imho. Will have to test if it's what makes the robot act strange with lines
     // Re enabling the below lines requires to comment out drive->prepareDrive and uncommenting the lines relative to vector sum inside positionsys_camera and comment out the other lines here
+    #ifdef DRIVE_VECTOR_SUM
     vx = ((speed * cosins[dir])) + CURRENT_DATA_READ.addvx;
     vy = ((-speed * sins[dir])) + CURRENT_DATA_READ.addvy;
-
-    // vx = ((speed * cosins[dir]));
-    // vy = ((-speed * sins[dir]));
+    #else
+    vx = ((speed * cosins[dir]));
+    vy = ((-speed * sins[dir]));
+    #endif
 
     // if((((vy < 0 && vxn == 1) || (vy > 0 && vxp == 1) || (vx < 0 && vyp == 1) || (vx > 0 && vyn == 1)) && canUnlock) || (millis() > this->unlockTime+UNLOCK_THRESH)) {
     //     vxn = 0;

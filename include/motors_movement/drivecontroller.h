@@ -20,11 +20,13 @@
 
 //Max possible vel 310
 
-#define MAX_VEL 180
+#define MAX_VEL 125
 #define MAX_VEL_EIGTH ((int)MAX_VEL*0.8)
 #define MAX_VEL_HALF ((int)MAX_VEL*0.5)
 #define MAX_VEL_3QUARTERS ((int)MAX_VEL*0.75)
 #define MAX_VEL_QUARTER ((int)MAX_VEL*0.25)
+
+//#define DRIVE_VECTOR_SUM 
 
 class DriveController{
 
