@@ -17,6 +17,7 @@ bool striker_condition = false;
 bool keeper_condition = false;
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(BUZZER, OUTPUT);
   tone(BUZZER, 220, 250);
   delay(1500);
@@ -47,18 +48,15 @@ void setup() {
 }
 
 void loop() {
-  DEBUG.println("aaaa");
   updateSensors();
-
   drive->resetDrive();
   
   striker_condition = role == HIGH;
-  keeper_condition = role == LOW;
-
   striker->play(striker_condition);
-  // keeper->play(keeper_condition);
   // precision_shooter->play(1);
 
+  // keeper_condition = role == LOW;
+  // keeper->play(keeper_condition);
   // testmenu->testMenu();
 
   // // Last thing to do: movement and update status vector

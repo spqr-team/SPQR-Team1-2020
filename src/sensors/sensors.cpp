@@ -18,7 +18,7 @@ void initSensors(){
     camera = new DataSourceCameraConic(&Serial3, 19200);
     // tone(BUZZER, 285, 250);
     // delay(350);
-    // bt = new DataSourceBT(&Serial1, 115200);
+    bt = new DataSourceBT(&Serial1, 9600);
     roller = new Roller(30, 31, 1000, 2000, 500);
  }
 
@@ -31,6 +31,8 @@ void updateSensors(){
     compass->update();
     ball->update();
     camera->update();
+
+    bt->update();
 
     roller->update();
 }
