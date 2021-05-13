@@ -36,8 +36,7 @@ def isInRightSide(img, x):
 
 # LED Setup ##################################################################
 red_led = pyb.LED(1)
-green_led
-= pyb.LED(2)
+green_led = pyb.LED(2)
 blue_led = pyb.LED(3)
 
 red_led.off()
@@ -46,11 +45,11 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (61, 100, -11, 18, 60, 127),    # thresholds yellow goalz
-                (34, 52, -14, 21, -67, -20)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (66, 88, -12, 26, 50, 79),    # thresholds yellow goalz
+                (40, 61, -9, 19, -61, -21)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 
-roi = (80, 0, 220, 200)
+roi = (80, 0, 240, 200)
 
 # Camera Setup ###############################################################
 '''sensor.reset()xxxx
@@ -59,6 +58,7 @@ sensor.set_framesize(sensor.QVGA)
 sensor.skip_frames(time = 2000)
 sensor.set_auto_gain(False)         # must be turned off for color tracking
 sensor.set_auto_whitebal(False)     # must be turned off for color tracking
+++++++++++++++++++++++++++++++  
 sensor.set_auto_exposure(False, 10000) vbc
 #sensor.set_backlight(1)
 #sensor.set_brightness(+2 )
@@ -72,7 +72,7 @@ sensor.set_windowing(roi)
 sensor.set_contrast(0)
 sensor.set_saturation(2)
 sensor.set_brightness(3)
-sensor.set_auto_whitebal(False, (-6.02073, -4.528669, -0.707413))
+sensor.set_auto_whitebal(True, (-6.02073, -4.528669, -1.804))
 sensor.set_auto_exposure(False, 6576)
 #sensor.set_auto_gain(False, gain_db=8.78)
 sensor.skip_frames(time = 300)
@@ -95,7 +95,7 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=60, area_threshold=80, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=80, area_threshold=100, merge = True):
         img.draw_rectangle(blob.rect())
         #img.draw_cross(blob.cx(), blob.cy())
 

@@ -53,8 +53,10 @@ void loop() {
   striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
   keeper_condition = role == LOW;
 
-  striker->play(striker_condition);
-  keeper->play(keeper_condition);
+  // striker->play(striker_condition);
+  // keeper->play(keeper_condition);
+  precision_shooter->play(1);
+
   testmenu->testMenu();
 
   // Last thing to do: movement and update status vector

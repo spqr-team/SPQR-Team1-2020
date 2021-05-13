@@ -2,22 +2,22 @@
 #include "systems/position/positionsys_camera.h"
 #include "sensors/sensors.h"
 #include "sensors/data_source_ball.h"
-#include "strategy_roles/striker.h"
+#include "strategy_roles/precision_shooter.h"
 #include "vars.h"
 #include "math.h"
 
 
-Striker::Striker() : Game()
+PrecisionShooter::PrecisionShooter() : Game()
 {
   init();
 }
 
-Striker::Striker(LineSystem *ls_, PositionSystem *ps_) : Game(ls_, ps_)
+PrecisionShooter::PrecisionShooter(LineSystem *ls_, PositionSystem *ps_) : Game(ls_, ps_)
 {
   init();
 }
 
-void Striker::init()
+void PrecisionShooter::init()
 {
   atk_speed = 0;
   atk_direction = 0;
@@ -27,7 +27,7 @@ void Striker::init()
   gotta_tilt = false;
 }
 
-void Striker::realPlay()
+void PrecisionShooter::realPlay()
 {
   if (CURRENT_DATA_READ.ballSeen)
     this->striker();
@@ -35,11 +35,19 @@ void Striker::realPlay()
     ps->goCenter();
 }
 
-void Striker::striker(){
+unsigned long t3 = 0;
+
+void PrecisionShooter::striker(){
+
+  #ifdef MAX_VEL
+  #undef MAX_VEL
+  #define MAX_VEL 100
+  #endif
+
   //seguo palla
-  int ball_degrees2, dir, ball_deg = CURRENT_DATA_READ.ballAngle, plusang = STRIKER_PLUSANG;
+  int ball_degrees2, dir, ball_deg = CURRENT_DATA_READ.ballAngle, plusang =  PS_PLUSANG;
   
-  if(ball_deg >= 344 || ball_deg <= 16) plusang = STRIKER_PLUSANG_VISIONCONE;            //se ho la palla in un range di +-20 davanti, diminuisco di 20 il plus
+  if(ball_deg >= 346 || ball_deg <= 16) plusang = PS_PLUSANG_VISIONCONE;            //se ho la palla in un range di +-20 davanti, diminuisco di 20 il plus
   if(ball_deg > 180) ball_degrees2 = ball_deg - 360;            //ragiono in +180 -180  
   else ball_degrees2 = ball_deg;
 
@@ -52,13 +60,20 @@ void Striker::striker(){
   if(ball->isInFront()) roller->speed(ROLLER_DEFAULT_SPEED);
   else roller->speed(roller->MIN);
 
-  // if(ball->isInMouth() && ( (CURRENT_DATA_READ.posx <= -30 && CURRENT_DATA_READ.posy >= 35) || (CURRENT_DATA_READ.posx >= 30 && CURRENT_DATA_READ.posy >= 35))){
-  //   ps->goCenter();
-  // }
+  if(ball->isInFront() && CURRENT_DATA_READ.ballDistance <= 85 &&  CURRENT_DATA_READ.posy >= 32 &&  (CURRENT_DATA_READ.posx >= 15  || CURRENT_DATA_READ.posx <= -15) ) {
+    t3 = millis();
+  }
+
+  if(millis() - t3 < 1000){
+    roller->speed(1800);
+    ps->goCenter();
+  }
+
+
   
 }
 
-int Striker::tilt() {
+int PrecisionShooter::tilt() {
   if (ball->isInMouth() /* || (ball->isInMouthMaxDistance() && gotta_tilt)*/ ) gotta_tilt = true;
   else gotta_tilt = false;
 

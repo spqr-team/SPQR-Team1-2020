@@ -21,8 +21,8 @@
 /*Camera translation: because of mechanical imprecision, the center of the camera and the center of the cone mirror may not coincide
 To overcome this, each coordinate needs to be shifted by some amount, defined on a per-robot basis that needs to be recalibrated each time.
 These values need to be subtracted from the coords used in setMoveSetpoints*/
-#define CAMERA_TRANSLATION_X 1
-#define CAMERA_TRANSLATION_Y -4
+#define CAMERA_TRANSLATION_X 0
+#define CAMERA_TRANSLATION_Y 0
 
 class DataSourceCameraConic : public DataSource{
 

@@ -15,9 +15,9 @@ void PositionSystemEmpty::test(){
 }
 
 void PositionSystemEmpty::goCenter(){
-    drive->prepareDrive(0,0,0);
+    // drive->prepareDrive(0,0,0);
 }
 
 void PositionSystemEmpty::centerGoal(){
-    drive->prepareDrive(0,0,0);
+    // drive->prepareDrive(0,0,0);
 }

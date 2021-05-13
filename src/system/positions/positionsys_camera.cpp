@@ -60,7 +60,9 @@ void PositionSysCamera::update(){
         //IMPORTANT STEP: or the direction of the plane will be flipped
         posx *= -1;
         posy *= -1;
-    }else{
+    }
+    
+    if(abs(CURRENT_DATA_READ.posx-CURRENT_DATA_WRITE.posx)>MAX_X  || abs(CURRENT_DATA_READ.posy-CURRENT_DATA_WRITE.posy)>MAX_Y|| (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false) ) {
         // Go back in time until we found a valid status, when we saw at least one goal
         int i = 1;
         do{
