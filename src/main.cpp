@@ -44,26 +44,24 @@ void setup() {
   tone(BUZZER, 350.00, 250);
 
   drive->prepareDrive(0,0,0);
-
-  pinMode(35, INPUT);
 }
 
 void loop() {
-  DEBUG.println(digitalReadFast(35));
+  DEBUG.println("aaaa");
   updateSensors();
 
   drive->resetDrive();
   
-  striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
+  striker_condition = role == HIGH;
   keeper_condition = role == LOW;
 
-  // striker->play(striker_condition);
+  striker->play(striker_condition);
   // keeper->play(keeper_condition);
-  precision_shooter->play(1);
+  // precision_shooter->play(1);
 
-  testmenu->testMenu();
+  // testmenu->testMenu();
 
-  // Last thing to do: movement and update status vector
+  // // Last thing to do: movement and update status vector
   drive->drivePrepared();  
   updateStatusVector();
 }
