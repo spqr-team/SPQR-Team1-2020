@@ -29,20 +29,31 @@ void PassAndShoot::init()
   pass_counter = millis();
 }
 
+unsigned long pass_timer = 0;
+boolean flag = false;
+
 void PassAndShoot::realPlay()
 {
   if (CURRENT_DATA_READ.ballSeen){
     if(robot_indentifier == HIGH){
-      if(millis() - pass_counter <= 1500) {
-        striker();
-      }else{
+        if(ball->isInFront() && CURRENT_DATA_READ.ballDistance <= 90){
+          if(!flag){
+            pass_timer = millis();
+            flag = true;
+
+            //Show on 32u4
+            Serial2.write(0b00000100);
+          }
+        }
+        if(!flag || (millis() - pass_timer <= 650)){
+          striker();
+        }else{
         ((PositionSysCamera*)ps)->setMoveSetpoints(CAMERA_GOAL_MIN_X, CAMERA_GOAL_Y);
         bt->tosend = 'C';
-      }
+        roller->speed(0);
+        }
     }else{
       if(bt->received == 'C'){
-        // //Show on 32u4
-        Serial2.write(0b00000100);
         striker();
       }else drive->prepareDrive(0,0,0);
     }

@@ -11,10 +11,10 @@
 
 //Camera goal: those setpoints correspond to the position of the center of the goal on the field
 #define CAMERA_GOAL_X 0
-#define  CAMERA_GOAL_Y -14
+#define  CAMERA_GOAL_Y -12
 
-#define CAMERA_GOAL_MIN_X -16
-#define CAMERA_GOAL_MAX_X 16
+#define CAMERA_GOAL_MIN_X -8
+#define CAMERA_GOAL_MAX_X 8
 
 #define CAMERA_CENTER_Y_ABS_SUM 60
 //Actually it's ± MAX_VAL
