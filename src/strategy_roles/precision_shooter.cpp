@@ -59,8 +59,8 @@ void PrecisionShooter::striker(){
   dir = (dir + 360) % 360;
   drive->prepareDrive(dir, MAX_VEL_HALF, tilt());
 
-  if(ball->isInFront()) roller->speed(ROLLER_DEFAULT_SPEED);
-  else roller->speed(roller->MIN);
+  // if(ball->isInFront()) roller->speed(ROLLER_DEFAULT_SPEED);
+  // else roller->speed(roller->MIN);
 
   if(ball->isInFront() && CURRENT_DATA_READ.ballDistance <= 78 && ( (CURRENT_DATA_READ.posy >= 32 &&  (CURRENT_DATA_READ.posx >= 15  || CURRENT_DATA_READ.posx <= -15)) ||  abs(tilt()) > 65 ) ) {
     // Just let the robot slowly approach the ball
@@ -74,7 +74,7 @@ void PrecisionShooter::striker(){
   }
 
   if(millis() - t3 < 800){
-    roller->speed(roller->MAX);
+    // roller->speed(roller->MAX);
     drive->prepareDrive(180, MAX_VEL_3QUARTERS, 0);
     ignited = false;
   }

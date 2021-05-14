@@ -52,10 +52,10 @@ void loop() {
   drive->resetDrive();
   
   striker_condition = role == HIGH;
-  // striker->play(striker_condition);
+  striker->play(1);
 
-  if(role) precision_shooter->play(1);
-  else pass_and_shoot->play(1);
+  // if(role) precision_shooter->play(1);
+  // else pass_and_shoot->play(1);
 
   // keeper_condition = role == LOW;
   // keeper->play(keeper_condition);
