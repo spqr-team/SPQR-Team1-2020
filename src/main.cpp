@@ -17,8 +17,8 @@ bool striker_condition = false;
 bool keeper_condition = false;
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(BUZZER, OUTPUT);
+  
   tone(BUZZER, 220, 250);
   delay(1500);
   DEBUG.begin(115200);
@@ -52,8 +52,10 @@ void loop() {
   drive->resetDrive();
   
   striker_condition = role == HIGH;
-  striker->play(striker_condition);
-  // precision_shooter->play(1);
+  // striker->play(striker_condition);
+
+  if(role) precision_shooter->play(1);
+  else pass_and_shoot->play(1);
 
   // keeper_condition = role == LOW;
   // keeper->play(keeper_condition);

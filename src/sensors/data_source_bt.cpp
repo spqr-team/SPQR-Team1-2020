@@ -29,7 +29,8 @@ DataSourceBT :: DataSourceBT(HardwareSerial* ser_, int baud) : DataSource(ser_, 
     last_received = 0;
     t = 0;
 
-    tosend = 'B';
+    tosend = 'A';
+    received = '0';
 
     connect();
 }
@@ -57,7 +58,6 @@ void DataSourceBT :: receive(){
     last_received = millis();
     received = (char) Serial1.read();
     comrade = true;
-    DEBUG.println(received);
   }
   if(millis() - last_received > 2000) 
   comrade = false;
@@ -66,8 +66,6 @@ void DataSourceBT :: receive(){
 void DataSourceBT::send(){
   if(millis() - t >= 250){
     Serial1.print(tosend);
-    // DEBUG.print("Sending: ");
-    DEBUG.println(tosend);
   }
 }
 
@@ -75,8 +73,7 @@ void DataSourceBT::update(){
   // if(!bt_bombarded && can_bombard) connect();
   receive();
   send();
-  digitalWriteFast(LED_BUILTIN, comrade);
-  digitalWriteFast(BUZZER, received == 'B') ;
+  // if(comrade)Serial2.write(0b00000100);
 }
 
 void DataSourceBT :: test(){

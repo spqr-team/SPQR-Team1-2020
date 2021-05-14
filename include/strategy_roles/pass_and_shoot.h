@@ -4,16 +4,16 @@
 #include "sensors/sensors.h"
 #include "strategy_roles/game.h"
 
-#define PS_ATTACK_DISTANCE 110
-#define PS_TILT_STOP_DISTANCE 140
-#define PS_PLUSANG 55
-#define PS_PLUSANG_VISIONCONE 10
+#define PAS_ATTACK_DISTANCE 110
+#define PAS_TILT_STOP_DISTANCE 140
+#define PAS_PLUSANG 55
+#define PAS_PLUSANG_VISIONCONE 10
 
-class PrecisionShooter : public Game{
+class PassAndShoot : public Game{
 
     public:
-        PrecisionShooter();
-        PrecisionShooter(LineSystem* ls, PositionSystem* ps);
+        PassAndShoot();
+        PassAndShoot(LineSystem* ls, PositionSystem* ps);
 
     private:
         void realPlay() override;
@@ -23,8 +23,6 @@ class PrecisionShooter : public Game{
 
         int atk_speed, atk_direction, atk_tilt;
         float cstorc;
-
+        unsigned long pass_counter;
         bool gotta_tilt;
-
-        unsigned long pas_counter;
 };
