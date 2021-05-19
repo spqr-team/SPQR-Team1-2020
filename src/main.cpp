@@ -7,6 +7,9 @@
 #include "strategy_roles/games.h"
 #include "vars.h"
 #include "test_menu.h"
+#include "motors_movement/roller.h"
+
+void updateRoller();
 
 TestMenu* testmenu;
 
@@ -14,6 +17,9 @@ bool striker_condition = false;
 bool keeper_condition = false;
 
 void setup() {
+  pinMode(BUZZER, OUTPUT);
+  
+  tone(BUZZER, 220, 250);
   delay(1500);
   DEBUG.begin(115200);
     
@@ -23,33 +29,39 @@ void setup() {
   }
 
   testmenu = new TestMenu();
+  tone(BUZZER, 240, 250);
   initStatusVector();
-  initSensors();
-  initGames();
-  
-  delay(500);
+  delay(250);
 
-  drive->prepareDrive(0,0,0);
+  tone(BUZZER, 260, 250);
+  initSensors();
+  delay(500);
+  
+  tone(BUZZER, 320, 250);
+  initGames();
+  delay(250);
 
   //Startup sound
-  tone(BUZZER, 220.00, 250);
-}
+  tone(BUZZER, 350.00, 250);
 
+  drive->prepareDrive(0,0,0);
+}
 
 void loop() {
   updateSensors();
-
   drive->resetDrive();
   
-  striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
-  keeper_condition = role == LOW;
+  striker_condition = role == HIGH;
+  striker->play(1);
 
-  striker->play(striker_condition);
-  keeper->play(keeper_condition);
+  // if(role) precision_shooter->play(1);
+  // else pass_and_shoot->play(1);
 
-  testmenu->testMenu();
+  // keeper_condition = role == LOW;
+  // keeper->play(keeper_condition);
+  // testmenu->testMenu();
 
-  // Last thing to do: movement and update status vector
+  // // Last thing to do: movement and update status vector
   drive->drivePrepared();  
   updateStatusVector();
 }

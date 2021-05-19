@@ -7,18 +7,17 @@
 
 #include "vars.h" 
 
-#define S1I A7
-#define S1O A6
-#define S2I A2
-#define S2O A3
-#define S3I A1
-#define S3O A0
-#define S4I A9
-#define S4O A8
+#define S1O A7
+#define S1I A6
+#define S2O A2
+#define S2I A3
+#define S3I A9
+#define S3O A8
+#define S4I A0
+#define S4O A1
 
 #define LINE_THRESH_CAM 350
-#define EXIT_TIME 250
-#define LINES_EXIT_SPD 350
+#define EXIT_TIME 300
 
 class LineSysCamera : public LineSystem{
 

@@ -18,6 +18,18 @@
 #define FILTER_YY_COEFF FILTER_DEFAULT_COEFF
 #define FILTER_YX_COEFF FILTER_DEFAULT_COEFF
 
+/*Camera translation: because of mechanical imprecision, the center of the camera and the center of the cone mirror may not coincide
+To overcome this, each coordinate needs to be shifted by some amount, defined on a per-robot basis that needs to be recalibrated each time.
+These values need to be subtracted from the coords used in setMoveSetpoints*/
+
+// Robot without roller
+// #define CAMERA_TRANSLATION_X 0
+// #define CAMERA_TRANSLATION_Y 7
+
+//Robot with roller
+#define CAMERA_TRANSLATION_X 0
+#define CAMERA_TRANSLATION_Y 7
+
 class DataSourceCameraConic : public DataSource{
 
     public:
@@ -35,7 +47,7 @@ class DataSourceCameraConic : public DataSource{
             true_xy_fixed, true_yb_fixed, true_yy_fixed;
         bool data_received = false, start = false, end = false;
 
-        int goalOrientation, pAtk, pDef;
+        int goalOrientation, old_goalOrientation, pAtk, pDef;
         int value;
 
         ComplementaryFilter *filter_yy, *filter_xy, *filter_yb, *filter_xb, *filter_yy_fix, *filter_xy_fix, *filter_yb_fix, *filter_xb_fix;

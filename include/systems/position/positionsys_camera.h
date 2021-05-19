@@ -3,22 +3,18 @@
 #include "PID_v2.h"
 #include "systems/systems.h"
 #include "behaviour_control/complementary_filter.h"
+#include "behaviour_control/status_vector.h"
 
-/*Camera translation: because of mechanical imprecision, the center of the camera and the center of the cone mirror may not coincide
-To overcome this, each coordinate needs to be shifted by some amount, defined on a per-robot basis that needs to be recalibrated each time.
-These values need to be subtracted from the coords used in setMoveSetpoints*/
-#define CAMERA_TRANSLATION_X 10
-#define CAMERA_TRANSLATION_Y 0
 //Camera center: those setpoints correspond to what we consider the center of the field
 #define CAMERA_CENTER_X 0
 #define CAMERA_CENTER_Y 0
 
 //Camera goal: those setpoints correspond to the position of the center of the goal on the field
 #define CAMERA_GOAL_X 0
-#define  CAMERA_GOAL_Y -14
+#define  CAMERA_GOAL_Y -12
 
-#define CAMERA_GOAL_MIN_X -16
-#define CAMERA_GOAL_MAX_X 16
+#define CAMERA_GOAL_MIN_X -8
+#define CAMERA_GOAL_MAX_X 8
 
 #define CAMERA_CENTER_Y_ABS_SUM 60
 //Actually it's ± MAX_VAL
@@ -54,5 +50,7 @@ class PositionSysCamera : public PositionSystem{
         PID* Y;
         ComplementaryFilter* filterDir;
         ComplementaryFilter* filterSpeed;
+
+        data valid_data;
 
 };

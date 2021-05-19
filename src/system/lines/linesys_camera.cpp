@@ -78,7 +78,7 @@ void LineSysCamera::outOfBounds(){
   }
 
   if (millis() - exitTimer < EXIT_TIME){
-    CURRENT_DATA_WRITE.game->ps->goCenter();
+    CURRENT_DATA_READ.game->ps->goCenter();
     tookLine = true;
     tone(BUZZER, 220.00, 250);
   }else{

@@ -13,5 +13,7 @@ void initGames(){
 
     // striker_test = new StrikerTest(new LineSysCamera(lIn, lOut), new PositionSysCamera());
     striker = new Striker(new LineSysCamera(lIn, lOut), new PositionSysCamera());
-    keeper = new Keeper(new LineSysCamera(lOut, lOut), new PositionSysCamera());
+    pass_and_shoot = new PassAndShoot(new LineSysCamera(lIn, lOut), new PositionSysCamera());
+    precision_shooter = new PrecisionShooter(new LineSysCamera(lIn, lOut), new PositionSysCamera());
+    // keeper = new Keeper(new LineSysCamera(lOut, lOut), new PositionSysCamera());
 }

@@ -30,7 +30,7 @@ PositionSysCamera::PositionSysCamera() {
     Y->SetDerivativeLag(1);
     Y->SetSampleTime(2);
 
-    filterDir = new ComplementaryFilter(0.65);
+    filterDir = new ComplementaryFilter(0.35);
     filterSpeed = new ComplementaryFilter(0.65);
 }
 
@@ -48,12 +48,31 @@ void PositionSysCamera::update(){
     }else if (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == true){
         posx = CURRENT_DATA_WRITE.cam_xy;
         posy = CURRENT_DATA_WRITE.cam_yy + calcOtherGoalY(CURRENT_DATA_WRITE.cam_yy);
-    }else{
-        //TODO: no goal seen ?
     }
+
     //IMPORTANT STEP: or the direction of the plane will be flipped
     posx *= -1;
     posy *= -1;
+    
+    //x = 66 is a very very strange bug I can't seem to track down. It's a dirty hack, I know
+    if(posx == 66 || (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false) ) {
+        // Go back in time until we found a valid status, when we saw at least one goal
+        int i = 1;
+        do{
+            valid_data = getDataAtIndex_backwardsFromCurrent(i);
+            i++;
+        }while(!valid_data.ySeen && !valid_data.bSeen);
+
+        if(valid_data.ySeen || valid_data.bSeen){
+            posx = valid_data.posx;
+            posy = valid_data.posy;
+
+            // Trick the status vector into thinking this was a valid status
+            CURRENT_DATA_WRITE.ySeen = valid_data.ySeen;
+            CURRENT_DATA_WRITE.bSeen = valid_data.bSeen;
+
+        }
+    }
 
     CURRENT_DATA_WRITE.posx = posx;
     CURRENT_DATA_WRITE.posy = posy;
@@ -71,8 +90,10 @@ void PositionSysCamera::update(){
 
 //This means the last time this is called has the biggest priority, has for prepareDrive
 void PositionSysCamera::setMoveSetpoints(int x, int y){
-    Setpointx = x + CAMERA_TRANSLATION_X;
-    Setpointy = y + CAMERA_TRANSLATION_Y;
+    // Setpointx = x + CAMERA_TRANSLATION_X;
+    // Setpointy = y + CAMERA_TRANSLATION_Y;
+    Setpointx = x;
+    Setpointy = y;
     givenMovement = true;
     CameraPID();
 }
@@ -123,21 +144,19 @@ void PositionSysCamera::CameraPID(){
         int dist = sqrt( ( (CURRENT_DATA_WRITE.posx-Setpointx)*(CURRENT_DATA_WRITE.posx-Setpointx) ) + (CURRENT_DATA_WRITE.posy-Setpointy)*(CURRENT_DATA_WRITE.posy-Setpointy) );
         // int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
         int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0,  MAX_VEL);
-        speed = filterSpeed->calculate(speed);
-        speed = speed > 40 ? speed : 0;
-        dir = filterDir->calculate(dir);
-        // drive->prepareDrive(dir, speed, 0);
+        speed = speed > 30 ? speed : 0;
+        dir = filterDir->calculate(dir);;
+        //speed = filterSpeed->calculate(speed);
 
-
-        //Disable below lines for now because they probably result in unexpected behaviour on lines. Re enabling them requires to comment out the drive->prepareDrive above
-        //and check the notes in drivecontroller for the other stuff to comment and uncomment
-
-        //TODO: add complementary filter on this speed if we keep using it
+        #ifdef DRIVE_VECTOR_SUM
         vx = ((speed * cosins[dir]));
         vy = ((-speed * sins[dir]));
-
         CURRENT_DATA_WRITE.addvx = vx;
         CURRENT_DATA_WRITE.addvy = vy;
+        #else
+        drive->prepareDrive(dir, speed, 0);
+        #endif
+
     }
 }
 

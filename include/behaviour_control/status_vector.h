@@ -22,7 +22,7 @@
 #define sv_extr extern
 #endif
 
-#define dim 20
+#define dim 50
 #define CURRENT_DATA_READ ( datas[((currentSVIndex-1+dim) % dim)]  )
 #define CURRENT_DATA_WRITE ( datas[((currentSVIndex))]  )
 #define CURRENT_INPUT_READ ( inputs[((currentSVIndex-1+dim) % dim)] )
@@ -38,7 +38,7 @@ typedef struct data{
     int IMUAngle, ballAngle, ballAngleFix, ballDistance, 
         yAngle, bAngle, yAngleFix, bAngleFix, 
         yDist, bDist, 
-        angleAtk, angleAtkFix, angleDef, angleDefFix,
+        angleAtk, angleAtkFix, angleDef, angleDefFix, yAtk, yAtkFix, xAtk, xAtkFix, yDef, yDefFix, xDef, xDefFix,
         cam_xb, cam_yb, cam_xy, cam_yy,
         speed, tilt, dir, axisBlock[4],
         USfr, USsx, USdx, USrr, 
@@ -61,3 +61,5 @@ sv_extr int currentSVIndex;
 
 void initStatusVector();
 void updateStatusVector();
+data getDataAtIndex(int index);
+data getDataAtIndex_backwardsFromCurrent(int steps);

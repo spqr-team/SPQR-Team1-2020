@@ -18,4 +18,9 @@ in the 32U4 code*/
 #define SWITCH_DX 38
 #define SWITCH_ID 33
 
+#define ROLLER_INA 34
+#define ROLLER_INB 35
+
+#define BALL_32U4 Serial2
+
 extr float sins[360], cosins[360];

@@ -1,5 +1,6 @@
 #include "behaviour_control/status_vector.h"
 #include "sensors/data_source_camera_conicmirror.h"
+#include "vars.h"
 
 //Comment out to disable complementary filters on angles
 #define CAMERA_CONIC_FILTER_POINTS
@@ -30,6 +31,9 @@ DataSourceCameraConic::DataSourceCameraConic(HardwareSerial *ser_, int baud) : D
   true_yb_fixed = 0;
   true_xy_fixed = 0;
   true_yy_fixed = 0;
+
+  goalOrientation = 0;
+  old_goalOrientation = 0;
 
   filter_yy = new ComplementaryFilter(FILTER_YY_COEFF);
   filter_xy = new ComplementaryFilter(FILTER_YX_COEFF);
@@ -83,10 +87,10 @@ void DataSourceCameraConic ::readSensor() {
 void DataSourceCameraConic ::computeCoordsAngles() {
   //Where are the goals relative to the robot?
   //Remap from [0,100] to [-50, +50] to correctly compute angles and distances and calculate them, getting the original coords calculated by the camera
-  true_xb = 50 - true_xb;
-  true_yb = true_yb - 50;
-  true_xy = 50 - true_xy;
-  true_yy = true_yy - 50;
+  true_xb = 50 - true_xb + CAMERA_TRANSLATION_X;
+  true_yb = true_yb - 50 + CAMERA_TRANSLATION_Y;
+  true_xy = 50 - true_xy + CAMERA_TRANSLATION_X;
+  true_yy = true_yy - 50 + CAMERA_TRANSLATION_Y;
 
   #ifdef CAMERA_CONIC_FILTER_POINTS
   true_xb = filter_xb->calculate(true_xb);
@@ -120,15 +124,15 @@ void DataSourceCameraConic ::computeCoordsAngles() {
   true_xy_fixed = (true_xy*(cos(angleFix))) - (true_yy*(sin(angleFix)));
   true_yy_fixed = (true_xy*(sin(angleFix))) + (true_yy*(cos(angleFix)));
 
-  yAngleFix = 90 - (atan2(true_yy_fixed, true_xy_fixed) * 180 / 3.14);
-  bAngleFix = 90 - (atan2(true_yb_fixed, true_xb_fixed) * 180 / 3.14);
-
   #ifdef CAMERA_CONIC_FILTER_POINTS
   true_xb_fixed = filter_xb_fix->calculate(true_xb_fixed);
   true_yb_fixed = filter_yb_fix->calculate(true_yb_fixed);
   true_xy_fixed = filter_xy_fix->calculate(true_xy_fixed);
   true_yy_fixed = filter_yy_fix->calculate(true_yy_fixed);
   #endif
+
+  yAngleFix = 90 - (atan2(true_yy_fixed, true_xy_fixed) * 180 / 3.14);
+  bAngleFix = 90 - (atan2(true_yb_fixed, true_xb_fixed) * 180 / 3.14);
 
   //Important: update status vector
   CURRENT_INPUT_WRITE.cameraByte = value;
@@ -156,17 +160,44 @@ void DataSourceCameraConic ::computeCoordsAngles() {
     CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.yAngle;
     CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
     CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.ySeen;
+    
+    CURRENT_DATA_WRITE.yAtk = CURRENT_DATA_WRITE.cam_yy;
+    CURRENT_DATA_WRITE.yAtkFix = CURRENT_DATA_WRITE.cam_yy_fixed;
+    CURRENT_DATA_WRITE.xAtk = CURRENT_DATA_WRITE.cam_xy;
+    CURRENT_DATA_WRITE.xAtkFix = CURRENT_DATA_WRITE.cam_xy_fixed;
+
     CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.bAngle;
     CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.bAngleFix;
     CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.bSeen;
+
+    CURRENT_DATA_WRITE.yDef = CURRENT_DATA_WRITE.cam_yb;
+    CURRENT_DATA_WRITE.yDefFix = CURRENT_DATA_WRITE.cam_yb_fixed;
+    CURRENT_DATA_WRITE.xDef = CURRENT_DATA_WRITE.cam_xb;
+    CURRENT_DATA_WRITE.xDefFix = CURRENT_DATA_WRITE.cam_xb_fixed;
   } else {
     CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.bAngle;
     CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.bAngleFix;
     CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.bSeen;
+
+    CURRENT_DATA_WRITE.yAtk = CURRENT_DATA_WRITE.cam_yb;
+    CURRENT_DATA_WRITE.yAtkFix = CURRENT_DATA_WRITE.cam_yb_fixed;
+    CURRENT_DATA_WRITE.xAtk = CURRENT_DATA_WRITE.cam_xb;
+    CURRENT_DATA_WRITE.xAtkFix = CURRENT_DATA_WRITE.cam_xb_fixed;
+
     CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.yAngle;
     CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.yAngleFix;
     CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.ySeen;
+
+    CURRENT_DATA_WRITE.yDef = CURRENT_DATA_WRITE.cam_yy;
+    CURRENT_DATA_WRITE.yDefFix = CURRENT_DATA_WRITE.cam_yy_fixed;
+    CURRENT_DATA_WRITE.xDef = CURRENT_DATA_WRITE.cam_xy;
+    CURRENT_DATA_WRITE.xDefFix = CURRENT_DATA_WRITE.cam_xy_fixed;
   }
+
+  byte to_32u4 = 0;
+  to_32u4 |= (CURRENT_DATA_READ.ySeen);
+  to_32u4 |= (CURRENT_DATA_READ.bSeen) << 1;
+  BALL_32U4.write(to_32u4);
 }
 
 void DataSourceCameraConic::test(){

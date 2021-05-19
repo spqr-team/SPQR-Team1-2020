@@ -55,10 +55,12 @@ void TestMenu::testMenu()
             break;
         case '3':
             DEBUG.println("Motors Test. Lift up from ground and turn on S_MOT");
+            drive->stopAll();
             drive->m1->test();
             drive->m2->test();
             drive->m3->test();
             drive->m4->test();
+            flagtest = true;
             break;
         case '4':
             DEBUG.println("Pid recenter test");
@@ -126,6 +128,10 @@ void TestMenu::testMenu()
             Serial2.write(0);
             delay(1500);
             break;
+        case 'r':
+            drive->stopAll();
+            flagtest = false;
+            break;
         case 'h':
         default:
             DEBUG.println("Unknown command, here's a lil help for you :)");
@@ -143,6 +149,7 @@ void TestMenu::testMenu()
             DEBUG.println("9)Switches test");
             DEBUG.println("u)Read Serial messages from 32u4");
             DEBUG.println("s)Send test to 32u4 status LEDs");
+            DEBUG.println("r)Test roller");
             flagtest = false;
         }
     }

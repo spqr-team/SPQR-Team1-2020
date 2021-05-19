@@ -4,16 +4,16 @@
 #include "sensors/sensors.h"
 #include "strategy_roles/game.h"
 
-#define STRIKER_ATTACK_DISTANCE 110
-#define STRIKER_TILT_STOP_DISTANCE 140
-#define STRIKER_PLUSANG 62
-#define STRIKER_PLUSANG_VISIONCONE 7
+#define PS_ATTACK_DISTANCE 110
+#define PS_TILT_STOP_DISTANCE 140
+#define PS_PLUSANG 55
+#define PS_PLUSANG_VISIONCONE 10
 
-class Striker : public Game{
+class PrecisionShooter : public Game{
 
     public:
-        Striker();
-        Striker(LineSystem* ls, PositionSystem* ps);
+        PrecisionShooter();
+        PrecisionShooter(LineSystem* ls, PositionSystem* ps);
 
     private:
         void realPlay() override;
@@ -25,4 +25,6 @@ class Striker : public Game{
         float cstorc;
 
         bool gotta_tilt;
+
+        unsigned long pas_counter;
 };
