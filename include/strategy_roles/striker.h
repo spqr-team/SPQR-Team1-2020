@@ -20,9 +20,10 @@ class Striker : public Game{
         void init() override;
         void striker();
         int tilt();
+        float ballTilt();
 
-        int atk_speed, atk_direction, atk_tilt;
-        float cstorc;
+        int atk_speed, atk_direction;
+        float atk_tilt, ball_tilt;
 
         bool gotta_tilt;
 };

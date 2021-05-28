@@ -26,11 +26,11 @@ DriveController::DriveController(Motor* m1_, Motor* m2_, Motor* m3_, Motor* m4_)
     output = 0;
     setpoint = 0;
 
-    pid = new PID(&input, &output, &setpoint, KP, KI, KD, 1,DIRECT);
+    pid = new PID(&input, &output, &setpoint, KP, KI, KD,DIRECT);
 
     pid->SetSampleTime(2.5);
     pid->setAngleWrap(true);
-    pid->SetDerivativeLag(2);
+    // pid->SetDerivativeLag(2);
     pid->SetOutputLimits(-255,255);
     pid->SetMode(AUTOMATIC);
 

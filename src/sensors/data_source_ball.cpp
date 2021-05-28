@@ -14,9 +14,8 @@ void DataSourceBall :: postProcess(){
       ballSeen = distance == 255 ? 0 : 1;
   }else{ 
     angle = value * 2;
-    int imuAngle = CURRENT_DATA_READ.IMUAngle > 180 ? 360 -CURRENT_DATA_READ.IMUAngle : CURRENT_DATA_READ.IMUAngle;
-    int ballAngle = angle > 180 ? 360 -angle : angle;
-    angleFix = (ballAngle-imuAngle+360)%360;
+    int imuAngle = CURRENT_DATA_READ.IMUAngle > 180 ? CURRENT_DATA_READ.IMUAngle - 360 : CURRENT_DATA_READ.IMUAngle;
+    angleFix = (angle+imuAngle+360)%360;
   }
   CURRENT_INPUT_WRITE.ballByte = value;
   CURRENT_DATA_WRITE.ballAngle = angle;
@@ -45,9 +44,9 @@ bool DataSourceBall::isInFront(){
 }
 
 bool DataSourceBall::isInMouth(){
-  return CURRENT_DATA_READ.ballSeen && (isInFront() && CURRENT_DATA_READ.ballDistance<=MOUTH_DISTANCE);
+  return isInFront() && CURRENT_DATA_READ.ballDistance<=MOUTH_DISTANCE;
 }
 
 bool DataSourceBall::isInMouthMaxDistance(){
-  return CURRENT_DATA_READ.ballSeen && (isInFront() && CURRENT_DATA_READ.ballDistance <= MOUTH_MAX_DISTANCE);
+  return isInFront() && CURRENT_DATA_READ.ballDistance <= MOUTH_MAX_DISTANCE;
 }

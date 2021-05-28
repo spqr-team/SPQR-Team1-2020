@@ -10,7 +10,7 @@
 
 //BEST NUMBERS YET
 //USE MOVING AVERAGE AND ANGLE WRAP
-#define KP 0.8
+#define KP 1.35
 #define KI 0.0
 #define KD 0.025
 

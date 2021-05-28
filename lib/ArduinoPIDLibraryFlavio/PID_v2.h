@@ -9,7 +9,6 @@
 class PID
 {
 
-
   public:
 
   //Constants used in some of the functions below
@@ -17,8 +16,6 @@ class PID
   #define MANUAL	0
   #define DIRECT  0
   #define REVERSE  1
-  #define P_ON_M 0
-  #define P_ON_E 1
 
   //commonly used functions **************************************************************************
     PID(double*, double*, double*,        // * constructor.  links the PID to the Input, Output, and 
@@ -55,18 +52,7 @@ class PID
     void SetSampleTime(int);              // * sets the frequency, in Milliseconds, with which 
                                           //   the PID calculation is performed.  default is 100
 
-    void SetDerivativeLag(double val){
-      kd_lagpam = val;
-    }
-
-    void setAngleWrap(bool a){
-      angleWrap = a;
-    }
-
-    double getDerivative(){
-      return filteredDerivative;
-    }
-										  
+    void setAngleWrap(bool a);
 										  
   //Display functions ****************************************************************
 	double GetKp();						  // These functions query the pid for interal values.
@@ -84,24 +70,22 @@ class PID
 	double dispKd;				//
     
 	double kp;                  // * (P)roportional Tuning Parameter
-    double ki;                  // * (I)ntegral Tuning Parameter
-    double kd;                  // * (D)erivative Tuning Parameter
-    double filteredDerivative;
-    double kd_lagpam = 1; //* 0.15 to 0.35
+  double ki;                  // * (I)ntegral Tuning Parameter
+  double kd;                  // * (D)erivative Tuning Parameter
 
 	int controllerDirection;
-	int pOn;
 
-    double *myInput;              // * Pointers to the Input, Output, and Setpoint variables
-    double *myOutput;             //   This creates a hard link between the variables and the 
-    double *mySetpoint;           //   PID, freeing the user from having to constantly tell us
-                                  //   what these values are.  with pointers we'll just know.
+  double *Input;              // * Pointers to the Input, Output, and Setpoint variables
+  double *Output;             //   This creates a hard link between the variables and the 
+  double *Setpoint;           //   PID, freeing the user from having to constantly tell us
+                                //   what these values are.  with pointers we'll just know.
 			  
 	unsigned long lastTime;
-	double outputSum, lastInput;
+	double lastInput, ITerm;
 
 	unsigned long SampleTime;
 	double outMin, outMax;
-	bool inAuto, pOnE, angleWrap;
+	bool inAuto;
+  bool angleWrap;
 };
 #endif

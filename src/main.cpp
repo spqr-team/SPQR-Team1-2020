@@ -13,12 +13,12 @@ void updateRoller();
 
 TestMenu* testmenu;
 
+#define BALL_IN A13
+
 bool striker_condition = false;
 bool keeper_condition = false;
 
 void setup() {
-  pinMode(BUZZER, OUTPUT);
-  
   tone(BUZZER, 220, 250);
   delay(1500);
   DEBUG.begin(115200);
@@ -49,19 +49,17 @@ void setup() {
 
 void loop() {
   updateSensors();
+
   drive->resetDrive();
   
-  striker_condition = role == HIGH;
+  // striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
+  keeper_condition = role == LOW;
+
   striker->play(1);
 
-  // if(role) precision_shooter->play(1);
-  // else pass_and_shoot->play(1);
+  testmenu->testMenu();
 
-  // keeper_condition = role == LOW;
-  // keeper->play(keeper_condition);
-  // testmenu->testMenu();
-
-  // // Last thing to do: movement and update status vector
+  // Last thing to do: movement and update status vector
   drive->drivePrepared();  
   updateStatusVector();
 }

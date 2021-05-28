@@ -22,12 +22,10 @@ PositionSysCamera::PositionSysCamera() {
     X = new PID(&Inputx, &Outputx, &Setpointx, Kpx, Kix, Kdx, REVERSE);
     X->SetOutputLimits(-MAX_X, MAX_X);
     X->SetMode(AUTOMATIC);
-    X->SetDerivativeLag(1);
     X->SetSampleTime(2);
     Y = new PID(&Inputy, &Outputy, &Setpointy, Kpy, Kiy, Kdy, REVERSE);
     Y->SetOutputLimits(-MAX_Y,MAX_Y);
     Y->SetMode(AUTOMATIC);
-    Y->SetDerivativeLag(1);
     Y->SetSampleTime(2);
 
     filterDir = new ComplementaryFilter(0.35);
