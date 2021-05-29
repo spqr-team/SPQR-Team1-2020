@@ -11,6 +11,7 @@ class DataSourceBall : public DataSource{
 
     public:
         DataSourceBall(HardwareSerial* ser, int baud);
+        void readSensor() override;
         void postProcess() override;
         void test() override;
         bool isInMouth();
@@ -19,4 +20,6 @@ class DataSourceBall : public DataSource{
         
         int angle, distance, angleFix;
         bool ballSeen;
+
+        String ballString;
 }; 

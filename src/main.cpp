@@ -58,7 +58,7 @@ void loop() {
   striker->play(1);
 
   testmenu->testMenu();
-
+  
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  
   updateStatusVector();
