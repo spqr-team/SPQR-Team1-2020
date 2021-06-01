@@ -94,8 +94,9 @@ void DriveController::drive(int dir, int speed, int tilt){
     // Calculate position error relative to the 0
     delta = CURRENT_DATA_READ.IMUAngle;
     if(delta > 180) delta = delta - 360;
-
     input = delta;
+
+    if(tilt > 180) tilt = tilt - 360;
     setpoint = tilt;
     
     if(pid->Compute()){
