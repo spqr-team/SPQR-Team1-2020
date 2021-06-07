@@ -110,6 +110,13 @@ void TestMenu::testMenu()
             while (Serial2.available())
                 DEBUG.print((char)Serial2.read());
             break;
+        case 'b':
+            ballPresence->test();
+            break;
+        case 'r':
+            drive->stopAll();
+            flagtest = false;
+            break;
         case 's':
             DEBUG.println("32u4 send Test");
             DEBUG.println("Remember LED1 is not used by teensy");
@@ -127,10 +134,6 @@ void TestMenu::testMenu()
             delay(1500);
             Serial2.write(0);
             delay(1500);
-            break;
-        case 'r':
-            drive->stopAll();
-            flagtest = false;
             break;
         case 'h':
         default:

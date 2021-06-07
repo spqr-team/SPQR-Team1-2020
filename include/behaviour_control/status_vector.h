@@ -29,14 +29,14 @@
 #define CURRENT_INPUT_WRITE ( inputs[((currentSVIndex))] )
 
 typedef struct input{
-    int IMUAngle, USfr, USsx, USdx, USrr, BT;
+    int IMUAngle, USfr, USsx, USdx, USrr, BT, ballPresenceVal;
     byte cameraByte, ballByte, lineByte, xb, yb, xy, yy;
     bool SW_DX, SW_SX;
     String ballString;
 }input;
 
 typedef struct data{
-    int IMUAngle, ballAngle, ballAngleFix, ballDistance, 
+    int IMUAngle, ballAngle, ballAngleFix, ballDistance, ballPresenceVal, 
         yAngle, bAngle, yAngleFix, bAngleFix, 
         yDist, bDist, 
         angleAtk, angleAtkFix, angleDef, angleDefFix, yAtk, yAtkFix, xAtk, xAtkFix, yDef, yDefFix, xDef, xDefFix,
@@ -53,7 +53,7 @@ typedef struct data{
     bool mate, 
         ATKgoal, DEFgoal, 
         atkSeen, defSeen, bSeen, ySeen,
-        ballSeen;
+        ballSeen, ballPresent;
 }data;
 
 sv_extr input inputs[dim];
