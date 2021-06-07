@@ -1,29 +1,29 @@
-IC1							Buck converter 2A SMD			RS 798-1195
-IC2,IC3,IC4,IC5						VNH7070AS mot driver			RS 164-7017P
-IC6							ATmega32U4-AU uC			RS 131-0289
-C1,C2,C15,C20,C21,C22,C24,C26,C27,CB1,CB2,CB3,CB4	Cap 100nF 12V SMD0805			RS 264-4416
-C3,C4							Cap 22nF 12V SMD0805			RS 264-4387
-*C5,C6,C25,C19						Cap 100uF 3,3V SMD1206			RS 820-2850
-C7,C9,C11,C12						Cap 100uF 12V SMD Panasonic E		RS 747-2875
-C8,C10,C13,C14,C18					Cap 1uF 12V SMD0805			RS 134-9148
-C16,C17							Cap 22pF 3,3V SMD0805			RS 264-4258
-C23							Cap 1500uF 12V Panasonic H13		RS 708-3396
-R1,R2,R8						Resistor 10k SMD0805			RS 125-1189
-*R3							Resistor 61,9k SMD0805			RS 123-3056
-R4							Resistor 3,32k SMD0805			RS 123-2946
-R5							Resistor 1,07k SMD0805			RS 708-6137
-R9,R10,R11,R12,R13,R14,R15,R16,R17,R35			Resistor 180 SMD0805			RS 740-9000
-RB1,RB2,RB3,RB4,R6,R7					Resistor 22 SMD0805			RS 810-1987
-Q1							Crystal 16MHz 20ppm HC-49		RS 814-9535
-S1...S16						IR Sensor PNA460XM			RS 773-0367
-SW1,SW2							Switch programmazione slitta		RS 181-0038
-S_ELETTR,S_MOT						Switch potenza				RS 734-7312
-RST							Tactile switch 2-pin SMD RST		RS 793-1673
-L1,L2,L3,SW1L,SW2L,MLEDS(8)				LED SMD1206 verde			RS 176-6130
-L1,L2,L3,SW1L,SW2L,MLEDS(8)				LED SMD1206 rosso			RS 176-6084
-J2							Micro-USB				RS 714-2353
-J3,J4,J5,J6						Molex 2-pin connector passo 3mm		RS 144-8181
-J_SPI							SPI programming con (strip 2,54mm)	In lab
-LS_CONs							Grove/JST connectors, passo 2mm		RS 179-3735
-OpenMV							OpenMV4 H7				Bedurin
-BUZZER							PWM buzzer F/CM12P
+IC1						Buck converter 2A SMD			RS 798-1195
+IC2,IC3,IC4,IC5				VNH7070AS mot driver			RS 164-7017P
+IC6						ATmega32U4-AU uC			RS 131-0289
+C1,C2,C15,C20,C21,C22,C24,CB1,CB2,CB3,CB4	Cap 100nF 12V SMD0805			RS 264-4416
+C3,C4						Cap 22nF 12V SMD0805			RS 264-4387
+C5,C6,C25,C19					Cap 100uF 3,3V SMD1206			RS 820-2850
+C7,C9,C11,C12					Cap 100uF 12V SMD Panasonic E		RS 747-2875
+C8,C10,C13,C14,C18				Cap 1uF 12V SMD0805			RS 134-9148
+C16,C17					Cap 22pF 3,3V SMD0805			RS 264-4258
+C23						Cap 1500uF 12V Panasonic H13		RS 708-3396
+R1,R2,R8					Resistor 10k SMD0805			RS 125-1189
+R3						Resistor 61,9k SMD0805			RS 123-3056
+R4						Resistor 3,32k SMD0805			RS 123-2946
+R5						Resistor 1,07k SMD0805			RS 708-6137
+R9,R10,R11,R12,R13,R14,R15,R16,R17,R18		Resistor 180 SMD0805			RS 740-9000
+RB1,RB2,RB3,RB4,R6,R7				Resistor 22 SMD0805			RS 810-1987
+Q1						Crystal 16MHz 20ppm HC-49		RS 814-9535
+S1...S16					IR Sensor PNA460XM			RS 773-0367
+SW1,SW2					Switch programmazione slitta		RS 181-0038
+S_ELETTR,S_MOT					Switch potenza				RS 734-7312
+RST						Tactile switch 2-pin SMD RST		RS 793-1673
+L1,L2,L3,SW1L,SW2L,MLEDS(8)			LED SMD1206 verde			RS 176-6130
+L1,L2,L3,SW1L,SW2L,MLEDS(8)			LED SMD1206 rosso			RS 176-6084
+J2						Micro-USB				RS 714-2353
+J3,J4,J5,J6					Molex 2-pin connector passo 3mm	RS 144-8181
+J_SPI						SPI programming con (strip 2,54mm)	In lab
+LS_CONs					Grove/JST connectors, passo 2mm	RS 179-3735
+OpenMV						OpenMV4 H7				Bedurin
+BUZZER						PWM buzzer F/CM12P
