@@ -22,6 +22,8 @@
 #define MAX_Y (CAMERA_CENTER_Y_ABS_SUM/2)
 #define DIST_MULT 1.7
 
+#define VICINITY_DIST_TRESH 3
+
 #define Kpx 1
 #define Kix 0
 #define Kdx 0
@@ -42,6 +44,7 @@ class PositionSysCamera : public PositionSystem{
         void setCameraPID();
         void CameraPID();
         int calcOtherGoalY(int goalY);
+        bool isInTheVicinityOf(int, int);
 
         double Inputx, Outputx, Setpointx, Inputy, Outputy, Setpointy;
         int MAX_DIST, vx, vy, axisx, axisy;

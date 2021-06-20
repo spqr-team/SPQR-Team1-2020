@@ -4,6 +4,7 @@
 #include "vars.h"
 #include "math.h"
 
+
 PositionSysCamera::PositionSysCamera() {
     MAX_DIST = sqrt(MAX_X*MAX_X + MAX_Y*MAX_Y);
     Inputx = 0;
@@ -122,6 +123,11 @@ int PositionSysCamera::calcOtherGoalY(int goalY){
     return otherGoalY;
 }
 
+bool PositionSysCamera::isInTheVicinityOf(int x_, int y_){
+    // Distance using pytagorean theorem
+    return pow(CURRENT_DATA_READ.posx-x_, 2) + pow(CURRENT_DATA_READ.posy-y_, 2) <= VICINITY_DIST_TRESH*VICINITY_DIST_TRESH;
+}
+
 void PositionSysCamera::CameraPID(){   
     if(givenMovement){
 
@@ -139,12 +145,11 @@ void PositionSysCamera::CameraPID(){
         int dir = -90-(atan2(Outputy,Outputx)*180/3.14);
         dir = (dir+360) % 360;
 
-        int dist = sqrt( ( (CURRENT_DATA_WRITE.posx-Setpointx)*(CURRENT_DATA_WRITE.posx-Setpointx) ) + (CURRENT_DATA_WRITE.posy-Setpointy)*(CURRENT_DATA_WRITE.posy-Setpointy) );
-        // int dist = sqrt(Outputx*Outputx + Outputy*Outputy);
-        int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0,  MAX_VEL);
-        speed = speed > 30 ? speed : 0;
-        dir = filterDir->calculate(dir);;
-        //speed = filterSpeed->calculate(speed);
+        int dist = sqrt( ( pow(CURRENT_DATA_WRITE.posx-Setpointx,2) ) + pow(CURRENT_DATA_WRITE.posy-Setpointy, 2) );
+        int speed = dist*DIST_MULT;
+
+        speed = speed > 10 ? speed : 0;
+        dir = filterDir->calculate(dir);
 
         #ifdef DRIVE_VECTOR_SUM
         vx = ((speed * cosins[dir]));
