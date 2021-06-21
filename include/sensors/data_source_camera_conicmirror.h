@@ -27,7 +27,7 @@ These values need to be subtracted from the coords used in setMoveSetpoints*/
 // #define CAMERA_TRANSLATION_Y 7
 
 //Robot with roller
-#define CAMERA_TRANSLATION_X 0
+#define CAMERA_TRANSLATION_X 4
 #define CAMERA_TRANSLATION_Y 7
 
 class DataSourceCameraConic : public DataSource{

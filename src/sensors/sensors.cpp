@@ -20,7 +20,7 @@ void initSensors(){
     // delay(350);
     bt = new DataSourceBT(&Serial1, 9600);
     roller = new Roller(30, 31, 1000, 2000, 500);
-    ballPresence = new DataSourceBallPresence(A22, true);
+    ballPresence = new DataSourceBallPresence(A13, true);
  }
 
 void updateSensors(){

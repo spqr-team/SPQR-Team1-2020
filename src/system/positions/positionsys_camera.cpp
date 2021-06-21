@@ -145,10 +145,10 @@ void PositionSysCamera::CameraPID(){
         int dir = -90-(atan2(Outputy,Outputx)*180/3.14);
         dir = (dir+360) % 360;
 
-        int dist = sqrt( ( pow(CURRENT_DATA_WRITE.posx-Setpointx,2) ) + pow(CURRENT_DATA_WRITE.posy-Setpointy, 2) );
-        int speed = dist*DIST_MULT;
-
-        speed = speed > 10 ? speed : 0;
+        // int dist = sqrt( ( pow(CURRENT_DATA_WRITE.posx-Setpointx,2) ) + pow(CURRENT_DATA_WRITE.posy-Setpointy, 2) );
+        // int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, MAX_VEL);
+        int speed = hypot(Outputx, Outputy) * DIST_MULT;
+        // speed = speed > 10 ? speed : 0;
         dir = filterDir->calculate(dir);
 
         #ifdef DRIVE_VECTOR_SUM

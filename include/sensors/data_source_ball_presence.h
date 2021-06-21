@@ -1,6 +1,6 @@
 #pragma once
 
-#define BALL_PRESENCE_TRESH 500
+#define BALL_PRESENCE_TRESH 600
 
 #include <Arduino.h>
 #include "behaviour_control/data_source.h"

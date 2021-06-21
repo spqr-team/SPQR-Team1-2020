@@ -57,6 +57,8 @@ void loop() {
 
   testmenu->testMenu();
 
+  // if(roller->roller_armed) roller->speed(roller->MAX);
+
   // Last thing to do: movement and update status vector
   drive->drivePrepared();  
   updateStatusVector();

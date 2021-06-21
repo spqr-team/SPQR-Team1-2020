@@ -87,10 +87,10 @@ void DataSourceCameraConic ::readSensor() {
 void DataSourceCameraConic ::computeCoordsAngles() {
   //Where are the goals relative to the robot?
   //Remap from [0,100] to [-50, +50] to correctly compute angles and distances and calculate them, getting the original coords calculated by the camera
-  true_xb = 50 - true_xb + CAMERA_TRANSLATION_X;
-  true_yb = true_yb - 50 + CAMERA_TRANSLATION_Y;
-  true_xy = 50 - true_xy + CAMERA_TRANSLATION_X;
-  true_yy = true_yy - 50 + CAMERA_TRANSLATION_Y;
+  true_xb = 50 - true_xb + CAMERA_TRANSLATION_X*0.5;
+  true_yb = true_yb - 50 + CAMERA_TRANSLATION_Y*0.5;
+  true_xy = 50 - true_xy + CAMERA_TRANSLATION_X*0.5;
+  true_yy = true_yy - 50 + CAMERA_TRANSLATION_Y*0.5;
 
   #ifdef CAMERA_CONIC_FILTER_POINTS
   true_xb = filter_xb->calculate(true_xb);

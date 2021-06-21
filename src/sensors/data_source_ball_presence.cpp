@@ -25,5 +25,5 @@ void DataSourceBallPresence::test(){
     DEBUG.print(" -> ");
     DEBUG.print(CURRENT_DATA_READ.ballPresent);
     DEBUG.print(" | Ball in mouth: ");
-    DEBUG.print(isInMouth());
+    DEBUG.println(isInMouth());
 }

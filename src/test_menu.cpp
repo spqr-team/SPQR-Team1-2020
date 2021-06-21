@@ -114,8 +114,8 @@ void TestMenu::testMenu()
             ballPresence->test();
             break;
         case 'r':
-            drive->stopAll();
-            flagtest = false;
+            DEBUG.println("Roller at default speed");
+            roller->speed(roller->MAX);
             break;
         case 's':
             DEBUG.println("32u4 send Test");

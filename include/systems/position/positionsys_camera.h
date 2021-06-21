@@ -20,9 +20,9 @@
 //Actually it's ± MAX_VAL
 #define MAX_X 50
 #define MAX_Y (CAMERA_CENTER_Y_ABS_SUM/2)
-#define DIST_MULT 1.7
+#define DIST_MULT 3.5
 
-#define VICINITY_DIST_TRESH 3
+#define VICINITY_DIST_TRESH 2
 
 #define Kpx 1
 #define Kix 0
