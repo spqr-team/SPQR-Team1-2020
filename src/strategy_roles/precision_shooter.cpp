@@ -32,7 +32,7 @@ void PrecisionShooter::init()
 void PrecisionShooter::realPlay()
 {
   if (CURRENT_DATA_READ.ballSeen)
-    this->spinner(0);
+    this->spinner(5);
   else
     ps->goCenter();
 }
@@ -65,7 +65,7 @@ void PrecisionShooter::spinner(int targetx){
     }
 
     if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
-      spinner_state++;
+      spinner_state=1;
       spinner_flag = false;
     }
   }else if(spinner_state == 1){
@@ -75,27 +75,28 @@ void PrecisionShooter::spinner(int targetx){
     if(targetx > 0) spotx = targetx-PS_SPINNER_OVERHEAD;
     else spotx = targetx+PS_SPINNER_OVERHEAD;
 
-    if(((PositionSysCamera*)ps)->isInTheVicinityOf(spotx, 5)) {
+    if(((PositionSysCamera*)ps)->isInTheVicinityOf(spotx, 0)) {
 
       if( !spinner_flag){
         spinner_flag = true;
         spinner_timer = millis();
       }
 
-      if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 750) {
-        spinner_state++;
+      if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
+        spinner_state=2;
         spinner_flag = false;
         spinner_tilt = CURRENT_DATA_READ.IMUAngle;
       }
 
       if(CURRENT_DATA_READ.posx > targetx){
-        tilt1 = -0.075;
+        tilt1 = -0.15;
         tilt2 = 0.3;
       }else{
-        tilt1 = 0.075;
+        tilt1 = 0.15;
         tilt2 = -0.3;
       }
-    }else ((PositionSysCamera*)ps)->setMoveSetpoints(spotx, 5);
+    
+    }else ((PositionSysCamera*)ps)->setMoveSetpoints(spotx, 0);
   }else if(spinner_state == 2){
     roller->speed(roller->MAX);
 
@@ -103,21 +104,22 @@ void PrecisionShooter::spinner(int targetx){
     drive->prepareDrive(0,0,spinner_tilt);
     
     if(CURRENT_DATA_READ.IMUAngle > 175 && CURRENT_DATA_READ.IMUAngle < 185) {
-      spinner_state++;
-      spinner_tilt = CURRENT_DATA_READ.IMUAngle;
-
       spinner_timer = millis();
+      spinner_state=3;
     }
-    
   }else if(spinner_state == 3){
     roller->speed(roller->MAX);
-    if(millis() - spinner_timer > 2000) spinner_state++;
+    drive->prepareDrive(0,0,spinner_tilt);
+    if(millis() - spinner_timer > 1000) {
+      spinner_state=4;
+      spinner_tilt = CURRENT_DATA_READ.IMUAngle;
+    }
   }else if(spinner_state == 4){
     spinner_tilt += tilt2;
+    spinner_tilt = constrain(spinner_tilt, KICK_LIMIT_MIN, KICK_LIMIT_MAX);
     drive->prepareDrive(0,0,spinner_tilt);
 
-    if(CURRENT_DATA_READ.IMUAngle > 215 || CURRENT_DATA_READ.IMUAngle < 125) roller->speed(roller->MIN);
-    if(CURRENT_DATA_READ.IMUAngle > 355 || CURRENT_DATA_READ.IMUAngle < 10) spinner_state++;
+    if(CURRENT_DATA_READ.IMUAngle >= KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= KICK_LIMIT_MIN) roller->speed(roller->MIN);
   }
 }
 /*
@@ -133,7 +135,7 @@ float ball_catch_tilt = 0;
 
 void PrecisionShooter::catchBall(){
 
-  if(ball->isInFront() && roller->roller_armed) roller->speed(ROLLER_DEFAULT_SPEED);
+  if(ball->isInFront() && roller->roller_armed) roller->speed(roller->MAX);
   else roller->speed(roller->MIN);
 
   if(!ball->isInFront()){
@@ -156,6 +158,8 @@ void PrecisionShooter::catchBall(){
   }else if(ball_catch_state == 1){
     if(ball_catch_tilt > 180) ball_catch_tilt += 0.15;
     else if(ball_catch_tilt <= 180) ball_catch_tilt -= 0.15;
+
+    drive->prepareDrive(0,0,ball_catch_tilt);
 
     if(CURRENT_DATA_READ.IMUAngle >= 355 || CURRENT_DATA_READ.IMUAngle <= 5) ball_catch_state = 0;
   }else if(ball_catch_state == 2){
