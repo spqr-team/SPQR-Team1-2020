@@ -62,18 +62,16 @@ void StrikerRoller::spinner(int targetx){
       spinner_timer = millis();
     }
 
-    if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
+    if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 50) {
       spinner_state=1;
       spinner_flag = false;
     }
   }else if(spinner_state == 1){
     roller->speed(roller->MAX);
 
-    if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
-      spinner_state=2;
-      spinner_flag = false;
-      spinner_tilt = CURRENT_DATA_READ.IMUAngle;
-    }
+    spinner_state=2;
+    spinner_flag = false;
+    spinner_tilt = CURRENT_DATA_READ.IMUAngle;
 
     if(CURRENT_DATA_READ.posx < targetx) {
       tilt1 = -0.15;
@@ -86,7 +84,6 @@ void StrikerRoller::spinner(int targetx){
 
       limitx = STRL_KICK_LIMIT_TILT1;
     }
-    spinner_state=1;
   }else if(spinner_state == 2){
     roller->speed(roller->MAX);
 
@@ -139,33 +136,25 @@ void StrikerRoller::catchBall(){
       ball_catch_timer = millis();
     }
 
-    if(ballPresence->isInMouth() && ball_catch_flag && millis() - ball_catch_timer > 350) {
+    if(ballPresence->isInMouth() && ball_catch_flag && millis() - ball_catch_timer > 50) {
       ball_catch_state++;
-      ball_catch_tilt = CURRENT_DATA_READ.IMUAngle;
     }
   }else if(ball_catch_state == 1){
     int val = ballAngleFilter->calculate(CURRENT_DATA_READ.ballAngleFix);
+    // val = val > 10 || val < 10 ? val : 0;
+
     drive->prepareDrive(drive->directionAccountingForTilt(CURRENT_DATA_READ.angleAtkFix, val ),MAX_VEL_HALF,val);
 
-    if(CURRENT_DATA_READ.distAtk <= 30){
+    if(CURRENT_DATA_READ.distAtk <= 25){
        ball_catch_state++;
        spinner_state = 0;
        spinner_flag = false;
        spinner_tilt = 0;
-       drive->prepareDrive(0,0,0);
+      //  drive->prepareDrive(0,0,0);
     }
   }else if(ball_catch_state == 2){
     spinner(0);
   }
-
-    // if(ball_catch_tilt > 180) ball_catch_tilt += 0.15;
-    // else if(ball_catch_tilt <= 180) ball_catch_tilt -= 0.15;
-
-    // drive->prepareDrive(0,0,ball_catch_tilt);
-
-    // if(CURRENT_DATA_READ.IMUAngle >= 355 || CURRENT_DATA_READ.IMUAngle <= 5) ball_catch_state = 0;
-    // ((PositionSysCamera*)ps)->setMoveSetpoints(CURRENT_DATA_READ.xAtkFix, 0);
-    // if(((PositionSysCamera*)ps)->isInTheVicinityOf(CURRENT_DATA_READ.xAtkFix, 0)) ball_catch_state++;
 }
 
 int StrikerRoller::tilt() {
@@ -173,9 +162,6 @@ int StrikerRoller::tilt() {
   else gotta_tilt = false;
 
   if(!gotta_tilt || !CURRENT_DATA_READ.atkSeen) {
-    atk_tilt *= 0.8;
-    if(atk_tilt <= 10) atk_tilt = 0;
-  }else{
     atk_tilt = roller->roller_armed ? CURRENT_DATA_READ.angleAtkFix : constrain(CURRENT_DATA_READ.angleAtkFix, -45, 45);
   }
 

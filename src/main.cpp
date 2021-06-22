@@ -53,7 +53,7 @@ void loop() {
   // striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
   // keeper_condition = role == LOW;
 
-  striker_roller->play(1);
+  tc1->play(1);
 
   testmenu->testMenu();
 

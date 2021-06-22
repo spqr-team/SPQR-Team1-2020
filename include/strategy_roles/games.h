@@ -21,3 +21,5 @@ g_extr Game* striker_roller;
 g_extr Game* precision_shooter;
 g_extr Game* pass_and_shoot;
 // g_extr Game* keeper;
+
+g_extr Game* tc1;
