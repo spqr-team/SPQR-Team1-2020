@@ -10,7 +10,7 @@
 
 //BEST NUMBERS YET
 //USE MOVING AVERAGE AND ANGLE WRAP
-#define KP 1.35
+#define KP 1.2
 #define KI 0.0
 #define KD 0.025
 
@@ -20,7 +20,7 @@
 
 //Max possible vel 310
 
-#define MAX_VEL 50
+#define MAX_VEL 60
 #define MAX_VEL_EIGTH ((int)MAX_VEL*0.8)
 #define MAX_VEL_HALF ((int)MAX_VEL*0.5)
 #define MAX_VEL_3QUARTERS ((int)MAX_VEL*0.75)
@@ -37,6 +37,7 @@ class DriveController{
         void drive(int dir=0, int speed=0, int tilt=0);
         void prepareDrive(int dir, int speed, int tilt=0);
         void drivePrepared();
+        int directionAccountingForTilt(int, int);
         float updatePid();
         float torad(float f);
         void resetDrive();

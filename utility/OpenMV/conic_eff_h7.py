@@ -46,10 +46,10 @@ blue_led.on()
 
 
 thresholds = [  (70, 100, -36, 8, 38, 112),    # thresholds yellow goalz
-                (31, 74, -31, 15, -50, -9)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+                (37, 57, -19, 8, -52, -21)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 
-roi = (50, 0, 250, 200)
+roi = (50, 0, 270, 200)
 
 # Camera Setup ###############################################################
 '''sensor.reset()xxxx

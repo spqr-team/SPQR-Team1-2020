@@ -168,3 +168,7 @@ void DriveController::stopAll(){
     m3->stop();
     m4->stop();
 }
+
+int DriveController::directionAccountingForTilt(int wanted_direction, int tilt){
+  return ((360-tilt+wanted_direction)+360)%360;
+}
