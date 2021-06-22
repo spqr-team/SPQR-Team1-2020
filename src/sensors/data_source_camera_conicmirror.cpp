@@ -160,6 +160,7 @@ void DataSourceCameraConic ::computeCoordsAngles() {
     CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.yAngle;
     CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.yAngleFix;
     CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.ySeen;
+    CURRENT_DATA_WRITE.distAtk = CURRENT_DATA_WRITE.yDist;
     
     CURRENT_DATA_WRITE.yAtk = CURRENT_DATA_WRITE.cam_yy;
     CURRENT_DATA_WRITE.yAtkFix = CURRENT_DATA_WRITE.cam_yy_fixed;
@@ -169,6 +170,7 @@ void DataSourceCameraConic ::computeCoordsAngles() {
     CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.bAngle;
     CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.bAngleFix;
     CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.bSeen;
+    CURRENT_DATA_WRITE.distDef = CURRENT_DATA_WRITE.bDist;
 
     CURRENT_DATA_WRITE.yDef = CURRENT_DATA_WRITE.cam_yb;
     CURRENT_DATA_WRITE.yDefFix = CURRENT_DATA_WRITE.cam_yb_fixed;
@@ -178,6 +180,7 @@ void DataSourceCameraConic ::computeCoordsAngles() {
     CURRENT_DATA_WRITE.angleAtk = CURRENT_DATA_WRITE.bAngle;
     CURRENT_DATA_WRITE.angleAtkFix = CURRENT_DATA_WRITE.bAngleFix;
     CURRENT_DATA_WRITE.atkSeen = CURRENT_DATA_WRITE.bSeen;
+    CURRENT_DATA_WRITE.distAtk = CURRENT_DATA_WRITE.bDist;
 
     CURRENT_DATA_WRITE.yAtk = CURRENT_DATA_WRITE.cam_yb;
     CURRENT_DATA_WRITE.yAtkFix = CURRENT_DATA_WRITE.cam_yb_fixed;
@@ -187,6 +190,7 @@ void DataSourceCameraConic ::computeCoordsAngles() {
     CURRENT_DATA_WRITE.angleDef = CURRENT_DATA_WRITE.yAngle;
     CURRENT_DATA_WRITE.angleDefFix = CURRENT_DATA_WRITE.yAngleFix;
     CURRENT_DATA_WRITE.defSeen = CURRENT_DATA_WRITE.ySeen;
+    CURRENT_DATA_WRITE.distDef = CURRENT_DATA_WRITE.yDist;
 
     CURRENT_DATA_WRITE.yDef = CURRENT_DATA_WRITE.cam_yy;
     CURRENT_DATA_WRITE.yDefFix = CURRENT_DATA_WRITE.cam_yy_fixed;

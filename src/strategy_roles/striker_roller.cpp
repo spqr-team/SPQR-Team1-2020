@@ -2,22 +2,22 @@
 #include "systems/position/positionsys_camera.h"
 #include "sensors/sensors.h"
 #include "sensors/data_source_ball.h"
-#include "strategy_roles/precision_shooter.h"
+#include "strategy_roles/striker_roller.h"
 #include "vars.h"
 #include "math.h"
 
 
-PrecisionShooter::PrecisionShooter() : Game()
+StrikerRoller::StrikerRoller() : Game()
 {
   init();
 }
 
-PrecisionShooter::PrecisionShooter(LineSystem *ls_, PositionSystem *ps_) : Game(ls_, ps_)
+StrikerRoller::StrikerRoller(LineSystem *ls_, PositionSystem *ps_) : Game(ls_, ps_)
 {
   init();
 }
 
-void PrecisionShooter::init()
+void StrikerRoller::init()
 {
   atk_speed = 0;
   atk_direction = 0;
@@ -29,11 +29,10 @@ void PrecisionShooter::init()
   ballAngleFilter = new ComplementaryFilter(0.85);
 }
 
-void PrecisionShooter::realPlay()
+void StrikerRoller::realPlay()
 {
   if (CURRENT_DATA_READ.ballSeen)
-    this->spinner(CURRENT_DATA_READ.xAtkFix);
-    // this->catchBall();
+    this->catchBall();
   else{
     ps->goCenter();
     ball_catch_flag = false;
@@ -49,7 +48,7 @@ Spinning kick state machine
 1: tilt toward 180 deg
 2: tilt back to 0 in the needed direction, stopping the roller whenn needed
 */
-void PrecisionShooter::spinner(int targetx){
+void StrikerRoller::spinner(int targetx){
   // if(!ballPresence->isInMouth()) {
   //   spinner_state=0;
   //   spinner_flag = false;
@@ -70,36 +69,24 @@ void PrecisionShooter::spinner(int targetx){
   }else if(spinner_state == 1){
     roller->speed(roller->MAX);
 
-    int spotx = targetx;
-    if(targetx >= 0) spotx = targetx-PS_SPINNER_OVERHEAD;
-    else spotx = targetx+PS_SPINNER_OVERHEAD;
+    if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
+      spinner_state=2;
+      spinner_flag = false;
+      spinner_tilt = CURRENT_DATA_READ.IMUAngle;
+    }
 
-    if(((PositionSysCamera*)ps)->isInTheVicinityOf(spotx, 0)) {
+    if(CURRENT_DATA_READ.posx < targetx) {
+      tilt1 = -0.15;
+      tilt2 = 0.55;
 
-      if( !spinner_flag){
-        spinner_flag = true;
-        spinner_timer = millis();
-      }
+      limitx = 360-STRL_KICK_LIMIT_TILT1;
+    }else{
+      tilt1 = 0.15;
+      tilt2 = -0.55;
 
-      if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
-        spinner_state=2;
-        spinner_flag = false;
-        spinner_tilt = CURRENT_DATA_READ.IMUAngle;
-      }
-
-      if(targetx >= 0) {
-        tilt1 = -0.15;
-        tilt2 = 0.55;
-
-        limitx = 360-PS_KICK_LIMIT_TILT1;
-      }else{
-        tilt1 = 0.15;
-        tilt2 = -0.55;
-
-        limitx = PS_KICK_LIMIT_TILT1;
-      }
-    
-    }else ((PositionSysCamera*)ps)->setMoveSetpoints(spotx, 0);
+      limitx = STRL_KICK_LIMIT_TILT1;
+    }
+    spinner_state=1;
   }else if(spinner_state == 2){
     roller->speed(roller->MAX);
 
@@ -121,10 +108,10 @@ void PrecisionShooter::spinner(int targetx){
     drive->prepareDrive(0,0,0);
 
     // spinner_tilt += tilt2;
-    // spinner_tilt = constrain(spinner_tilt, PS_KICK_LIMIT_MIN, PS_KICK_LIMIT_MAX);
+    // spinner_tilt = constrain(spinner_tilt, KICK_LIMIT_MIN, KICK_LIMIT_MAX);
     // drive->prepareDrive(0,0,spinner_tilt);
 
-    if(CURRENT_DATA_READ.IMUAngle >= PS_KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= PS_KICK_LIMIT_MIN) roller->speed(roller->MIN);
+    if(CURRENT_DATA_READ.IMUAngle >= STRL_KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= STRL_KICK_LIMIT_MAX) roller->speed(roller->MIN);
   }
 }
 /*
@@ -134,7 +121,7 @@ Ball catch state machine
 2: reach the spot
 */
 
-void PrecisionShooter::catchBall(){
+void StrikerRoller::catchBall(){
 
   if(ball->isInFront() && roller->roller_armed) roller->speed(roller->MAX);
   else roller->speed(roller->MIN);
@@ -160,6 +147,17 @@ void PrecisionShooter::catchBall(){
     int val = ballAngleFilter->calculate(CURRENT_DATA_READ.ballAngleFix);
     drive->prepareDrive(drive->directionAccountingForTilt(CURRENT_DATA_READ.angleAtkFix, val ),MAX_VEL_HALF,val);
 
+    if(CURRENT_DATA_READ.distAtk <= 30){
+       ball_catch_state++;
+       spinner_state = 0;
+       spinner_flag = false;
+       spinner_tilt = 0;
+       drive->prepareDrive(0,0,0);
+    }
+  }else if(ball_catch_state == 2){
+    spinner(0);
+  }
+
     // if(ball_catch_tilt > 180) ball_catch_tilt += 0.15;
     // else if(ball_catch_tilt <= 180) ball_catch_tilt -= 0.15;
 
@@ -168,10 +166,9 @@ void PrecisionShooter::catchBall(){
     // if(CURRENT_DATA_READ.IMUAngle >= 355 || CURRENT_DATA_READ.IMUAngle <= 5) ball_catch_state = 0;
     // ((PositionSysCamera*)ps)->setMoveSetpoints(CURRENT_DATA_READ.xAtkFix, 0);
     // if(((PositionSysCamera*)ps)->isInTheVicinityOf(CURRENT_DATA_READ.xAtkFix, 0)) ball_catch_state++;
-  }
 }
 
-int PrecisionShooter::tilt() {
+int StrikerRoller::tilt() {
   if (ball->isInFront() && CURRENT_DATA_READ.ballDistance <= 90 /* || (ball->isInMouthMaxDistance() && gotta_tilt)*/ ) gotta_tilt = true;
   else gotta_tilt = false;
 
