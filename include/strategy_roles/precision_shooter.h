@@ -11,8 +11,9 @@
 #define PS_PLUSANG_VISIONCONE 10
 
 // There needs to be a little bit of space between the target point and the spot to be in
-#define PS_SPINNER_OVERHEAD 10
+#define PS_SPINNER_OVERHEAD 7
 
+#define KICK_LIMIT_TILT1 200
 #define KICK_LIMIT_MAX 315
 #define KICK_LIMIT_MIN 45
 

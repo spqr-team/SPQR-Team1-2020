@@ -39,11 +39,13 @@ int ball_catch_state = 0;
 bool ball_catch_flag = false;
 unsigned long ball_catch_timer = 0;
 float ball_catch_tilt = 0;
+int limitx = 0;
 
 void PrecisionShooter::realPlay()
 {
   if (CURRENT_DATA_READ.ballSeen)
-    this->catchBall();
+    this->spinner(CURRENT_DATA_READ.xAtkFix);
+    // this->catchBall();
   else{
     ps->goCenter();
     ball_catch_flag = false;
@@ -80,8 +82,8 @@ void PrecisionShooter::spinner(int targetx){
   }else if(spinner_state == 1){
     roller->speed(roller->MAX);
 
-    int spotx;
-    if(targetx > 0) spotx = targetx-PS_SPINNER_OVERHEAD;
+    int spotx = targetx;
+    if(targetx >= 0) spotx = targetx-PS_SPINNER_OVERHEAD;
     else spotx = targetx+PS_SPINNER_OVERHEAD;
 
     if(((PositionSysCamera*)ps)->isInTheVicinityOf(spotx, 0)) {
@@ -97,12 +99,16 @@ void PrecisionShooter::spinner(int targetx){
         spinner_tilt = CURRENT_DATA_READ.IMUAngle;
       }
 
-      if(CURRENT_DATA_READ.posx > targetx){
+      if(targetx >= 0) {
         tilt1 = -0.15;
-        tilt2 = 0.3;
+        tilt2 = 0.55;
+
+        limitx = 360-KICK_LIMIT_TILT1;
       }else{
         tilt1 = 0.15;
-        tilt2 = -0.3;
+        tilt2 = -0.55;
+
+        limitx = KICK_LIMIT_TILT1;
       }
     
     }else ((PositionSysCamera*)ps)->setMoveSetpoints(spotx, 0);
@@ -112,21 +118,23 @@ void PrecisionShooter::spinner(int targetx){
     spinner_tilt += tilt1;
     drive->prepareDrive(0,0,spinner_tilt);
     
-    if(CURRENT_DATA_READ.IMUAngle > 175 && CURRENT_DATA_READ.IMUAngle < 185) {
+    if(CURRENT_DATA_READ.IMUAngle > limitx-5 && CURRENT_DATA_READ.IMUAngle < limitx+5) {
       spinner_timer = millis();
       spinner_state=3;
     }
   }else if(spinner_state == 3){
     roller->speed(roller->MAX);
     drive->prepareDrive(0,0,spinner_tilt);
-    if(millis() - spinner_timer > 1000) {
+    if(millis() - spinner_timer > 150) {
       spinner_state=4;
       spinner_tilt = CURRENT_DATA_READ.IMUAngle;
     }
   }else if(spinner_state == 4){
-    spinner_tilt += tilt2;
-    spinner_tilt = constrain(spinner_tilt, KICK_LIMIT_MIN, KICK_LIMIT_MAX);
-    drive->prepareDrive(0,0,spinner_tilt);
+    drive->prepareDrive(0,0,0);
+
+    // spinner_tilt += tilt2;
+    // spinner_tilt = constrain(spinner_tilt, KICK_LIMIT_MIN, KICK_LIMIT_MAX);
+    // drive->prepareDrive(0,0,spinner_tilt);
 
     if(CURRENT_DATA_READ.IMUAngle >= KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= KICK_LIMIT_MIN) roller->speed(roller->MIN);
   }
