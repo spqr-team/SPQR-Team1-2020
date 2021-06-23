@@ -53,13 +53,15 @@ void loop() {
   // striker_condition = role == HIGH || ((Keeper*)keeper)->shouldStrike;
   // keeper_condition = role == LOW;
 
-  tc1->play(1);
+  if(robot_indentifier){
+    tc1->play(1);
+    // if(roller->roller_armed) roller->speed(roller->MAX);
+    // Last thing to do: movement and update status vector
+    drive->drivePrepared();  
+  }else{
+    drive->stopAll();
+  }
 
   testmenu->testMenu();
-
-  // if(roller->roller_armed) roller->speed(roller->MAX);
-
-  // Last thing to do: movement and update status vector
-  drive->drivePrepared();  
   updateStatusVector();
 }

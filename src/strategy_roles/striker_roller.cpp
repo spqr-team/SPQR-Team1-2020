@@ -26,7 +26,7 @@ void StrikerRoller::init()
 
   gotta_tilt = false;
   
-  ballAngleFilter = new ComplementaryFilter(0.85);
+  ballAngleFilter = new ComplementaryFilter(0);
 }
 
 void StrikerRoller::realPlay()
@@ -71,44 +71,82 @@ void StrikerRoller::spinner(int targetx){
 
     spinner_state=2;
     spinner_flag = false;
+    
+    // decide with direction to rotate
     spinner_tilt = CURRENT_DATA_READ.IMUAngle;
 
-    if(CURRENT_DATA_READ.posx < targetx) {
-      tilt1 = -0.15;
-      tilt2 = 0.55;
+    if(CURRENT_DATA_READ.angleAtk >= 0) {
+        tilt1 = -0.25;
+        tilt2 = 5;
+        limitx = 360-STRL_KICK_LIMIT_TILT1;
+      }else{
+        tilt1 = 0.25;
+        tilt2 = -5;
+        limitx = STRL_KICK_LIMIT_TILT1;
+      }
+    // if(CURRENT_DATA_READ.posx >= -5 && CURRENT_DATA_READ.posx <= 5){
+    //   if(CURRENT_DATA_READ.IMUAngle >= 180) {
+    //     tilt1 = -0.25;
+    //     tilt2 = 15;
+    //     limitx = 360-STRL_KICK_LIMIT_TILT1;
+    //   }else{
+    //     tilt1 = 0.25;
+    //     tilt2 = -15;
+    //     limitx = STRL_KICK_LIMIT_TILT1;
+    //   }
+    // }else if(CURRENT_DATA_READ.posx < -5){
+    //     tilt1 = 0.25;
+    //     tilt2 = -5;
+    //     limitx = STRL_KICK_LIMIT_TILT1;
+    // }else if(CURRENT_DATA_READ.posx > 5){
+    //     tilt1 = -0.25;
+    //     tilt2 = 5;
+    //     limitx = 360-STRL_KICK_LIMIT_TILT1;
+    // }
+    // if(CURRENT_DATA_READ.IMUAngle < limitx) tilt1 *= -1; //we need to invert the rotatiion if we are on the opposite side
 
-      limitx = 360-STRL_KICK_LIMIT_TILT1;
-    }else{
-      tilt1 = 0.15;
-      tilt2 = -0.55;
-
-      limitx = STRL_KICK_LIMIT_TILT1;
-    }
   }else if(spinner_state == 2){
     roller->speed(roller->MAX);
 
-    spinner_tilt += tilt1;
+    spinner_tilt = spinner_tilt + tilt1;
+    // This ensures no strange rotation happens
+    if(spinner_tilt <= -360) spinner_tilt+=360;
+    if(spinner_tilt >= 360) spinner_tilt -= 360;
+
     drive->prepareDrive(0,0,spinner_tilt);
     
     if(CURRENT_DATA_READ.IMUAngle > limitx-5 && CURRENT_DATA_READ.IMUAngle < limitx+5) {
-      spinner_timer = millis();
       spinner_state=3;
+      spinner_tilt = CURRENT_DATA_READ.IMUAngle;
     }
   }else if(spinner_state == 3){
     roller->speed(roller->MAX);
+    // stay there a little bit
     drive->prepareDrive(0,0,spinner_tilt);
+
     if(millis() - spinner_timer > 150) {
       spinner_state=4;
       spinner_tilt = CURRENT_DATA_READ.IMUAngle;
     }
   }else if(spinner_state == 4){
-    drive->prepareDrive(0,0,0);
+    // fast return which gives momentum to the ball
+    drive->prepareDrive(0,0,spinner_tilt);
 
-    // spinner_tilt += tilt2;
-    // spinner_tilt = constrain(spinner_tilt, KICK_LIMIT_MIN, KICK_LIMIT_MAX);
-    // drive->prepareDrive(0,0,spinner_tilt);
+    spinner_tilt += tilt2;
+    spinner_tilt = constrain(spinner_tilt, 5, 355);
 
-    if(CURRENT_DATA_READ.IMUAngle >= STRL_KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= STRL_KICK_LIMIT_MAX) roller->speed(roller->MIN);
+    // turn roller off and kick
+    if(CURRENT_DATA_READ.IMUAngle >= STRL_KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= STRL_KICK_LIMIT_MAX) {
+      roller->speed(roller->MIN);
+      if(!spinner_end_flag){
+        spinner_end_time = millis();
+        spinner_end_flag = true;
+      }
+    }
+    // if(ballPresence->isInMouth()) {
+    //   spinner_state = 1;
+    //   spinner_flag = false; 
+    // }
   }
 }
 /*
@@ -123,12 +161,18 @@ void StrikerRoller::catchBall(){
   if(ball->isInFront() && roller->roller_armed) roller->speed(roller->MAX);
   else roller->speed(roller->MIN);
 
+  // if(!ball->isInFront() && millis() - spinner_end_time > 500 && spinner_end_flag){
+  //   ball_catch_state = 0;
+  //   ball_catch_flag = false;
+  //   spinner_end_flag = false;
+  // }
   if(!ball->isInFront()){
     ball_catch_state = 0;
     ball_catch_flag = false;
   }
 
   if(ball_catch_state == 0){
+    // tilt torwards the ball until it's in the mouth
     drive->prepareDrive(0, MAX_VEL_HALF, ballAngleFilter->calculate(CURRENT_DATA_READ.ballAngleFix));
 
     if(ballPresence->isInMouth() && !ball_catch_flag){
@@ -140,20 +184,45 @@ void StrikerRoller::catchBall(){
       ball_catch_state++;
     }
   }else if(ball_catch_state == 1){
+    // go towards the goal without resetting tilt
+    // this makes it so that the robot sometimes walks backwards, hiding the ball from any opponent
+    // a spinning kick is the only way to free the ball here
     int val = ballAngleFilter->calculate(CURRENT_DATA_READ.ballAngleFix);
-    // val = val > 10 || val < 10 ? val : 0;
 
     drive->prepareDrive(drive->directionAccountingForTilt(CURRENT_DATA_READ.angleAtkFix, val ),MAX_VEL_HALF,val);
 
-    if(CURRENT_DATA_READ.distAtk <= 25){
-       ball_catch_state++;
-       spinner_state = 0;
-       spinner_flag = false;
-       spinner_tilt = 0;
-      //  drive->prepareDrive(0,0,0);
+    if(CURRENT_DATA_READ.distAtk <= 26){
+      //  ball_catch_state++;
+      //  spinner_state = 0;
+      //  spinner_flag = false;
+      //  spinner_tilt = CURRENT_DATA_READ.IMUAngle;
+
+      drive->prepareDrive(0,0,0);
+      if(CURRENT_DATA_READ.IMUAngle >= STRL_KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= STRL_KICK_LIMIT_MAX) roller->speed(roller->MIN);
     }
   }else if(ball_catch_state == 2){
-    spinner(0);
+    // Spinny kick
+    
+    // spinner(0);
+    if(CURRENT_DATA_READ.angleAtkFix >= 0) {
+      tilt2 = 3;
+    }else{
+      tilt2 = -3;
+    }
+
+    drive->prepareDrive(0,0,spinner_tilt);
+
+    spinner_tilt += tilt2;
+    spinner_tilt = constrain(spinner_tilt, 5, 355);
+
+    // turn roller off and kick
+    if(CURRENT_DATA_READ.IMUAngle >= STRL_KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= STRL_KICK_LIMIT_MAX) {
+      roller->speed(roller->MIN);
+      if(!spinner_end_flag){
+        spinner_end_time = millis();
+        spinner_end_flag = true;
+      }
+    }
   }
 }
 

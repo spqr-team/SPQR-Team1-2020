@@ -114,6 +114,7 @@ void TestMenu::testMenu()
             ballPresence->test();
             break;
         case 'r':
+            drive->stopAll();
             DEBUG.println("Roller at default speed");
             roller->speed(roller->MAX);
             break;

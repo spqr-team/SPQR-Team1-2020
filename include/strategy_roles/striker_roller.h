@@ -13,9 +13,9 @@
 // There needs to be a little bit of space between the target point and the spot to be in
 #define STRL_SPINNER_OVERHEAD 7
 
-#define STRL_KICK_LIMIT_TILT1 200
-#define STRL_KICK_LIMIT_MAX 315
-#define STRL_KICK_LIMIT_MIN 45
+#define STRL_KICK_LIMIT_TILT1 180
+#define STRL_KICK_LIMIT_MAX 300
+#define STRL_KICK_LIMIT_MIN 60
 
 class StrikerRoller : public Game{
 
@@ -47,5 +47,7 @@ class StrikerRoller : public Game{
         unsigned long ball_catch_timer = 0;
         float ball_catch_tilt = 0;
         int limitx = 0;
+        unsigned long spinner_end_time = 0;
+        bool spinner_end_flag = false;
    
 };
