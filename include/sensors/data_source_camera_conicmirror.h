@@ -12,7 +12,7 @@
 //Imu To Camera Angle Mult
 #define IMUTOC_AMULT 1
 
-#define FILTER_DEFAULT_COEFF 0.6
+#define FILTER_DEFAULT_COEFF 0.25
 #define FILTER_BY_COEFF FILTER_DEFAULT_COEFF
 #define FILTER_BX_COEFF FILTER_DEFAULT_COEFF
 #define FILTER_YY_COEFF FILTER_DEFAULT_COEFF
@@ -27,8 +27,8 @@ These values need to be subtracted from the coords used in setMoveSetpoints*/
 // #define CAMERA_TRANSLATION_Y 7
 
 //Robot with roller
-#define CAMERA_TRANSLATION_X 0
-#define CAMERA_TRANSLATION_Y 12
+#define CAMERA_TRANSLATION_X -3
+#define CAMERA_TRANSLATION_Y -3
 
 class DataSourceCameraConic : public DataSource{
 

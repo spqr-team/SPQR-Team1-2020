@@ -72,7 +72,8 @@ void Striker::striker(){
   else dir = ball_deg - plusang;                                //se sto nel negativo sottraggo
 
   dir = (dir + 360) % 360;
-  drive->prepareDrive(dir, MAX_VEL_HALF, tilt());
+  // drive->prepareDrive(dir, MAX_VEL_HALF, tilt());
+  drive->prepareDrive(dir, MAX_VEL_HALF, 0);
 
   if(ball->isInFront() && roller->roller_armed) roller->speed(ROLLER_DEFAULT_SPEED);
   else roller->speed(roller->MIN);

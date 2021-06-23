@@ -45,8 +45,8 @@ blue_led.on()
 ##############################################################################
 
 
-thresholds = [  (84, 100, -29, 1, 36, 127),    # thresholds yellow goalz
-                (36, 100, -34, 12, -59, -19)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
+thresholds = [  (68, 100, -16, 26, 24, 85),    # thresholds yellow goalz
+                (36, 70, -3, 27, -75, -27)]  # thresholds blue goal (6, 31, -15, 4, -35, 0)
 
 
 roi = (70, 0, 250, 200)
@@ -71,7 +71,7 @@ sensor.set_windowing(roi)
 sensor.set_contrast(0)
 sensor.set_saturation(2)
 sensor.set_brightness(3)
-sensor.set_auto_whitebal(False, (-6.02073, -4.528669, -1.804))
+sensor.set_auto_whitebal(True, (-6.02073, -5.119987, -1.006964))
 sensor.set_auto_exposure(False, 6576)
 #sensor.set_auto_gain(False, gain_db=8.78)
 sensor.skip_frames(time = 300)
@@ -94,7 +94,7 @@ while(True):
     tt_blue = [(0,999,0,2)]       ## creo una lista di tuple per il blue, valore x = 999 : non trovata
 
     img = sensor.snapshot()
-    for blob in img.find_blobs(thresholds, pixels_threshold=80, area_threshold=100, merge = True):
+    for blob in img.find_blobs(thresholds, pixels_threshold=100, area_threshold=100, merge = True):
         img.draw_rectangle(blob.rect())
         #img.draw_cross(blob.cx(), blob.cy())
 

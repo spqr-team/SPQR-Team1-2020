@@ -7,6 +7,7 @@
 
 PositionSysCamera::PositionSysCamera() {
     MAX_DIST = sqrt(MAX_X*MAX_X + MAX_Y*MAX_Y);
+
     Inputx = 0;
     Outputx = 0;
     Setpointx = 0;
@@ -52,7 +53,7 @@ void PositionSysCamera::update(){
     //IMPORTANT STEP: or the direction of the plane will be flipped
     posx *= -1;
     posy *= -1;
-    
+
     //Filtering error in calculation like this is a dirty hack, I know
     if(posx < -MAX_X || posx > MAX_X || posy <  -MAX_Y || posy > MAX_Y || (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false) ) {
         // Go back in time until we found a valid status, when we saw at least one goal
@@ -150,11 +151,17 @@ void PositionSysCamera::CameraPID(){
         int dir = -90-(atan2(Outputy,Outputx)*180/3.14);
         dir = (dir+360) % 360;
 
-        // int dist = sqrt( ( pow(CURRENT_DATA_WRITE.posx-Setpointx,2) ) + pow(CURRENT_DATA_WRITE.posy-Setpointy, 2) );
-        // int speed = map(dist*DIST_MULT, 0, MAX_DIST, 0, MAX_VEL);
-        int speed = hypot(Outputx, Outputy) * DIST_MULT;
-        // speed = speed > 10 ? speed : 0;
-        dir = filterDir->calculate(dir);
+        float distance = hypot(Outputx, Outputy);
+        float speed = distance > 3 ? 20 + map(distance, 0, MAX_DIST_EXPERIMENTAL, 0, MAX_POSSIBLE_VEL) : 0;
+
+        // DEBUG.print("x: ");
+        // DEBUG.print(Outputx);
+        // DEBUG.print(" y:");
+        // DEBUG.print(Outputy);
+        // DEBUG.print(" Hypot:");
+        // DEBUG.print(hypot(Outputx, Outputy));
+        // DEBUG.print(" Speed:");
+        // DEBUG.println(speed);
 
         #ifdef DRIVE_VECTOR_SUM
         vx = ((speed * cosins[dir]));

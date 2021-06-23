@@ -54,8 +54,7 @@ void loop() {
   // keeper_condition = role == LOW;
 
   if(robot_indentifier){
-    tc2->play(1);
-    // if(roller->roller_armed) roller->speed(roller->MAX);
+    striker->play(1);
     // Last thing to do: movement and update status vector
     drive->drivePrepared();  
   }else{

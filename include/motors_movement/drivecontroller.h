@@ -20,7 +20,9 @@
 
 //Max possible vel 310
 
-#define MAX_VEL 110
+// #define MAX_POSSIBLE_VEL 310
+#define MAX_POSSIBLE_VEL 280
+#define MAX_VEL 100
 #define MAX_VEL_EIGTH ((int)MAX_VEL*0.8)
 #define MAX_VEL_HALF ((int)MAX_VEL*0.5)
 #define MAX_VEL_3QUARTERS ((int)MAX_VEL*0.75)
