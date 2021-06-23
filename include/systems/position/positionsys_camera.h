@@ -23,6 +23,7 @@
 #define DIST_MULT 5
 
 #define VICINITY_DIST_TRESH 2
+#define ROUGH_VICINITY_DIST_TRESH 10
 
 #define Kpx 1
 #define Kix 0
@@ -45,6 +46,7 @@ class PositionSysCamera : public PositionSystem{
         void CameraPID();
         int calcOtherGoalY(int goalY);
         bool isInTheVicinityOf(int, int);
+        bool isInRoughVicinityOf(int, int);
 
         double Inputx, Outputx, Setpointx, Inputy, Outputy, Setpointy;
         int MAX_DIST, vx, vy, axisx, axisy;

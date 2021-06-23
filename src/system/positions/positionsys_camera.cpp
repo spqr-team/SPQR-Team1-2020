@@ -53,8 +53,8 @@ void PositionSysCamera::update(){
     posx *= -1;
     posy *= -1;
     
-    //x = 66 is a very very strange bug I can't seem to track down. It's a dirty hack, I know
-    if(posx == 66 || (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false) ) {
+    //Filtering error in calculation like this is a dirty hack, I know
+    if(posx < -MAX_X || posx > MAX_X || posy <  -MAX_Y || posy > MAX_Y || (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false) ) {
         // Go back in time until we found a valid status, when we saw at least one goal
         int i = 1;
         do{
@@ -126,6 +126,11 @@ int PositionSysCamera::calcOtherGoalY(int goalY){
 bool PositionSysCamera::isInTheVicinityOf(int x_, int y_){
     // Distance using pytagorean theorem
     return pow(CURRENT_DATA_READ.posx-x_, 2) + pow(CURRENT_DATA_READ.posy-y_, 2) <= VICINITY_DIST_TRESH*VICINITY_DIST_TRESH;
+}
+
+bool PositionSysCamera::isInRoughVicinityOf(int x_, int y_){
+    // Distance using pytagorean theorem
+    return pow(CURRENT_DATA_READ.posx-x_, 2) + pow(CURRENT_DATA_READ.posy-y_, 2) <= ROUGH_VICINITY_DIST_TRESH*ROUGH_VICINITY_DIST_TRESH;
 }
 
 void PositionSysCamera::CameraPID(){   

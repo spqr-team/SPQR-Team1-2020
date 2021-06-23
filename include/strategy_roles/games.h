@@ -12,6 +12,7 @@
 #include "strategy_roles/striker_roller.h"
 #include "strategy_roles/precision_shooter.h"
 #include "strategy_roles/pass_and_shoot.h"
+#include "strategy_roles/spot_finder.h"
 // #include "strategy_roles/keeper.h"
 
 void initGames();
@@ -23,3 +24,4 @@ g_extr Game* pass_and_shoot;
 // g_extr Game* keeper;
 
 g_extr Game* tc1;
+g_extr Game* tc2;

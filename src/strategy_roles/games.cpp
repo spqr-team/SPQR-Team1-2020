@@ -17,5 +17,6 @@ void initGames(){
     precision_shooter = new PrecisionShooter(new LineSysCamera(lIn, lOut), new PositionSysCamera());
     striker_roller = new StrikerRoller(new LineSysCamera(lIn, lOut), new PositionSysCamera());
     tc1 = new StrikerRoller(new LineSystemEmpty(), new PositionSysCamera());
+    tc2 = new SpotFinder(new LineSystemEmpty(), new PositionSysCamera());
     // keeper = new Keeper(new LineSysCamera(lOut, lOut), new PositionSysCamera());
 }
