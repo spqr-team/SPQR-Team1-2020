@@ -36,7 +36,7 @@ typedef struct input{
 }input;
 
 typedef struct data{
-    int IMUAngle, ballAngle, ballAngleFix, ballDistance, ballPresenceVal, 
+    int IMUAngle = 0, IMUOffset = 0, ballAngle = 0, ballAngleFix, ballDistance, ballPresenceVal, 
         yAngle, bAngle, yAngleFix, bAngleFix, 
         yDist, bDist, 
         angleAtk, angleAtkFix, angleDef, angleDefFix, distAtk, distDef, yAtk, yAtkFix, xAtk, xAtkFix, yDef, yDefFix, xDef, xDefFix,

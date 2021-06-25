@@ -152,7 +152,7 @@ void PositionSysCamera::CameraPID(){
         dir = (dir+360) % 360;
 
         float distance = hypot(Outputx, Outputy);
-        float speed = distance > 3 ? 20 + map(distance, 0, MAX_DIST_EXPERIMENTAL, 0, MAX_POSSIBLE_VEL) : 0;
+        float speed = distance > 2 ? 20 + map(distance, 0, MAX_DIST_EXPERIMENTAL, 0, 200) : 0;
 
         // DEBUG.print("x: ");
         // DEBUG.print(Outputx);

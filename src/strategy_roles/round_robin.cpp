@@ -1,5 +1,6 @@
 #include "behaviour_control/status_vector.h"
 #include "systems/position/positionsys_camera.h"
+#include "systems/lines/linesys_camera_roundrobin.h"
 #include "sensors/sensors.h"
 #include "sensors/data_source_ball.h"
 #include "strategy_roles/round_robin.h"
@@ -33,6 +34,8 @@ void RoundRobin::realPlay()
 {
   if (CURRENT_DATA_READ.ballSeen)
     this->catchBall();
+    // this->spinner(0);
+    // this->push();
   else{
     ps->goCenter();
     ball_catch_flag = false;
@@ -49,19 +52,16 @@ Spinning kick state machine
 2: tilt back to 0 in the needed direction, stopping the roller whenn needed
 */
 void RoundRobin::spinner(int targetx){
-  // if(!ballPresence->isInMouth()) {
-  //   spinner_state=0;
-  //   spinner_flag = false;
-  // }
 
   if(spinner_state == 0){
-    if(ball->isInFront() && roller->roller_armed) roller->speed(roller->MAX-200);
+    if(ball->isInFront() && roller->roller_armed) roller->speed(roller->MAX);
 
     if(ballPresence->isInMouth() && !spinner_flag){
       spinner_flag = true;
       spinner_timer = millis();
     }
-    if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 100) {
+
+    if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
       spinner_state=1;
       spinner_flag = false;
     }
@@ -72,34 +72,34 @@ void RoundRobin::spinner(int targetx){
     if(targetx >= 0) spotx = targetx-RR_SPINNER_OVERHEAD;
     else spotx = targetx+RR_SPINNER_OVERHEAD;
 
-    if(((PositionSysCamera*)ps)->isInTheVicinityOf(spotx, RR_YCOORD)) {
-      // if( !spinner_flag){
-      //   spinner_flag = true;
-      //   spinner_timer = millis();
-      // }
+    // if(((PositionSysCamera*)ps)->isInTheVicinityOf(spotx, 0)) {
 
-      // if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
+    //   if( !spinner_flag){
+    //     spinner_flag = true;
+    //     spinner_timer = millis();
+    //   }
+
+    //   if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
         spinner_state=2;
-        spinner_flag = false;
-        spinner_tilt = CURRENT_DATA_READ.IMUAngle;
-      // }
+    //     spinner_flag = false;
+    //     spinner_tilt = CURRENT_DATA_READ.IMUAngle;
+    //   }
 
-      if(targetx >= 0) {
+    //   if(targetx >= 0) {
         tilt1 = -0.15;
-        tilt2 = -1.55;
-        limitx = RR_KICK_LIMIT_TILT1;
+        tilt2 = -35;
 
-      }else{
-        tilt1 = 0.15;
-        tilt2 = 1.55;        limitx = 360-RR_KICK_LIMIT_TILT1;
+        limitx = 360-RR_KICK_LIMIT_TILT1;
+    //   }else{
+    //     tilt1 = 0.15;
+    //     tilt2 = -0.55;
 
-
-      }
+    //     limitx = RR_KICK_LIMIT_TILT1;
+    //   }
     
-    }else ((PositionSysCamera*)ps)->setMoveSetpoints(spotx, RR_YCOORD);
-
+    // }else ((PositionSysCamera*)ps)->setMoveSetpoints(spotx, 0);
   }else if(spinner_state == 2){
-    roller->speed(RR_ROLLER_SPD);
+    roller->speed(roller->MAX);
 
     spinner_tilt += tilt1;
     drive->prepareDrive(0,0,spinner_tilt);
@@ -109,7 +109,7 @@ void RoundRobin::spinner(int targetx){
       spinner_state=3;
     }
   }else if(spinner_state == 3){
-    roller->speed(RR_ROLLER_SPD);
+    roller->speed(roller->MAX);
     drive->prepareDrive(0,0,spinner_tilt);
     if(millis() - spinner_timer > 150) {
       spinner_state=4;
@@ -117,17 +117,145 @@ void RoundRobin::spinner(int targetx){
     }
   }else if(spinner_state == 4){
     // drive->prepareDrive(0,0,0);
-
     spinner_tilt += tilt2;
     spinner_tilt = constrain(spinner_tilt, RR_KICK_LIMIT_MIN, RR_KICK_LIMIT_MAX);
     drive->prepareDrive(0,0,spinner_tilt);
 
     if(CURRENT_DATA_READ.IMUAngle >= RR_KICK_LIMIT_MAX || CURRENT_DATA_READ.IMUAngle <= RR_KICK_LIMIT_MIN) {
-      roller->speed(roller->MIN);
-      spinner_tilt = 0;
+    ball_catch_state++;
+
+    roller->speed(roller->MIN);
     }
   }
 }
+
+
+void RoundRobin::spinnerStep(){
+  spinner_state++;
+  spinner_timer = millis();
+}
+
+/*void RoundRobin::push(){
+  if(spinner_state == 0){
+    if(ball->isInFront() && roller->roller_armed) roller->speed(roller->MAX);
+
+    if(ballPresence->isInMouth() && !spinner_flag){
+      spinner_flag = true;
+      spinner_timer = millis();
+    }
+
+    if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
+      spinner_state=1;
+      spinner_flag = false;
+    }
+  }else if(spinner_state == 1){
+    roller->speed(roller->MAX);
+
+    if(((PositionSysCamera*)ps)->isInRoughVicinityOf(0, -6)) spinner_state=4;
+    else ((PositionSysCamera*)ps)->setMoveSetpoints(0, -6);
+  // } else if(spinner_state == 2){
+  //   roller->speed(roller->MAX);
+  //   if(((PositionSysCamera*)ps)->isInTheVicinityOf(16, -4)) spinnerStep();
+  //   else ((PositionSysCamera*)ps)->setMoveSetpoints(16, -4);
+  // }else if(spinner_state == 3){
+  //   drive->prepareDrive(0,0,0);
+  //   if(millis() - spinner_timer > 750) spinnerStep();
+  }else if(spinner_state == 4){
+    drive->prepareDrive(45, 50, 0);
+    if( ((LineSysCameraRR*)ls)->tookLine ) spinnerStep();
+  }else if(spinner_state == 5){
+    roller->speed(roller->MIN);
+    if(millis()-spinner_timer > 1500) spinnerStep();
+  }else if(spinner_state == 6){
+    drive->prepareDrive(180, 30, 0);
+    if(millis() - spinner_timer > 750) spinnerStep();
+  }else if(spinner_state == 7){
+    roller->speed(roller->MIN);
+    drive->prepareDrive(0, 0, 55);
+    if(millis() - spinner_timer > 1000) spinnerStep();
+  }else if(spinner_state == 8){
+    drive->prepareDrive(drive->directionAccountingForTilt(0, 55), 100, 55);
+    if(millis() - spinner_timer > 500) spinnerStep();
+  }else if(spinner_state == 9){
+    drive->prepareDrive(drive->directionAccountingForTilt(180, 55), 50, 55);
+    if(millis() - spinner_timer > 750) spinnerStep();
+  }else if(spinner_state == 10){
+    if(((PositionSysCamera*)ps)->isInRoughVicinityOf(0, -8)) spinnerStep();
+    else ((PositionSysCamera*)ps)->setMoveSetpoints(0, -8);
+  }else ball_catch_state++;
+}*/
+void RoundRobin::push(){
+  if(spinner_state == 0){
+    if(ball->isInFront() && roller->roller_armed) roller->speed(roller->MAX);
+
+    if(ballPresence->isInMouth() && !spinner_flag){
+      spinner_flag = true;
+      spinner_timer = millis();
+    }
+
+    if(ballPresence->isInMouth() && spinner_flag && millis() - spinner_timer > 500) {
+      spinner_state=1;
+      spinner_flag = false;
+    }
+  }else if(spinner_state == 1){
+    roller->speed(roller->MAX);
+
+    // if(flip)
+    //   if(CURRENT_DATA_READ.yDist <= 24) drive->prepareDrive(0, 50, 0);
+    //   if(CURRENT_DATA_READ.yDist >= 36)  drive->prepareDrive(180, 50, 0);
+    // else{
+    //   if(CURRENT_DATA_READ.bDist <= 24) drive->prepareDrive(0, 50, 0);
+    //   if(CURRENT_DATA_READ.bDist >= 36)  drive->prepareDrive(180, 50, 0);
+    // }
+
+    if(flip==0){
+    if(((PositionSysCamera*)ps)->isInRoughVicinityOf(0, -3)) spinnerStep();
+    else ((PositionSysCamera*)ps)->setMoveSetpoints(0, -3);
+    }else{
+    if(((PositionSysCamera*)ps)->isInRoughVicinityOf(0, -12)) spinnerStep();
+    else ((PositionSysCamera*)ps)->setMoveSetpoints(0, -12);
+    }
+  } else if(spinner_state == 2){
+  //   roller->speed(roller->MAX);
+  //   if(((PositionSysCamera*)ps)->isInTheVicinityOf(16, -4)) spinnerStep();
+  //   else ((PositionSysCamera*)ps)->setMoveSetpoints(16, -4);
+  // }else if(spinner_state == 3){
+  //   drive->prepareDrive(0,0,0);
+  //   if(millis() - spinner_timer > 750) spinnerStep();
+  // }else if(spinner_state == 4){
+    // drive->prepareDrive(45, 50, 0);
+    drive->prepareDrive(70, 40, 0);
+    if( ((LineSysCameraRR*)ls)->tookLine ) {
+      spinner_state = 5;
+      spinner_timer  = millis();
+    }
+  }else if(spinner_state == 5){
+    roller->speed(roller->MIN);
+    if(millis()-spinner_timer > 1500) spinnerStep();
+  }else if(spinner_state == 6){
+    drive->prepareDrive(180, 30, 0);
+    if(millis() - spinner_timer > 650) spinnerStep();
+  }else if(spinner_state == 7){
+    roller->speed(roller->MIN);
+    drive->prepareDrive(0, 0, 55);
+    if(millis() - spinner_timer > 1000) spinnerStep();
+  }else if(spinner_state == 8){
+    drive->prepareDrive(drive->directionAccountingForTilt(0, 90), 100, 90);
+    if(millis() - spinner_timer > 400) spinnerStep();
+  }else if(spinner_state == 9){
+    drive->prepareDrive(drive->directionAccountingForTilt(180, 90), 50, 90);
+    if(millis() - spinner_timer > 750) spinnerStep();
+  }else if(spinner_state == 10){
+    if(flip==0){
+    if(((PositionSysCamera*)ps)->isInRoughVicinityOf(0, -4)) spinnerStep();
+    else ((PositionSysCamera*)ps)->setMoveSetpoints(0, -4);
+    }else{
+    if(((PositionSysCamera*)ps)->isInRoughVicinityOf(0, -13)) spinnerStep();
+    else ((PositionSysCamera*)ps)->setMoveSetpoints(0, -13);
+    }
+  }else ball_catch_state++;
+}
+
 /*
 Ball catch state machine
 0: go towards the ball, until it's been in robot's mouth for 250ms
@@ -137,13 +265,14 @@ Ball catch state machine
 
 void RoundRobin::catchBall(){
 
-  if(!ball->isInFront()){
-    ball_catch_state = 0;
-    ball_catch_flag = false;
-    ball_catch_tilt = 0;
-  }
+  // if(!ball->isInFront() && ball_catch_state != 3){
+  //   ball_catch_state = 0;
+  //   ball_catch_flag = false;
+  //   ball_catch_tilt = 0;
+  // }
 
   if(ball_catch_state == 0){
+    ((LineSysCameraRR*)ls)->flag = true;
 
     if(ball->isInFront() && roller->roller_armed) roller->speed(roller->MAX);
     else roller->speed(roller->MIN);
@@ -172,7 +301,24 @@ void RoundRobin::catchBall(){
     spinner_timer = 0;
     spinner_state = 1;
     ball_catch_state = 3;
+
+    ((LineSysCameraRR*)ls)->flag = false;
   }else if(ball_catch_state == 3){
-    this->spinner(28);
-  }
+    // this->spinner(25);
+    this->push();
+  }else if(ball_catch_state == 4){
+    drive->prepareDrive(270, 50, 0);
+    if(((LineSysCameraRR*)ls)->tookLine && CURRENT_DATA_READ.posx <= -10) ball_catch_state = 5;
+  }else if(ball_catch_state == 5){
+    if( ((LineSysCameraRR*)ls)->linetriggerI[1] || ((LineSysCameraRR*)ls)->linetriggerO[1] > 0) drive->prepareDrive(90, 50, 0); //with 2 and 4 you go right or left accordingly
+    else if( ((LineSysCameraRR*)ls)->linetriggerI[3] || ((LineSysCameraRR*)ls)->linetriggerO[3] > 0 ) drive->prepareDrive(270, 50, 0);
+    else drive->prepareDrive(0, 30, 0);
+    if(CURRENT_DATA_READ.posy > 7) {
+      ball_catch_state=0;
+      
+      flip = 1-flip;
+      
+      CURRENT_DATA_WRITE.IMUOffset = 180 * flip;
+    }
+  }else if(ball_catch_state==6) drive->prepareDrive(0,0,0);
 }

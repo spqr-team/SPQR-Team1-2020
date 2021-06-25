@@ -13,12 +13,12 @@
 // There needs to be a little bit of space between the target point and the spot to be in
 #define RR_SPINNER_OVERHEAD 7
 
-#define RR_KICK_LIMIT_TILT1 135
-#define RR_KICK_LIMIT_MAX 335
-#define RR_KICK_LIMIT_MIN 25
+#define RR_KICK_LIMIT_TILT1 200
+#define RR_KICK_LIMIT_MAX 315
+#define RR_KICK_LIMIT_MIN 45
 
 #define ROUND_ROBIN_VEL 30
-#define RR_YCOORD -8
+#define RR_YCOORD -5
 #define RR_ROLLER_SPD 1500
 
 class RoundRobin : public Game{
@@ -32,12 +32,16 @@ class RoundRobin : public Game{
         void init() override;
         void catchBall();
         void spinner(int);
+        void push();
+        void spinnerStep();
         
     private:
         int atk_speed, atk_direction, atk_tilt;
         float cstorc;
         bool gotta_tilt;
         ComplementaryFilter* ballAngleFilter;
+
+        int flip = 0;
 
         float tilt1 = 0;
         float tilt2 = 0;

@@ -2,6 +2,7 @@
 
 /* #include "sensors/linesys_2019.h" */
 #include "systems/lines/linesys_camera.h"
+#include "systems/lines/linesys_camera_roundrobin.h"
 #include "systems/systems.h"
 #include "systems/position/positionsys_zone.h"
 #include "systems/position/positionsys_camera.h"
@@ -17,7 +18,7 @@ void initGames(){
     precision_shooter = new PrecisionShooter(new LineSysCamera(lIn, lOut), new PositionSysCamera());
     striker_roller = new StrikerRoller(new LineSysCamera(lIn, lOut), new PositionSysCamera());
     tc1 = new StrikerRoller(new LineSystemEmpty(), new PositionSysCamera());
-    tc2 = new RoundRobin(new LineSystemEmpty(), new PositionSysCamera());
+    tc2 = new RoundRobin(new LineSysCameraRR(lIn, lOut), new PositionSysCamera());
     st_tc1 = new SpotFinder(new LineSystemEmpty(), new PositionSysCamera());
     st_tc3 = new Spinner(new LineSystemEmpty(), new PositionSysCamera());
     // keeper = new Keeper(new LineSysCamera(lOut, lOut), new PositionSysCamera());
