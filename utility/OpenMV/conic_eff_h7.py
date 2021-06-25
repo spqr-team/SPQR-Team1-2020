@@ -83,7 +83,7 @@ clock = time.clock()
 while(True):
     clock.tick()
 
-    print("Exposure: " + str(sensor.get_exposure_us()) + " Gain: " + str(sensor.get_gain_db()) + " White Bal: " + str(sensor.get_rgb_gain_db()))
+    #print("Exposure: " + str(sensor.get_exposure_us()) + " Gain: " + str(sensor.get_gain_db()) + " White Bal: " + str(sensor.get_rgb_gain_db()))
 
     blue_led.off()
 
@@ -174,40 +174,39 @@ while(True):
                 #Prepare for send as a list of characters
                 s_bcx = chr(b_cx)
                 s_bcy = chr(b_cy)
-
-    '''index = 1
-    if b_found == True:
-        while nb-index >= 0:
-            b_area, b1_cx, b1_cy, b_code = tt_blue[nb-index]
-
-            index += 1
-            # If the two blobs are on opposide side of the field, everything is good
-            if (not y_found) or ((isInRightSide(img, b1_cx) and isInLeftSide(img, y1_cx)) or (isInRightSide(img, y1_cx) and isInLeftSide(img, b1_cx))):
-
-                img.draw_cross(b1_cx, b1_cy)
-
-                b_cx = int(b1_cy - img.height() / 2)
-                b_cy = int(img.width() / 2 - b1_cx)
-
-                print("before :" + str(b_cx) + " " + str(b_cy))
-                b_cx = val_map(b_cx, -img.height() / 2, img.height() / 2, 100, 0)
-                b_cy = val_map(b_cy, -img.width() / 2, img.width() / 2, 0, 100)
-
-                print("after :" + str(b_cx) + " " + str(b_cy))
-
-                #Prepare for send as a list of characters
-                s_bcx = chr(b_cx)
-                s_bcy = chr(b_cy)
-
-                break
     else:
         b_cx = BYTE_UNKNOWN
         b_cy = BYTE_UNKNOWN
         #Prepare for send as a list of characters
         s_bcx = b_cx
-        s_bcy = b_cy'''
+        s_bcy = b_cy
+        '''index = 1
+        if b_found == True:
+            while nb-index >= 0:
+                b_area, b1_cx, b1_cy, b_code = tt_blue[nb-index]
 
-    #print(str(y_cx) + " | " + str(y_cy) + "  ---  " + str(b_cx) + " | " + str(b_cy))
+                index += 1
+                # If the two blobs are on opposide side of the field, everything is good
+                if (not y_found) or ((isInRightSide(img, b1_cx) and isInLeftSide(img, y1_cx)) or (isInRightSide(img, y1_cx) and isInLeftSide(img, b1_cx))):
+
+                    img.draw_cross(b1_cx, b1_cy)
+
+                    b_cx = int(b1_cy - img.height() / 2)
+                    b_cy = int(img.width() / 2 - b1_cx)
+
+                    print("before :" + str(b_cx) + " " + str(b_cy))
+                    b_cx = val_map(b_cx, -img.height() / 2, img.height() / 2, 100, 0)
+                    b_cy = val_map(b_cy, -img.width() / 2, img.width() / 2, 0, 100)
+
+                    print("after :" + str(b_cx) + " " + str(b_cy))
+
+                    #Prepare for send as a list of characters
+                    s_bcx = chr(b_cx)
+                    s_bcy = chr(b_cy)
+
+                    break'''
+
+    print(str(s_ycx) + " | " + str(s_ycy) + "  ---  " + str(s_bcx) + " | " + str(s_bcy))
 
     uart.write(START_BYTE)
     uart.write(s_bcx)

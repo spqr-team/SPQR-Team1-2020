@@ -40,11 +40,11 @@ typedef struct data{
         yAngle, bAngle, yAngleFix, bAngleFix, 
         yDist, bDist, 
         angleAtk, angleAtkFix, angleDef, angleDefFix, distAtk, distDef, yAtk, yAtkFix, xAtk, xAtkFix, yDef, yDefFix, xDef, xDefFix,
-        cam_xb, cam_yb, cam_xy, cam_yy,
+        cam_xb = 0, cam_yb = 0, cam_xy = 0, cam_yy = 0,
         speed, tilt, dir, axisBlock[4],
         USfr, USsx, USdx, USrr, 
-        lineOutDir, matePos, role, cam_xb_fixed,
-        cam_xy_fixed, cam_yb_fixed, cam_yy_fixed,
+        lineOutDir, matePos, role, cam_xb_fixed = 0,
+        cam_xy_fixed = 0, cam_yb_fixed = 0, cam_yy_fixed = 0,
         posx, posy, addvx, addvy;
     Game* game;
     LineSystem* lineSystem;
@@ -52,7 +52,7 @@ typedef struct data{
     byte lineSeen, lineActive;
     bool mate, 
         ATKgoal, DEFgoal, 
-        atkSeen, defSeen, bSeen, ySeen,
+        atkSeen, defSeen, bSeen = true, ySeen = false,
         ballSeen, ballPresent;
 }data;
 

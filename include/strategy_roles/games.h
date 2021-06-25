@@ -15,6 +15,7 @@
 #include "strategy_roles/spot_finder.h"
 #include "strategy_roles/the_spinner.h"
 #include "strategy_roles/round_robin.h"
+#include "strategy_roles/corner_kick_2.h"
 // #include "strategy_roles/keeper.h"
 
 void initGames();
@@ -29,3 +30,4 @@ g_extr Game* tc1;
 g_extr Game* tc2;
 g_extr Game* st_tc1;
 g_extr Game* st_tc3;
+g_extr Game* tc3_2;

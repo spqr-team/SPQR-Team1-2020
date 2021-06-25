@@ -54,8 +54,7 @@ void PositionSysCamera::update(){
     posx *= -1;
     posy *= -1;
 
-    //Filtering error in calculation like this is a dirty hack, I know
-    if(posx < -MAX_X || posx > MAX_X || posy <  -MAX_Y || posy > MAX_Y || (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false) ) {
+    if(CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == false ) {
         // Go back in time until we found a valid status, when we saw at least one goal
         int i = 1;
         do{
@@ -70,7 +69,6 @@ void PositionSysCamera::update(){
             // Trick the status vector into thinking this was a valid status
             CURRENT_DATA_WRITE.ySeen = valid_data.ySeen;
             CURRENT_DATA_WRITE.bSeen = valid_data.bSeen;
-
         }
     }
 
