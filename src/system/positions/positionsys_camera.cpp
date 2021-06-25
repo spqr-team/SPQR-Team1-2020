@@ -40,14 +40,14 @@ void PositionSysCamera::update(){
     //Calculate robot position based on just-read coordinates for camera. Using CURRENT_DATA_WRITE instead of CURRENT_DATA_READ othwerise we would be late by 1 loop cycle, but the calculations have to stay in sync
     //Coordinates are referred to a cartesian plane with the origin at the center of the field. Angles starting at the north of the robot
     if(CURRENT_DATA_WRITE.bSeen == true && CURRENT_DATA_WRITE.ySeen == true){
-        posx = (CURRENT_DATA_WRITE.cam_xy + CURRENT_DATA_WRITE.cam_xb) / 2;
-        posy = CURRENT_DATA_WRITE.cam_yb + CURRENT_DATA_WRITE.cam_yy;
+        posx = (CURRENT_DATA_WRITE.cam_xy_fixed + CURRENT_DATA_WRITE.cam_xb_fixed) / 2;
+        posy = CURRENT_DATA_WRITE.cam_yb_fixed + CURRENT_DATA_WRITE.cam_yy_fixed;
     }else if (CURRENT_DATA_WRITE.bSeen == true && CURRENT_DATA_WRITE.ySeen == false){
-        posx = CURRENT_DATA_WRITE.cam_xb;
-        posy = CURRENT_DATA_WRITE.cam_yb + calcOtherGoalY(CURRENT_DATA_WRITE.cam_yb);
+        posx = CURRENT_DATA_WRITE.cam_xb_fixed;
+        posy = CURRENT_DATA_WRITE.cam_yb_fixed + calcOtherGoalY(CURRENT_DATA_WRITE.cam_yb_fixed);
     }else if (CURRENT_DATA_WRITE.bSeen == false && CURRENT_DATA_WRITE.ySeen == true){
-        posx = CURRENT_DATA_WRITE.cam_xy;
-        posy = CURRENT_DATA_WRITE.cam_yy + calcOtherGoalY(CURRENT_DATA_WRITE.cam_yy);
+        posx = CURRENT_DATA_WRITE.cam_xy_fixed;
+        posy = CURRENT_DATA_WRITE.cam_yy_fixed + calcOtherGoalY(CURRENT_DATA_WRITE.cam_yy_fixed);
     }
 
     //IMPORTANT STEP: or the direction of the plane will be flipped
