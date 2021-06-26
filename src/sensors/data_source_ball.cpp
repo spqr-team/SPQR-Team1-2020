@@ -45,7 +45,7 @@ void DataSourceBall :: postProcess(){
       distance = ballDist_str.toInt();
 
       // Invalid data if out of parameters
-      if(angle < 0 || angle >= 360 || distance < 0 || distance > 250) valid_data = false;
+      if(angle < 0 || angle >= 360 || distance < 0 || distance > 255) valid_data = false;
     }
   }
 
