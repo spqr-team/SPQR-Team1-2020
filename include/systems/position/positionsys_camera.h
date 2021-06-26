@@ -48,6 +48,7 @@ class PositionSysCamera : public PositionSystem{
         int calcOtherGoalY(int goalY);
         bool isInTheVicinityOf(int, int);
         bool isInRoughVicinityOf(int, int);
+        bool isAtDistanceFrom(int, int, int);
 
         double Inputx, Outputx, Setpointx, Inputy, Outputy, Setpointy;
         int MAX_DIST, vx, vy, axisx, axisy;

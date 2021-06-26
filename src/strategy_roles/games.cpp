@@ -17,8 +17,13 @@ void initGames(){
     pass_and_shoot = new PassAndShoot(new LineSysCamera(lIn, lOut), new PositionSysCamera());
     precision_shooter = new PrecisionShooter(new LineSysCamera(lIn, lOut), new PositionSysCamera());
     striker_roller = new StrikerRoller(new LineSysCamera(lIn, lOut), new PositionSysCamera());
+
     tc1 = new StrikerRoller(new LineSystemEmpty(), new PositionSysCamera());
     tc2 = new RoundRobin(new LineSysCameraRR(lIn, lOut), new PositionSysCamera());
+    
+    tc3_1 = new CornerKick(new LineSystemEmpty(), new PositionSysCamera());
+    tc3_2 = new CornerKick2(new LineSystemEmpty(), new PositionSysCamera());
+    
     st_tc1 = new SpotFinder(new LineSystemEmpty(), new PositionSysCamera());
     st_tc3 = new Spinner(new LineSystemEmpty(), new PositionSysCamera());
     // keeper = new Keeper(new LineSysCamera(lOut, lOut), new PositionSysCamera());

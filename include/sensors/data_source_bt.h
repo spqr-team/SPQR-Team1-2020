@@ -13,7 +13,7 @@ class DataSourceBT : public DataSource{
         void receive();
         void send();
 
-        bool can_bombard, bt_bombarded, comrade;
+        bool can_send, bt_bombarded, comrade;
         unsigned long bt_timer, last_received, t;
 
         char received, tosend;

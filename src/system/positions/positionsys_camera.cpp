@@ -132,6 +132,11 @@ bool PositionSysCamera::isInRoughVicinityOf(int x_, int y_){
     return pow(CURRENT_DATA_READ.posx-x_, 2) + pow(CURRENT_DATA_READ.posy-y_, 2) <= ROUGH_VICINITY_DIST_TRESH*ROUGH_VICINITY_DIST_TRESH;
 }
 
+bool PositionSysCamera::isAtDistanceFrom(int x_, int y_, int dist){
+    // Distance using pytagorean theorem
+    return pow(CURRENT_DATA_READ.posx-x_, 2) + pow(CURRENT_DATA_READ.posy-y_, 2) <= dist*dist;
+}
+
 void PositionSysCamera::CameraPID(){   
     if(givenMovement){
 

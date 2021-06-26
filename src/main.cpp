@@ -54,7 +54,9 @@ void loop() {
   // keeper_condition = role == LOW;
 
   if(robot_indentifier){
-    tc2->play(1);
+    tc3_2->play(role);
+    tc3_1->play(!role);
+
     // Last thing to do: movement and update status vector
     drive->drivePrepared();  
   }else{

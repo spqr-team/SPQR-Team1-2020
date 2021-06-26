@@ -21,8 +21,8 @@ For now it seems that a slave can easily recovery from a master restart, but not
 
 DataSourceBT :: DataSourceBT(HardwareSerial* ser_, int baud) : DataSource(ser_, baud){
     bt_timer = millis();
-    can_bombard = false;
     bt_bombarded = false;
+    can_send = false;
 
     comrade = false;
 
@@ -64,7 +64,7 @@ void DataSourceBT :: receive(){
 }
 
 void DataSourceBT::send(){
-  if(millis() - t >= 250){
+  if(millis() - t >= 250 && can_send ){
     Serial1.print(tosend);
   }
 }
@@ -73,7 +73,7 @@ void DataSourceBT::update(){
   // if(!bt_bombarded && can_bombard) connect();
   receive();
   send();
-  // if(comrade)Serial2.write(0b00000100);
+  if(comrade)Serial2.write(0b00000100);
 }
 
 void DataSourceBT :: test(){
