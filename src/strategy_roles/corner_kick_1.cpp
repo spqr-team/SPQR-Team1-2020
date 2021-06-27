@@ -33,16 +33,15 @@ void CornerKick::kick(){
     kick_flag = false;
   } else if(kick_state == 1){
     drive->prepareDrive(0, 0, CURRENT_DATA_READ.ballAngleFix);
-    if((CURRENT_DATA_READ.ballAngle >= 350 || CURRENT_DATA_READ.ballAngle <= 10) && millis() - kicktimer > 250) kick_state ++;
+    if((CURRENT_DATA_READ.ballAngle >= 350 || CURRENT_DATA_READ.ballAngle <= 10) && millis() - kicktimer > 1000) kick_state ++;
   } else if(kick_state==2){
-    drive->prepareDrive(0, 60, CURRENT_DATA_READ.ballAngleFix);
+    drive->prepareDrive(0, 100, 350);
     if(ball->isInMouth()){
-      kick_state++;
       if(!kick_flag) {
         kick_flag = true;
         kicktimer = millis();
       }else{
-        if(kick_flag && millis() - kicktimer > 700){
+        if(kick_flag && millis() - kicktimer > 425 ){
           kick_flag = false;
           kick_state++;
           kicktimer = millis();
@@ -50,15 +49,15 @@ void CornerKick::kick(){
       }
     }
   } else if(kick_state==3){
-    drive->prepareDrive(0, 150, CURRENT_DATA_READ.ballAngleFix);
-    if(millis()-kicktimer > 400){
+    drive->prepareDrive(270, 60,0);
+    if(millis()-kicktimer > 300){
         kick_state++;
     }
   } else if(kick_state==4){
-    if(((PositionSysCamera*)ps)->isAtDistanceFrom(0, -28, 5)) {
+    if(((PositionSysCamera*)ps)->isAtDistanceFrom(1, -28, 2)) {
       kick_state++;
       kicktimer = millis();
-    }else (((PositionSysCamera*)ps)->setMoveSetpoints(0, -28));
+    }else (((PositionSysCamera*)ps)->setMoveSetpoints(1, -28));
   } else if(kick_state == 5){
     drive->prepareDrive(0,0,0);
     bt->can_send = true;

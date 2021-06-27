@@ -17,22 +17,29 @@ void CornerKick2::realPlay() {
     tone(BUZZER, 320, 250);
     timer = millis();
     state=1;
+
+    ball_catch_state = 0;
+    ball_catch_tilt = 0;
+    spinner_state = 0;
+    spinner_tilt = 0;
+    ball_catch_flag = false;
+    spinner_flag = false;
   }
   if(state == 1){
     drive->prepareDrive(265, 50, 0);
-    if(CURRENT_DATA_READ.bSeen && millis() - timer > 500) {
+    if(CURRENT_DATA_READ.bSeen && millis() - timer > 1000) {
       state ++;
       timer = millis();
     }
   }else if(state == 2){
     drive->prepareDrive(315, 50, 0);
-    if(millis() - timer > 200) state++;
+    if(millis() - timer > 400) state++;
   }else if(state == 3){
     catchBall();
   }else if(state == 4){
-    spinner(0);
+    spinner(-5);
   }else if(state == 5){
-    drive->stopAll();
+    drive->prepareDrive(0,0,0);
   }
 }
 
@@ -59,8 +66,8 @@ void CornerKick2::catchBall(){
       ball_catch_tilt = CURRENT_DATA_READ.IMUAngle;
     }
   }else if(ball_catch_state == 1){
-    if(ball_catch_tilt > 180) ball_catch_tilt += 0.01;
-    else if(ball_catch_tilt <= 180) ball_catch_tilt -= 0.01;
+    if(ball_catch_tilt > 180) ball_catch_tilt += 0.0075;
+    else if(ball_catch_tilt <= 180) ball_catch_tilt -= 0.0075;
 
     drive->prepareDrive(0,0,ball_catch_tilt);
 
@@ -90,7 +97,7 @@ void CornerKick2::spinner(int targetx){
     // if(targetx >= 0) spotx = targetx-CK2_SPINNER_OVERHEAD;
     // else spotx = targetx+CK2_SPINNER_OVERHEAD;
 
-    if(((PositionSysCamera*)ps)->isInTheVicinityOf(spotx, 0)) {
+    if(((PositionSysCamera*)ps)->isInTheVicinityOf(spotx, -1)) {
 
       if( !spinner_flag){
         spinner_flag = true;
@@ -103,19 +110,19 @@ void CornerKick2::spinner(int targetx){
         spinner_tilt = CURRENT_DATA_READ.IMUAngle;
       }
 
-      if(targetx >= 0) {
-        tilt1 = -0.01;
+      // if(targetx >= 0) {
+        tilt1 = -0.0075;
         tilt2 = 0.55;
 
         limitx = 360-CK2_KICK_LIMIT_TILT1;
-      }else{
-        tilt1 = 0.01;
-        tilt2 = -0.55;
+      // }else{
+      //   tilt1 = 0.01;
+      //   tilt2 = -0.55;
 
-        limitx = CK2_KICK_LIMIT_TILT1;
-      }
+      //   limitx = CK2_KICK_LIMIT_TILT1;
+      // }
     
-    }else ((PositionSysCamera*)ps)->setMoveSetpoints(spotx, 0);
+    }else ((PositionSysCamera*)ps)->setMoveSetpoints(spotx, -1);
   }else if(spinner_state == 2){
     roller->speed(roller->MAX);
 
